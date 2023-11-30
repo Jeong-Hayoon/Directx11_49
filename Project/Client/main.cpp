@@ -3,7 +3,8 @@
 
 
 #include <Engine\global.h>
-#include <Engine\CEngine.h>
+#include <Engine\HYEngine.h>
+
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine\\Engine_d.lib")
@@ -16,7 +17,7 @@
 #define MAX_LOADSTRING 100
 
 HINSTANCE   hInst;
-
+HWND        hWnd;
 
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -40,10 +41,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    // CEngine 초기화 실패 -> 프로그램 종료
-    if (FAILED(CEngine::GetInst()->init(hWnd, Vec2(1280, 768))))
+    // HYEngine 초기화 실패 -> 프로그램 종료
+    if (FAILED(HYEngine::GetInst()->init(hWnd, Vec2(1280, 768))))
     {
-        MessageBox(nullptr, L"CEngine 초기화 실패", L"초기화 실패", MB_OK);
+        MessageBox(nullptr, L"HYEngine 초기화 실패", L"초기화 실패", MB_OK);
         return 0;
     }
 
@@ -63,7 +64,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         else
         {
-            CEngine::GetInst()->progress();
+            HYEngine::GetInst()->progress();
         }
     }
 
@@ -91,7 +92,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = nullptr;// MAKEINTRESOURCEW(IDC_CLIENT);
+    wcex.lpszMenuName = nullptr;// MAKEINTRESOURCEW(IDC_CLIENT); - 메뉴 필요없음
     wcex.lpszClassName = L"MyWindow";
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -112,6 +113,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+    // Client - 타이틀명
     hWnd = CreateWindowW(L"MyWindow", L"Client", WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 

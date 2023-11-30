@@ -37,6 +37,9 @@
     <ClInclude Include="HYEngine.h">
       <Filter>02. Engine</Filter>
     </ClInclude>
+    <ClInclude Include="HYDevice.h">
+      <Filter>03. Device</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="HYDevice.cpp">
+      <Filter>03. Device</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
