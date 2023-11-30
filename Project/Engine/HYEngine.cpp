@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "HYEngine.h"
-#include "pch.h"
 
 #include "HYDevice.h"
 
