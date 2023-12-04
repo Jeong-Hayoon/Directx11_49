@@ -5,3 +5,7 @@
 								classtype();\
 								~classtype();\
 							friend class HYSingleton<classtype>;
+
+// 편의를 위해 define 
+#define DEVICE HYDevice::GetInst()->GetDevice()
+#define CONTEXT HYDevice::GetInst()->GetContext()

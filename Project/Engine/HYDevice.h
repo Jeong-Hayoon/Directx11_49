@@ -22,9 +22,6 @@ class HYDevice : public HYSingleton<HYDevice>
 {
 	SINGLE(HYDevice);
 
-public:
-	int init(HWND _hWnd, Vec2 _vResolution);
-
 private:
 	//ID3D11Device* m_Device;			// GPU 메모리 관리 및 객체(버퍼, 리소스) 생성
 	//ID3D11DeviceContext* m_Context;	// GPU 렌더링 명령
@@ -43,6 +40,17 @@ private:
 
 	HWND							m_hRenderWnd;
 	Vec2							m_vRenderResolution;
+
+public:
+	int init(HWND _hWnd, Vec2 _vResolution);
+	// 랜더타겟의 색상을 Clear 시켜주는 함수
+	// float(&Color)[4] - 원하는 색상이 함수의 인자로 필요
+	void ClearRenderTarget(float(&Color)[4]);
+	// 화면에 출력시켜주는 함수
+	void Present();
+
+	ID3D11Device* GetDevice() { return m_Device.Get(); }
+	ID3D11DeviceContext* GetContext() { return m_Context.Get(); }
 
 private:
 	int CreateSwapChain();

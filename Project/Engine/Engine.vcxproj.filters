@@ -14,6 +14,18 @@
     <Filter Include="03. Device">
       <UniqueIdentifier>{7b7407a9-5571-4060-a76b-07e963b1b0d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Level">
+      <UniqueIdentifier>{2b68d969-2059-414f-bed7-b34e170bc0db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{a00e1c85-d243-48aa-a89e-ff80676a3752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{d954f724-cf29-4d79-9bf6-44818a86674e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode">
+      <UniqueIdentifier>{3e69b992-9a9c-4350-9374-a3a18eb70421}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -40,6 +52,18 @@
     <ClInclude Include="HYDevice.h">
       <Filter>03. Device</Filter>
     </ClInclude>
+    <ClInclude Include="HYEntity.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="HYLevel.h">
+      <Filter>04. Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -54,5 +78,22 @@
     <ClCompile Include="HYDevice.cpp">
       <Filter>03. Device</Filter>
     </ClCompile>
+    <ClCompile Include="HYEntity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="HYLevel.cpp">
+      <Filter>04. Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl">
+      <Filter>Module</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="std2d.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

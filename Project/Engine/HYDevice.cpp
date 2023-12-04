@@ -55,8 +55,41 @@ int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
 		return E_FAIL;
 	}
 
+	// 텍스처는 색만 저장하는 것이 아니라 깊이 정보도 저장 가능 -> Depth Texture
+	// Depth Texture를 쓰는 이유? 랜더링 순서를 신경쓰지 않아도 됨
+
+	// ViewPort(윈도우 상의 출력 지점) 설정
+	D3D11_VIEWPORT ViewportDesc = {};
+
+	// Depth - 0은 카메라 바로 앞, 1은 제일 먼 지점으로 세팅
+	ViewportDesc.MinDepth = 0;
+	ViewportDesc.MaxDepth = 1.f;
+
+	// TopLeftX, TopLeftY의 지점에 Width * Height의 사이즈 사각형 안에 뷰포트가 설정됨
+	ViewportDesc.TopLeftX = 0;
+	ViewportDesc.TopLeftY = 0;
+	ViewportDesc.Width = m_vRenderResolution.x;
+	ViewportDesc.Height = m_vRenderResolution.y;
+
 	return S_OK;
 	
+}
+
+// 우리가 만든 랜더타겟은 Default가 0이므로 색상이 검정색으로 보임 -> Clear 시켜줘야 함
+void HYDevice::ClearRenderTarget(float(&Color)[4])
+{
+	// 랜더타겟을 가리키고 있는 뷰를 달라고 함
+	m_Context->ClearRenderTargetView(m_RTView.Get(), Color);
+	// DepthStenci도 매 프레임마다 초기화를 시켜줘야 함(변동이 있을 수 있으므로)
+	// DepthStenci Texture는 이미지가 아닌 0~1의 값으로 깊이값을 저장하고 있음
+	// Texture가 꼭 이미지를 저장하고 있는 것이 아님
+	// 특정 정보를 저장하고 있을 수도 있다는 것에 익숙해져야 함
+	m_Context->ClearDepthStencilView(m_DSView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+}
+
+void HYDevice::Present()
+{
+	m_SwapChain->Present(0, 0);
 }
 
 // 스왑체인을 만들고나면 스왑체인이 관리하는 랜더타겟용 텍스처도 만들어짐 -> 버퍼

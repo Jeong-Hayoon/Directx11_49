@@ -2,6 +2,7 @@
 #include "HYEngine.h"
 
 #include "HYDevice.h"
+#include "Test.h"
 
 HYEngine::HYEngine()
 	: m_hMainWnd(nullptr)
@@ -12,7 +13,7 @@ HYEngine::HYEngine()
 
 HYEngine::~HYEngine()
 {
-
+	TestRelease();
 }
 
 int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
@@ -34,11 +35,16 @@ int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
 		return E_FAIL;
 	}
 
+	if (FAILED(TestInit()))
+	{
+		return E_FAIL;
+	}
+
 	return S_OK;
 }
 
 // 매 프레임마다 호출
 void HYEngine::progress()
 {
-
+	TestProgress();
 }
