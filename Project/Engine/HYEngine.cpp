@@ -2,6 +2,12 @@
 #include "HYEngine.h"
 
 #include "HYDevice.h"
+
+#include "HYTimeMgr.h"
+#include "HYKeyMgr.h"
+#include "HYPathMgr.h"
+
+
 #include "Test.h"
 
 HYEngine::HYEngine()
@@ -35,6 +41,12 @@ int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
 		return E_FAIL;
 	}
 
+	// Manager 초기화((PathMgr는 싱글톤 X)
+	HYPathMgr::init();
+	HYTimeMgr::GetInst()->init();
+	HYKeyMgr::GetInst()->init();
+
+
 	if (FAILED(TestInit()))
 	{
 		return E_FAIL;
@@ -46,5 +58,11 @@ int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
 // 매 프레임마다 호출
 void HYEngine::progress()
 {
+	// Manager Update
+	HYTimeMgr::GetInst()->tick();
+	HYKeyMgr::GetInst()->tick();
+	
+
+	// Test Update
 	TestProgress();
 }

@@ -71,6 +71,8 @@ int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
 	ViewportDesc.Width = m_vRenderResolution.x;
 	ViewportDesc.Height = m_vRenderResolution.y;
 
+	CONTEXT->RSSetViewports(1, &ViewportDesc);
+
 	return S_OK;
 	
 }

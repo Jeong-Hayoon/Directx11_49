@@ -14,9 +14,6 @@
     <Filter Include="03. Device">
       <UniqueIdentifier>{7b7407a9-5571-4060-a76b-07e963b1b0d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Level">
-      <UniqueIdentifier>{2b68d969-2059-414f-bed7-b34e170bc0db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity">
       <UniqueIdentifier>{a00e1c85-d243-48aa-a89e-ff80676a3752}</UniqueIdentifier>
     </Filter>
@@ -25,6 +22,21 @@
     </Filter>
     <Filter Include="ShaderCode">
       <UniqueIdentifier>{3e69b992-9a9c-4350-9374-a3a18eb70421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Level">
+      <UniqueIdentifier>{2b68d969-2059-414f-bed7-b34e170bc0db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager">
+      <UniqueIdentifier>{97cd8b24-7062-4391-88c4-bbea33526475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\KeyMgr">
+      <UniqueIdentifier>{cb14184a-598d-4a93-8cca-91db7fb67246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\PathMgr">
+      <UniqueIdentifier>{c7036ac3-e045-4bf4-a4a4-c8b580aac783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\TimeMgr">
+      <UniqueIdentifier>{9446e728-3b48-4a38-bcd9-104f4f128dc7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -56,13 +68,22 @@
       <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="HYLevel.h">
-      <Filter>04. Level</Filter>
+      <Filter>05. Level</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="SimpleMath.h">
       <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="HYKeyMgr.h">
+      <Filter>04. Manager\KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="HYPathMgr.h">
+      <Filter>04. Manager\PathMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="HYTimeMgr.h">
+      <Filter>04. Manager\TimeMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +103,18 @@
       <Filter>Entity</Filter>
     </ClCompile>
     <ClCompile Include="HYLevel.cpp">
-      <Filter>04. Level</Filter>
+      <Filter>05. Level</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp" />
+    <ClCompile Include="HYKeyMgr.cpp">
+      <Filter>04. Manager\KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYPathMgr.cpp">
+      <Filter>04. Manager\PathMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYTimeMgr.cpp">
+      <Filter>04. Manager\TimeMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
