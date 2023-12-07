@@ -18,11 +18,24 @@
 // Texture 2D : 이미지 형태의 데이터
 // 지금 정점의 데이터를 저장해야 하므로 Buffer를 생성해야 함
 
-Vtx g_vtx[3] = {};
+// Vtx g_vtx[3] = {};
 
+// 사각형 그리기
+Vtx		g_vtx[4] = {};
+UINT	g_Idx[6] = {};
+
+// 이동량, 사이즈 담아줄 구조체
+tTransform g_Transform = { Vec4(0.f, 0.f, 0.f, 0.f), Vec4(1.f, 1.f, 1.f, 1.f) };
 
 // 정점을 저장하는 정점버퍼
 ComPtr<ID3D11Buffer>		g_VB = nullptr;
+
+// 인덱스를 저장하는 버퍼
+// 인덱스 : Vertex Buffer에서의 순서
+ComPtr<ID3D11Buffer>	g_IB = nullptr;
+
+// 상수 데이터를 전달하는 버퍼(16byte 단위로 정렬을 시켜줘야 함, 16byte 안되면 패딩 필요)
+ComPtr<ID3D11Buffer>	g_CB = nullptr;
 
 // InputLayout 정점하나의 구조(Position, Color, UV 등)를 알리는 객체
 ComPtr<ID3D11InputLayout> g_Layout = nullptr;
@@ -53,24 +66,43 @@ int TestInit()
 	// Color 값을 각 정점마다 다르게 지정할 경우 정점의 위치와 픽셀 위치가
 	// 일치하는 퍼센트에 따라 픽셀에 지정되는 RGB값이 달라짐
 	// 선형보간***
-	g_vtx[0].vPos = Vec3(0.f, 1.f, 0.f);
-	g_vtx[0].vColor = Vec4(1.f, 0.f, 0.f, 1.f);
-	g_vtx[0].vUV = Vec2(0.f, 0.f);		// 이미지의 위치 정보
+	// g_vtx[0].vPos = Vec3(0.f, 1.f, 0.f);
+	// g_vtx[0].vColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	// g_vtx[0].vUV = Vec2(0.f, 0.f);		// 이미지의 위치 정보
 
-	g_vtx[1].vPos = Vec3(1.f, -1.f, 0.f);
-	g_vtx[1].vColor = Vec4(0.f, 1.f, 0.f, 1.f);
+	// g_vtx[1].vPos = Vec3(1.f, -1.f, 0.f);
+	// g_vtx[1].vColor = Vec4(0.f, 1.f, 0.f, 1.f);
+	// g_vtx[1].vUV = Vec2(0.f, 0.f);
+
+	// g_vtx[2].vPos = Vec3(-1.f, -1.f, 0.f);
+	// g_vtx[2].vColor = Vec4(0.f, 0.f, 1.f, 1.f);
+	// g_vtx[2].vUV = Vec2(0.f, 0.f);
+	// 
+	//   0(Red)-- 1(Blue)	     
+	//    |   \   |	     
+	//   3(G)---- 2(Magenta)  
+	g_vtx[0].vPos = Vec3(-0.5f, 0.5f, 0.f);
+	g_vtx[0].vColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	g_vtx[0].vUV = Vec2(0.f, 0.f);
+
+	g_vtx[1].vPos = Vec3(0.5f, 0.5f, 0.f);
+	g_vtx[1].vColor = Vec4(0.f, 0.f, 1.f, 1.f);
 	g_vtx[1].vUV = Vec2(0.f, 0.f);
 
-	g_vtx[2].vPos = Vec3(-1.f, -1.f, 0.f);
-	g_vtx[2].vColor = Vec4(0.f, 0.f, 1.f, 1.f);
+	g_vtx[2].vPos = Vec3(0.5f, -0.5f, 0.f);
+	g_vtx[2].vColor = Vec4(1.f, 0.f, 1.f, 1.f);
 	g_vtx[2].vUV = Vec2(0.f, 0.f);
+
+	g_vtx[3].vPos = Vec3(-0.5f, -0.5f, 0.f);
+	g_vtx[3].vColor = Vec4(0.f, 1.f, 0.f, 1.f);
+	g_vtx[3].vUV = Vec2(0.f, 0.f);
 
 
 	// 버텍스 버퍼 생성
 	D3D11_BUFFER_DESC BufferDesc = {};
 
 	// 필요한 Buffer의 용량(정점 용량) -> 단순히 필요한 byte의 총량을 명시
-	BufferDesc.ByteWidth = sizeof(Vtx) * 3;
+	BufferDesc.ByteWidth = sizeof(Vtx) * 4;
 	// 정점 하나가 몇 byte인지
 	BufferDesc.StructureByteStride = sizeof(Vtx);
 	// 용도 : 정점 저장
@@ -78,10 +110,13 @@ int TestInit()
 
 
 	// === 이렇게 두 조건이 합쳐지면 ===
-	BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	// BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	// 정점 버퍼를 만들고 수정을 하고 재저장을 할 수 있음
-	BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	// BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 
+	// 버퍼에 데이터 쓰기 불가능
+	BufferDesc.CPUAccessFlags = 0;
+	BufferDesc.Usage = D3D11_USAGE_DEFAULT;
 
 	// D3D11_SUBRESOURCE_DATA - g_Vtx 배열의 데이터를 초기 데이터로 설정(초기값 설정)
 	D3D11_SUBRESOURCE_DATA tSubData = {};
@@ -91,6 +126,54 @@ int TestInit()
 	if (FAILED(DEVICE->CreateBuffer(&BufferDesc, &tSubData, g_VB.GetAddressOf())))
 	{
 		MessageBox(nullptr, L"버텍스 버퍼 생성 실패", L"TestInit 오류", MB_OK);
+		return E_FAIL;
+	}
+
+	g_Idx[0] = 0;
+	g_Idx[1] = 1;
+	g_Idx[2] = 2;
+
+	g_Idx[3] = 0;
+	g_Idx[4] = 2;
+	g_Idx[5] = 3;
+
+	// 인덱스 버퍼 생성
+	BufferDesc = {};
+
+	BufferDesc.ByteWidth = sizeof(UINT) * 6;
+	BufferDesc.StructureByteStride = sizeof(UINT);
+	BufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+
+	// 버퍼에 데이터 쓰기 불가능
+	BufferDesc.CPUAccessFlags = 0;
+	BufferDesc.Usage = D3D11_USAGE_DEFAULT;
+
+	// g_Idx 배열의 데이터를 초기 데이터로 설정
+	tSubData = {};
+	tSubData.pSysMem = g_Idx;
+
+	// 인덱스 버퍼 생성
+	if (FAILED(DEVICE->CreateBuffer(&BufferDesc, &tSubData, g_IB.GetAddressOf())))
+	{
+		MessageBox(nullptr, L"인덱스 버퍼 생성 실패", L"TestInit 오류", MB_OK);
+		return E_FAIL;
+	}
+
+	// 상수 버퍼(Constant Buffer) 생성
+	BufferDesc = {};
+
+	BufferDesc.ByteWidth = sizeof(tTransform);
+	BufferDesc.StructureByteStride = sizeof(tTransform);
+	BufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	// 버퍼에 데이터 쓰기 가능(계속해서 데이터를 수정할 수 있어야 하므로)
+	BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+
+	// 상수 버퍼 생성
+	if (FAILED(DEVICE->CreateBuffer(&BufferDesc, nullptr, g_CB.GetAddressOf())))
+	{
+		MessageBox(nullptr, L"상수 버퍼 생성 실패", L"TestInit 오류", MB_OK);
 		return E_FAIL;
 	}
 
@@ -195,33 +278,104 @@ int TestInit()
 	return S_OK;
 }
 
-void TestProgress()
+
+void Tick()
+{
+	if (KEY_PRESSED(KEY::LEFT))
+	{
+		g_Transform.vWorldPos.x -= DT;
+	}
+
+	if (KEY_PRESSED(KEY::RIGHT))
+	{
+		g_Transform.vWorldPos.x += DT;
+	}
+
+	if (KEY_PRESSED(KEY::UP))
+	{
+		g_Transform.vWorldPos.y += DT;
+	}
+
+	if (KEY_PRESSED(KEY::DOWN))
+	{
+		g_Transform.vWorldPos.y -= DT;
+	}
+
+	// NUM1 - 텐키리스라 없음
+	if (KEY_PRESSED(KEY::NUM1))
+	{
+		g_Transform.vWorldScale += DT * Vec4(1.f, 1.f, 1.f, 1.f);
+	}
+
+	if (KEY_PRESSED(KEY::NUM2))
+	{
+		g_Transform.vWorldScale -= DT * Vec4(1.f, 1.f, 1.f, 1.f);
+	}
+
+
+	// SystemMem -> GPUMem
+	D3D11_MAPPED_SUBRESOURCE tSub = {};
+
+	CONTEXT->Map(g_CB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
+	memcpy(tSub.pData, &g_Transform, sizeof(tTransform));
+	CONTEXT->Unmap(g_CB.Get(), 0);
+}
+
+
+void Render()
 {
 	// 0~255 <-> 0~1 Normalize 
 	// 배경색 초기화
 	float ClearColor[4] = { 0.3f, 0.3f, 0.3f, 1.f };
 	HYDevice::GetInst()->ClearRenderTarget(ClearColor);
 
-
 	// 삼각형 그리기
 	// stride : 시작 위치
 	// iStride : Vertex 하나의 크기
 	// iOffset : Buffer에 있는 모든 정점을 Vertex Shader를 호출시키지 않을 수도 있울 때뮨
+	// UINT iStride = sizeof(Vtx);
+	// UINT iOffset = 0;
+	// IASetVertexBuffers : 정점 하나의 사이즈를 알려주고 offset값을 통해 시작 위치를 알려줌
+	// CONTEXT->IASetVertexBuffers(0, 1, g_VB.GetAddressOf(), &iStride, &iOffset);
+	// TOPOLOGY : VertexBuffer에 담겨잇는 정점을 해석하는 구조(정점이 말해주고 싶은 도형 정보)
+	// CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// CONTEXT->IASetInputLayout(g_Layout.Get());
+
+	// CONTEXT->VSSetShader(g_VS.Get(), 0, 0);
+	// CONTEXT->PSSetShader(g_PS.Get(), 0, 0);
+
+	// 3 - 정점의 개수
+	//CONTEXT->Draw(3, 0);
+
+	// 사각형 그리기
 	UINT iStride = sizeof(Vtx);
 	UINT iOffset = 0;
-	// IASetVertexBuffers : 정점 하나의 사이즈를 알려주고 offset값을 통해 시작 위치를 알려줌
+
 	CONTEXT->IASetVertexBuffers(0, 1, g_VB.GetAddressOf(), &iStride, &iOffset);
-	// TOPOLOGY : VertexBuffer에 담겨잇는 정점을 해석하는 구조(정점이 말해주고 싶은 도형 정보)
+	// 인덱스 버퍼 사용 시
+	CONTEXT->IASetIndexBuffer(g_IB.Get(), DXGI_FORMAT_R32_UINT, 0);
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CONTEXT->IASetInputLayout(g_Layout.Get());
+
+	// 상수버퍼 전달 (바인딩)
+	// Slot 번호 : b0니까 0
+	CONTEXT->VSSetConstantBuffers(0, 1, g_CB.GetAddressOf());
 
 	CONTEXT->VSSetShader(g_VS.Get(), 0, 0);
 	CONTEXT->PSSetShader(g_PS.Get(), 0, 0);
 
-	// 3 - 정점의 개수
-	CONTEXT->Draw(3, 0);
+	// 인덱스 버퍼 사용 시
+	CONTEXT->DrawIndexed(6, 0, 0);
 
 	HYDevice::GetInst()->Present();
+}
+
+void TestProgress()
+{
+	Tick();
+
+	Render();
+	
 }
 
 void TestRelease()

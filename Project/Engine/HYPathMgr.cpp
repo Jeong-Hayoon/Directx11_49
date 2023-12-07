@@ -6,7 +6,7 @@ wchar_t HYPathMgr::g_szContent[255] = {};
 
 void HYPathMgr::init()
 {
-	// 실행파일 경로
+	// 실행파일 경로(작업 디렉터리)
 	GetCurrentDirectory(255, g_szContent);
 
 	size_t Len = wcslen(g_szContent);

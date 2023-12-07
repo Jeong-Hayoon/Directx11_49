@@ -9,3 +9,12 @@
 // 편의를 위해 define 
 #define DEVICE HYDevice::GetInst()->GetDevice()
 #define CONTEXT HYDevice::GetInst()->GetContext()
+
+// 키매니저 매크로
+#define KEY_CHECK(Key, State) HYKeyMgr::GetInst()->GetKeyState(Key) == State
+#define DT	HYTimeMgr::GetInst()->GetDeltaTime()
+
+#define KEY_TAP(Key) KEY_CHECK(Key, TAP)
+#define KEY_PRESSED(Key) KEY_CHECK(Key, PRESSED)
+#define KEY_RELEASED(Key) KEY_CHECK(Key, RELEASED)
+#define KEY_NONE(Key) KEY_CHECK(Key, NONE)
