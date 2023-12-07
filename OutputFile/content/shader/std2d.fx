@@ -40,6 +40,7 @@ VS_OUT VS_Std2D(VS_IN _in)
 {
     VS_OUT output = (VS_OUT)0.f;
 
+    // 최종 좌표는 Scale 조절을 먼저하고 좌표 이동을 하게 됨
     float2 vFinalPos = _in.vPos.xy * g_vWorldScale.xy + g_vWorldPos.xy;
     
     output.vPosition = float4(vFinalPos, 0.f, 1.f);

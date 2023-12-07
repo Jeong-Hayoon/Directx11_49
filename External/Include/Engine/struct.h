@@ -14,6 +14,7 @@ struct Vtx
 // 16바이트 단위로 만들어줘야 함(GPU가 16바이트로 메모리를 읽어가기 때문에)
 struct tTransform
 {
+	// x,y,z지만 16byte 단위로 정렬을 해야해서 Vec4
 	Vec4	vWorldPos;
 	// 사이즈 조절
 	Vec4    vWorldScale;
