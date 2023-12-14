@@ -1,21 +1,23 @@
 #pragma once
 
 // 스마트 포인터 동작 방식
-class SmartPointer
-{
-	int* pInt;
+//class SmartPointer
+//{
+//	int* pInt;
+//
+//public:
+//	int* Get()
+//	{
+//		return pInt;
+//	}
+//
+//	int** GetAdressOf()
+//	{
+//		return &pInt;
+//	}
+//};
 
-public:
-	int* Get()
-	{
-		return pInt;
-	}
-
-	int** GetAdressOf()
-	{
-		return &pInt;
-	}
-};
+class HYConstBuffer;
 
 // DirectX11 기준으로 GPU 제어
 class HYDevice : public HYSingleton<HYDevice>
@@ -41,6 +43,8 @@ private:
 	HWND							m_hRenderWnd;
 	Vec2							m_vRenderResolution;
 
+	HYConstBuffer*					m_arrCB[(UINT)CB_TYPE::END];
+
 public:
 	int init(HWND _hWnd, Vec2 _vResolution);
 	// 랜더타겟의 색상을 Clear 시켜주는 함수
@@ -52,8 +56,13 @@ public:
 	ID3D11Device* GetDevice() { return m_Device.Get(); }
 	ID3D11DeviceContext* GetContext() { return m_Context.Get(); }
 
+	HYConstBuffer* GetConstBuffer(CB_TYPE _type) { return m_arrCB[(UINT)_type]; }
+
+
 private:
 	int CreateSwapChain();
 	int CreateTargetView();
+	int CreateConstBuffer();
+
 
 };

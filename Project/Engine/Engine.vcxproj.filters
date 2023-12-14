@@ -74,6 +74,21 @@
     <Filter Include="06. Asset\Shader\GraphicsShader">
       <UniqueIdentifier>{5249228d-036d-4385-a083-6c5253fe5eca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Device\ConstBuffer">
+      <UniqueIdentifier>{5cce5788-888b-4100-9523-85a05814f3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent">
+      <UniqueIdentifier>{e5759e32-a2ed-4549-b8ad-7d32c131efac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\01. MeshRender">
+      <UniqueIdentifier>{1302d1b7-6e16-46dc-93b3-e6198a5f7ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\02. TileMap">
+      <UniqueIdentifier>{06de6202-8e51-423e-98ce-f181966b3db7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\03. ParticleSystem">
+      <UniqueIdentifier>{da3d5c72-dcf6-4503-bfe8-55bf93a2f56d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -139,6 +154,21 @@
     <ClInclude Include="HYComponent.h">
       <Filter>08. Component</Filter>
     </ClInclude>
+    <ClInclude Include="HYTransform.h">
+      <Filter>08. Component\01. Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HYConstBuffer.h">
+      <Filter>03. Device\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="HYRenderComponent.h">
+      <Filter>08. Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="HYMeshRender.h">
+      <Filter>08. Component\RenderComponent\01. MeshRender</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -186,6 +216,18 @@
     </ClCompile>
     <ClCompile Include="HYComponent.cpp">
       <Filter>08. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="HYTransform.cpp">
+      <Filter>08. Component\01. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="HYConstBuffer.cpp">
+      <Filter>03. Device\ConstBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="HYRenderComponent.cpp">
+      <Filter>08. Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="HYMeshRender.cpp">
+      <Filter>08. Component\RenderComponent\01. MeshRender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

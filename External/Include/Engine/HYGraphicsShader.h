@@ -5,6 +5,7 @@ class HYGraphicsShader :
     public HYShader
 {
 private:
+    // Shader의 실제 Binary Code들을 저장
     ComPtr<ID3DBlob>    m_VSBlob;
     ComPtr<ID3DBlob>    m_HSBlob;
     ComPtr<ID3DBlob>    m_DSBlob;
@@ -17,8 +18,10 @@ private:
     ComPtr<ID3D11GeometryShader>    m_GS;
     ComPtr<ID3D11PixelShader>       m_PS;
 
+    // 정점의 구조는 하나로 통일(그래야 레이아웃을 하나만 만들어도 됨)
     ComPtr<ID3D11InputLayout>       m_Layout;
 
+    // Vertex Shader에서 정점을 출력시키면 Rasterizer에서 정점을 어떻게 분석할건지 알려줌
     D3D11_PRIMITIVE_TOPOLOGY        m_Topology;
 
     // Rasterizer State

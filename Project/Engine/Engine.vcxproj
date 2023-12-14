@@ -156,9 +156,11 @@ call EngineCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="func.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="HYAsset.h" />
     <ClInclude Include="HYComponent.h" />
+    <ClInclude Include="HYConstBuffer.h" />
     <ClInclude Include="HYDevice.h" />
     <ClInclude Include="HYEngine.h" />
     <ClInclude Include="HYEntity.h" />
@@ -167,9 +169,12 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYKeyMgr.h" />
     <ClInclude Include="HYLevel.h" />
     <ClInclude Include="HYMesh.h" />
+    <ClInclude Include="HYMeshRender.h" />
     <ClInclude Include="HYPathMgr.h" />
+    <ClInclude Include="HYRenderComponent.h" />
     <ClInclude Include="HYShader.h" />
     <ClInclude Include="HYTimeMgr.h" />
+    <ClInclude Include="HYTransform.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
@@ -180,6 +185,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="HYAsset.cpp" />
     <ClCompile Include="HYComponent.cpp" />
+    <ClCompile Include="HYConstBuffer.cpp" />
     <ClCompile Include="HYDevice.cpp" />
     <ClCompile Include="HYEngine.cpp" />
     <ClCompile Include="HYEntity.cpp" />
@@ -188,9 +194,12 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYKeyMgr.cpp" />
     <ClCompile Include="HYLevel.cpp" />
     <ClCompile Include="HYMesh.cpp" />
+    <ClCompile Include="HYMeshRender.cpp" />
     <ClCompile Include="HYPathMgr.cpp" />
+    <ClCompile Include="HYRenderComponent.cpp" />
     <ClCompile Include="HYShader.cpp" />
     <ClCompile Include="HYTimeMgr.cpp" />
+    <ClCompile Include="HYTransform.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

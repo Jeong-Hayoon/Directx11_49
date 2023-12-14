@@ -19,6 +19,14 @@
 #define KEY_RELEASED(Key) KEY_CHECK(Key, RELEASED)
 #define KEY_NONE(Key) KEY_CHECK(Key, NONE)
 
+// 부호를 통해 6가지 방향을 표현할 수 있음
+enum class DIR_TYPE
+{
+	RIGHT,
+	UP,
+	FRONT,
+};
+
 enum class ASSET_TYPE
 {
 	MESH,
@@ -52,6 +60,17 @@ enum class COMPONENT_TYPE
 	SKYBOX,
 	DECAL,
 	LANDSCAPE,
+
+	END,
+};
+
+// 상수버퍼 종류
+enum class CB_TYPE
+{
+	TRANSFORM,
+	MATERIAL_CONST,
+	GLOBAL_DATA,
+	ANIMATION,
 
 	END,
 };

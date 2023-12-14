@@ -1,15 +1,19 @@
 #include "pch.h"
 #include "HYDevice.h"
 
+#include "HYConstBuffer.h"
+
+
 HYDevice::HYDevice()
 	: m_hRenderWnd(nullptr)
+	, m_arrCB{}
 {
 
 }
 
 HYDevice::~HYDevice()
 {
-
+	Delete_Array(m_arrCB);
 }
 
 int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
@@ -72,6 +76,12 @@ int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
 	ViewportDesc.Height = m_vRenderResolution.y;
 
 	CONTEXT->RSSetViewports(1, &ViewportDesc);
+
+	if (FAILED(CreateConstBuffer()))
+	{
+		MessageBox(nullptr, L"상수버퍼 생성 실패", L"Device 초기화 실패", MB_OK);
+		return E_FAIL;
+	}
 
 	return S_OK;
 	
@@ -250,6 +260,15 @@ int HYDevice::CreateTargetView()
 
 	// OM(Output Merge State) 에 RenderTargetTexture 와 DepthStencilTexture 를 전달한다.
 	m_Context->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSView.Get());
+
+	return S_OK;
+}
+
+// 상수버퍼를 포인터 배열로 미리 만들어놓는 함수
+int HYDevice::CreateConstBuffer()
+{
+	m_arrCB[(UINT)CB_TYPE::TRANSFORM] = new HYConstBuffer;
+	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(tTransform), 1);
 
 	return S_OK;
 }

@@ -7,12 +7,19 @@
 #include "HYKeyMgr.h"
 #include "HYPathMgr.h"
 
+#include "HYGameObject.h"
+
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
 
+#include "HYTransform.h"
+#include "HYMeshRender.h"
+
 
 // 이동량, 사이즈 담아줄 구조체
-tTransform g_Transform = { Vec4(0.f, 0.f, 0.f, 0.f), Vec4(1.f, 1.f, 1.f, 1.f) };
+//tTransform g_Transform = { Vec4(0.f, 0.f, 0.f, 0.f), Vec4(1.f, 1.f, 1.f, 1.f) };
+
+vector<HYGameObject*>	g_vecObj;
 
 HYMesh* g_RectMesh = nullptr;
 HYMesh* g_CircleMesh = nullptr;
@@ -20,7 +27,7 @@ HYMesh* g_CircleMesh = nullptr;
 HYGraphicsShader* g_Shader = nullptr;
 
 // 상수 데이터를 전달하는 버퍼(16byte 단위로 정렬을 시켜줘야 함, 16byte 안되면 패딩 필요)
-ComPtr<ID3D11Buffer>	g_CB = nullptr;
+//ComPtr<ID3D11Buffer>	g_CB = nullptr;
 
 
 int TestInit()
@@ -102,6 +109,47 @@ int TestInit()
 	g_CircleMesh = new HYMesh;
 	g_CircleMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
 
+	// Shader 생성
+	g_Shader = new HYGraphicsShader;
+	g_Shader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
+	g_Shader->CreatePixelShader(L"shader\\std2d.fx", "PS_Std2D");
+
+
+	// GameObject 생성
+	HYGameObject* pObj = nullptr;
+
+	pObj = new HYGameObject;
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+
+	pObj->Transform()->SetRelativePos(Vec3(-0.5f, 0.f, 0.f));
+	pObj->Transform()->SetRelativeScale(Vec3(1.5f, 1.5f, 1.5f));
+
+	pObj->MeshRender()->SetMesh(g_RectMesh);
+	pObj->MeshRender()->SetShader(g_Shader);
+
+	g_vecObj.push_back(pObj);
+
+
+	pObj = new HYGameObject;
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+
+	pObj->Transform()->SetRelativePos(Vec3(0.5f, 0.25f, 0.f));
+	pObj->Transform()->SetRelativeScale(Vec3(0.5f, 0.5f, 0.5f));
+
+	pObj->MeshRender()->SetMesh(g_RectMesh);
+	pObj->MeshRender()->SetShader(g_Shader);
+
+	g_vecObj.push_back(pObj);
+
+	// 이렇게 할 필요가 없어짐
+	//CMeshRender* pMeshRender = (CMeshRender*)g_Object->GetComponent(COMPONENT_TYPE::MESHRENDER);
+	//pMeshRender->SetMesh(g_RectMesh);
+	//pMeshRender->SetShader(g_Shader);
+
 	// 상수 버퍼(Constant Buffer) 생성
 	D3D11_BUFFER_DESC BufferDesc = {};
 
@@ -111,19 +159,7 @@ int TestInit()
 
 	// 버퍼에 데이터 쓰기 가능(계속해서 데이터를 수정할 수 있어야 하므로)
 	BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-
-	// 상수 버퍼 생성
-	if (FAILED(DEVICE->CreateBuffer(&BufferDesc, nullptr, g_CB.GetAddressOf())))
-	{
-		MessageBox(nullptr, L"상수 버퍼 생성 실패", L"TestInit 오류", MB_OK);
-		return E_FAIL;
-	}
-
-	// Shader 생성
-	g_Shader = new HYGraphicsShader;
-	g_Shader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
-	g_Shader->CreatePixelShader(L"shader\\std2d.fx", "PS_Std2D");
+	BufferDesc.Usage = D3D11_USAGE_DYNAMIC;	
 
 	return S_OK;
 }
@@ -131,64 +167,26 @@ int TestInit()
 
 void Tick()
 {
-	if (KEY_PRESSED(KEY::LEFT))
+	for (size_t i = 0; i < g_vecObj.size(); ++i)
 	{
-		g_Transform.vWorldPos.x -= DT;
+		g_vecObj[i]->tick();
+		g_vecObj[i]->finaltick();
 	}
-
-	if (KEY_PRESSED(KEY::RIGHT))
-	{
-		g_Transform.vWorldPos.x += DT;
-	}
-
-	if (KEY_PRESSED(KEY::UP))
-	{
-		g_Transform.vWorldPos.y += DT;
-	}
-
-	if (KEY_PRESSED(KEY::DOWN))
-	{
-		g_Transform.vWorldPos.y -= DT;
-	}
-
-	// NUM1 - 텐키리스라 없음
-	if (KEY_PRESSED(KEY::NUM1))
-	{
-		g_Transform.vWorldScale += DT * Vec4(1.f, 1.f, 1.f, 1.f);
-	}
-
-	if (KEY_PRESSED(KEY::NUM2))
-	{
-		g_Transform.vWorldScale -= DT * Vec4(1.f, 1.f, 1.f, 1.f);
-	}
-
-
-	// SystemMem -> GPUMem
-	D3D11_MAPPED_SUBRESOURCE tSub = {};
-
-	CONTEXT->Map(g_CB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
-	memcpy(tSub.pData, &g_Transform, sizeof(tTransform));
-	CONTEXT->Unmap(g_CB.Get(), 0);
 }
 
 
 void Render()
 {
+	
 	// 0~255 <-> 0~1 Normalize 
 	// 배경색 초기화
 	float ClearColor[4] = { 0.3f, 0.3f, 0.3f, 1.f };
 	HYDevice::GetInst()->ClearRenderTarget(ClearColor);
 
-
-	// 상수버퍼 전달 (위치)
-	CONTEXT->VSSetConstantBuffers(0, 1, g_CB.GetAddressOf());
-
-	// 쉐이더 세팅
-	g_Shader->UpdateData();
-
-	// 메시 선택 및 렌더
-	g_RectMesh->render();
-
+	for (size_t i = 0; i < g_vecObj.size(); ++i)
+	{
+		g_vecObj[i]->render();
+	}
 
 	HYDevice::GetInst()->Present();
 }
@@ -214,4 +212,6 @@ void TestRelease()
 	}
 
 	delete g_Shader;
+
+	Delete_Vec(g_vecObj);
 }

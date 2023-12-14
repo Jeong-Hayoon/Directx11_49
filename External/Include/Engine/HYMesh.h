@@ -24,7 +24,7 @@ private:
     void* m_IdxSysMem;
 
 private:
-    // Mesh를 바인딩해주는 함수
+    // Mesh 바인딩해주는 함수
     void UpdateData();
 
 public:
