@@ -9,8 +9,7 @@
 // b0 : 상수 버퍼의 네임
 cbuffer TRANSFORM : register(b0)
 {
-    float4 g_vWorldPos;
-    float4 g_vWorldScale;
+    row_major float4x4 g_matWorld;
 }
 
 // Shader 코드는 리소스처럼 활용이 됨(런타임 도중 실시간으로 컴파일하므로0
@@ -35,21 +34,20 @@ struct VS_OUT
 };
 
 // VS_IN : 입력 구조체 / VS_OUT : 출력 구조체
-// 들어온 값 그대로 출력
 VS_OUT VS_Std2D(VS_IN _in)
 {
     VS_OUT output = (VS_OUT)0.f;
 
-    // 최종 좌표는 Scale 조절을 먼저하고 좌표 이동을 하게 됨
-    float2 vFinalPos = _in.vPos.xy * g_vWorldScale.xy + g_vWorldPos.xy;
-    
-    output.vPosition = float4(vFinalPos, 0.f, 1.f);
+    // mul : hlsl에서 좌표와 벡터에 행렬을 곱해주는 함수
+    // float4(_in.vPos, 1.f) : float3로 들어온 값을 동차 좌표계로 변환(기타 생성자)
+    // 로컬 좌표계 -> 월드 좌표계로 한 번에 변환(월드 변환)
+    output.vPosition = mul(float4(_in.vPos, 1.f), g_matWorld);
     
     // output.vPosition = float4(_in.vPos.xy, 0.f, 1.f);
     output.vColor = _in.vColor;
     output.vUV = _in.vUV;
     
-
+ 
     return output;
 }
 

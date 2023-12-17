@@ -9,6 +9,7 @@
 class HYComponent;
 class HYRenderComponent;
 
+class HYScript;
 
 // 하나의 오브젝트를 부르는 단위
 class HYGameObject :
@@ -21,6 +22,10 @@ private:
     // AddComponent에서 들어온 Component가 RenderComponent 종류이면
     // m_RenderCom로 가리킴
     HYRenderComponent* m_RenderCom;
+
+    // Script는 GameObject에서 Component 배열안에 넣지 않고 벡터로 관리
+    // (GameObject가 Script를 여러 개 가질 수 있기 때문에)
+    vector<HYScript*>    m_vecScript;
 
 
 public:

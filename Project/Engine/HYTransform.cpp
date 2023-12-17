@@ -14,8 +14,21 @@ HYTransform::~HYTransform()
 {
 }
 
+// tick을 거쳐 최종 확정된 정보를 한 행렬안에 상태를 넣음
 void HYTransform::finaltick()
 {
+	// 단위행렬로 초기화
+	m_matWorld = XMMatrixIdentity();
+
+	// 스케일 정보는 대각선 행렬에 넣어줌
+	m_matWorld._11 = m_vRelativeScale.x;
+	m_matWorld._22 = m_vRelativeScale.y;
+	m_matWorld._33 = m_vRelativeScale.z;
+
+	// 4행에 이동 정보를 넣어줌
+	m_matWorld._41 = m_vRelativePos.x;
+	m_matWorld._42 = m_vRelativePos.y;
+	m_matWorld._43 = m_vRelativePos.z;
 }
 
 // Transform에 저장되어 있던 위치정보를 
@@ -28,8 +41,7 @@ void HYTransform::finaltick()
 void HYTransform::UpdateData()
 {
 	tTransform transform = {};
-	transform.vWorldPos = m_vRelativePos;
-	transform.vWorldScale = m_vRelativeScale;
+	transform.matWorld = m_matWorld;
 
 	// 위치정보를 Transform 상수버퍼에 보내고, B0 레지스터에 바인딩 해둠
 	HYConstBuffer* pCB = HYDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);

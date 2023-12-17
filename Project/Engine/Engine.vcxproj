@@ -154,11 +154,14 @@ call EngineCopy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="components.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="HYAsset.h" />
+    <ClInclude Include="HYAssetMgr.h" />
+    <ClInclude Include="HYCamera.h" />
     <ClInclude Include="HYComponent.h" />
     <ClInclude Include="HYConstBuffer.h" />
     <ClInclude Include="HYDevice.h" />
@@ -167,11 +170,15 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYGameObject.h" />
     <ClInclude Include="HYGraphicsShader.h" />
     <ClInclude Include="HYKeyMgr.h" />
+    <ClInclude Include="HYLayer.h" />
     <ClInclude Include="HYLevel.h" />
+    <ClInclude Include="HYLevelMgr.h" />
     <ClInclude Include="HYMesh.h" />
     <ClInclude Include="HYMeshRender.h" />
     <ClInclude Include="HYPathMgr.h" />
+    <ClInclude Include="HYPlayerScript.h" />
     <ClInclude Include="HYRenderComponent.h" />
+    <ClInclude Include="HYScript.h" />
     <ClInclude Include="HYShader.h" />
     <ClInclude Include="HYTimeMgr.h" />
     <ClInclude Include="HYTransform.h" />
@@ -179,11 +186,12 @@ call EngineCopy.bat</Command>
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
-    <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="HYAsset.cpp" />
+    <ClCompile Include="HYAssetMgr.cpp" />
+    <ClCompile Include="HYCamera.cpp" />
     <ClCompile Include="HYComponent.cpp" />
     <ClCompile Include="HYConstBuffer.cpp" />
     <ClCompile Include="HYDevice.cpp" />
@@ -192,11 +200,15 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYGameObject.cpp" />
     <ClCompile Include="HYGraphicsShader.cpp" />
     <ClCompile Include="HYKeyMgr.cpp" />
+    <ClCompile Include="HYLayer.cpp" />
     <ClCompile Include="HYLevel.cpp" />
+    <ClCompile Include="HYLevelMgr.cpp" />
     <ClCompile Include="HYMesh.cpp" />
     <ClCompile Include="HYMeshRender.cpp" />
     <ClCompile Include="HYPathMgr.cpp" />
+    <ClCompile Include="HYPlayerScript.cpp" />
     <ClCompile Include="HYRenderComponent.cpp" />
+    <ClCompile Include="HYScript.cpp" />
     <ClCompile Include="HYShader.cpp" />
     <ClCompile Include="HYTimeMgr.cpp" />
     <ClCompile Include="HYTransform.cpp" />
@@ -206,7 +218,6 @@ call EngineCopy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl" />

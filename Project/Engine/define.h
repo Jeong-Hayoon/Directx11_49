@@ -19,6 +19,8 @@
 #define KEY_RELEASED(Key) KEY_CHECK(Key, RELEASED)
 #define KEY_NONE(Key) KEY_CHECK(Key, NONE)
 
+#define LAYER_MAX 32
+
 // 부호를 통해 6가지 방향을 표현할 수 있음
 enum class DIR_TYPE
 {
@@ -36,6 +38,7 @@ enum class ASSET_TYPE
 	SOUND,
 	COMPUTE_SHADER,
 	GRAPHICS_SHADER,
+	END,
 };
 
 enum class COMPONENT_TYPE
@@ -61,7 +64,10 @@ enum class COMPONENT_TYPE
 	DECAL,
 	LANDSCAPE,
 
-	END,
+	END,		// END를 기준으로 위쪽은 엔진에서 제공하는 기본 Component
+				// 아래는 따로 추가하는 Custom Component
+
+	SCRIPT,		// Script는 Component안에 속해있지 않으므로 END 다음으로 배치
 };
 
 // 상수버퍼 종류

@@ -7,8 +7,10 @@
 #include "HYKeyMgr.h"
 #include "HYPathMgr.h"
 
+#include "HYAssetMgr.h"
+#include "HYLevelMgr.h"
 
-#include "Test.h"
+// #include "Test.h"
 
 HYEngine::HYEngine()
 	: m_hMainWnd(nullptr)
@@ -45,12 +47,8 @@ int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
 	HYPathMgr::init();
 	HYTimeMgr::GetInst()->init();
 	HYKeyMgr::GetInst()->init();
-
-
-	if (FAILED(TestInit()))
-	{
-		return E_FAIL;
-	}
+	HYAssetMgr::GetInst()->init();
+	HYLevelMgr::GetInst()->init();
 
 	return S_OK;
 }
@@ -62,7 +60,8 @@ void HYEngine::progress()
 	HYTimeMgr::GetInst()->tick();
 	HYKeyMgr::GetInst()->tick();
 	
+	// Level Update
+	HYLevelMgr::GetInst()->tick();
+	HYLevelMgr::GetInst()->render();
 
-	// Test Update
-	TestProgress();
 }

@@ -89,6 +89,27 @@
     <Filter Include="08. Component\RenderComponent\03. ParticleSystem">
       <UniqueIdentifier>{da3d5c72-dcf6-4503-bfe8-55bf93a2f56d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\AssetMgr">
+      <UniqueIdentifier>{cb7c1db4-e024-4ddf-b8de-9c77905a4a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\LevelMgr">
+      <UniqueIdentifier>{d9a86a63-5729-4456-9bd7-d5c87fc53b81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Material">
+      <UniqueIdentifier>{e04200ca-f46f-43aa-a642-916460bf2f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\MeshData">
+      <UniqueIdentifier>{a682a170-e704-4e0a-848d-8531422601f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Sound">
+      <UniqueIdentifier>{3e3f5e53-d8b8-4972-980d-d853e05915b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\Script">
+      <UniqueIdentifier>{8334604e-7f6b-477e-a259-6976daf859c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{e91911b5-4296-468a-b4b4-c94342d0fbb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -120,9 +141,6 @@
     </ClInclude>
     <ClInclude Include="HYLevel.h">
       <Filter>05. Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="SimpleMath.h">
       <Filter>Module</Filter>
@@ -169,6 +187,27 @@
     <ClInclude Include="HYMeshRender.h">
       <Filter>08. Component\RenderComponent\01. MeshRender</Filter>
     </ClInclude>
+    <ClInclude Include="components.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HYLevelMgr.h">
+      <Filter>04. Manager\LevelMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="HYAssetMgr.h">
+      <Filter>04. Manager\AssetMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="HYLayer.h">
+      <Filter>05. Level</Filter>
+    </ClInclude>
+    <ClInclude Include="HYScript.h">
+      <Filter>08. Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="HYPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="HYCamera.h">
+      <Filter>08. Component\08. Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -189,7 +228,6 @@
     <ClCompile Include="HYLevel.cpp">
       <Filter>05. Level</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp" />
     <ClCompile Include="HYKeyMgr.cpp">
       <Filter>04. Manager\KeyMgr</Filter>
     </ClCompile>
@@ -228,6 +266,24 @@
     </ClCompile>
     <ClCompile Include="HYMeshRender.cpp">
       <Filter>08. Component\RenderComponent\01. MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="HYLevelMgr.cpp">
+      <Filter>04. Manager\LevelMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYAssetMgr.cpp">
+      <Filter>04. Manager\AssetMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYLayer.cpp">
+      <Filter>05. Level</Filter>
+    </ClCompile>
+    <ClCompile Include="HYScript.cpp">
+      <Filter>08. Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="HYPlayerScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYCamera.cpp">
+      <Filter>08. Component\08. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,10 +8,10 @@ private:
     
     Vec3    m_vRelativePos;             // 위치
     Vec3    m_vRelativeScale;           // 크기
-    Vec3    m_vRealtiveRotation;        // 회전량
+    Vec3    m_vRealtiveRotation;        // 회전량(회전 상태)
     Vec3    m_arrDir[3];                // 물체의 방향 정보(Right, Up, Front)
 
-    Matrix  m_matWorld;                 // 물체의 상태 행렬
+    Matrix  m_matWorld;                 // 물체의 상태 행렬(변환 이동 행렬)
 
 public:
     // 본인의 위치값을 최종적으로 연산하여 상태값을 가지고 있음
