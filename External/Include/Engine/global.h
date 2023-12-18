@@ -3,6 +3,10 @@
 
 #include <stdlib.h>
 #include <Windows.h>
+
+// template에서 타입을 구분하는 기능을 사용하기 위해 참조
+#include <typeinfo>
+
 #include <string>
 
 #include <vector>

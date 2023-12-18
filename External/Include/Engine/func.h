@@ -1,6 +1,7 @@
 #pragma once
 #pragma once
 
+// 배열 삭제
 template<typename T, UINT SIZE>
 void Delete_Array(T* (&Arr)[SIZE])
 {

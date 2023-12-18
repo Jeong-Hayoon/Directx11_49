@@ -208,6 +208,9 @@
     <ClInclude Include="HYCamera.h">
       <Filter>08. Component\08. Camera</Filter>
     </ClInclude>
+    <ClInclude Include="HYCameraMoveScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -284,6 +287,12 @@
     </ClCompile>
     <ClCompile Include="HYCamera.cpp">
       <Filter>08. Component\08. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="extern.cpp">
+      <Filter>01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="HYCameraMoveScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

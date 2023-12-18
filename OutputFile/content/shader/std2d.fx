@@ -9,8 +9,12 @@
 // b0 : 상수 버퍼의 네임
 cbuffer TRANSFORM : register(b0)
 {
-    float4 g_vWorldPos;
-    float4 g_vWorldScale;
+    // row_major : gpu가 메모리를 읽어들이는 방식이 열 기반이라 전치를 해줘야 함
+    // 행우선으로 전치시켜서 우리가 원하는 값으로 보내는 것
+    row_major matrix g_matWorld;
+    row_major matrix g_matView;
+    row_major matrix g_matProj;
+    
 }
 
 // Shader 코드는 리소스처럼 활용이 됨(런타임 도중 실시간으로 컴파일하므로0
@@ -35,21 +39,26 @@ struct VS_OUT
 };
 
 // VS_IN : 입력 구조체 / VS_OUT : 출력 구조체
-// 들어온 값 그대로 출력
 VS_OUT VS_Std2D(VS_IN _in)
 {
     VS_OUT output = (VS_OUT)0.f;
 
-    // 최종 좌표는 Scale 조절을 먼저하고 좌표 이동을 하게 됨
-    float2 vFinalPos = _in.vPos.xy * g_vWorldScale.xy + g_vWorldPos.xy;
+    // mul : hlsl에서 좌표와 벡터에 행렬을 곱해주는 함수
+    // float4(_in.vPos, 1.f) : float3로 들어온 값을 동차 좌표계로 변환(기타 생성자)
+    // 로컬 좌표계 -> 월드 좌표계로 한 번에 변환(월드 변환)
+    // output.vPosition = mul(float4(_in.vPos, 1.f), g_matWorld);
     
-    output.vPosition = float4(vFinalPos, 0.f, 1.f);
-    
-    // output.vPosition = float4(_in.vPos.xy, 0.f, 1.f);
+    // 로컬(모델) 좌표를 -> 월드 -> 뷰 -> 투영 좌표계로 순차적으로 변환
+    // g_matWorld : 월드 좌표계로 변환
+    float4 vWorldPos = mul(float4(_in.vPos, 1.f), g_matWorld);
+    float4 vViewPos = mul(vWorldPos, g_matView);
+    float4 vProjPos = mul(vWorldPos, g_matProj);
+            
+    output.vPosition = vProjPos;
     output.vColor = _in.vColor;
     output.vUV = _in.vUV;
     
-
+ 
     return output;
 }
 

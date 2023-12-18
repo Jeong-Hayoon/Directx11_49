@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 // 앞으로 구조체 타입 앞에 t
 
 // 3차원 공간에 배치되는 정점
@@ -27,4 +28,8 @@ struct tTransform
 	// 정보가 들어옴
 
 	Matrix	matWorld;
+	Matrix	matView;
+	Matrix	matProj;
 };
+
+extern tTransform g_Transform;

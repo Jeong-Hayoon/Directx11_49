@@ -8,9 +8,10 @@ class HYRenderComponent :
     public HYComponent
 {
 private:
+    // 물체의 모양
     HYMesh* m_Mesh;
+    // m_Mesh를 이용하여 파이프라인을 하기 위한 객체
     HYGraphicsShader* m_Shader;
-
 
 public:
     void SetMesh(HYMesh* _Mesh) { m_Mesh = _Mesh; }

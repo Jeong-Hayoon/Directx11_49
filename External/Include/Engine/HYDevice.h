@@ -43,7 +43,7 @@ private:
 	HWND							m_hRenderWnd;
 	Vec2							m_vRenderResolution;
 
-	HYConstBuffer* m_arrCB[(UINT)CB_TYPE::END];
+	HYConstBuffer*					m_arrCB[(UINT)CB_TYPE::END];
 
 public:
 	int init(HWND _hWnd, Vec2 _vResolution);

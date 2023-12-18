@@ -8,6 +8,7 @@
 #include "HYGameObject.h"
 #include "components.h"
 #include "HYPlayerScript.h"
+#include "HYCameraMoveScript.h"
 		  
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
@@ -27,6 +28,17 @@ void HYLevelMgr::init()
 {
 	// 초기 레벨 구성하기
 	m_CurLevel = new HYLevel;
+
+	// Camera Object 생성 -> 카메라 기능 수행
+	HYGameObject* pCamObj = new HYGameObject;
+	pCamObj->AddComponent(new HYTransform);
+	pCamObj->AddComponent(new HYCamera);
+	pCamObj->AddComponent(new HYCameraMoveScript);
+
+	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
+	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	m_CurLevel->AddObject(pCamObj, 0);
 
 	// GameObject 생성
 	HYGameObject* pObj = nullptr;

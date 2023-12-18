@@ -8,7 +8,10 @@ private:
     
     Vec3    m_vRelativePos;             // 위치
     Vec3    m_vRelativeScale;           // 크기
-    Vec3    m_vRealtiveRotation;        // 회전량(회전 상태)
+    Vec3    m_vRealtiveRotation;        // 각 축별의 회전량(회전 상태)
+
+    // m_arrDir - m_vRealtiveRotation가 0,0,0인 기본값일 때(회전하지 않은 상태)
+    // m_arrDir는 기저벡터로 월드의 축과 일치시켜 놓음
     Vec3    m_arrDir[3];                // 물체의 방향 정보(Right, Up, Front)
 
     Matrix  m_matWorld;                 // 물체의 상태 행렬(변환 이동 행렬)

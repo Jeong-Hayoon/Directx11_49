@@ -21,7 +21,7 @@ HYEngine::HYEngine()
 
 HYEngine::~HYEngine()
 {
-	TestRelease();
+	
 }
 
 int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
