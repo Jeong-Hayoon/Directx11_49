@@ -10,6 +10,8 @@ class HYComponent;
 class HYRenderComponent;
 
 class HYScript;
+class HYCamera;
+
 
 // 하나의 오브젝트를 부르는 단위
 class HYGameObject :
@@ -45,6 +47,8 @@ public:
 
     GET_COMPONENT(Transform, TRANSFORM);
     GET_COMPONENT(MeshRender, MESHRENDER);
+    GET_COMPONENT(Camera, CAMERA);
+
 
 
 public:

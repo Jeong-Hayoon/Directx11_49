@@ -33,6 +33,7 @@ public:
 
     GET_OTHER_COMPONENT(Transform);
     GET_OTHER_COMPONENT(MeshRender);
+    GET_OTHER_COMPONENT(Camera);
 
 public:
     HYComponent(COMPONENT_TYPE _Type);

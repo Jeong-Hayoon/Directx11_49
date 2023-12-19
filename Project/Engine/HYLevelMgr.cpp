@@ -50,8 +50,8 @@ void HYLevelMgr::init()
 	pObj->AddComponent(new HYMeshRender);
 	pObj->AddComponent(new HYPlayerScript);
 
-	pObj->Transform()->SetRelativePos(Vec3(-0.5f, 0.f, 0.f));
-	pObj->Transform()->SetRelativeScale(Vec3(0.5f, 0.5f, 0.5f));
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
+	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetShader(HYAssetMgr::GetInst()->FindAsset<HYGraphicsShader>(L"Std2DShader"));

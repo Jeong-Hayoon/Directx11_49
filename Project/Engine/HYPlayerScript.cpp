@@ -3,7 +3,7 @@
 
 
 HYPlayerScript::HYPlayerScript()
-	: m_Speed(2.f)
+	: m_Speed(1000.f)
 {
 }
 
@@ -16,22 +16,22 @@ void HYPlayerScript::tick()
 	Vec3 vPos = Transform()->GetRelativePos();
 	Vec3 vRot = Transform()->GetRelativeRotation();
 
-	if (KEY_PRESSED(KEY::W))
+	if (KEY_PRESSED(KEY::UP))
 	{
-		vPos.y += DT * m_Speed;
+		vPos.z += DT * m_Speed;
 	}
 
-	if (KEY_PRESSED(KEY::S))
+	if (KEY_PRESSED(KEY::DOWN))
 	{
-		vPos.y -= DT * m_Speed;
+		vPos.z -= DT * m_Speed;
 	}
 
-	if (KEY_PRESSED(KEY::A))
+	if (KEY_PRESSED(KEY::LEFT))
 	{
 		vPos.x -= DT * m_Speed;
 	}
 
-	if (KEY_PRESSED(KEY::D))
+	if (KEY_PRESSED(KEY::RIGHT))
 	{
 		vPos.x += DT * m_Speed;
 	}
@@ -50,6 +50,7 @@ void HYPlayerScript::tick()
 	{
 		vRot.z += DT * XM_PI;
 	}
+
 
 	Transform()->SetRelativePos(vPos);
 	Transform()->SetRelativeRotation(vRot);

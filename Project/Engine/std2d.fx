@@ -52,7 +52,7 @@ VS_OUT VS_Std2D(VS_IN _in)
     // g_matWorld : 월드 좌표계로 변환
     float4 vWorldPos = mul(float4(_in.vPos, 1.f), g_matWorld);
     float4 vViewPos = mul(vWorldPos, g_matView);
-    float4 vProjPos = mul(vWorldPos, g_matProj);
+    float4 vProjPos = mul(vViewPos, g_matProj);
             
     output.vPosition = vProjPos;
     output.vColor = _in.vColor;
