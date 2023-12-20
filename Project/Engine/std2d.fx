@@ -67,10 +67,12 @@ VS_OUT VS_Std2D(VS_IN _in)
 // 어떤 값이든 정점에서 리턴시킨 값이 픽셀로 들어올 떄에 
 // 정점의 위치(거리0에 따른 선형 보간이 된 값이 
 // Pixel Shader의 입력으로 들어옴
+// SV_Target : 반환 타입을 설명해주는 시멘틱 -> 타겟의 의미는 랜더 타겟
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
     // return float4(1.f, 0.f, 0.f, 1.f); -> 빨간색으로 세팅
     
+    _in.vColor.a = 0.5f;
     return _in.vColor;    
     
 }

@@ -7,6 +7,9 @@
 HYGraphicsShader::HYGraphicsShader()
 	: HYShader(ASSET_TYPE::GRAPHICS_SHADER)
 	, m_Topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	, m_RSType(RS_TYPE::CULL_BACK)
+	, m_DSType(DS_TYPE::LESS)
+	, m_BSType(BS_TYPE::DEFAULT)
 {
 }
 
@@ -120,6 +123,10 @@ void HYGraphicsShader::UpdateData()
 {
 	CONTEXT->IASetInputLayout(m_Layout.Get());
 	CONTEXT->IASetPrimitiveTopology(m_Topology);
+
+	CONTEXT->RSSetState(HYDevice::GetInst()->GetRSState(m_RSType).Get());
+	CONTEXT->OMSetDepthStencilState(HYDevice::GetInst()->GetDSState(m_DSType).Get(), 0);
+	CONTEXT->OMSetBlendState(HYDevice::GetInst()->GetBSState(m_BSType).Get(), nullptr, 0xffffffff);
 
 	// 이렇게 세팅해놓은 이유는 이렇게 해놔야 파이프라인 단계별로
 	// 할 것들이 잘 전달이 되고 만약 안쓰는 Shader더라도 nullptr로

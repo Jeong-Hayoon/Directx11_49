@@ -7,6 +7,9 @@
 HYDevice::HYDevice()
 	: m_hRenderWnd(nullptr)
 	, m_arrCB{}
+	, m_arrRS{}
+	, m_arrDS{}
+	, m_arrBS{}
 {
 
 }
@@ -56,6 +59,24 @@ int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
 	if (FAILED(CreateTargetView()))
 	{
 		MessageBox(nullptr, L"타겟 및 View 생성 실패", L"Device 초기화 실패", MB_OK);
+		return E_FAIL;
+	}
+
+	if (FAILED(CreateRasterizerState()))
+	{
+		MessageBox(nullptr, L"Rasterizer State 생성 실패", L"Device 초기화 실패", MB_OK);
+		return E_FAIL;
+	}
+
+	if (FAILED(CreateDepthStencilState()))
+	{
+		MessageBox(nullptr, L"DepthStencil State 생성 실패", L"Device 초기화 실패", MB_OK);
+		return E_FAIL;
+	}
+
+	if (FAILED(CreateBlendState()))
+	{
+		MessageBox(nullptr, L"Blend State 생성 실패", L"Device 초기화 실패", MB_OK);
 		return E_FAIL;
 	}
 
@@ -224,6 +245,8 @@ int HYDevice::CreateTargetView()
 	D3D11_TEXTURE2D_DESC Desc = {};
 
 	// 픽셀 포맷은 Depth 3byte, Stencil 1byte(픽셀 하나당 4byte)
+	// 깊이 텍스처의 픽셀 하나는 4byte인데 3byte - 부동 소수점 실수값 저장(0~1 실수)
+	// 1byte - Stencil 용도(0~255)
 	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
 	// DepthStencilState 텍스쳐 해상도는 반드시 RenderTargetTexture 와 동일해야한다.
@@ -260,6 +283,124 @@ int HYDevice::CreateTargetView()
 
 	// OM(Output Merge State) 에 RenderTargetTexture 와 DepthStencilTexture 를 전달한다.
 	m_Context->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSView.Get());
+
+	return S_OK;
+}
+
+
+int HYDevice::CreateRasterizerState()
+{
+	// CULL_BACK은 Default 옵션이기 때문에 nullptr을 넣어주면 자동으로 지정됨
+	m_arrRS[(UINT)RS_TYPE::CULL_BACK] = nullptr;
+
+	HRESULT result = S_OK;
+
+	D3D11_RASTERIZER_DESC tDesc = {};
+
+	// Rasterizer State 모드 생성
+	tDesc.CullMode = D3D11_CULL_FRONT;
+	tDesc.FillMode = D3D11_FILL_SOLID;
+	result = DEVICE->CreateRasterizerState(&tDesc, m_arrRS[(UINT)RS_TYPE::CULL_FRONT].GetAddressOf());
+	if (FAILED(result))
+		return E_FAIL;
+
+	tDesc.CullMode = D3D11_CULL_NONE;
+	tDesc.FillMode = D3D11_FILL_SOLID;
+	result = DEVICE->CreateRasterizerState(&tDesc, m_arrRS[(UINT)RS_TYPE::CULL_NONE].GetAddressOf());
+	if (FAILED(result))
+		return E_FAIL;
+
+	tDesc.CullMode = D3D11_CULL_NONE;
+	tDesc.FillMode = D3D11_FILL_WIREFRAME;
+	result = DEVICE->CreateRasterizerState(&tDesc, m_arrRS[(UINT)RS_TYPE::WIRE_FRAME].GetAddressOf());
+	if (FAILED(result))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+int HYDevice::CreateDepthStencilState()
+{
+	HRESULT hr = S_OK;
+
+	// LESS가 Default 옵션
+	m_arrDS[(UINT)DS_TYPE::LESS] = nullptr;
+
+	D3D11_DEPTH_STENCIL_DESC tDesc = {};
+
+	// Less Equal
+	tDesc.DepthEnable = true;							// 깊이 판정 사용 여부
+	tDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;		// 깊이 비교 옵션
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;	// 깊이를 쓸 경우 기록 여부
+	tDesc.StencilEnable = false;	
+
+	hr = DEVICE->CreateDepthStencilState(&tDesc, m_arrDS[(UINT)DS_TYPE::LESS_EQUAL].GetAddressOf());
+	if (FAILED(hr)) return E_FAIL;
+
+	// Greater
+	tDesc.DepthEnable = true;
+	tDesc.DepthFunc = D3D11_COMPARISON_GREATER;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	tDesc.StencilEnable = false;
+	hr = DEVICE->CreateDepthStencilState(&tDesc, m_arrDS[(UINT)DS_TYPE::GRATER].GetAddressOf());
+	if (FAILED(hr)) return E_FAIL;
+
+	// Greater Equal
+	tDesc.DepthEnable = true;
+	tDesc.DepthFunc = D3D11_COMPARISON_GREATER_EQUAL;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	tDesc.StencilEnable = false;
+	hr = DEVICE->CreateDepthStencilState(&tDesc, m_arrDS[(UINT)DS_TYPE::GRATER_EQUAL].GetAddressOf());
+	if (FAILED(hr)) return E_FAIL;
+
+	// No Test
+	tDesc.DepthEnable = false;
+	tDesc.DepthFunc = D3D11_COMPARISON_NEVER;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	tDesc.StencilEnable = false;
+	hr = DEVICE->CreateDepthStencilState(&tDesc, m_arrDS[(UINT)DS_TYPE::NO_TEST].GetAddressOf());
+
+	// No Write
+	tDesc.DepthEnable = true;
+	tDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	tDesc.StencilEnable = false;
+	hr = DEVICE->CreateDepthStencilState(&tDesc, m_arrDS[(UINT)DS_TYPE::NO_WRITE].GetAddressOf());
+	if (FAILED(hr)) return E_FAIL;
+
+	// NoTest NoWrite
+	tDesc.DepthEnable = false;
+	tDesc.DepthFunc = D3D11_COMPARISON_NEVER;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	tDesc.StencilEnable = false;
+	hr = DEVICE->CreateDepthStencilState(&tDesc, m_arrDS[(UINT)DS_TYPE::NO_TEST_NO_WRITE].GetAddressOf());
+	if (FAILED(hr)) return E_FAIL;
+
+	return S_OK;
+}
+
+int HYDevice::CreateBlendState()
+{
+	m_arrBS[(UINT)BS_TYPE::DEFAULT] = nullptr;
+
+	D3D11_BLEND_DESC tDesc = {};
+
+	// AlphaBlend
+	tDesc.AlphaToCoverageEnable = false;
+	tDesc.IndependentBlendEnable = true;
+
+	tDesc.RenderTarget[0].BlendEnable = true;
+	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+	tDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	tDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	tDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+
+	tDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	DEVICE->CreateBlendState(&tDesc, m_arrBS[(UINT)BS_TYPE::ALPHA_BLEND].GetAddressOf());
 
 	return S_OK;
 }
