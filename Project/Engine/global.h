@@ -39,6 +39,15 @@ using namespace DirectX;
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")
 
+// DirectxTex : 텍스처 로딩 관련 라이브러리
+#include <DirectXTex/DirectXTex.h>
+
+#ifdef _DEBUG
+#pragma comment(lib, "DirectXTex\\DirectXTex_debug")
+#else
+#pragma comment(lib, "DirectXTex\\DirectXTex")
+#endif
+
 // SimpleMath
 #include "SimpleMath.h"
 using namespace DirectX::SimpleMath;

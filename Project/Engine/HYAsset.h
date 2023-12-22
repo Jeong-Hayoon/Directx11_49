@@ -27,9 +27,13 @@ private:
 
     ASSET_TYPE GetType() { return m_Type; }
 
+    virtual int Load(const wstring& _strFilePath) { return E_FAIL; }
+
 public:
     // 상속받은 클래스들은 무조건 타입을 입력해줘야 함
     HYAsset(ASSET_TYPE _Type);
     ~HYAsset();
+
+    friend class HYAssetMgr;
 };
 

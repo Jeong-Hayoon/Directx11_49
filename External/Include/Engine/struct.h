@@ -27,9 +27,20 @@ struct tTransform
 	// 받아오는 정보가 분할된 정보가 아닌 하나의 행렬 형태로
 	// 정보가 들어옴
 
+	// inv : 역행렬
 	Matrix	matWorld;
+	Matrix	matWorldInv;
+
 	Matrix	matView;
+	Matrix	matViewInv;
+
 	Matrix	matProj;
+	Matrix	matProjInv;
+
+	// W 월드 행렬 V 뷰행렬 순서대로 미리 곱해놓은 행렬
+	Matrix	matWV;
+	// W 월드 행렬 V 뷰행렬 P 투영행렬을 순서대로 미리 곱해놓은 행렬
+	Matrix	matWVP;
 };
 
 extern tTransform g_Transform;

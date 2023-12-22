@@ -6,12 +6,12 @@ wchar_t HYPathMgr::g_szContent[255] = {};
 
 void HYPathMgr::init()
 {
-	// ì‹¤í–‰íŒŒì¼ ê²½ë¡œ(ìž‘ì—… ë””ë ‰í„°ë¦¬)
+	// ½ÇÇàÆÄÀÏ °æ·Î(ÀÛ¾÷ µð·ºÅÍ¸®)
 	GetCurrentDirectory(255, g_szContent);
 
 	size_t Len = wcslen(g_szContent);
 
-	for (size_t i = Len - 1; i >= 0; --i)
+	for(size_t i = Len - 1; i >= 0; --i)
 	{
 		if ('\\' == g_szContent[i])
 		{

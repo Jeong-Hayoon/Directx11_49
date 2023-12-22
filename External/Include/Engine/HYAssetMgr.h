@@ -2,9 +2,12 @@
 #include "singleton.h"
 #include "HYAsset.h"
 
+#include "HYPathMgr.h"
+         
+#include "HYTexture.h"
+#include "HYMesh.h"
+#include "HYGraphicsShader.h"
 
-class HYMesh;
-class HYGraphicsShader;
 
 class HYAssetMgr :
     public HYSingleton<HYAssetMgr>
@@ -34,6 +37,9 @@ public:
     template<typename T>
     T* FindAsset(const wstring& _strKey);
 
+    template<typename T>
+    T* Load(const wstring& _strKey, const wstring& _strRelativePath);
+
 };
 
 // template의 타입을 알아내는 함수(전역함수)
@@ -49,6 +55,8 @@ ASSET_TYPE GetAssetType()
     // if (info.hash_code() == &typeid(HYMesh).hash_code())
     if (&info == &typeid(HYMesh))
         Type = ASSET_TYPE::MESH;
+    else if (&info == &typeid(HYTexture))
+        Type = ASSET_TYPE::TEXTURE;
     else if (&info == &typeid(HYGraphicsShader))
         Type = ASSET_TYPE::GRAPHICS_SHADER;
 
@@ -82,4 +90,36 @@ inline T* HYAssetMgr::FindAsset(const wstring& _strKey)
     }
 
     return (T*)iter->second;
+}
+
+template<typename T>
+inline T* HYAssetMgr::Load(const wstring& _strKey, const wstring& _strRelativePath)
+{
+    HYAsset* pAsset = FindAsset<T>(_strKey);
+
+    // 로딩할 때 사용할 키로 이미 다른 에셋이 있다면
+    if (nullptr != pAsset)
+    {
+        return (T*)pAsset;
+    }
+
+    wstring strFilePath = HYPathMgr::GetContentPath();
+    strFilePath += _strRelativePath;
+
+    pAsset = new T;
+
+    if (FAILED(pAsset->Load(strFilePath)))
+    {
+        MessageBox(nullptr, L"에셋 로딩 실패", L"에셋 로딩 실패", MB_OK);
+        delete pAsset;
+        return nullptr;
+    }
+
+    // 에셋이 에셋 매니저에 무슨 키로 등록되었고, 어느 경로로부터 로딩되었는지
+    pAsset->SetKey(_strKey);
+    pAsset->SetRelativePath(_strRelativePath);
+
+    AddAsset<T>(_strKey, (T*)pAsset);
+
+    return (T*)pAsset;
 }

@@ -11,11 +11,25 @@ cbuffer TRANSFORM : register(b0)
 {
     // row_major : gpu가 메모리를 읽어들이는 방식이 열 기반이라 전치를 해줘야 함
     // 행우선으로 전치시켜서 우리가 원하는 값으로 보내는 것
-    row_major matrix g_matWorld;
-    row_major matrix g_matView;
-    row_major matrix g_matProj;
+    row_major Matrix g_matWorld;
+    row_major Matrix g_matWorldInv;
+
+    row_major Matrix g_matView;
+    row_major Matrix g_matViewInv;
+
+    row_major Matrix g_matProj;
+    row_major Matrix g_matProjInv;
+
+    row_major Matrix g_matWV;
+    row_major Matrix g_matWVP;
     
 }
+// 이 텍스처에 들어 있는 이미지 색상 정보 = Sample
+Texture2D g_tex_0 : register(t0);
+
+// Sampling : 텍스처 추출
+// Sampler : 텍스처 추출을 위한 도구..?
+SamplerState g_sam_0 : register(s0);
 
 // Shader 코드는 리소스처럼 활용이 됨(런타임 도중 실시간으로 컴파일하므로0
 // 텍스처 좌표 - 좌상단이 (0,0)이고 우하단이 (1,1)인 좌표계
@@ -49,12 +63,8 @@ VS_OUT VS_Std2D(VS_IN _in)
     // output.vPosition = mul(float4(_in.vPos, 1.f), g_matWorld);
     
     // 로컬(모델) 좌표를 -> 월드 -> 뷰 -> 투영 좌표계로 순차적으로 변환
-    // g_matWorld : 월드 좌표계로 변환
-    float4 vWorldPos = mul(float4(_in.vPos, 1.f), g_matWorld);
-    float4 vViewPos = mul(vWorldPos, g_matView);
-    float4 vProjPos = mul(vViewPos, g_matProj);
-            
-    output.vPosition = vProjPos;
+
+    output.vPosition = mul(float4(_in.vPos, 1.f), g_matWVP);
     output.vColor = _in.vColor;
     output.vUV = _in.vUV;
     
@@ -70,10 +80,18 @@ VS_OUT VS_Std2D(VS_IN _in)
 // SV_Target : 반환 타입을 설명해주는 시멘틱 -> 타겟의 의미는 랜더 타겟
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
-    // return float4(1.f, 0.f, 0.f, 1.f); -> 빨간색으로 세팅
+    float4 vColor = g_tex_0.Sample(g_sam_0, _in.vUV);
     
-    _in.vColor.a = 0.5f;
-    return _in.vColor;    
+    //if (vColor.a <= 0.1f)
+    //{
+    //    vColor.rgba = float4(1.f, 0.f, 0.f, 1.f);
+    //}
+    
+    //float Aver = (vColor.r + vColor.g + vColor.b) / 3.f;
+    //vColor.rgb = float3(Aver, Aver, Aver);    
+    //vColor.a = 1.f;
+    
+    return vColor;
     
 }
 

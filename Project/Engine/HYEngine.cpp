@@ -32,7 +32,7 @@ int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
 	// 해상도 != 윈도우 크기
 	RECT rt = { 0, 0, (int)m_vResolution.x, (int)m_vResolution.y };
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-	SetWindowPos(m_hMainWnd, nullptr, 10.f, 10.f, rt.right - rt.left, rt.bottom - rt.top, 0);
+	SetWindowPos(m_hMainWnd, nullptr, 10, 10, rt.right - rt.left, rt.bottom - rt.top, 0);
 
 	// FAILED 매크로 : 인자가 음수면 실패, 양수면 성공
 	// E_FAIL : 음수

@@ -85,10 +85,10 @@ HYKeyMgr::~HYKeyMgr()
 
 void HYKeyMgr::init()
 {
-	// Capaticy ë¥¼ ë¯¸ë¦¬ í™•ë³´
+	// Capaticy ¸¦ ¹Ì¸® È®º¸
 	m_vecKeyData.reserve(KEY::KEY_END);
 
-	// ë°ì´í„° ê°œìˆ˜ë¥¼ ëŠ˜ë¦¼
+	// µ¥ÀÌÅÍ °³¼ö¸¦ ´Ã¸²
 	//m_vecKeyData.resize(KEY::KEY_END);
 
 	for (UINT i = 0; i < KEY_END; ++i)
@@ -123,15 +123,15 @@ void HYKeyMgr::tick()
 		{
 			if (GetAsyncKeyState(g_KeySync[m_vecKeyData[i].eKey]) & 0x8001)
 			{
-				// ì´ë²ˆ í”„ë ˆì„ì— í•´ë‹¹ í‚¤ê°€ ëˆŒë ¤ìˆë‹¤.
+				// ÀÌ¹ø ÇÁ·¹ÀÓ¿¡ ÇØ´ç Å°°¡ ´­·ÁÀÖ´Ù.
 				if (m_vecKeyData[i].bPressed)
 				{
-					// ì´ì „ì—ë„ ëˆŒë ¤ìˆì—ˆë‹¤ ==> ê³„ì† ëˆŒë¦¼ ìƒíƒœ
+					// ÀÌÀü¿¡µµ ´­·ÁÀÖ¾ú´Ù ==> °è¼Ó ´­¸² »óÅÂ
 					m_vecKeyData[i].eState = PRESSED;
 				}
 				else
 				{
-					// ì´ì „ì—ëŠ” ëˆŒë ¤ìˆì§€ ì•Šì•˜ë‹¤ ==> ë§‰ ëˆŒë¦¼ ìƒíƒœ
+					// ÀÌÀü¿¡´Â ´­·ÁÀÖÁö ¾Ê¾Ò´Ù ==> ¸· ´­¸² »óÅÂ
 					m_vecKeyData[i].eState = TAP;
 				}
 
@@ -139,10 +139,10 @@ void HYKeyMgr::tick()
 			}
 			else
 			{
-				// ì´ë²ˆ í”„ë ˆì„ì— í•´ë‹¹í‚¤ëŠ” ì•ˆ ëˆŒë ¤ ìˆë‹¤
+				// ÀÌ¹ø ÇÁ·¹ÀÓ¿¡ ÇØ´çÅ°´Â ¾È ´­·Á ÀÖ´Ù
 				if (m_vecKeyData[i].bPressed)
 				{
-					// ì´ì „ í”„ë ˆì„ì—ëŠ” ëˆŒë ¤ ìˆì—ˆë‹¤ ==> ë§‰ ë—Œ
+					// ÀÌÀü ÇÁ·¹ÀÓ¿¡´Â ´­·Á ÀÖ¾ú´Ù ==> ¸· ¶À
 					m_vecKeyData[i].eState = RELEASED;
 				}
 				else
@@ -154,7 +154,7 @@ void HYKeyMgr::tick()
 			}
 		}
 
-		// ë§ˆìš°ìŠ¤ ì¢Œí‘œ ê³„ì‚°
+		// ¸¶¿ì½º ÁÂÇ¥ °è»ê
 		m_vMousePrevPos = m_vMousePos;
 
 		POINT pt = {};
@@ -162,7 +162,7 @@ void HYKeyMgr::tick()
 		ScreenToClient(HYEngine::GetInst()->GetMainWind(), &pt);
 		m_vMousePos = Vec2((float)pt.x, (float)pt.y);
 
-		// ë§ˆìš°ìŠ¤ ì´ë™ ë°©í–¥
+		// ¸¶¿ì½º ÀÌµ¿ ¹æÇâ
 		m_vMouseDrag = m_vMousePos - m_vMousePrevPos;
 	}
 }

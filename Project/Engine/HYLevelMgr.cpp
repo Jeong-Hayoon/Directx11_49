@@ -12,6 +12,8 @@
 		  
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
+#include "HYTexture.h"
+
 
 HYLevelMgr::HYLevelMgr()
 	: m_CurLevel(nullptr)
@@ -28,6 +30,14 @@ void HYLevelMgr::init()
 {
 	// 초기 레벨 구성하기
 	m_CurLevel = new HYLevel;
+
+	// 텍스처 생성
+	HYTexture* pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\Character.png");
+
+	if (nullptr != pTex)
+	{
+		pTex->UpdateData(0);
+	}
 
 	// Camera Object 생성 -> 카메라 기능 수행
 	HYGameObject* pCamObj = new HYGameObject;

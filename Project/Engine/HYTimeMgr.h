@@ -5,7 +5,7 @@ class HYTimeMgr
 {
 	SINGLE(HYTimeMgr);
 private:
-	// Larget Integer ëŠ” ê·¸ëƒ¥ 8ë°”ì´íŠ¸ long long íƒ€ì… ì •ìˆ˜ë¡œ ì·¨ê¸‰
+	// Larget Integer ´Â ±×³É 8¹ÙÀÌÆ® long long Å¸ÀÔ Á¤¼ö·Î Ãë±Ş
 	LARGE_INTEGER	m_Frequency;
 	LARGE_INTEGER	m_PrevCount;
 	LARGE_INTEGER	m_CurCount;

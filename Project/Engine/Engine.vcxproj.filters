@@ -101,14 +101,17 @@
     <Filter Include="06. Asset\MeshData">
       <UniqueIdentifier>{a682a170-e704-4e0a-848d-8531422601f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Asset\Sound">
-      <UniqueIdentifier>{3e3f5e53-d8b8-4972-980d-d853e05915b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. Component\Script">
       <UniqueIdentifier>{8334604e-7f6b-477e-a259-6976daf859c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scripts">
       <UniqueIdentifier>{e91911b5-4296-468a-b4b4-c94342d0fbb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Texture">
+      <UniqueIdentifier>{8dbc7344-00ad-442c-963f-0948afe8a44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Sound">
+      <UniqueIdentifier>{3e3f5e53-d8b8-4972-980d-d853e05915b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +214,9 @@
     <ClInclude Include="HYCameraMoveScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="HYTexture.h">
+      <Filter>06. Asset\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -293,6 +299,9 @@
     </ClCompile>
     <ClCompile Include="HYCameraMoveScript.cpp">
       <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYTexture.cpp">
+      <Filter>06. Asset\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

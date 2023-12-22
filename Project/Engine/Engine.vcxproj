@@ -73,9 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <ExternalIncludePath>$(SolutionDir)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
+    <ExternalIncludePath>$(SolutionDir)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -181,6 +185,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYRenderComponent.h" />
     <ClInclude Include="HYScript.h" />
     <ClInclude Include="HYShader.h" />
+    <ClInclude Include="HYTexture.h" />
     <ClInclude Include="HYTimeMgr.h" />
     <ClInclude Include="HYTransform.h" />
     <ClInclude Include="pch.h" />
@@ -216,6 +221,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYRenderComponent.cpp" />
     <ClCompile Include="HYScript.cpp" />
     <ClCompile Include="HYShader.cpp" />
+    <ClCompile Include="HYTexture.cpp" />
     <ClCompile Include="HYTimeMgr.cpp" />
     <ClCompile Include="HYTransform.cpp" />
     <ClCompile Include="pch.cpp">
