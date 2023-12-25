@@ -19,15 +19,21 @@ class HYGameObject :
 {
 private:
     // Component를 고정숫자로 배열을 관리할 것임
-    HYComponent* m_arrCom[(UINT)COMPONENT_TYPE::END];
+    HYComponent*            m_arrCom[(UINT)COMPONENT_TYPE::END];
 
     // AddComponent에서 들어온 Component가 RenderComponent 종류이면
     // m_RenderCom로 가리킴
-    HYRenderComponent* m_RenderCom;
+    HYRenderComponent*      m_RenderCom;
 
     // Script는 GameObject에서 Component 배열안에 넣지 않고 벡터로 관리
     // (GameObject가 Script를 여러 개 가질 수 있기 때문에)
-    vector<HYScript*>    m_vecScript;
+    vector<HYScript*>       m_vecScript;
+
+    // 자식 오브젝트 보유
+    vector<HYGameObject*>   m_vecChild;
+
+    // 자식 오브젝트도 부모 오브젝트를 알아야 함, m_Parent가 nullptr이면 부모가 없음
+    HYGameObject*           m_Parent;
 
 
 public:
@@ -49,7 +55,10 @@ public:
     GET_COMPONENT(MeshRender, MESHRENDER);
     GET_COMPONENT(Camera, CAMERA);
 
-
+    HYGameObject* GetParent() { return m_Parent; }
+    void DisconnectWithParent();
+    // 자식 오브젝트를 넣어주는 함수
+    void AddChild(HYGameObject* _Child);
 
 public:
     HYGameObject();

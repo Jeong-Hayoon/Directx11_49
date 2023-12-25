@@ -91,6 +91,8 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     //vColor.rgb = float3(Aver, Aver, Aver);    
     //vColor.a = 1.f;
     
+    //vColor.rgb *= 1.5f; => Blend State 때문에 약해진 색을 더 진하게
+    
     return vColor;
     
 }

@@ -9,6 +9,7 @@
 HYGameObject::HYGameObject()
 	: m_arrCom{}
 	, m_RenderCom(nullptr)
+	, m_Parent(nullptr)
 {
 }
 
@@ -18,6 +19,12 @@ HYGameObject::~HYGameObject()
 	// <m_arrCom, 14>Delete_Array(m_arrCom*[14])
 	// template이라 알아서 매칭이 됨
 	Delete_Array(m_arrCom);
+	Delete_Vec(m_vecScript);
+
+	// Layer이 지워질 때는 Layer가 소유하고 있던 
+	// 부모 오브젝트들을 Delete하고 GameObject에서
+	// 자식 오브젝트들을 Delete
+	Delete_Vec(m_vecChild);
 }
 
 void HYGameObject::begin()
@@ -28,6 +35,11 @@ void HYGameObject::begin()
 		{
 			m_arrCom[i]->begin();
 		}
+	}
+
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->begin();
 	}
 }
 
@@ -45,6 +57,11 @@ void HYGameObject::tick()
 	for (size_t i = 0; i < m_vecScript.size(); ++i)
 	{
 		m_vecScript[i]->tick();
+	}
+
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->tick();
 	}
 }
 
@@ -65,6 +82,10 @@ void HYGameObject::finaltick()
 	// Script는 기본 Component가 아닌 추가 기능이기 때문에
 	// finaltick은 호출하지 않음(finaltick은 기본 Component의 마무리 작업이므로)
 	
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->finaltick();
+	}
 }
 
 // render 함수는 Component 중 Render Component를 
@@ -74,6 +95,11 @@ void HYGameObject::render()
 	if (nullptr != m_RenderCom)
 	{
 		m_RenderCom->render();
+	}
+
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->render();
 	}
 }
 
@@ -118,4 +144,37 @@ void HYGameObject::AddComponent(HYComponent* _Comonent)
 			m_RenderCom = pRenderCom;
 		}
 	}
+}
+
+
+void HYGameObject::DisconnectWithParent()
+{
+	vector<HYGameObject*>::iterator iter = m_Parent->m_vecChild.begin();
+	for (; iter != m_Parent->m_vecChild.end(); ++iter)
+	{
+		if (*iter == this)
+		{
+			m_Parent->m_vecChild.erase(iter);
+			m_Parent = nullptr;
+			return;
+		}
+	}
+
+	// 부모가 없는 오브젝트에 DisconnectWithParent 함수를 호출 했거나
+	// 부모는 자식을 가리키기지 않고 있는데, 자식은 부모를 가리키고 있는 경우
+	assert(nullptr);
+}
+
+void HYGameObject::AddChild(HYGameObject* _Child)
+{
+	// 이미 부모가 있었다면
+	if (_Child->m_Parent)
+	{
+		// 이전 부모 오브젝트랑 연결 해제
+		_Child->DisconnectWithParent();
+	}
+
+	// 부모 자식 연결
+	_Child->m_Parent = this;
+	m_vecChild.push_back(_Child);
 }

@@ -17,6 +17,7 @@ public:
     const wstring& GetRelativePath() { return m_RelativePath; }
 
 private:
+  
     void SetKey(const wstring& _Key) { m_Key = _Key; }
     void SetRelativePath(const wstring& _RelativePath) { m_RelativePath = _RelativePath; }
 

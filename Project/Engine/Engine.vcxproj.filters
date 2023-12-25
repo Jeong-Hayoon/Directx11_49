@@ -38,9 +38,6 @@
     <Filter Include="04. Manager\TimeMgr">
       <UniqueIdentifier>{9446e728-3b48-4a38-bcd9-104f4f128dc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Asset">
-      <UniqueIdentifier>{dc5ac5f6-fe5a-42e2-9d2a-1157cc5eefa3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. GameObject">
       <UniqueIdentifier>{9810d4fd-1705-4d53-a705-54feedd499bc}</UniqueIdentifier>
     </Filter>
@@ -61,18 +58,6 @@
     </Filter>
     <Filter Include="08. Component\08. Camera">
       <UniqueIdentifier>{0e6f1a77-d8d7-43d8-a85a-48bfec3a17a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06. Asset\Mesh">
-      <UniqueIdentifier>{0f21e1f2-4c14-4b20-8e53-73bb89e26c1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06. Asset\Shader">
-      <UniqueIdentifier>{c11c5139-1493-41f2-a41c-5fb63a7dd7fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06. Asset\Shader\ComputeShader">
-      <UniqueIdentifier>{950dc33d-24c1-4bb2-910a-9cdf1eb4a78a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06. Asset\Shader\GraphicsShader">
-      <UniqueIdentifier>{5249228d-036d-4385-a083-6c5253fe5eca}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Device\ConstBuffer">
       <UniqueIdentifier>{5cce5788-888b-4100-9523-85a05814f3b4}</UniqueIdentifier>
@@ -95,17 +80,32 @@
     <Filter Include="04. Manager\LevelMgr">
       <UniqueIdentifier>{d9a86a63-5729-4456-9bd7-d5c87fc53b81}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Asset\Material">
-      <UniqueIdentifier>{e04200ca-f46f-43aa-a642-916460bf2f56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06. Asset\MeshData">
-      <UniqueIdentifier>{a682a170-e704-4e0a-848d-8531422601f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. Component\Script">
       <UniqueIdentifier>{8334604e-7f6b-477e-a259-6976daf859c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scripts">
       <UniqueIdentifier>{e91911b5-4296-468a-b4b4-c94342d0fbb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset">
+      <UniqueIdentifier>{dc5ac5f6-fe5a-42e2-9d2a-1157cc5eefa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Mesh">
+      <UniqueIdentifier>{0f21e1f2-4c14-4b20-8e53-73bb89e26c1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Shader">
+      <UniqueIdentifier>{c11c5139-1493-41f2-a41c-5fb63a7dd7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Shader\ComputeShader">
+      <UniqueIdentifier>{950dc33d-24c1-4bb2-910a-9cdf1eb4a78a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Shader\GraphicsShader">
+      <UniqueIdentifier>{5249228d-036d-4385-a083-6c5253fe5eca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\Material">
+      <UniqueIdentifier>{e04200ca-f46f-43aa-a642-916460bf2f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\MeshData">
+      <UniqueIdentifier>{a682a170-e704-4e0a-848d-8531422601f7}</UniqueIdentifier>
     </Filter>
     <Filter Include="06. Asset\Texture">
       <UniqueIdentifier>{8dbc7344-00ad-442c-963f-0948afe8a44e}</UniqueIdentifier>

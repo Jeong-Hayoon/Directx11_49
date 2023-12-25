@@ -7,6 +7,7 @@
 HYTransform::HYTransform()
 	: HYComponent(COMPONENT_TYPE::TRANSFORM)
 	, m_vRelativeScale(Vec3(1.f, 1.f, 1.f))
+	, m_bAbsolute(true)
 {
 }
 
@@ -37,9 +38,9 @@ void HYTransform::finaltick()
 	m_matWorld = matScale * matRotX * matRotY * matRotZ * matTranslation;
 
 	// 물체의 방향값을 다시 계산한다.
-	m_arrDir[(UINT)DIR_TYPE::RIGHT] = Vec3(1.f, 0.f, 0.f);
-	m_arrDir[(UINT)DIR_TYPE::UP] = Vec3(0.f, 1.f, 0.f);
-	m_arrDir[(UINT)DIR_TYPE::FRONT] = Vec3(0.f, 0.f, 1.f);
+	m_arrLocalDir[(UINT)DIR_TYPE::RIGHT] = Vec3(1.f, 0.f, 0.f);
+	m_arrLocalDir[(UINT)DIR_TYPE::UP] = Vec3(0.f, 1.f, 0.f);
+	m_arrLocalDir[(UINT)DIR_TYPE::FRONT] = Vec3(0.f, 0.f, 1.f);
 
 	// Vec3 를 Vec4 타입으로 확장해서 행렬을 적용시켜야 함
 	// XMVector3TransformCoord	- w 를 1로 확장(이동 적용)
@@ -49,8 +50,38 @@ void HYTransform::finaltick()
 	for (int i = 0; i < 3; ++i)
 	{
 		// m_matWorld 행렬에 크기정보가 있을 수 있기 때문에 다시 길이를 1로 정규화 시킨다.
-		m_arrDir[i] = XMVector3TransformNormal(m_arrDir[i], m_matWorld);
-		m_arrDir[i].Normalize();
+		m_arrLocalDir[i] = XMVector3TransformNormal(m_arrLocalDir[i], m_matWorld);
+		m_arrWorldDir[i] = m_arrLocalDir[i].Normalize();
+
+	}
+
+	// 부모 오브젝트가 있다면
+	if (GetOwner()->GetParent())
+	{
+		const Matrix& matParentWorld = GetOwner()->GetParent()->Transform()->GetWorldMat();
+
+		if (m_bAbsolute)
+		{
+			// 절대 단위 적용을 위해 부모 오브젝트의 Scale을 가져옴
+			Vec3 vParentScale = GetOwner()->GetParent()->Transform()->GetRelativeScale();
+
+			// Scale을 통해 크기 행렬을 만들되 단위 행렬이 되도록 역수로 만듦
+			Matrix matParentScaleInv = XMMatrixScaling(1.f / vParentScale.x, 1.f / vParentScale.y, 1.f / vParentScale.z);
+
+			m_matWorld = m_matWorld * matParentScaleInv * matParentWorld;
+		}
+		else
+		{
+			// 자식의 최종 월드행렬
+			m_matWorld *= matParentWorld;
+		}
+
+		for (int i = 0; i < 3; ++i)
+		{
+			// m_matWorld 행렬에 크기정보가 있을 수 있기 때문에 다시 길이를 1로 정규화 시킨다.
+			m_arrWorldDir[i] = XMVector3TransformNormal(m_arrWorldDir[i], m_matWorld);
+			m_arrWorldDir[i].Normalize();
+		}
 	}
 }
 

@@ -116,6 +116,8 @@ enum class BS_TYPE
 
 	ALPHA_BLEND,
 
+	ONE_ZERO,
+
 	ONE_ONE,		// 1대 1 혼합비율 블랜드
 
 	END,

@@ -86,8 +86,8 @@ void HYCameraMoveScript::MovePerspective()
 	Vec3 vPos = Transform()->GetRelativePos();
 
 	// 원근 투영 시 바라보는 방향이 z축일거라는 보장이 없음
-	Vec3 vFront = Transform()->GetDir(DIR_TYPE::FRONT);
-	Vec3 vRight = Transform()->GetDir(DIR_TYPE::RIGHT);
+	Vec3 vFront = Transform()->GetWorldDir(DIR_TYPE::FRONT);
+	Vec3 vRight = Transform()->GetWorldDir(DIR_TYPE::RIGHT);
 	
 	// WS 앞뒤 AD 좌우
 	if (KEY_PRESSED(KEY::W))

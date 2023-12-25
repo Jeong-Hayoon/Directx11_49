@@ -10,11 +10,16 @@ private:
     Vec3    m_vRelativeScale;           // 크기
     Vec3    m_vRealtiveRotation;        // 각 축별의 회전량(회전 상태)
 
-    // m_arrDir - m_vRealtiveRotation가 0,0,0인 기본값일 때(회전하지 않은 상태)
-    // m_arrDir는 기저벡터로 월드의 축과 일치시켜 놓음
-    Vec3    m_arrDir[3];                // 물체의 방향 정보(Right, Up, Front)
+    // m_arrLocalDir - m_vRealtiveRotation가 0,0,0인 기본값일 때(회전하지 않은 상태)
+    // m_arrLocalDir는 기저벡터로 월드의 축과 일치시켜 놓음
+    // m_arrLocalDir는 로컬 스페이스에서 물체만의 자체적인 상태의 방향
+    // m_arrWorldDir는 부모의 영향을 받은 월드 스페이스에서의 최종 방향
+    Vec3    m_arrLocalDir[3];           // 물체의 방향 정보(Right, Up, Front)
+    Vec3    m_arrWorldDir[3];           // Right, Up, Front
 
     Matrix  m_matWorld;                 // 물체의 상태 행렬(변환 이동 행렬)
+
+    bool    m_bAbsolute;                // 절대 단위 : 부모의 크기에 영향을 받지 않도록
 
 public:
     // 본인의 위치값을 최종적으로 연산하여 상태값을 가지고 있음
@@ -35,9 +40,14 @@ public:
     Vec3 GetRelativeScale() { return m_vRelativeScale; }
     Vec3 GetRelativeRotation() { return m_vRealtiveRotation; }
 
+    //Vec3 GetWorldPos();
+
+    void SetAbsolute(bool _bAbsolute) { m_bAbsolute = _bAbsolute; }
+
     const Matrix& GetWorldMat() { return m_matWorld; }
 
-    Vec3 GetDir(DIR_TYPE _type) { return m_arrDir[(UINT)_type]; }
+    Vec3 GetLocalDir(DIR_TYPE _type) { return m_arrLocalDir[(UINT)_type]; }
+    Vec3 GetWorldDir(DIR_TYPE _type) { return m_arrWorldDir[(UINT)_type]; }
 
 public:
     HYTransform();

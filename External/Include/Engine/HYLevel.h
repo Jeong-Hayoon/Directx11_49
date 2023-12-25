@@ -4,7 +4,9 @@
 class HYLayer;
 class HYGameObject;
 
-
+// 자식 오브젝트를 제외하고 부모 오브젝트들만 관리
+// 부모 오브젝트를 호출시키면 부모의 자식 오브젝트를 호출시키면서
+// 부모보다 먼저 호출되는 자식 오브젝트가 없도록 계층 구조 설계
 class HYLevel :
 	public HYEntity
 {

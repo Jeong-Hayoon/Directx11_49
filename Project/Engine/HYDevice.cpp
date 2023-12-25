@@ -385,14 +385,49 @@ int HYDevice::CreateBlendState()
 
 	D3D11_BLEND_DESC tDesc = {};
 
-	// AlphaBlend
+	// ======== AlphaBlend ========
+	// AlphaToCoverage : 물체들이 복잡하게 얽혀있을 때 알파값에 따른 깊이값을 깊이 보정 계산 여부
+	// ex) 수풀, 나뭇잎
 	tDesc.AlphaToCoverageEnable = false;
-	tDesc.IndependentBlendEnable = true;
+	// IndependentBlend : RenderTarget 인덱스 하나에 적용된 옵션이 다른 인덱스에도 적용되게 할지
+	// 출력할 RenderTarget은 최대 8개까지 조합이 가능한데 RenderTarget간에 옵션을 일치시킬지
+	// true면 각각 RenderTarget별로 블랜드 수식 옵션을 주는 것 / false면 일괄 적용
+	tDesc.IndependentBlendEnable = false;
+
+	// BlendEnable : BlendState 사용 여부
+	tDesc.RenderTarget[0].BlendEnable = true;
+	// BlendOp : 두 색상을 더할 때 덧셈으로 옵션 세팅
+	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+	// SrcBlend, DestBlend -> 색상을 더할 때 계수값 설정
+	// SrcBlend : Pixel Shader에서 리턴시킨 값(출력되는 색상)에 SRC_ALPHA가 곱해짐
+	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	// DestBlend : 원래 RenderTarget에 그려진 색상에 INV(1-SRC_ALPHA)를 곱함
+	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+	// ======== 별로 의미없는 부분 ========
+	// 알파끼리는 어떻게 합칠지
+	tDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	// 소스 알파에 들어갈 계수
+	tDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	// 목적지 알파에 들어갈 계수
+	tDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+	// =====================================
+
+	// 출력을 하겠다는 옵션
+	tDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	DEVICE->CreateBlendState(&tDesc, m_arrBS[(UINT)BS_TYPE::ALPHA_BLEND].GetAddressOf());
+
+
+	// ======== ONE_ONE Blend : 검은색 뒷배경을 안보이게 해주는 블랜드 ========
+	tDesc.AlphaToCoverageEnable = false;
+	tDesc.IndependentBlendEnable = false;
 
 	tDesc.RenderTarget[0].BlendEnable = true;
 	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
 
 	tDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 	tDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
@@ -400,7 +435,7 @@ int HYDevice::CreateBlendState()
 
 	tDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
-	DEVICE->CreateBlendState(&tDesc, m_arrBS[(UINT)BS_TYPE::ALPHA_BLEND].GetAddressOf());
+	DEVICE->CreateBlendState(&tDesc, m_arrBS[(UINT)BS_TYPE::ONE_ONE].GetAddressOf());
 
 	return S_OK;
 }

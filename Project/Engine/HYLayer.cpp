@@ -10,7 +10,9 @@ HYLayer::HYLayer()
 
 HYLayer::~HYLayer()
 {
-
+	// Layer이 지워질 때는 Layer가 소유하고 있던 
+	// 부모 오브젝트들을 Delete
+	Delete_Vec(m_vecParent);
 }
 
 void HYLayer::begin()
