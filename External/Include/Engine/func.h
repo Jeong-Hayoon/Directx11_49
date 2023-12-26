@@ -1,5 +1,13 @@
 #pragma once
-#pragma once
+
+class HYGameObject;
+
+namespace GamePlayStatic
+{
+	void SpawnGameObject(HYGameObject* _Target, int _LayerIdx);
+	void DestroyGameObject(HYGameObject* _Target);
+}
+
 
 // 배열 삭제
 template<typename T, UINT SIZE>

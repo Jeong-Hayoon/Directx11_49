@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "HYLevel.h"
 
-#include "pch.h"
-#include "HYLevel.h"
-
 #include "HYLayer.h"
 
 HYLevel::HYLevel()
@@ -12,6 +9,8 @@ HYLevel::HYLevel()
 	for (UINT i = 0; i < LAYER_MAX; ++i)
 	{
 		m_arrLayer[i] = new HYLayer;
+		// Layer를 만들 때 LayerIdx 설정
+		m_arrLayer[i]->m_iLayerIdx = i;
 	}
 }
 
@@ -52,8 +51,16 @@ void HYLevel::render()
 	}
 }
 
-void HYLevel::AddObject(HYGameObject* _Object, int _LayerIdx)
+void HYLevel::AddObject(HYGameObject* _Object, int _LayerIdx, bool _bChildMove)
 {
 	// 지정된 Layer에 GameObject를 넣어줌
-	m_arrLayer[_LayerIdx]->AddObject(_Object);
+	m_arrLayer[_LayerIdx]->AddObject(_Object, _bChildMove);
+}
+
+void HYLevel::clear()
+{
+	for (UINT i = 0; i < LAYER_MAX; ++i)
+	{
+		m_arrLayer[i]->m_vecObjects.clear();
+	}
 }

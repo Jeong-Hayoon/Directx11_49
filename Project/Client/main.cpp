@@ -1,6 +1,7 @@
 ﻿#include "framework.h"
 #include "Client.h"
 
+#include <crtdbg.h>
 
 #include <Engine\global.h>
 #include <Engine\HYEngine.h>
@@ -25,10 +26,14 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-    _In_opt_ HINSTANCE hPrevInstance,
-    _In_ LPWSTR    lpCmdLine,
-    _In_ int       nCmdShow)
+                      _In_opt_ HINSTANCE hPrevInstance,
+                      _In_ LPWSTR    lpCmdLine,
+                      _In_ int       nCmdShow)
 {
+    // 메모리 누수 체크
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetBreakAlloc(433);
+
     MyRegisterClass(hInstance);
 
     // 애플리케이션 초기화를 수행합니다:

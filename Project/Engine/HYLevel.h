@@ -23,9 +23,16 @@ public:
 
 	// Level안에 Layer가 32개가 있으니까 Level에 Object를 넣으려면
 	// 몇 번 레이어에 넣어야 할지 알아야 함
-	void AddObject(HYGameObject* _Object, int _LayerIdx);
+	void AddObject(HYGameObject* _Object, int _LayerIdx, bool _bChildMove = true);
+	HYLayer* GetLayer(int _iLayerIdx) { return m_arrLayer[_iLayerIdx]; }
+
+
+private:
+	void clear();
 
 public:
 	HYLevel();
 	~HYLevel();
+
+	friend class HYLevelMgr;
 };

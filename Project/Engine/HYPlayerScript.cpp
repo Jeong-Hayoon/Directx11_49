@@ -1,9 +1,12 @@
 #include "pch.h"
 #include "HYPlayerScript.h"
+#include "HYAssetMgr.h"
+		 
+#include "HYMissileScript.h"
 
 
 HYPlayerScript::HYPlayerScript()
-	: m_Speed(1000.f)
+	: m_Speed(500.f)
 {
 }
 
@@ -18,12 +21,12 @@ void HYPlayerScript::tick()
 
 	if (KEY_PRESSED(KEY::UP))
 	{
-		vPos.z += DT * m_Speed;
+		vPos.y += DT * m_Speed;
 	}
 
 	if (KEY_PRESSED(KEY::DOWN))
 	{
-		vPos.z -= DT * m_Speed;
+		vPos.y -= DT * m_Speed;
 	}
 
 	if (KEY_PRESSED(KEY::LEFT))
@@ -54,4 +57,25 @@ void HYPlayerScript::tick()
 
 	Transform()->SetRelativePos(vPos);
 	Transform()->SetRelativeRotation(vRot);
+
+	if (KEY_TAP(KEY::SPACE))
+	{
+		// GameObject 생성
+		HYGameObject* pObj = nullptr;
+
+		pObj = new HYGameObject;
+		pObj->SetName(L"Missile");
+		pObj->AddComponent(new HYTransform);
+		pObj->AddComponent(new HYMeshRender);
+		pObj->AddComponent(new HYMissileScript);
+
+		// 위치는 이 Script Component를 소유하고 있는 GameObject의 위치
+		pObj->Transform()->SetRelativePos(Transform()->GetRelativePos());
+		pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+
+		pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+		pObj->MeshRender()->SetShader(HYAssetMgr::GetInst()->FindAsset<HYGraphicsShader>(L"Std2DShader"));
+
+		GamePlayStatic::SpawnGameObject(pObj, 0);
+	}
 }

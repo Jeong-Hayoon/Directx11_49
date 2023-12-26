@@ -8,12 +8,15 @@ class HYLevelMgr :
 {
     SINGLE(HYLevelMgr);
 private:
-    HYLevel* m_CurLevel;
+    HYLevel*        m_CurLevel;
 
 public:
     void init();
 
     void tick();
     void render();
+
+public:
+    HYLevel* GetCurrentLevel() { return m_CurLevel; }
 };
 

@@ -9,6 +9,7 @@
 
 #include "HYAssetMgr.h"
 #include "HYLevelMgr.h"
+#include "HYTaskMgr.h"
 
 // #include "Test.h"
 
@@ -63,5 +64,9 @@ void HYEngine::progress()
 	// Level Update
 	HYLevelMgr::GetInst()->tick();
 	HYLevelMgr::GetInst()->render();
+
+
+	// Task
+	HYTaskMgr::GetInst()->tick();
 
 }

@@ -35,6 +35,10 @@ private:
     // 자식 오브젝트도 부모 오브젝트를 알아야 함, m_Parent가 nullptr이면 부모가 없음
     HYGameObject*           m_Parent;
 
+    // 오브젝트가 소속되어있는 Layer의 Index
+    int                     m_iLayerIdx;    
+
+
 
 public:
     // 본인이 소유하고 있는 모든 Component들에게 
@@ -57,11 +61,16 @@ public:
 
     HYGameObject* GetParent() { return m_Parent; }
     void DisconnectWithParent();
+    void DisconnectWithLayer();
+
     // 자식 오브젝트를 넣어주는 함수
     void AddChild(HYGameObject* _Child);
 
 public:
     HYGameObject();
     ~HYGameObject();
+
+    friend class HYLayer;
+
 };
 

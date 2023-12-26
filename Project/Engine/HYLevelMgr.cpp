@@ -23,7 +23,8 @@ HYLevelMgr::HYLevelMgr()
 
 HYLevelMgr::~HYLevelMgr()
 {
-
+	if (nullptr != m_CurLevel)
+		delete m_CurLevel;
 }
 
 void HYLevelMgr::init()
@@ -66,8 +67,6 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetShader(HYAssetMgr::GetInst()->FindAsset<HYGraphicsShader>(L"Std2DShader"));
 
-	m_CurLevel->AddObject(pObj, 0);
-
 	HYGameObject* pChildObj = new HYGameObject;
 	pChildObj->SetName(L"Child");
 
@@ -84,12 +83,19 @@ void HYLevelMgr::init()
 	// Level은 제일 최상위 부모만 부르고 그 부모가 tick을 받으면
 	// 부모가 자식에게 tick을 줌(벡터롤 관리)
 	pObj->AddChild(pChildObj);
+
+	m_CurLevel->AddObject(pObj, 0);
 }
 
 void HYLevelMgr::tick()
 {
 	if (nullptr == m_CurLevel)
 		return;
+
+	// 이전 프레임에 등록된 오브젝트들 clear
+	// 매 프레임마다 어차피 자기 자신을 실시간으로 등록을 할 것이기 때문에
+	// clear을 해줘야 함(이전 프레임이 다 모여있을 거니까)
+	m_CurLevel->clear();
 
 	m_CurLevel->tick();
 	m_CurLevel->finaltick();
@@ -99,7 +105,6 @@ void HYLevelMgr::render()
 {
 	if (nullptr == m_CurLevel)
 		return;
-
 
 	// 0~255 <-> 0~1 Normalize 
 	// 배경색 초기화

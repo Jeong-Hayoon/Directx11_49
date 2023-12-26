@@ -6,10 +6,15 @@
 
 #include "HYScript.h"
 
+#include "HYLevelMgr.h"
+#include "HYLevel.h"
+#include "HYLayer.h"
+
 HYGameObject::HYGameObject()
 	: m_arrCom{}
 	, m_RenderCom(nullptr)
 	, m_Parent(nullptr)
+	, m_iLayerIdx(-1) // 어떠한 레벨(레이어) 소속되어있지 않은 상태
 {
 }
 
@@ -77,6 +82,10 @@ void HYGameObject::finaltick()
 			m_arrCom[i]->finaltick();
 		}
 	}
+
+	// 자기 자신을 소속 Layer에 등록(부모 자식 상관없이)
+	HYLayer* pCurLayer = HYLevelMgr::GetInst()->GetCurrentLevel()->GetLayer(m_iLayerIdx);
+	pCurLayer->RegisterGameObject(this);
 
 	// Script 호출 안하는 이유
 	// Script는 기본 Component가 아닌 추가 기능이기 때문에
@@ -163,6 +172,20 @@ void HYGameObject::DisconnectWithParent()
 	// 부모가 없는 오브젝트에 DisconnectWithParent 함수를 호출 했거나
 	// 부모는 자식을 가리키기지 않고 있는데, 자식은 부모를 가리키고 있는 경우
 	assert(nullptr);
+}
+
+// 자신이 소속되어 있던 Layer에서 빠져나오는 함수
+void HYGameObject::DisconnectWithLayer()
+{
+	// 이미 무소속
+	if (-1 == m_iLayerIdx)
+		return;
+
+	// 현재 Level을 알아야 Layer에 접근을 할 수 있음
+	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
+	// 본인이 알고 있는 LayerIdx를 통해 소속되어 있는 Layer를 알아냄
+	HYLayer* pCurLayer = pCurLevel->GetLayer(m_iLayerIdx);
+	pCurLayer->DetachGameObject(this);
 }
 
 void HYGameObject::AddChild(HYGameObject* _Child)

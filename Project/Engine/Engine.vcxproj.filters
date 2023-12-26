@@ -113,6 +113,9 @@
     <Filter Include="06. Asset\Sound">
       <UniqueIdentifier>{3e3f5e53-d8b8-4972-980d-d853e05915b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\TaskMgr">
+      <UniqueIdentifier>{d93879e9-2f77-4d2c-bd95-f44f84ec2a1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -217,6 +220,12 @@
     <ClInclude Include="HYTexture.h">
       <Filter>06. Asset\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="HYTaskMgr.h">
+      <Filter>04. Manager\TaskMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="HYMissileScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -302,6 +311,15 @@
     </ClCompile>
     <ClCompile Include="HYTexture.cpp">
       <Filter>06. Asset\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="HYTaskMgr.cpp">
+      <Filter>04. Manager\TaskMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYMissileScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
