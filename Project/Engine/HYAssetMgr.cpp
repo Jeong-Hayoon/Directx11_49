@@ -3,6 +3,7 @@
 
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
+#include "HYMaterial.h"
 
 HYAssetMgr::HYAssetMgr()
 {
@@ -143,4 +144,10 @@ void HYAssetMgr::init()
 	pShader->SetBSType(BS_TYPE::ONE_ONE);
 
 	AddAsset(L"EffectShader", pShader);
+
+	// Std2DMtrl
+	HYMaterial* pMtrl = nullptr;
+	pMtrl = new HYMaterial;
+	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
+	AddAsset<HYMaterial>(L"Std2DMtrl", pMtrl);
 }

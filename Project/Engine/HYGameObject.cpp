@@ -10,11 +10,15 @@
 #include "HYLevel.h"
 #include "HYLayer.h"
 
+#include "HYGC.h"
+
+
 HYGameObject::HYGameObject()
 	: m_arrCom{}
 	, m_RenderCom(nullptr)
 	, m_Parent(nullptr)
 	, m_iLayerIdx(-1) // 어떠한 레벨(레이어) 소속되어있지 않은 상태
+	, m_bDead(false)
 {
 }
 
@@ -91,9 +95,20 @@ void HYGameObject::finaltick()
 	// Script는 기본 Component가 아닌 추가 기능이기 때문에
 	// finaltick은 호출하지 않음(finaltick은 기본 Component의 마무리 작업이므로)
 	
-	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	vector<HYGameObject*>::iterator iter = m_vecChild.begin();
+	for (; iter != m_vecChild.end();)
 	{
-		m_vecChild[i]->finaltick();
+		(*iter)->finaltick();
+
+		if ((*iter)->m_bDead)
+		{
+			HYGC::GetInst()->Add(*iter);
+			iter = m_vecChild.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 
@@ -185,6 +200,7 @@ void HYGameObject::DisconnectWithLayer()
 	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
 	// 본인이 알고 있는 LayerIdx를 통해 소속되어 있는 Layer를 알아냄
 	HYLayer* pCurLayer = pCurLevel->GetLayer(m_iLayerIdx);
+	// Layer에서 GameObject 제거
 	pCurLayer->DetachGameObject(this);
 }
 

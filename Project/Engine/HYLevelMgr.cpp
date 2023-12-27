@@ -65,24 +65,8 @@ void HYLevelMgr::init()
 	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetShader(HYAssetMgr::GetInst()->FindAsset<HYGraphicsShader>(L"Std2DShader"));
-
-	HYGameObject* pChildObj = new HYGameObject;
-	pChildObj->SetName(L"Child");
-
-	pChildObj->AddComponent(new HYTransform);
-	pChildObj->AddComponent(new HYMeshRender);
-
-	pChildObj->Transform()->SetRelativePos(Vec3(200.f, 0.f, 0.f));
-	pChildObj->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 1.f));
-	pChildObj->Transform()->SetAbsolute(true);
-
-	pChildObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
-	pChildObj->MeshRender()->SetShader(HYAssetMgr::GetInst()->FindAsset<HYGraphicsShader>(L"Std2DShader"));
-
-	// Level은 제일 최상위 부모만 부르고 그 부모가 tick을 받으면
-	// 부모가 자식에게 tick을 줌(벡터롤 관리)
-	pObj->AddChild(pChildObj);
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+	pObj->MeshRender()->GetMaterial()->m_Const.iArr[0] = 1;
 
 	m_CurLevel->AddObject(pObj, 0);
 }

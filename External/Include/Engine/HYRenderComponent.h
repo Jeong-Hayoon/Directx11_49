@@ -2,7 +2,7 @@
 #include "HYComponent.h"
 
 class HYMesh;
-class HYGraphicsShader;
+class HYMaterial;
 
 class HYRenderComponent :
     public HYComponent
@@ -10,15 +10,15 @@ class HYRenderComponent :
 private:
     // 물체의 모양
     HYMesh* m_Mesh;
-    // m_Mesh를 이용하여 파이프라인을 하기 위한 객체
-    HYGraphicsShader* m_Shader;
+    HYMaterial* m_Mtrl;
+ 
 
 public:
     void SetMesh(HYMesh* _Mesh) { m_Mesh = _Mesh; }
-    void SetShader(HYGraphicsShader* _Shader) { m_Shader = _Shader; }
+    void SetMaterial(HYMaterial* _Mtrl) { m_Mtrl = _Mtrl; }
 
     HYMesh* GetMesh() { return m_Mesh; }
-    HYGraphicsShader* GetShader() { return m_Shader; }
+    HYMaterial* GetMaterial() { return m_Mtrl; }
 
 
 public:

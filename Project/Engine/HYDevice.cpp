@@ -10,6 +10,7 @@ HYDevice::HYDevice()
 	, m_arrRS{}
 	, m_arrDS{}
 	, m_arrBS{}
+	, m_arrSampler{}
 {
 
 }
@@ -77,6 +78,12 @@ int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
 	if (FAILED(CreateBlendState()))
 	{
 		MessageBox(nullptr, L"Blend State 생성 실패", L"Device 초기화 실패", MB_OK);
+		return E_FAIL;
+	}
+
+	if (FAILED(CreateSamplerState()))
+	{
+		MessageBox(nullptr, L"Sampler State 생성 실패", L"Device 초기화 실패", MB_OK);
 		return E_FAIL;
 	}
 
@@ -440,11 +447,57 @@ int HYDevice::CreateBlendState()
 	return S_OK;
 }
 
+// 샘플링 : 빈틈을 채우는 방식
+int HYDevice::CreateSamplerState()
+{
+	D3D11_SAMPLER_DESC tDesc = {};
+
+	// 이방성 필터링 방식의 샘플링(3D) : 주변에 가까운 색상으로 평균치를 내서 그라데이션처럼 빈틈을 채우는 방식
+	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+
+	tDesc.MinLOD = 0;
+	tDesc.MaxLOD = 1;
+
+	DEVICE->CreateSamplerState(&tDesc, m_arrSampler[0].GetAddressOf());
+
+	// MIN_MAG_MIP_POINT 방식의 샘플링 : 지정된 위치의 색상 값을 변동없이 가져오는 방식(2D)
+	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+
+	tDesc.MinLOD = 0;
+	tDesc.MaxLOD = 1;
+
+	DEVICE->CreateSamplerState(&tDesc, m_arrSampler[1].GetAddressOf());
+
+	// 모든 Shader 단계에서 사용할 수 있도록 모든 스테이지에 바인딩
+	CONTEXT->VSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+	CONTEXT->HSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+	CONTEXT->DSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+	CONTEXT->GSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+	CONTEXT->PSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+
+	CONTEXT->VSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+	CONTEXT->HSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+	CONTEXT->DSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+	CONTEXT->GSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+	CONTEXT->PSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+
+	return S_OK;
+}
+
 // 상수버퍼를 포인터 배열로 미리 만들어놓는 함수
 int HYDevice::CreateConstBuffer()
 {
-	m_arrCB[(UINT)CB_TYPE::TRANSFORM] = new HYConstBuffer;
+	m_arrCB[(UINT)CB_TYPE::TRANSFORM] = new HYConstBuffer(CB_TYPE::TRANSFORM);
 	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(tTransform), 1);
+
+	m_arrCB[(UINT)CB_TYPE::MATERIAL_CONST] = new HYConstBuffer(CB_TYPE::MATERIAL_CONST);
+	m_arrCB[(UINT)CB_TYPE::MATERIAL_CONST]->Create(sizeof(tMtrlConst), 1);
 
 	return S_OK;
 }

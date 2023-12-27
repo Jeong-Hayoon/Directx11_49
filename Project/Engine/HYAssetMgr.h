@@ -7,6 +7,7 @@
 #include "HYTexture.h"
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
+#include "HYMaterial.h"
 
 
 class HYAssetMgr :
@@ -59,6 +60,8 @@ ASSET_TYPE GetAssetType()
         Type = ASSET_TYPE::TEXTURE;
     else if (&info == &typeid(HYGraphicsShader))
         Type = ASSET_TYPE::GRAPHICS_SHADER;
+    else if (&info == &typeid(HYMaterial))
+        Type = ASSET_TYPE::MATERIAL;
 
     return Type;
 }

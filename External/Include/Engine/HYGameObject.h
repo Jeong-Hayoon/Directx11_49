@@ -38,6 +38,8 @@ private:
     // 오브젝트가 소속되어있는 Layer의 Index
     int                     m_iLayerIdx;    
 
+    bool                    m_bDead;
+
 
 
 public:
@@ -65,12 +67,15 @@ public:
 
     // 자식 오브젝트를 넣어주는 함수
     void AddChild(HYGameObject* _Child);
+    bool IsDead() { return m_bDead; }
+
 
 public:
     HYGameObject();
     ~HYGameObject();
 
     friend class HYLayer;
+    friend class HYTaskMgr;
 
 };
 

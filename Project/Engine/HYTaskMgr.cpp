@@ -37,16 +37,33 @@ void HYTaskMgr::tick()
 			}*/
 		}
 		break;
+		// 부모 오브젝트가 사라지면 자식 오브젝트도 사라지게 됨
 		case TASK_TYPE::DELETE_OBJECT:
 		{
-			//CObj* pDeadObj = (CObj*)m_vecTask[i].Param_1;
-			//pDeadObj->SetDead();
+			HYGameObject* pDeadObj = (HYGameObject*)m_vecTask[i].Param_1;
+
+			list<HYGameObject*> queue;
+			queue.push_back(pDeadObj);
+
+			// 레이어에 입력되는 오브젝트 포함, 그 밑에 달린 자식들까지 모두 확인
+			while (!queue.empty())
+			{
+				HYGameObject* pObject = queue.front();
+				queue.pop_front();
+
+				pObject->m_bDead = true;
+
+				for (size_t i = 0; i < pObject->m_vecChild.size(); ++i)
+				{
+					queue.push_back(pObject->m_vecChild[i]);
+				}
+			}
+
 		}
 		break;
 		case TASK_TYPE::LEVEL_CHANGE:
 		{
-
-
+			break;
 		}
 		case TASK_TYPE::ADD_CHILD:
 

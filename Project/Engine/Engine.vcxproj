@@ -173,11 +173,13 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYEngine.h" />
     <ClInclude Include="HYEntity.h" />
     <ClInclude Include="HYGameObject.h" />
+    <ClInclude Include="HYGC.h" />
     <ClInclude Include="HYGraphicsShader.h" />
     <ClInclude Include="HYKeyMgr.h" />
     <ClInclude Include="HYLayer.h" />
     <ClInclude Include="HYLevel.h" />
     <ClInclude Include="HYLevelMgr.h" />
+    <ClInclude Include="HYMaterial.h" />
     <ClInclude Include="HYMesh.h" />
     <ClInclude Include="HYMeshRender.h" />
     <ClInclude Include="HYMissileScript.h" />
@@ -212,11 +214,13 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYEngine.cpp" />
     <ClCompile Include="HYEntity.cpp" />
     <ClCompile Include="HYGameObject.cpp" />
+    <ClCompile Include="HYGC.cpp" />
     <ClCompile Include="HYGraphicsShader.cpp" />
     <ClCompile Include="HYKeyMgr.cpp" />
     <ClCompile Include="HYLayer.cpp" />
     <ClCompile Include="HYLevel.cpp" />
     <ClCompile Include="HYLevelMgr.cpp" />
+    <ClCompile Include="HYMaterial.cpp" />
     <ClCompile Include="HYMesh.cpp" />
     <ClCompile Include="HYMeshRender.cpp" />
     <ClCompile Include="HYMissileScript.cpp" />

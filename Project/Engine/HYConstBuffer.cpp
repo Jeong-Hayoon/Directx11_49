@@ -4,8 +4,9 @@
 
 #include "HYDevice.h"
 
-HYConstBuffer::HYConstBuffer()
+HYConstBuffer::HYConstBuffer(CB_TYPE _Type)
 	: m_Desc{}
+	, m_Type(_Type)
 {
 }
 
@@ -56,11 +57,11 @@ void HYConstBuffer::SetData(void* _Src, UINT _ElementCount)
 	CONTEXT->Unmap(m_CB.Get(), 0);
 }
 
-void HYConstBuffer::UpdateData(UINT _RegisterNum)
+void HYConstBuffer::UpdateData()
 {
-	CONTEXT->VSSetConstantBuffers(_RegisterNum, 1, m_CB.GetAddressOf());
-	CONTEXT->HSSetConstantBuffers(_RegisterNum, 1, m_CB.GetAddressOf());
-	CONTEXT->DSSetConstantBuffers(_RegisterNum, 1, m_CB.GetAddressOf());
-	CONTEXT->GSSetConstantBuffers(_RegisterNum, 1, m_CB.GetAddressOf());
-	CONTEXT->PSSetConstantBuffers(_RegisterNum, 1, m_CB.GetAddressOf());
+	CONTEXT->VSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
+	CONTEXT->HSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
+	CONTEXT->DSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
+	CONTEXT->GSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
+	CONTEXT->PSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
 }

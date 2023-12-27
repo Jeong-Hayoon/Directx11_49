@@ -11,6 +11,8 @@ private:
     UINT                    m_ElementSize;
     UINT                    m_ElementCount;
 
+    CB_TYPE                 m_Type;
+
 
 public:
     // 버퍼를 만들 때 크기를 인자로
@@ -25,13 +27,13 @@ public:
     // UINT _ElementCount = 0 : 설정을 안해준다면 최대크기가 default값
     void SetData(void* _Src, UINT _ElementCount = 0);
 
-    // 레지스터 번호를 입력해주면 그 레지스터로 바인딩해주는 함수
-    void UpdateData(UINT _RegisterNum);
+    void UpdateData();
 
 
 
 public:
-    HYConstBuffer();
+    // 생성할 대 상수버퍼의 타입을 지정해줘야 함(타입이 곧 레지스터 담당 번호)
+    HYConstBuffer(CB_TYPE _Type);
     ~HYConstBuffer();
 };
 

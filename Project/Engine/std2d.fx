@@ -24,12 +24,47 @@ cbuffer TRANSFORM : register(b0)
     row_major Matrix g_matWVP;
     
 }
+
+// GPU메모리는 최소 단위가 16byte이기 때문에 하나하나씩 적어줘야 함
+// 배열로 묶어버리면 배열의 최소 단위가 16byte 4개로 생각함
+// 하나하나 적으면 16byte안에 int 4개가 들어있다고 봄
+cbuffer MATERIAL_CONST : register(b1)
+{
+    int g_int_0;
+    int g_int_1;
+    int g_int_2;
+    int g_int_3;
+    
+    float g_float_0;
+    float g_float_1;
+    float g_float_2;
+    float g_float_3;
+    
+    float2 g_vec2_0;
+    float2 g_vec2_1;
+    float2 g_vec2_2;
+    float2 g_vec2_3;
+    
+    float4 g_vec4_0;
+    float4 g_vec4_1;
+    float4 g_vec4_2;
+    float4 g_vec4_3;
+    
+    row_major matrix g_mat_0;
+    row_major matrix g_mat_1;
+    row_major matrix g_mat_2;
+    row_major matrix g_mat_3;
+}
+
 // 이 텍스처에 들어 있는 이미지 색상 정보 = Sample
 Texture2D g_tex_0 : register(t0);
 
 // Sampling : 텍스처 추출
-// Sampler : 텍스처 추출을 위한 도구..?
+// Sampler : 샘플링을 위한 도구
+// 저해상도 텍스처를 사용할 때 보간의 방법 설정
 SamplerState g_sam_0 : register(s0);
+SamplerState g_sam_1 : register(s1);
+
 
 // Shader 코드는 리소스처럼 활용이 됨(런타임 도중 실시간으로 컴파일하므로0
 // 텍스처 좌표 - 좌상단이 (0,0)이고 우하단이 (1,1)인 좌표계
@@ -80,21 +115,26 @@ VS_OUT VS_Std2D(VS_IN _in)
 // SV_Target : 반환 타입을 설명해주는 시멘틱 -> 타겟의 의미는 랜더 타겟
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
-    float4 vColor = g_tex_0.Sample(g_sam_0, _in.vUV);
+    float4 vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
     
-    //if (vColor.a <= 0.1f)
-    //{
-    //    vColor.rgba = float4(1.f, 0.f, 0.f, 1.f);
-    //}
-    
-    //float Aver = (vColor.r + vColor.g + vColor.b) / 3.f;
-    //vColor.rgb = float3(Aver, Aver, Aver);    
-    //vColor.a = 1.f;
-    
-    //vColor.rgb *= 1.5f; => Blend State 때문에 약해진 색을 더 진하게
-    
+    if (g_int_0)
+    {
+        vColor = float4(1.f, 1.f, 1.f, 1.f);
+    }
+   
     return vColor;
-    
 }
 
 #endif
+
+
+ //if (vColor.a <= 0.1f)
+ //{
+ //    vColor.rgba = float4(1.f, 0.f, 0.f, 1.f);
+ //}
+ 
+ //float Aver = (vColor.r + vColor.g + vColor.b) / 3.f;
+ //vColor.rgb = float3(Aver, Aver, Aver);    
+ //vColor.a = 1.f;
+ 
+ //vColor.rgb *= 1.5f; => Blend State 때문에 약해진 색을 더 진하게

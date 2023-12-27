@@ -116,6 +116,9 @@
     <Filter Include="04. Manager\TaskMgr">
       <UniqueIdentifier>{d93879e9-2f77-4d2c-bd95-f44f84ec2a1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\GCMgr">
+      <UniqueIdentifier>{3a333c16-4696-4312-b9af-09d576bbf519}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -226,6 +229,12 @@
     <ClInclude Include="HYMissileScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="HYGC.h">
+      <Filter>04. Manager\GCMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="HYMaterial.h">
+      <Filter>06. Asset\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -320,6 +329,12 @@
     </ClCompile>
     <ClCompile Include="HYMissileScript.cpp">
       <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYGC.cpp">
+      <Filter>04. Manager\GCMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYMaterial.cpp">
+      <Filter>06. Asset\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

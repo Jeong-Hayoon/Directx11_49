@@ -2,6 +2,7 @@
 #include "HYLayer.h"
 
 #include "HYGameObject.h"
+#include "HYGC.h"
 
 HYLayer::HYLayer()
 	: m_iLayerIdx(-1)	
@@ -34,9 +35,21 @@ void HYLayer::tick()
 
 void HYLayer::finaltick()
 {
-	for (size_t i = 0; i < m_vecParent.size(); ++i)
+	vector<HYGameObject*>::iterator iter = m_vecParent.begin();
+
+	for (; iter != m_vecParent.end(); )
 	{
-		m_vecParent[i]->finaltick();
+		(*iter)->finaltick();
+
+		if ((*iter)->IsDead())
+		{
+			HYGC::GetInst()->Add(*iter);
+			iter = m_vecParent.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 

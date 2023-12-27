@@ -10,8 +10,8 @@
 #include "HYAssetMgr.h"
 #include "HYLevelMgr.h"
 #include "HYTaskMgr.h"
+#include "HYGC.h"
 
-// #include "Test.h"
 
 HYEngine::HYEngine()
 	: m_hMainWnd(nullptr)
@@ -65,6 +65,8 @@ void HYEngine::progress()
 	HYLevelMgr::GetInst()->tick();
 	HYLevelMgr::GetInst()->render();
 
+	// GC
+	HYGC::GetInst()->tick();
 
 	// Task
 	HYTaskMgr::GetInst()->tick();

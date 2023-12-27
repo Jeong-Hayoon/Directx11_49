@@ -9,3 +9,8 @@ HYScript::HYScript()
 HYScript::~HYScript()
 {
 }
+
+void HYScript::Destroy()
+{
+	GamePlayStatic::DestroyGameObject(GetOwner());
+}

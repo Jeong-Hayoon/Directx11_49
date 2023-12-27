@@ -105,5 +105,5 @@ void HYTransform::UpdateData()
 	// Transform * 1개로 만들었기 때문에 Default 인자 0이 넘어가도
 	// 알아서 1로 인식(상수버퍼 크기가 Transform 구조체 1개 크기이므로)
 	pCB->SetData(&g_Transform);
-	pCB->UpdateData(0);
+	pCB->UpdateData();
 }

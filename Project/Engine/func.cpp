@@ -14,7 +14,12 @@ void GamePlayStatic::SpawnGameObject(HYGameObject* _Target, int _LayerIdx)
 	HYTaskMgr::GetInst()->AddTask(task);
 }
 
+// TaskMgr에게 GameObject를 지워달라고 요쳥하는 함수
 void GamePlayStatic::DestroyGameObject(HYGameObject* _Target)
 {
+	FTask task = {};
+	task.Type = TASK_TYPE::DELETE_OBJECT;
+	task.Param_1 = (DWORD_PTR)_Target;
+	HYTaskMgr::GetInst()->AddTask(task);
 
 }
