@@ -12,17 +12,6 @@ HYAssetMgr::HYAssetMgr()
 
 HYAssetMgr::~HYAssetMgr()
 {
-	for (UINT i = 0; i < (UINT)ASSET_TYPE::END; ++i)
-	{
-		for (auto pair : m_mapAsset[i])
-		{
-			if (nullptr != pair.second)
-			{
-				delete pair.second;
-			}
-		}
-		m_mapAsset[i].clear();
-	}
 }
 
 // 기본적으로 필요한 필수 Asset 등록
@@ -128,7 +117,7 @@ void HYAssetMgr::init()
 
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	pShader->SetDSType(DS_TYPE::LESS);
-	pShader->SetBSType(BS_TYPE::ALPHA_BLEND);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
 
 	AddAsset(L"Std2DShader", pShader);
 

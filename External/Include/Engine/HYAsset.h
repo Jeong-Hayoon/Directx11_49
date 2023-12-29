@@ -1,6 +1,8 @@
 #pragma once
 #include "HYEntity.h"
 
+#include "Ptr.h"
+
 class HYAsset :
     public HYEntity
 {
@@ -21,8 +23,18 @@ private:
     void SetKey(const wstring& _Key) { m_Key = _Key; }
     void SetRelativePath(const wstring& _RelativePath) { m_RelativePath = _RelativePath; }
 
-    void AddRef() { ++m_RefCount; }
-    void SubRef() { --m_RefCount; }
+    void AddRef() 
+    { 
+        ++m_RefCount; 
+    }
+    void Release() 
+    {
+        --m_RefCount;
+        if (0 >= m_RefCount)
+        {
+            delete this;
+        }
+    }
 
     int GetRefCount() { return m_RefCount; }
 
@@ -36,5 +48,8 @@ public:
     ~HYAsset();
 
     friend class HYAssetMgr;
+
+    template<typename T>
+    friend class Ptr;
 };
 

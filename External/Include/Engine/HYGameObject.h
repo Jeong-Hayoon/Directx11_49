@@ -67,6 +67,7 @@ public:
 
     // 자식 오브젝트를 넣어주는 함수
     void AddChild(HYGameObject* _Child);
+    // 물체가 Dead 상태인지 확인하는 함수
     bool IsDead() { return m_bDead; }
 
 

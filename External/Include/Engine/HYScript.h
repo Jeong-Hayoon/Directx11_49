@@ -18,6 +18,7 @@ private:
     UINT        m_iScriptType;
 
 public:
+    // 해당 Script를 소유하고 있는 본체 Object를 삭제시키기 위해 GC로 보내는 함수
     void Destroy();
 
 public:

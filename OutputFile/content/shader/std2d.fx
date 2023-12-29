@@ -25,7 +25,9 @@ cbuffer TRANSFORM : register(b0)
     
 }
 
-// 배열의 최소 단위가 16byte이기 때문에 하나하나씩 적어줘야 함
+// GPU메모리는 최소 단위가 16byte이기 때문에 하나하나씩 적어줘야 함
+// 배열로 묶어버리면 배열의 최소 단위가 16byte 4개로 생각함
+// 하나하나 적으면 16byte안에 int 4개가 들어있다고 봄
 cbuffer MATERIAL_CONST : register(b1)
 {
     int g_int_0;
@@ -52,10 +54,34 @@ cbuffer MATERIAL_CONST : register(b1)
     row_major matrix g_mat_1;
     row_major matrix g_mat_2;
     row_major matrix g_mat_3;
+    
+    // 레지스터에 바인딩된 Texture가 있는지 check하는 용도의 bool값
+    // (최소단위 때문에 bool 변수는 사용 불가능)
+    int g_btex_0;
+    int g_btex_1;
+    int g_btex_2;
+    int g_btex_3;
+    int g_btex_4;
+    int g_btex_5;
+    int g_btexcube_0;
+    int g_btexcube_1;
+    int g_btexarr_0;
+    int g_btexarr_1;
 }
 
 // 이 텍스처에 들어 있는 이미지 색상 정보 = Sample
 Texture2D g_tex_0 : register(t0);
+Texture2D g_tex_1 : register(t1);
+Texture2D g_tex_2 : register(t2);
+Texture2D g_tex_3 : register(t3);
+Texture2D g_tex_4 : register(t4);
+Texture2D g_tex_5 : register(t5);
+
+TextureCube g_texcube_0 : register(t6);
+TextureCube g_texcube_1 : register(t7);
+
+Texture2DArray g_texarr_0 : register(t8);
+Texture2DArray g_texarr_1 : register(t9);
 
 // Sampling : 텍스처 추출
 // Sampler : 샘플링을 위한 도구
@@ -113,11 +139,27 @@ VS_OUT VS_Std2D(VS_IN _in)
 // SV_Target : 반환 타입을 설명해주는 시멘틱 -> 타겟의 의미는 랜더 타겟
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
-    float4 vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+    // GetDimensions : 바인딩되어 있는 정보를 구할 수 있는 함수
+    //uint width = 0;
+    //uint height = 0;
+    //g_tex_1.GetDimensions(width, height);
     
-    if (g_int_0)
+    float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
+    
+    // tex_0가 true면 텍스처 출력, 그게 아니라면 기본 컬러 마젠타로 출력
+    if (g_btex_0)
     {
-        vColor = float4(1.f, 1.f, 1.f, 1.f);
+        vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+        
+        // Clamp 함수(값을 특정 범위 내에 가둬놓고 싶을 때 사용하는 함수)
+        // saturate : 0 ~ 1 을 넘지 않게 보정(0~1 넘는 값을 잘라버리는 함수)
+        float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f);
+        
+        if (fAlpha < 0.1f)
+        {
+            // discard : 픽셀 쉐이더를 중간에 폐기 처리 -> 더이상 PipeLine OM단계까지 가지 않으며 깊이 저장도 안됨
+            discard; //clip(-1); - 유사 용어, -1이 전달되면 discard 호출           
+        }
     }
    
     return vColor;

@@ -32,14 +32,6 @@ void HYLevelMgr::init()
 	// 초기 레벨 구성하기
 	m_CurLevel = new HYLevel;
 
-	// 텍스처 생성
-	HYTexture* pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"Effect Texture", L"texture\\AirBossSpawn4.png");
-
-	if (nullptr != pTex)
-	{
-		pTex->UpdateData(0);
-	}
-
 	// Camera Object 생성 -> 카메라 기능 수행
 	HYGameObject* pCamObj = new HYGameObject;
 	pCamObj->AddComponent(new HYTransform);
@@ -66,9 +58,14 @@ void HYLevelMgr::init()
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
-	pObj->MeshRender()->GetMaterial()->m_Const.iArr[0] = 1;
+	pObj->MeshRender()->GetMaterial()->SetScalarParam(FLOAT_0, 0.f);
 
-	m_CurLevel->AddObject(pObj, 0);
+	// 텍스처 생성
+	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\AirBossSpawn4.png");
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
+
+
+	m_CurLevel->AddObject(pObj, 0, false);
 }
 
 void HYLevelMgr::tick()
@@ -91,7 +88,7 @@ void HYLevelMgr::render()
 		return;
 
 	// 0~255 <-> 0~1 Normalize 
-	// 배경색 초기화
+	// 배경색 초기화.
 	float ClearColor[4] = { 0.3f, 0.3f, 0.3f, 1.f };
 	HYDevice::GetInst()->ClearRenderTarget(ClearColor);
 

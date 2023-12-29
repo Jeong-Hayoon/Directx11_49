@@ -30,9 +30,15 @@ private:
 public:
     void UpdateData(int _RegisterNum);
 
+    // 정적 멤버함수로 두게 되면 객체 생성 없이 호출 가능
+    static void Clear(int _RegisterNum);
+
    
 public:
     HYTexture();
     ~HYTexture();
+
+    friend class HYAssetMgr;
+
 };
 

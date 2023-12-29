@@ -45,7 +45,7 @@ struct tTransform
 
 extern tTransform g_Transform;
 
-// Material Const 구조체
+// Shader에 전달시킬 Const data 구조체(Material)
 struct tMtrlConst
 {
 	int iArr[4];
@@ -53,4 +53,9 @@ struct tMtrlConst
 	Vec2 v2Arr[4];
 	Vec4 v4Arr[4];
 	Matrix matArr[4];
+
+	int	bTex[TEX_PARAM::END];
+
+	// 패딩
+	int iPadding[2];
 };

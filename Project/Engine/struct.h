@@ -48,9 +48,14 @@ extern tTransform g_Transform;
 // Shader에 전달시킬 Const data 구조체(Material)
 struct tMtrlConst
 {
-	int iArr[4];
-	float fArr[4];
-	Vec2 v2Arr[4];
-	Vec4 v4Arr[4];
-	Matrix matArr[4];
+	int iArr[4];				// 16byte
+	float fArr[4];				// 16byte
+	Vec2 v2Arr[4];				// 32byte
+	Vec4 v4Arr[4];				// 16*4 byte
+	Matrix matArr[4];			// 16*4 byte
+
+	int	bTex[TEX_PARAM::END];	// 40byte
+
+	// 패딩(16byte 정렬 해야함)
+	int iPadding[2];			// 8byte
 };
