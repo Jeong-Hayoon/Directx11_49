@@ -32,6 +32,9 @@ private:
     Matrix  m_matView;      // 뷰 행렬
     Matrix  m_matProj;      // 투영 행렬
 
+    UINT        m_LayerCheck;
+
+
 public:
     PROJ_TYPE GetProjType() { return m_ProjType; }
     void SetProjType(PROJ_TYPE _Type) { m_ProjType = _Type; }
@@ -42,8 +45,23 @@ public:
     float GetFOV() { return m_FOV; }
     void SetFOV(float _FOV) { m_FOV = _FOV; }
 
+    const Matrix& GetViewMat() { return m_matView; }
+    const Matrix& GetProjMat() { return m_matProj; }
+
+    void SetCameraPriority(int _Priority);
+
+    // 찍고자 하는 레이어를 비트값으로 Check(인덱스 방식, 이름 방식 - 기능은 같음)
+    // 지정된 레이어만 찍을 수 있도록, 레이어 중 누구를 볼지
+    // _bCheck : True - 해당 레이어를 찍음 / False - 해당 레이어를 찍지 않음
+    void LayerCheck(UINT _LayerIdx, bool _bCheck);
+    void LayerCheck(const wstring& _strLayerName, bool _bCheck);
+    void LayerCheckAll() { m_LayerCheck = 0xffffffff; }
+
 public:
     virtual void finaltick() override;
+    // Camera 시점으로 Rendering
+    void render();
+
 
 public:
     HYCamera();

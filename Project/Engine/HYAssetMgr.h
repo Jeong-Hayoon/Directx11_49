@@ -21,8 +21,11 @@ private:
     map<wstring, Ptr<HYAsset>>   m_mapAsset[(UINT)ASSET_TYPE::END];
 
 public:
-
     void init();
+private:
+    void CreateDefaultMesh();
+    void CreateDefaultGraphicsShader();
+    void CreateDefaultMaterial();
 
 public:
     // template은 무조건 헤더에 구현해야 함

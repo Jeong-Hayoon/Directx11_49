@@ -1,6 +1,8 @@
 #include "pch.h"
 
 #include "HYTaskMgr.h"
+#include "HYRenderMgr.h"
+
 
 // 게임의 주요 함수들은 GamePlayStatic namespace 사용
 
@@ -23,3 +25,39 @@ void GamePlayStatic::DestroyGameObject(HYGameObject* _Target)
 	HYTaskMgr::GetInst()->AddTask(task);
 
 }
+
+
+void GamePlayStatic::DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration)
+{
+	tDebugShapeInfo info = {};
+	info.eShape = DEBUG_SHAPE::RECT;
+	info.matWorld = _WorldMat;
+	info.vColor = _Color;
+	info.bDepthTest = _bDepthTest;
+	info.fDuration = _Duration;
+
+	// RenderMgr에 등록
+	HYRenderMgr::GetInst()->AddDebugShapeInfo(info);
+}
+
+void GamePlayStatic::DrawDebugRect(Vec3 _vWorldPos, Vec3 _vWorldScale, Vec3 _vWorldRot, Vec3 _Color, bool _bDepthTest, float _Duration)
+{
+	tDebugShapeInfo info = {};
+	info.eShape = DEBUG_SHAPE::RECT;
+
+	info.vWorldPos = _vWorldPos;
+	info.vWorldScale = _vWorldScale;
+	info.vWorldRot = _vWorldRot; 
+
+	// 행렬 계산해서 월드 행렬에 넣어줌
+	info.matWorld = XMMatrixScaling(info.vWorldScale.x, info.vWorldScale.y, info.vWorldScale.z)
+		* XMMatrixRotationX(info.vWorldRot.x) * XMMatrixRotationY(info.vWorldRot.y)
+		* XMMatrixRotationZ(info.vWorldRot.z) * XMMatrixTranslation(info.vWorldPos.x, info.vWorldPos.y, info.vWorldPos.z);
+
+	info.vColor = _Color;
+	info.bDepthTest = _bDepthTest;
+	info.fDuration = _Duration;
+
+	HYRenderMgr::GetInst()->AddDebugShapeInfo(info);
+}
+

@@ -30,6 +30,7 @@ private:
     void Release() 
     {
         --m_RefCount;
+        // Reference Count가 0이 되면 자기 자신을 소멸시키기
         if (0 >= m_RefCount)
         {
             delete this;
@@ -47,8 +48,11 @@ public:
     HYAsset(ASSET_TYPE _Type);
     ~HYAsset();
 
+    // friend 선언 해주는 클래스들은 해당 클래스 private에 접근 가능
     friend class HYAssetMgr;
 
+    // template<typename T>로 friend 선언을 해주게 되면
+    // Ptr로 만들어지는 모든 클래스에게 friend 선언
     template<typename T>
     friend class Ptr;
 };

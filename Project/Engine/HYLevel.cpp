@@ -43,18 +43,31 @@ void HYLevel::finaltick()
 	}
 }
 
-void HYLevel::render()
-{
-	for (int i = 0; i < LAYER_MAX; ++i)
-	{
-		m_arrLayer[i]->render();
-	}
-}
-
 void HYLevel::AddObject(HYGameObject* _Object, int _LayerIdx, bool _bChildMove)
 {
 	// 지정된 Layer에 GameObject를 넣어줌
 	m_arrLayer[_LayerIdx]->AddObject(_Object, _bChildMove);
+}
+
+void HYLevel::AddObject(HYGameObject* _Object, const wstring& _strLayerName, bool _bChildMove)
+{
+	HYLayer* pLayer = GetLayer(_strLayerName);
+	if (nullptr == pLayer)
+		return;
+
+	pLayer->AddObject(_Object, _bChildMove);
+}
+
+HYLayer* HYLevel::GetLayer(const wstring& _strLayerName)
+{
+	for (int i = 0; i < LAYER_MAX; ++i)
+	{
+		if (_strLayerName == m_arrLayer[i]->GetName())
+		{
+			return m_arrLayer[i];
+		}
+	}
+	return nullptr;
 }
 
 void HYLevel::clear()

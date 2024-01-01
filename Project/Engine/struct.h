@@ -11,6 +11,29 @@ struct Vtx
 	Vec2 vUV;		 // UV 좌표계 or Texture Coodinate
 };
 
+// 필요한 정보 변화량
+struct tDebugShapeInfo
+{
+	// 랜더링 모양
+	DEBUG_SHAPE	eShape;
+
+	// 랜더링 위치
+	Vec3		vWorldPos;
+	// 랜더링 크기
+	Vec3		vWorldScale;
+	// 회전값
+	Vec3		vWorldRot;
+	// 다 합쳐서 매트릭스
+	Matrix		matWorld;
+
+	// 색상 정보
+	Vec3		vColor;
+	// 유지 시간
+	float		fDuration;
+	// 깊이 테스트 여부
+	bool		bDepthTest;
+};
+
 // ====================
 // 상수버퍼 대응 구조체
 // ====================

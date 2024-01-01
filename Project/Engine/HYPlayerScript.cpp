@@ -60,22 +60,23 @@ void HYPlayerScript::tick()
 
 	if (KEY_TAP(KEY::SPACE))
 	{
-		Destroy();
-		//// GameObject 생성
-		//HYGameObject* pObj = nullptr;
+		//Destroy();
+		
+		// GameObject 생성
+		HYGameObject* pObj = nullptr;
 
-		//pObj = new HYGameObject;
-		//pObj->SetName(L"Missile");
-		//pObj->AddComponent(new HYTransform);
-		//pObj->AddComponent(new HYMeshRender);
-		//pObj->AddComponent(new HYMissileScript);
+		pObj = new HYGameObject;
+		pObj->SetName(L"Missile");
+		pObj->AddComponent(new HYTransform);
+		pObj->AddComponent(new HYMeshRender);
+		pObj->AddComponent(new HYMissileScript);
 
-		//// 위치는 이 Script Component를 소유하고 있는 GameObject의 위치
-		//pObj->Transform()->SetRelativePos(Transform()->GetRelativePos());
-		//pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+		// 위치는 이 Script Component를 소유하고 있는 GameObject의 위치
+		pObj->Transform()->SetRelativePos(Transform()->GetRelativePos());
+		pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
 
-		//pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+		pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 
-		//GamePlayStatic::SpawnGameObject(pObj, 0);
+		GamePlayStatic::SpawnGameObject(pObj, 0);
 	}
 }

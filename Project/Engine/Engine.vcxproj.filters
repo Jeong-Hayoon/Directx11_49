@@ -119,6 +119,9 @@
     <Filter Include="04. Manager\GCMgr">
       <UniqueIdentifier>{3a333c16-4696-4312-b9af-09d576bbf519}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\RenderMgr">
+      <UniqueIdentifier>{130ac1e2-d74a-4b77-bc54-dad467ebaf02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -238,6 +241,9 @@
     <ClInclude Include="Ptr.h">
       <Filter>06. Asset</Filter>
     </ClInclude>
+    <ClInclude Include="HYRenderMgr.h">
+      <Filter>04. Manager\RenderMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -339,6 +345,12 @@
     <ClCompile Include="HYMaterial.cpp">
       <Filter>06. Asset\Material</Filter>
     </ClCompile>
+    <ClCompile Include="HYRenderMgr.cpp">
+      <Filter>04. Manager\RenderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYRenderMgr_Init.cpp">
+      <Filter>04. Manager\RenderMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -347,6 +359,12 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="debug.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="value.fx">
       <Filter>ShaderCode</Filter>
     </FxCompile>
   </ItemGroup>

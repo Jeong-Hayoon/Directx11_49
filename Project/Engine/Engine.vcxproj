@@ -186,6 +186,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYPathMgr.h" />
     <ClInclude Include="HYPlayerScript.h" />
     <ClInclude Include="HYRenderComponent.h" />
+    <ClInclude Include="HYRenderMgr.h" />
     <ClInclude Include="HYScript.h" />
     <ClInclude Include="HYShader.h" />
     <ClInclude Include="HYTaskMgr.h" />
@@ -228,6 +229,8 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYPathMgr.cpp" />
     <ClCompile Include="HYPlayerScript.cpp" />
     <ClCompile Include="HYRenderComponent.cpp" />
+    <ClCompile Include="HYRenderMgr.cpp" />
+    <ClCompile Include="HYRenderMgr_Init.cpp" />
     <ClCompile Include="HYScript.cpp" />
     <ClCompile Include="HYShader.cpp" />
     <ClCompile Include="HYTaskMgr.cpp" />
@@ -245,7 +248,19 @@ call EngineCopy.bat</Command>
     <None Include="SimpleMath.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="debug.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="std2d.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="value.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

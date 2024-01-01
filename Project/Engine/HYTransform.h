@@ -36,6 +36,8 @@ public:
     void SetRelativeScale(Vec3 _Scale) { m_vRelativeScale = _Scale; }
     void SetRelativeRotation(Vec3 _Rotation) { m_vRealtiveRotation = _Rotation; }
 
+    void SetWorldMat(const Matrix _matWorld) { m_matWorld = _matWorld; }
+
     Vec3 GetRelativePos() { return m_vRelativePos; }
     Vec3 GetRelativeScale() { return m_vRelativeScale; }
     Vec3 GetRelativeRotation() { return m_vRealtiveRotation; }

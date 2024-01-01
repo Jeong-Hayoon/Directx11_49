@@ -11,6 +11,8 @@
 #include "HYLevelMgr.h"
 #include "HYTaskMgr.h"
 #include "HYGC.h"
+#include "HYRenderMgr.h"
+
 
 
 HYEngine::HYEngine()
@@ -49,6 +51,7 @@ int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
 	HYTimeMgr::GetInst()->init();
 	HYKeyMgr::GetInst()->init();
 	HYAssetMgr::GetInst()->init();
+	HYRenderMgr::GetInst()->init();
 	HYLevelMgr::GetInst()->init();
 
 	return S_OK;
@@ -63,7 +66,7 @@ void HYEngine::progress()
 	
 	// Level Update
 	HYLevelMgr::GetInst()->tick();
-	HYLevelMgr::GetInst()->render();
+	HYRenderMgr::GetInst()->tick();
 
 	// GC
 	HYGC::GetInst()->tick();

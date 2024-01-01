@@ -5,10 +5,11 @@ template<typename T>
 class Ptr
 {
 private:
-	T* Asset;
+	T* Asset; 
 
 public:
 	T* Get() const { return Asset; }
+	// 멤버 변수의 주소를 줘야할 때
 	T** GetAdressOf() const { return &Asset; }
 	T* operator->() const { return Asset; }
 
@@ -71,7 +72,8 @@ public:
 	Ptr()
 		: Asset(nullptr)
 	{}
-
+	
+	// 스마트 포인터끼리 대입되는 상황에서의 생성자
 	Ptr(const Ptr<T>& _Other)
 		:Asset(_Other.Asset)
 	{
@@ -79,6 +81,7 @@ public:
 			Asset->AddRef();
 	}
 
+	// 다른 Asset을 가리키면서 생성
 	Ptr(T* _Asset)
 		: Asset(_Asset)
 	{
@@ -86,7 +89,7 @@ public:
 			Asset->AddRef();
 	}
 
-
+	// 스마트 포인터 소멸 시 가리키고 있던 Asset이 있을 경우 Release
 	~Ptr()
 	{
 		if (Asset)
@@ -96,6 +99,8 @@ public:
 	}
 };
 
+// nullptr을 왼편에 놓고 비교할 수 있도록 전역함수로
+// 일반 멤버함수로 오퍼레이터를 두면 nullptr을 왼편에 둘 수 없음
 template<typename T>
 bool operator == (const void* _Asset, const Ptr<T>& _Ptr)
 {

@@ -4,6 +4,12 @@
 #include "HYDevice.h"
 #include "HYTransform.h"
 
+#include "HYRenderMgr.h"
+#include "HYLevelMgr.h"
+#include "HYLevel.h"
+#include "HYLayer.h"
+#include "HYGameObject.h"
+
 HYCamera::HYCamera()
 	: HYComponent(COMPONENT_TYPE::CAMERA)
 	, m_ProjType(PROJ_TYPE::ORTHOGRAPHIC)
@@ -12,6 +18,7 @@ HYCamera::HYCamera()
 	, m_Scale(1.f)
 	, m_AspectRatio(1.f)
 	, m_Far(10000.f)
+	, m_LayerCheck(0)
 {
 	Vec2 vResol = HYDevice::GetInst()->GetRenderResolution();
 
@@ -79,4 +86,61 @@ void HYCamera::finaltick()
 	// 계산한 view 행렬과 proj 행렬을 전역변수에 담아둔다.
 	g_Transform.matView = m_matView;
 	g_Transform.matProj = m_matProj;
+}
+// Camera의 우선 순위 지정
+void HYCamera::SetCameraPriority(int _Priority)
+{
+	HYRenderMgr::GetInst()->RegisterCamera(this, _Priority);
+}
+
+// LayerIdx로 들어온 것은 Level을 알 필요가 없음
+void HYCamera::LayerCheck(UINT _LayerIdx, bool _bCheck)
+{
+	// 비트 연산
+	if (_bCheck)
+	{
+		// 오른쪽 민 다음 Or 연산
+		m_LayerCheck |= (1 << _LayerIdx);
+	}
+	else
+	{
+		// 오른쪽으로 민 다음 반전, And 연산 -> 원하는 비트가 빠짐
+		m_LayerCheck &= ~(1 << _LayerIdx);
+	}
+}
+
+void HYCamera::LayerCheck(const wstring& _strLayerName, bool _bCheck)
+{
+	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
+	HYLayer* pLayer = pCurLevel->GetLayer(_strLayerName);
+
+	if (nullptr == pLayer)
+		return;
+
+	int idx = pLayer->GetLayerIdx();
+	LayerCheck(idx, _bCheck);
+}
+
+void HYCamera::render()
+{
+	// 계산한 view 행렬과 proj 행렬을 전역변수에 담아둔다.
+	g_Transform.matView = m_matView;
+	g_Transform.matProj = m_matProj;
+
+	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
+
+	for (int i = 0; i < LAYER_MAX; ++i)
+	{
+		// m_LayerCheck와 i번째 비트값을 확인해서
+		// 카메라가 찍도록 설정된 Layer 가 아니면 무시
+		if (false == (m_LayerCheck & (1 << i)))
+			continue;
+
+		HYLayer* pLayer = pCurLevel->GetLayer(i);
+		const vector<HYGameObject*>& vecObjects = pLayer->GetLayerObjects();
+		for (size_t i = 0; i < vecObjects.size(); ++i)
+		{
+			vecObjects[i]->render();
+		}
+	}
 }

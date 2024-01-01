@@ -17,12 +17,15 @@ private:
     // 관리할 Asset의 type이 많기 때문에 template으로 만듦
     // map 배열로 관리를 하는데 한 map에 Asset 1개씩 배치해야 함
     // map의 개수가 Asset type 개수만큼 배열이 있어야 함
- 
+    // second가 이제 Ptr이므로 .Get함수를 통해 Asset* 주소를 받을 수 있음
     map<wstring, Ptr<HYAsset>>   m_mapAsset[(UINT)ASSET_TYPE::END];
 
 public:
-
     void init();
+private:
+    void CreateDefaultMesh();
+    void CreateDefaultGraphicsShader();
+    void CreateDefaultMaterial();
 
 public:
     // template은 무조건 헤더에 구현해야 함
@@ -90,6 +93,7 @@ Ptr<T> HYAssetMgr::FindAsset(const wstring& _strKey)
         return nullptr;
     }
 
+    // 부모 타입이 아니라 상속받아간 자식 클래스를 find 할수도 있으니까 
     return (T*)iter->second.Get();
 }
 
@@ -118,7 +122,7 @@ Ptr<T> HYAssetMgr::Load(const wstring& _strKey, const wstring& _strRelativePath)
 
     // 에셋이 에셋 매니저에 무슨 키로 등록되었고, 어느 경로로부터 로딩되었는지
     pAsset->SetKey(_strKey);
-    pAsset->SetRelativePath(_strRelativePath);
+    pAsset->SetRelativePath(_strRelativePath);  
 
     AddAsset<T>(_strKey, (T*)pAsset.Get());
 

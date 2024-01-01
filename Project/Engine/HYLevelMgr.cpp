@@ -5,6 +5,7 @@
 #include "HYAssetMgr.h"
 		  
 #include "HYLevel.h"
+#include "HYLayer.h"
 #include "HYGameObject.h"
 #include "components.h"
 #include "HYPlayerScript.h"
@@ -31,15 +32,42 @@ void HYLevelMgr::init()
 {
 	// 초기 레벨 구성하기
 	m_CurLevel = new HYLevel;
+	m_CurLevel->GetLayer(0)->SetName(L"Default");
+	m_CurLevel->GetLayer(1)->SetName(L"Background");
+	m_CurLevel->GetLayer(2)->SetName(L"Tile");
+	m_CurLevel->GetLayer(3)->SetName(L"Player");
+	m_CurLevel->GetLayer(4)->SetName(L"Monster");
+	m_CurLevel->GetLayer(31)->SetName(L"UI");
 
-	// Camera Object 생성 -> 카메라 기능 수행
+	// Main Camera Object 생성 -> 카메라 기능 수행
 	HYGameObject* pCamObj = new HYGameObject;
+	pCamObj->SetName(L"MainCamera");
 	pCamObj->AddComponent(new HYTransform);
 	pCamObj->AddComponent(new HYCamera);
 	pCamObj->AddComponent(new HYCameraMoveScript);
 
 	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
 	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	pCamObj->Camera()->SetCameraPriority(0);
+	pCamObj->Camera()->LayerCheckAll();
+	// Main Camera는 UI를 안보게 세팅
+	pCamObj->Camera()->LayerCheck(L"UI", false);
+
+	m_CurLevel->AddObject(pCamObj, 0);
+
+	// Sub Camera
+	pCamObj = new HYGameObject;
+	pCamObj->SetName(L"UICamera");
+	pCamObj->AddComponent(new HYTransform);
+	pCamObj->AddComponent(new HYCamera);
+
+	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
+	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	pCamObj->Camera()->SetCameraPriority(1);
+	// Sub Camera는 원점에서 UI를 바라보도록
+	pCamObj->Camera()->LayerCheck(L"UI", true);
 
 	m_CurLevel->AddObject(pCamObj, 0);
 
@@ -64,8 +92,24 @@ void HYLevelMgr::init()
 	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\AirBossSpawn4.png");
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
 
+	m_CurLevel->AddObject(pObj, L"Default", false);
 
-	m_CurLevel->AddObject(pObj, 0, false);
+	pObj = new HYGameObject;
+	pObj->SetName(L"UI");
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+
+	pObj->Transform()->SetRelativePos(Vec3(-590, 310.f, 500.f));
+	pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+
+	m_CurLevel->AddObject(pObj, L"UI", false);
+
+
+	GamePlayStatic::DrawDebugRect(Vec3(0.f, 0.f, 0.f), Vec3(200.f, 200.f, 1.f), Vec3(0.f, 0.f, 0.f), Vec3(1.f, 1.f, 1.f), true, 20);
 }
 
 void HYLevelMgr::tick()
@@ -82,19 +126,3 @@ void HYLevelMgr::tick()
 	m_CurLevel->finaltick();
 }
 
-void HYLevelMgr::render()
-{
-	if (nullptr == m_CurLevel)
-		return;
-
-	// 0~255 <-> 0~1 Normalize 
-	// 배경색 초기화.
-	float ClearColor[4] = { 0.3f, 0.3f, 0.3f, 1.f };
-	HYDevice::GetInst()->ClearRenderTarget(ClearColor);
-
-
-	m_CurLevel->render();
-
-
-	HYDevice::GetInst()->Present();
-}

@@ -17,6 +17,16 @@ HYAssetMgr::~HYAssetMgr()
 // 기본적으로 필요한 필수 Asset 등록
 void HYAssetMgr::init()
 {
+	CreateDefaultMesh();
+
+	CreateDefaultGraphicsShader();
+
+	CreateDefaultMaterial();
+
+}
+
+void HYAssetMgr::CreateDefaultMesh()
+{
 	HYMesh* pMesh = nullptr;
 
 	// 전역변수에 삼각형 위치 설정
@@ -105,6 +115,10 @@ void HYAssetMgr::init()
 	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
 	AddAsset(L"CircleMesh", pMesh);
 
+}
+
+void HYAssetMgr::CreateDefaultGraphicsShader()
+{
 
 	// =========================================================
 	// Std2DShader
@@ -134,9 +148,30 @@ void HYAssetMgr::init()
 
 	AddAsset(L"EffectShader", pShader);
 
-	// Std2DMtrl
+	// =================================
+	// DebugShape Shader
+	// =================================
+	pShader = new HYGraphicsShader;
+	pShader->CreateVertexShader(L"shader\\debug.fx", "VS_DebugShape");
+	pShader->CreatePixelShader(L"shader\\debug.fx", "PS_DebugShape");
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+
+	AddAsset(L"DebugShapeShader", pShader);
+}
+
+void HYAssetMgr::CreateDefaultMaterial()
+{
 	HYMaterial* pMtrl = nullptr;
+
+	// Std2DMtrl
 	pMtrl = new HYMaterial;
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
 	AddAsset<HYMaterial>(L"Std2DMtrl", pMtrl);
+
+	// DebugShapeMtrl
+	pMtrl = new HYMaterial;
+	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"DebugShapeShader"));
+	AddAsset<HYMaterial>(L"DebugShapeMtrl", pMtrl);
 }

@@ -53,15 +53,6 @@ void HYLayer::finaltick()
 	}
 }
 
-void HYLayer::render()
-{
-	// 각 레이어 별로 render
-	for (size_t i = 0; i < m_vecObjects.size(); ++i)
-	{
-		m_vecObjects[i]->render();
-	}
-}
-
 // Layer의 AddObject는 최상위 부모 오브젝트만 관리
 // AddObject : 부모 오브젝트들은 m_vecParent에 LayerIdx와 함께 넣어주고
 // 자식 오브젝트들은 m_vecChild에 넣어주고_bMove 여부에 따라 LayerIdx 정해주는 함수

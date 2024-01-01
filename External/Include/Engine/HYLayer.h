@@ -8,11 +8,9 @@ class HYLayer :
     public HYEntity
 {
 private:
-    
     // 최상위 부모 오브젝트 관리
     vector<HYGameObject*>    m_vecParent;
     vector<HYGameObject*>    m_vecObjects;
-
     int                      m_iLayerIdx;
 
 
@@ -20,14 +18,18 @@ private:
     void begin();
     void tick();
     void finaltick();
-    void render();
 
 public:
     // 특정 오브젝트를 레이어에서 제거
     void DetachGameObject(HYGameObject* _Object);
     // 게임 오브젝트 등록
     void RegisterGameObject(HYGameObject* _Object) { m_vecObjects.push_back(_Object); }
+    int GetLayerIdx() { return m_iLayerIdx; }
 
+    // 부모만 모아놓은 벡터 반환해주는 함수
+    const vector<HYGameObject*>& GetParentObjects() { return  m_vecParent; }
+    // 레이어에 담겨 있는 모든 오브젝트 벡터를 반환해주는 함수
+    const vector<HYGameObject*>& GetLayerObjects() { return m_vecObjects; }
 
 
 public:

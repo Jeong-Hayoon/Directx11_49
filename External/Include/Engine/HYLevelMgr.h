@@ -14,7 +14,6 @@ public:
     void init();
 
     void tick();
-    void render();
 
 public:
     HYLevel* GetCurrentLevel() { return m_CurLevel; }
