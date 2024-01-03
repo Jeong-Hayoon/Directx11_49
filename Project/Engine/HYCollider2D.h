@@ -20,6 +20,8 @@ private:
     Matrix          m_matColWorld;      // 충돌체의 최종 상태 행렬
     COLLIDER2D_TYPE m_Type;
 
+    float           m_bRadi;            // Cicle 충돌체의 반지름
+
 public:
     void SetAbsolute(bool _bAbsol) { m_bAbsolute = _bAbsol; }
     void SetOffsetPos(Vec2 _vOffset) { m_vOffsetPos = Vec3(_vOffset.x, _vOffset.y, 0.f); }     // 0.f : 덧셈의 항등원(최대한 영향을 안주기 위해)
@@ -31,8 +33,19 @@ public:
     Vec2 GetOffsetScale() { return Vec2(m_vOffsetScale.x, m_vOffsetScale.y); }
     COLLIDER2D_TYPE GetType() { return m_Type; }
 
+    const Matrix& GetColliderWorldMat() { return m_matColWorld; }
+
+    float GetRadius() { return m_bRadi; }
+    void SetRadius(float _bRadi) { m_bRadi = _bRadi; }
+
 public:
     virtual void finaltick() override;
+
+public:
+    // _OtherCollider : 충돌한 상대방 Collider Component
+    void BeginOverlap(HYCollider2D* _OtherCollider);
+    void Overlap(HYCollider2D* _OtherCollider);
+    void EndOverlap(HYCollider2D* _OtherCollider);
 
 public:
     HYCollider2D();

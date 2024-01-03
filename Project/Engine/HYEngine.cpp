@@ -12,6 +12,8 @@
 #include "HYTaskMgr.h"
 #include "HYGC.h"
 #include "HYRenderMgr.h"
+#include "HYCollisionMgr.h"
+
 
 
 
@@ -66,6 +68,7 @@ void HYEngine::progress()
 	
 	// Level Update
 	HYLevelMgr::GetInst()->tick();
+	HYCollisionMgr::GetInst()->tick();
 	HYRenderMgr::GetInst()->tick();
 
 	// GC

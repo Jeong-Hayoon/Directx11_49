@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "HYCollider2D.h"
-#include "pch.h"
-#include "HYCollider2D.h"
 
 #include "HYTransform.h"
 
@@ -48,10 +46,30 @@ void HYCollider2D::finaltick()
 	// 충돌중이면 Red, 충돌하고 있지 않으면 Green
 	if (0 == m_CollisionCount)
 	{
-		GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(0.f, 1.f, 0.f), false);
+		// GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(0.f, 1.f, 0.f), false);
+		GamePlayStatic::DrawDebugCircle(GetOwner()->Transform()->GetRelativePos() + m_vOffsetPos, 100.f, Vec3(0.f, 1.f, 0.f), false);
 	}
 	else
 	{
-		GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(1.f, 0.f, 0.f), false);
+		// GamePlayStatic::DrawDebugRect(m_matColWorld, Vec3(1.f, 0.f, 0.f), false);
+		GamePlayStatic::DrawDebugCircle(GetOwner()->Transform()->GetRelativePos() + m_vOffsetPos, 100.f, Vec3(1.f, 0.f, 0.f), false);
+
 	}
 }
+
+
+void HYCollider2D::BeginOverlap(HYCollider2D* _OtherCollider)
+{
+	++m_CollisionCount;
+}
+
+void HYCollider2D::Overlap(HYCollider2D* _OtherCollider)
+{
+
+}
+
+void HYCollider2D::EndOverlap(HYCollider2D* _OtherCollider)
+{
+	--m_CollisionCount;
+}
+

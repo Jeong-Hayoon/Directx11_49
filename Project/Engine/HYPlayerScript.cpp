@@ -60,7 +60,7 @@ void HYPlayerScript::tick()
 
 	if (KEY_TAP(KEY::SPACE))
 	{
-		//Destroy();
+		Destroy();
 		
 		// GameObject »ý¼º
 		HYGameObject* pObj = nullptr;

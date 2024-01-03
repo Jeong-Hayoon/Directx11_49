@@ -14,6 +14,8 @@
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
 #include "HYTexture.h"
+#include "HYCollisionMgr.h"
+
 
 
 HYLevelMgr::HYLevelMgr()
@@ -38,6 +40,11 @@ void HYLevelMgr::init()
 	m_CurLevel->GetLayer(3)->SetName(L"Player");
 	m_CurLevel->GetLayer(4)->SetName(L"Monster");
 	m_CurLevel->GetLayer(31)->SetName(L"UI");
+
+	// 面倒 汲沥
+	HYCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");
+	HYCollisionMgr::GetInst()->LayerCheck(L"Monster", L"Monster");
+
 
 	// Main Camera Object 积己 -> 墨皋扼 扁瓷 荐青
 	HYGameObject* pCamObj = new HYGameObject;
@@ -71,7 +78,7 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pCamObj, 0);
 
-	// GameObject 积己
+	// Player Object 积己
 	HYGameObject* pObj = nullptr;
 
 	pObj = new HYGameObject;
@@ -94,10 +101,33 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->GetMaterial()->SetScalarParam(FLOAT_0, 0.f);
 
 	// 咆胶贸 积己
-	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\AirBossSpawn4.png");
+	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\Character.png");
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
 
-	m_CurLevel->AddObject(pObj, L"Default", false);
+	m_CurLevel->AddObject(pObj, L"Player", false);
+
+	// Monster Object 积己
+	pObj = new HYGameObject;
+	pObj->SetName(L"Monster");
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+	pObj->AddComponent(new HYCollider2D);
+
+	pObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 500.f));
+	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+
+	pObj->Collider2D()->SetAbsolute(true);
+	pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
+	pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+	pObj->MeshRender()->GetMaterial()->SetScalarParam(FLOAT_0, 0.f);
+
+	m_CurLevel->AddObject(pObj, L"Monster", false);
+
+	
 
 	pObj = new HYGameObject;
 	pObj->SetName(L"UI");

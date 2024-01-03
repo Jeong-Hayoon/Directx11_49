@@ -147,7 +147,6 @@ void HYAssetMgr::CreateDefaultMesh()
 
 void HYAssetMgr::CreateDefaultGraphicsShader()
 {
-
 	// =========================================================
 	// Std2DShader
 	// =========================================================
