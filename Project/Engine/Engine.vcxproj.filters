@@ -244,6 +244,9 @@
     <ClInclude Include="HYRenderMgr.h">
       <Filter>04. Manager\RenderMgr</Filter>
     </ClInclude>
+    <ClInclude Include="HYCollider2D.h">
+      <Filter>08. Component\02. Collider2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -350,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="HYRenderMgr_Init.cpp">
       <Filter>04. Manager\RenderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYCollider2D.cpp">
+      <Filter>08. Component\02. Collider2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

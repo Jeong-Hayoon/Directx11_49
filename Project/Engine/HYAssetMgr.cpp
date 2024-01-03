@@ -65,6 +65,16 @@ void HYAssetMgr::CreateDefaultMesh()
 	pMesh->Create(arrVtx, 4, arrIdx, 6);
 	AddAsset(L"RectMesh", pMesh);
 
+	// Topology LineStrip 용도	
+	//   0(Red)-- 1(Blue)	     
+	//    |       |	     
+	//   3(G)---- 2(Magenta)   
+	// VS를 0-1-2-3-0으로 5번 호출
+	arrIdx[0] = 0;	arrIdx[1] = 1;	arrIdx[2] = 2;	arrIdx[3] = 3; 	arrIdx[4] = 0;
+
+	pMesh = new HYMesh;
+	pMesh->Create(arrVtx, 4, arrIdx, 5);
+	AddAsset(L"RectMesh_Debug", pMesh);
 
 	// =================
 	// CircleMesh 만들기
@@ -115,6 +125,24 @@ void HYAssetMgr::CreateDefaultMesh()
 	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
 	AddAsset(L"CircleMesh", pMesh);
 
+	// CircleMesh_Debug
+
+	// 기존 인덱스 초기화
+	vecIdx.clear();
+	// i가 1인 이유는 중심점을 제외하기 위해
+	for (int i = 1; i < vecVtx.size(); ++i)
+	{
+		vecIdx.push_back(i);
+	}
+
+	pMesh = new HYMesh;
+	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	AddAsset(L"CircleMesh_Debug", pMesh);
+
+	// 또 다른 Mesh를 만들 수도 있으니까 초기화시키기
+	vecVtx.clear();
+	vecIdx.clear();
+
 }
 
 void HYAssetMgr::CreateDefaultGraphicsShader()
@@ -155,8 +183,11 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	pShader->CreateVertexShader(L"shader\\debug.fx", "VS_DebugShape");
 	pShader->CreatePixelShader(L"shader\\debug.fx", "PS_DebugShape");
 
+	pShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	pShader->SetBSType(BS_TYPE::DEFAULT);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+
 
 	AddAsset(L"DebugShapeShader", pShader);
 }

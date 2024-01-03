@@ -1,3 +1,4 @@
+// Register 변수 선언부 모아놓는 곳
 #ifndef _VALUE
 #define _VALUE
 

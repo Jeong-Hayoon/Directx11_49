@@ -45,6 +45,7 @@ public:
     float GetFOV() { return m_FOV; }
     void SetFOV(float _FOV) { m_FOV = _FOV; }
 
+    // View, Projection 행렬을 반환해주는 함수
     const Matrix& GetViewMat() { return m_matView; }
     const Matrix& GetProjMat() { return m_matProj; }
 

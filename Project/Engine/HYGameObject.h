@@ -11,6 +11,8 @@ class HYRenderComponent;
 
 class HYScript;
 class HYCamera;
+class HYCollider2D;
+
 
 
 // 하나의 오브젝트를 부르는 단위
@@ -60,6 +62,8 @@ public:
     GET_COMPONENT(Transform, TRANSFORM);
     GET_COMPONENT(MeshRender, MESHRENDER);
     GET_COMPONENT(Camera, CAMERA);
+    GET_COMPONENT(Collider2D, COLLIDER2D);
+
 
     HYGameObject* GetParent() { return m_Parent; }
     void DisconnectWithParent();

@@ -14,7 +14,7 @@ private:
     // 우선순위에 따라 벡터에 순차적으로 나열
     vector<HYCamera*>        m_vecCam;
 
-    // 
+    // 유지 시간이 어떻게 될지 모르니까 list
     list<tDebugShapeInfo>   m_DbgShapeInfo;
 
     // 디버그용 물체

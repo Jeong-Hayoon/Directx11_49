@@ -107,3 +107,23 @@ void HYTransform::UpdateData()
 	pCB->SetData(&g_Transform);
 	pCB->UpdateData();
 }
+
+
+// 자식 Scale * 부모 Scale
+Vec3 HYTransform::GetWorldScale()
+{
+	HYGameObject* pParent = GetOwner()->GetParent();
+	// 자식 오브젝트 Scale
+	Vec3 vWorldScale = m_vRelativeScale;
+
+	// 위쪽에 부모가 없을 때까지 Scale 누적 곱셈
+	// 부모가 존재한다면
+	while (pParent)
+	{
+		vWorldScale *= pParent->Transform()->GetRelativeScale();
+		// 부모에게 또 부모가 있다면
+		pParent = pParent->GetParent();
+	}
+
+	return vWorldScale;
+}

@@ -99,12 +99,12 @@ void HYCamera::LayerCheck(UINT _LayerIdx, bool _bCheck)
 	// 비트 연산
 	if (_bCheck)
 	{
-		// 오른쪽 민 다음 Or 연산
+		// 왼쪽 민 다음 Or 연산
 		m_LayerCheck |= (1 << _LayerIdx);
-	}
+	}    
 	else
 	{
-		// 오른쪽으로 민 다음 반전, And 연산 -> 원하는 비트가 빠짐
+		// 왼쪽으로 민 다음 반전, And 연산 -> 원하는 비트가 빠짐
 		m_LayerCheck &= ~(1 << _LayerIdx);
 	}
 }
@@ -129,10 +129,11 @@ void HYCamera::render()
 
 	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
 
-	for (int i = 0; i < LAYER_MAX; ++i)
+	for (int i = 0; i < LAYER_MAX; ++i) 
 	{
 		// m_LayerCheck와 i번째 비트값을 확인해서
 		// 카메라가 찍도록 설정된 Layer 가 아니면 무시
+		// 1 << i : 1을 왼쪽으로 i번째만큼 이동
 		if (false == (m_LayerCheck & (1 << i)))
 			continue;
 
@@ -144,3 +145,7 @@ void HYCamera::render()
 		}
 	}
 }
+
+
+
+

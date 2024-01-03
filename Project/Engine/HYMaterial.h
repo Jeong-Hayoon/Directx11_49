@@ -13,7 +13,7 @@ class HYMaterial :
 public:
     // Material이 Shader한테 보내주는 상수 데이터 묶음
     tMtrlConst                  m_Const;
-    // Sha	der에서 필요로하는 텍스처
+    // Shader에서 필요로하는 텍스처
     Ptr<HYTexture>              m_arrTex[(UINT)TEX_PARAM::END];
     // 재질이 Shader를 참조해야 하므로 멤버 변수로 가지고 있음 
     Ptr<HYGraphicsShader>       m_pShader;

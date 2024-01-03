@@ -42,7 +42,10 @@ public:
     Vec3 GetRelativeScale() { return m_vRelativeScale; }
     Vec3 GetRelativeRotation() { return m_vRealtiveRotation; }
 
-    //Vec3 GetWorldPos();
+    // 월드 공간에서의 최종 위치, 크기, 회전 상태
+    Vec3 GetWorldPos() { return m_matWorld.Translation(); }
+    Vec3 GetWorldScale();
+    //Vec3 GetWorldRot();
 
     void SetAbsolute(bool _bAbsolute) { m_bAbsolute = _bAbsolute; }
 

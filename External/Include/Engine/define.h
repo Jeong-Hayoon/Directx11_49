@@ -87,7 +87,7 @@ enum class RS_TYPE
 	CULL_BACK,		// Default 옵션
 	CULL_FRONT,
 	CULL_NONE,
-	WIRE_FRAME,
+	WIRE_FRAME,		// 테투리만 PS 출력, 대신 Triangle List로 할 경우 대각선이 생김
 
 	END,
 };

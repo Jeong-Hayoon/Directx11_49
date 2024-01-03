@@ -28,6 +28,8 @@ struct tDebugShapeInfo
 
 	// 색상 정보
 	Vec3		vColor;
+	// 실행 시간
+	float		fLifeTime;
 	// 유지 시간
 	float		fDuration;
 	// 깊이 테스트 여부

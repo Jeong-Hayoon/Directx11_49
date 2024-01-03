@@ -6,6 +6,7 @@
 #include "HYMeshRender.h"
 #include "HYAssetMgr.h"
 #include "HYTransform.h"
+#include "HYTimeMgr.h"
 
 HYRenderMgr::HYRenderMgr()
 	: m_pDebugObj(nullptr)
@@ -46,15 +47,15 @@ void HYRenderMgr::render_debug()
 	g_Transform.matProj = m_vecCam[0]->GetProjMat();
 
 	list<tDebugShapeInfo>::iterator iter = m_DbgShapeInfo.begin();
-	for (; iter != m_DbgShapeInfo.end(); ++iter)
+	for (; iter != m_DbgShapeInfo.end();)
 	{
 		switch ((*iter).eShape)
 		{
 		case DEBUG_SHAPE::RECT:
-			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh_Debug"));
 			break;
 		case DEBUG_SHAPE::CIRCLE:
-			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CircleMesh"));
+			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CircleMesh_Debug"));
 			break;
 		case DEBUG_SHAPE::CUBE:
 			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CubeMesh"));
@@ -67,10 +68,26 @@ void HYRenderMgr::render_debug()
 		}
 
 		m_pDebugObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"DebugShapeMtrl"));
+		// vColor인데 VEC4_0에 받을 수 있는 이유는 Vec3를 인자로 받는 생성자가 존재하기 때문
+		m_pDebugObj->MeshRender()->GetMaterial()->SetScalarParam(VEC4_0, (*iter).vColor);
+
 		m_pDebugObj->Transform()->SetWorldMat((*iter).matWorld);
 		m_pDebugObj->Transform()->UpdateData();
 
 		m_pDebugObj->render();
+
+		// 실행 시간이 유지 시간을 넘어서면 Erase
+		(*iter).fLifeTime += DT;
+		if ((*iter).fDuration <= (*iter).fLifeTime)
+		{
+			// erase를 하게 되면 해당 iterator가 삭제되고 다음번 iterator를 반환해주니까
+			// iter를 받아놓고 따로 ++은 안해줘야 함
+			iter = m_DbgShapeInfo.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 

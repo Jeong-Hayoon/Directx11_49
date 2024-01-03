@@ -79,10 +79,15 @@ void HYLevelMgr::init()
 
 	pObj->AddComponent(new HYTransform);
 	pObj->AddComponent(new HYMeshRender);
+	pObj->AddComponent(new HYCollider2D);
 	pObj->AddComponent(new HYPlayerScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
 	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+
+	pObj->Collider2D()->SetAbsolute(true);
+	pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
+	pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
@@ -107,9 +112,6 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
 
 	m_CurLevel->AddObject(pObj, L"UI", false);
-
-
-	GamePlayStatic::DrawDebugRect(Vec3(0.f, 0.f, 0.f), Vec3(200.f, 200.f, 1.f), Vec3(0.f, 0.f, 0.f), Vec3(1.f, 1.f, 1.f), true, 20);
 }
 
 void HYLevelMgr::tick()

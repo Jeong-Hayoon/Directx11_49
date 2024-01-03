@@ -5,7 +5,7 @@
 #include "HYTransform.h"
 #include "HYMeshRender.h"
 #include "HYCamera.h"
-//#include "HYCollider2D.h"
+#include "HYCollider2D.h"
 //#include "HYCollider3D.h"
 
 //#include "HYAnimator2D.h"

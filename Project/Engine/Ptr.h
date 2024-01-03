@@ -81,6 +81,7 @@ public:
 			Asset->AddRef();
 	}
 
+
 	// 다른 Asset을 가리키면서 생성
 	Ptr(T* _Asset)
 		: Asset(_Asset)
