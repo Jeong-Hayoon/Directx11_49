@@ -163,6 +163,8 @@ call EngineCopy.bat</Command>
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="HYAnim.h" />
+    <ClInclude Include="HYAnimator2D.h" />
     <ClInclude Include="HYAsset.h" />
     <ClInclude Include="HYAssetMgr.h" />
     <ClInclude Include="HYCamera.h" />
@@ -208,6 +210,8 @@ call EngineCopy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="func.cpp" />
+    <ClCompile Include="HYAnim.cpp" />
+    <ClCompile Include="HYAnimator2D.cpp" />
     <ClCompile Include="HYAsset.cpp" />
     <ClCompile Include="HYAssetMgr.cpp" />
     <ClCompile Include="HYCamera.cpp" />

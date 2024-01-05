@@ -60,7 +60,7 @@ void HYPlayerScript::tick()
 
 	if (KEY_TAP(KEY::SPACE))
 	{
-		Destroy();
+		GetOwner()->Destroy();
 		
 		// GameObject »ý¼º
 		HYGameObject* pObj = nullptr;
@@ -83,4 +83,19 @@ void HYPlayerScript::tick()
 	//GamePlayStatic::DrawDebugRect(Vec3(0.f, 0.f, 0.f), Vec3(200.f, 200.f, 1.f), Vec3(0.f, 0.f, 0.f), Vec3(1.f, 1.f, 1.f), true, 20);
 	//GamePlayStatic::DrawDebugCircle(Vec3(0.f, 0.f, 0.f), 200.f, Vec3(0.f, 1.f, 1.f), true);
 
+}
+
+void HYPlayerScript::BeginOverlap(HYCollider2D* _Collider
+	, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider)
+{
+	_OtherObj->Destroy();
+}
+
+void HYPlayerScript::Overlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider)
+{
+
+}
+
+void HYPlayerScript::EndOverlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider)
+{
 }

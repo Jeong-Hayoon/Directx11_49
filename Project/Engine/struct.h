@@ -84,3 +84,15 @@ struct tMtrlConst
 	// 패딩(16byte 정렬 해야함)
 	int iPadding[2];			// 8byte
 };
+
+	
+struct tAnimData2D
+{
+	// 좌상단 UV 정보
+	Vec2 vLeftTop;
+	Vec2 vSlizeSize;
+	Vec2 vOffset;
+	// 애니메이션 사용 여부
+	int  UseAnim2D;
+	int	 iPadding;
+};

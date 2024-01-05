@@ -2,6 +2,8 @@
 #include "HYCollider2D.h"
 
 #include "HYTransform.h"
+#include "HYScript.h"
+
 
 HYCollider2D::HYCollider2D()
 	: HYComponent(COMPONENT_TYPE::COLLIDER2D)
@@ -61,15 +63,31 @@ void HYCollider2D::finaltick()
 void HYCollider2D::BeginOverlap(HYCollider2D* _OtherCollider)
 {
 	++m_CollisionCount;
+
+	const vector<HYScript*>& vecScript = GetOwner()->GetScripts();
+	for (size_t i = 0; i < vecScript.size(); ++i)
+	{
+		vecScript[i]->BeginOverlap(this, _OtherCollider->GetOwner(), _OtherCollider);
+	}
 }
 
 void HYCollider2D::Overlap(HYCollider2D* _OtherCollider)
 {
-
+	const vector<HYScript*>& vecScript = GetOwner()->GetScripts();
+	for (size_t i = 0; i < vecScript.size(); ++i)
+	{
+		vecScript[i]->Overlap(this, _OtherCollider->GetOwner(), _OtherCollider);
+	}
 }
 
 void HYCollider2D::EndOverlap(HYCollider2D* _OtherCollider)
 {
 	--m_CollisionCount;
+
+	const vector<HYScript*>& vecScript = GetOwner()->GetScripts();
+	for (size_t i = 0; i < vecScript.size(); ++i)
+	{
+		vecScript[i]->EndOverlap(this, _OtherCollider->GetOwner(), _OtherCollider);
+	}
 }
 

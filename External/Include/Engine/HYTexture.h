@@ -33,6 +33,12 @@ public:
     // 정적 멤버함수로 두게 되면 객체 생성 없이 호출 가능
     static void Clear(int _RegisterNum);
 
+
+    // ScratchImage로도 가로, 세로 정보를 얻어올 수 있긴 하지만
+    // 
+    UINT GetWidth() { return m_Desc.Width; }
+    UINT GetHeight() { return m_Desc.Height; }
+
    
 public:
     HYTexture();

@@ -217,3 +217,8 @@ void HYGameObject::AddChild(HYGameObject* _Child)
 	_Child->m_Parent = this;
 	m_vecChild.push_back(_Child);
 }
+
+void HYGameObject::Destroy()
+{
+	GamePlayStatic::DestroyGameObject(this);
+}

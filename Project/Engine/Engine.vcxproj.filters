@@ -125,6 +125,9 @@
     <Filter Include="04. Manager\CollisionMgr">
       <UniqueIdentifier>{c3ccad0a-5d39-449b-92b8-604c42488259}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Component\04. Animator2D\Anim">
+      <UniqueIdentifier>{62835934-68b1-4612-a226-685e8be0a52b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -253,6 +256,12 @@
     <ClInclude Include="HYCollisionMgr.h">
       <Filter>04. Manager\CollisionMgr</Filter>
     </ClInclude>
+    <ClInclude Include="HYAnimator2D.h">
+      <Filter>08. Component\04. Animator2D</Filter>
+    </ClInclude>
+    <ClInclude Include="HYAnim.h">
+      <Filter>08. Component\04. Animator2D\Anim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -365,6 +374,12 @@
     </ClCompile>
     <ClCompile Include="HYCollisionMgr.cpp">
       <Filter>04. Manager\CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYAnimator2D.cpp">
+      <Filter>08. Component\04. Animator2D</Filter>
+    </ClCompile>
+    <ClCompile Include="HYAnim.cpp">
+      <Filter>08. Component\04. Animator2D\Anim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

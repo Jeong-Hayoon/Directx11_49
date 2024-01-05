@@ -17,9 +17,7 @@ class HYScript :
 private:
     UINT        m_iScriptType;
 
-public:
-    // 해당 Script를 소유하고 있는 본체 Object를 삭제시키기 위해 GC로 보내는 함수
-    void Destroy();
+
 
 public:
     // tick에서 Component들이 주요 기능을 수행하고 나서
@@ -29,6 +27,10 @@ public:
     // final(파생되는 자식 클래스는 오버라이딩 불가능) 
     // 키워드를 통해 아무일도 안하도록 명시
     virtual void finaltick() final {}
+
+    virtual void BeginOverlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider) {}
+    virtual void Overlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider) {}
+    virtual void EndOverlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider) {}
 
 public:
     HYScript();

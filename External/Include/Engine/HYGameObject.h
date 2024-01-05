@@ -63,9 +63,25 @@ public:
     GET_COMPONENT(MeshRender, MESHRENDER);
     GET_COMPONENT(Camera, CAMERA);
     GET_COMPONENT(Collider2D, COLLIDER2D);
+    GET_COMPONENT(Animator2D, ANIMATOR2D);
+
 
 
     HYGameObject* GetParent() { return m_Parent; }
+    const vector<HYScript*>& GetScripts() { return m_vecScript; }
+
+    // 특정 스크립트만 가져오고 싶을 때
+    template<typename T>
+    T* GetScript()
+    {
+        for (size_t i = 0; i < m_vecScript.size(); ++i)
+        {
+            if (dynamic_cast<T*>(m_vecScript[i]))
+                return (T*)m_vecScript[i];
+        }
+        return nullptr;
+    }
+
     void DisconnectWithParent();
     void DisconnectWithLayer();
 
@@ -74,6 +90,9 @@ public:
     // 물체가 Dead 상태인지 확인하는 함수
     bool IsDead() { return m_bDead; }
 
+
+    // 해당 Script를 소유하고 있는 본체 Object를 삭제시키기 위해 GC로 보내는 함수
+    void Destroy();
 
 public:
     HYGameObject();
