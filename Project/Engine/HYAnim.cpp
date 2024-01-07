@@ -44,6 +44,7 @@ void HYAnim::UpdateData()
 	data.vLeftTop = m_vecFrm[m_CurFrmIdx].vLeftTop;
 	data.vOffset = m_vecFrm[m_CurFrmIdx].vOffset;
 	data.vSlizeSize = m_vecFrm[m_CurFrmIdx].vSlice;
+	data.vBackGround = m_vecFrm[m_CurFrmIdx].vBackground;
 
 	pCB->SetData(&data);
 	pCB->UpdateData();
@@ -63,7 +64,7 @@ void HYAnim::Clear()
 }
 
 void HYAnim::Create(HYAnimator2D* _Animator, Ptr<HYTexture> _Atlas, Vec2 _vLeftTop
-	, Vec2 _vSliceSize, Vec2 _vOffset, int _FrmCount, float _FPS)
+	, Vec2 _vSliceSize, Vec2 _vOffset, Vec2 _vBackground, int _FrmCount, float _FPS)
 {
 	m_Animator = _Animator;
 	m_AtlasTex = _Atlas;
@@ -73,6 +74,7 @@ void HYAnim::Create(HYAnimator2D* _Animator, Ptr<HYTexture> _Atlas, Vec2 _vLeftT
 		tAnimFrm frm = {};
 
 		// Pixel Unit -> UV Unit으로 변환
+
 		frm.vSlice = Vec2(_vSliceSize.x / (float)_Atlas->GetWidth(), _vSliceSize.y / (float)_Atlas->GetHeight());
 
 		frm.vLeftTop = Vec2(_vLeftTop.x / (float)_Atlas->GetWidth() + frm.vSlice.x * i, _vLeftTop.y / (float)_Atlas->GetHeight());
@@ -81,6 +83,11 @@ void HYAnim::Create(HYAnimator2D* _Animator, Ptr<HYTexture> _Atlas, Vec2 _vLeftT
 		// 초당 60 프레임 -> 한 프레임 당 유지 시간 60분의 1초
 		frm.Duration = 1.f / _FPS;
 
+		frm.vBackground = Vec2(_vBackground.x / (float)_Atlas->GetWidth(), _vBackground.y / (float)_Atlas->GetHeight());
+
 		m_vecFrm.push_back(frm);
 	}
+
+	// 특정 이미지만 지정하여 오프셋 조정(임시)
+	m_vecFrm[1].vOffset.x = 5.0f / (float)_Atlas->GetWidth();
 }

@@ -57,6 +57,9 @@ void HYRenderMgr::render_debug()
 		case DEBUG_SHAPE::CIRCLE:
 			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CircleMesh_Debug"));
 			break;
+		case DEBUG_SHAPE::CROSS:
+			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CrossMesh"));
+			break;
 		case DEBUG_SHAPE::CUBE:
 			m_pDebugObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CubeMesh"));
 			break;
@@ -71,10 +74,22 @@ void HYRenderMgr::render_debug()
 		// vColor인데 VEC4_0에 받을 수 있는 이유는 Vec3를 인자로 받는 생성자가 존재하기 때문
 		m_pDebugObj->MeshRender()->GetMaterial()->SetScalarParam(VEC4_0, (*iter).vColor);
 
+		// Cross Shape를 사용했을 경우에는 우선 Topology를 저장해놨다가 사용 이후에 더사 되돌려주기
+		D3D11_PRIMITIVE_TOPOLOGY PrevTopology = m_pDebugObj->MeshRender()->GetMaterial()->GetShader()->GetTopology();
+		if (DEBUG_SHAPE::CROSS == (*iter).eShape)
+		{
+			// Cross일 때만 Topology를 LINELIST로 함 
+			m_pDebugObj->MeshRender()->GetMaterial()->GetShader()->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_LINELIST);
+		}
+
 		m_pDebugObj->Transform()->SetWorldMat((*iter).matWorld);
 		m_pDebugObj->Transform()->UpdateData();
 
 		m_pDebugObj->render();
+
+		// 랜더링 후에 원래 Topology로 되돌리기
+		m_pDebugObj->MeshRender()->GetMaterial()->GetShader()->SetTopology(PrevTopology);
+
 
 		// 실행 시간이 유지 시간을 넘어서면 Erase
 		(*iter).fLifeTime += DT;

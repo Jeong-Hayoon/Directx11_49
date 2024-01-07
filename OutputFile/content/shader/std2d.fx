@@ -64,11 +64,26 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     
     if (g_UseAnim2D)
     {
-        //g_vLeftTop;
-        //g_vSlizeSize;
+        // g_vLeftTop + (g_vSlizeSize / 2.f) : Center
+        // center에서 Background의 절반만큼 빼게 되면 vBackgroundLeftTop가 나옴
+        float2 vBackgroundLeftTop = g_vLeftTop + (g_vSlizeSize / 2.f) - (g_vBackground / 2.f);
         
-        float2 vUV = g_vLeftTop + (g_vSlizeSize * _in.vUV);
-        vColor = g_anim2d_tex.Sample(g_sam_1, vUV);
+        // Background 자체를 이동
+        // UV 값보다 +한 곳을 가져온다는 건 +한 만큼 실제 출력되는 이미지가 왼쪽으로 반대로 가는 개념
+        vBackgroundLeftTop -= g_vOffset;
+        float2 vUV = vBackgroundLeftTop + (g_vBackground * _in.vUV);
+        
+        // Background 때문에 생긴 필요없는 부분들은 discard
+        if (vUV.x < g_vLeftTop.x || (g_vLeftTop.x + g_vSlizeSize.x) < vUV.x
+            || vUV.y < g_vLeftTop.y || (g_vLeftTop.y + g_vSlizeSize.y) < vUV.y)
+        {
+            //vColor = float4(1.f, 1.f, 0.f, 1.f);
+            discard;
+        }
+        else
+        {
+            vColor = g_anim2d_tex.Sample(g_sam_1, vUV);
+        }
     }
     else
     {

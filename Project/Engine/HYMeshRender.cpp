@@ -9,6 +9,9 @@
 #include "HYTransform.h"
 #include "HYMaterial.h"
 
+#include "HYRenderMgr.h"
+
+
 HYMeshRender::HYMeshRender()
 	: HYRenderComponent(COMPONENT_TYPE::MESHRENDER)
 {
@@ -29,6 +32,15 @@ void HYMeshRender::UpdateData()
 	// render 직전에 위치 정보 업데이트
 	GetOwner()->Transform()->UpdateData();
 }
+
+void HYMeshRender::finaltick()
+{
+	if (HYRenderMgr::GetInst()->IsDebugPosition())
+	{
+		GamePlayStatic::DrawDebugCross(Transform()->GetWorldPos(), 20.f, Vec3(0.f, 1.f, 0.f), true);
+	}
+}
+
 
 void HYMeshRender::render()
 {

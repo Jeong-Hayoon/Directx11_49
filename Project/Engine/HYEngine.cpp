@@ -6,7 +6,6 @@
 #include "HYTimeMgr.h"
 #include "HYKeyMgr.h"
 #include "HYPathMgr.h"
-
 #include "HYAssetMgr.h"
 #include "HYLevelMgr.h"
 #include "HYTaskMgr.h"
@@ -77,4 +76,21 @@ void HYEngine::progress()
 	// Task
 	HYTaskMgr::GetInst()->tick();
 
+	DebugFunctionCheck();
+
+
+}
+
+// 디버그 랜더링 옵션
+void HYEngine::DebugFunctionCheck()
+{
+	// 삼항 연산자
+	// HYRenderMgr::GetInst()->IsDebugPosition()가 true면
+	// SetDebugPosition(false) 함수 호출
+	// false면
+	// HYRenderMgr::GetInst()->SetDebugPosition(true) 함수 호출 
+	if (KEY_TAP(KEY::O))
+	{
+		HYRenderMgr::GetInst()->IsDebugPosition() ? HYRenderMgr::GetInst()->SetDebugPosition(false) : HYRenderMgr::GetInst()->SetDebugPosition(true);
+	}
 }

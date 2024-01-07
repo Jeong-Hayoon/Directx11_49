@@ -34,8 +34,9 @@ public:
     static void Clear(int _RegisterNum);
 
 
-    // ScratchImage로도 가로, 세로 정보를 얻어올 수 있긴 하지만
-    // 
+    // ScratchImage, Desc 둘 다 가로, 세로 정보 존재
+    // ScratchImage : 로딩할 때만 가능, 직접 GPU에 생성할 때는 존재하지 않음
+    // Desc는 어떤 상황에서든 채워지기 때문에 Desc 사용
     UINT GetWidth() { return m_Desc.Width; }
     UINT GetHeight() { return m_Desc.Height; }
 

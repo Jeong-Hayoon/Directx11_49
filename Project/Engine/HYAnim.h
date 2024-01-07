@@ -8,8 +8,11 @@ struct tAnimFrm
 {
     // 좌상단의 좌표
     Vec2    vLeftTop;
+    // 자를 사이즈
     Vec2    vSlice;
     Vec2    vOffset;
+    // 백그라운드 크기 설정
+    Vec2    vBackground;
     // 해당 프레임을 몇 초 유지할 것인지
     float   Duration;
 };
@@ -39,7 +42,7 @@ public:
     void UpdateData();
     static void Clear();
     void Create(HYAnimator2D* _Animator, Ptr<HYTexture> _Atlas, Vec2 _vLeftTop
-        , Vec2 _vSliceSize, Vec2 _vOffset, int _FrmCount, float _FPS);
+        , Vec2 _vSliceSize, Vec2 _vOffset, Vec2 _vBackground, int _FrmCount, float _FPS);
 
 
 

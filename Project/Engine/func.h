@@ -15,6 +15,9 @@ namespace GamePlayStatic
 	// Circle의 경우 회전값은 의미 X, 가로 세로의 의미가 없고 반지름의 개념만 필요 -> 행렬을 인자로 받는 버전은 안 만듦
 	void DrawDebugCircle(Vec3 _vWorldPos, float _fRadius, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 
+	void DrawDebugCross(Vec3 _vWorldPos, float _fScale, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
+
+
 	//void DrawDebugCube();
 	//void DrawDebugSphere();
 }

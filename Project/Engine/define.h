@@ -177,6 +177,7 @@ enum class DEBUG_SHAPE
 	// 2D
 	RECT,
 	CIRCLE,
+	CROSS,
 
 	// 3D
 	CUBE,

@@ -90,7 +90,7 @@ void HYLevelMgr::init()
 	pObj->AddComponent(new HYPlayerScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
-	pObj->Transform()->SetRelativeScale(Vec3(120.f, 150.f, 1.f));
+	pObj->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
 
 	pObj->Collider2D()->SetAbsolute(true);
 	pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
@@ -107,7 +107,7 @@ void HYLevelMgr::init()
 	pObj->AddComponent(new HYAnimator2D);
 	Ptr<HYTexture> pAltasTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"AnimAtlasTex", L"texture\\NormalSprite.png");
 	pObj->Animator2D()->Create(L"Explosion", pAltasTex, Vec2(0.f, 46.f)
-		, Vec2(32.f, 46.f), Vec2(0.f, 0.f), 6, 10.f);
+		, Vec2(32.f, 46.f), Vec2(0.f, 0.f), Vec2(200.f, 200.f), 6, 10.f);
 
 	pObj->Animator2D()->Play(L"Explosion");
 

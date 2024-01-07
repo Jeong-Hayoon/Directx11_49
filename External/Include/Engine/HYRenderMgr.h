@@ -20,6 +20,9 @@ private:
     // 디버그용 물체
     HYGameObject* m_pDebugObj;
 
+    // 캐릭터의 위치 값 표시 여부
+    bool                    m_DebugPosition;
+
 
 public:
     // 카메라를 등록시키는 함수, 0번 Camera가 Main(Sub Camera도 사용은 함)
@@ -28,6 +31,11 @@ public:
     {
         m_DbgShapeInfo.push_back(_info);
     }
+
+    // Position을 랜더링할건지 
+    void SetDebugPosition(bool _OnOff) { m_DebugPosition = _OnOff; }
+    bool IsDebugPosition() { return m_DebugPosition; }
+
 public:
     void init();
     // tick에서 Render 호출

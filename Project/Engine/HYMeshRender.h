@@ -5,6 +5,7 @@ class HYMeshRender :
 {
 public:
     virtual void UpdateData() override;
+    virtual void finaltick() override;
     virtual void render() override;
 
 public:
