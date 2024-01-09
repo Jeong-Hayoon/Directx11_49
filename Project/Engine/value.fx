@@ -2,6 +2,9 @@
 #ifndef _VALUE
 #define _VALUE
 
+#include "struct.fx"
+
+
 // #ifndef _STD2D, #define _STD2D, #endif -> c 스타일의 #pragma once
 // _STD2D가 정의되어 있지 않다면 
 // #pragma once : 전방선언 중첩을 막아줌(c++)
@@ -101,6 +104,9 @@ Texture2DArray g_texarr_1 : register(t9);
 // 애니메이션 전용 레지스터
 Texture2D g_anim2d_tex : register(t10);
 
+
+StructuredBuffer<tLightInfo> g_Light2D : register(t11);
+StructuredBuffer<tLightInfo> g_Light3D : register(t12);
 
 
 // Sampling : 텍스처 추출

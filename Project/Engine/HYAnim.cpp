@@ -29,7 +29,8 @@ void HYAnim::finaltick()
 		++m_CurFrmIdx;
 		if (m_vecFrm.size() <= m_CurFrmIdx)
 		{
-			m_CurFrmIdx = 0;
+			m_CurFrmIdx = m_vecFrm.size() - 1;
+			m_bFinish = true;
 		}
 		m_AccTime = 0.f;
 	}
@@ -89,5 +90,5 @@ void HYAnim::Create(HYAnimator2D* _Animator, Ptr<HYTexture> _Atlas, Vec2 _vLeftT
 	}
 
 	// 특정 이미지만 지정하여 오프셋 조정(임시)
-	m_vecFrm[1].vOffset.x = 5.0f / (float)_Atlas->GetWidth();
+	//m_vecFrm[1].vOffset.x = 5.0f / (float)_Atlas->GetWidth();
 }

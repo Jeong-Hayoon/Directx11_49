@@ -183,6 +183,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYLayer.h" />
     <ClInclude Include="HYLevel.h" />
     <ClInclude Include="HYLevelMgr.h" />
+    <ClInclude Include="HYLight2D.h" />
     <ClInclude Include="HYMaterial.h" />
     <ClInclude Include="HYMesh.h" />
     <ClInclude Include="HYMeshRender.h" />
@@ -231,6 +232,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYLayer.cpp" />
     <ClCompile Include="HYLevel.cpp" />
     <ClCompile Include="HYLevelMgr.cpp" />
+    <ClCompile Include="HYLight2D.cpp" />
     <ClCompile Include="HYMaterial.cpp" />
     <ClCompile Include="HYMesh.cpp" />
     <ClCompile Include="HYMeshRender.cpp" />
@@ -265,6 +267,12 @@ call EngineCopy.bat</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="std2d.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

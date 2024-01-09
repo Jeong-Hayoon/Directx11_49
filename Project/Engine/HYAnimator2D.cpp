@@ -16,11 +16,22 @@ HYAnimator2D::~HYAnimator2D()
 
 void HYAnimator2D::finaltick()
 {
+	if (nullptr == m_CurAnim)
+		return;
+
+	if (m_CurAnim->IsFinish() && m_bRepeat)
+	{
+		m_CurAnim->Reset();
+	}
+
 	m_CurAnim->finaltick();
 }
 
 void HYAnimator2D::UpdateData()
 {
+	if (nullptr == m_CurAnim)
+		return;
+
 	m_CurAnim->UpdateData();
 }
 
@@ -50,11 +61,14 @@ HYAnim* HYAnimator2D::FindAnim(const wstring& _strKey)
 	return iter->second;
 }
 
-void HYAnimator2D::Play(const wstring& _strAnimName)
+void HYAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
 {
 	HYAnim* pAnim = FindAnim(_strAnimName);
 	if (nullptr == pAnim)
 		return;
 
+	m_bRepeat = _bRepeat;
+
 	m_CurAnim = pAnim;
+	m_CurAnim->Reset();
 }

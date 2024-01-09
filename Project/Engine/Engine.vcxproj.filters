@@ -268,6 +268,9 @@
     <ClInclude Include="HYStructuredBuffer.h">
       <Filter>03. Device\StructuredBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="HYLight2D.h">
+      <Filter>08. Component\06. Light2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -390,6 +393,9 @@
     <ClCompile Include="HYStructuredBuffer.cpp">
       <Filter>03. Device\StructuredBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="HYLight2D.cpp">
+      <Filter>08. Component\06. Light2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -404,6 +410,9 @@
       <Filter>ShaderCode</Filter>
     </FxCompile>
     <FxCompile Include="value.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
       <Filter>ShaderCode</Filter>
     </FxCompile>
   </ItemGroup>

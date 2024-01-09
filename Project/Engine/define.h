@@ -183,3 +183,12 @@ enum class DEBUG_SHAPE
 	CUBE,
 	SPHERE,
 };
+
+enum class LIGHT_TYPE
+{
+	// 방향성 광원(월드 전역 광원), 태양
+	DIRECTIONAL,
+	// 점광원, 사실적인 광원 
+	POINT,
+	SPOT,
+};

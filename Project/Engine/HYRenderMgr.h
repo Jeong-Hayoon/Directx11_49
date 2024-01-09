@@ -3,6 +3,8 @@
 
 class HYCamera;
 class HYGameObject;
+class HYLight2D;
+
 class HYStructuredBuffer;
 
 
@@ -18,6 +20,9 @@ private:
 
     // 구조화 버퍼
     HYStructuredBuffer*     m_Light2DBuffer;
+    // 광원 2D 정보를 모아놓는 벡터
+    vector<HYLight2D*>       m_vecLight2D;
+
 
     // 유지 시간이 어떻게 될지 모르니까 list
     list<tDebugShapeInfo>   m_DbgShapeInfo;
@@ -40,6 +45,10 @@ public:
     // Position을 랜더링할건지 
     void SetDebugPosition(bool _OnOff) { m_DebugPosition = _OnOff; }
     bool IsDebugPosition() { return m_DebugPosition; }
+    
+    // 광원을 등록시키는 함수 
+    void RegisterLight2D(HYLight2D* _Light2D) { m_vecLight2D.push_back(_Light2D); }
+
 
 public:
     void init();
@@ -49,5 +58,11 @@ public:
 private:
     void render();
     void render_debug();
+
+    // 리소스 바인딩
+    void UpdateData();
+
+    // 리소스 클리어
+    void Clear();
 };
 

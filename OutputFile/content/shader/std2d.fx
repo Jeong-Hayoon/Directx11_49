@@ -3,7 +3,8 @@
 
 #include "value.fx"
 
-// 구조화 버퍼
+// 구조화 버퍼는 텍스처 레지스터에 바로 바인딩할 수 있는 구조라서 자료형을 따로 명시해주지 않아도 됨
+// 14번 레지스터에 float4 타입 구조화 버퍼
 StructuredBuffer<float4> g_Data : register(t14);
 
 
@@ -81,28 +82,38 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         if (vUV.x < g_vLeftTop.x || (g_vLeftTop.x + g_vSlizeSize.x) < vUV.x
             || vUV.y < g_vLeftTop.y || (g_vLeftTop.y + g_vSlizeSize.y) < vUV.y)
         {
-            //vColor = float4(1.f, 1.f, 0.f, 1.f);
+           // vColor = float4(1.f, 1.f, 0.f, 1.f);
             discard;
         }
         else
         {
             vColor = g_anim2d_tex.Sample(g_sam_1, vUV);
         }
+        
+        // 마젠타 색상 빼기
+        float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f);
+        
+        if (fAlpha < 0.1f)
+        {
+            discard;           
+        }
+        
+        
     }
     else
     {
           // tex_0가 true면 텍스처 출력, 그게 아니라면 기본 컬러 마젠타로 출력
         if (g_btex_0)
         {
-           // vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+            // vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
             vColor = g_Data[2];
             vColor.a = 1.f;
         
-        // Clamp 함수(값을 특정 범위 내에 가둬놓고 싶을 때 사용하는 함수)
-        // saturate : 0 ~ 1 을 넘지 않게 보정(0~1 넘는 값을 잘라버리는 함수)
+            // Clamp 함수(값을 특정 범위 내에 가둬놓고 싶을 때 사용하는 함수)
+            // saturate : 0 ~ 1 을 넘지 않게 보정(0~1 넘는 값을 잘라버리는 함수)
             float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f);
         
-        // 샘플링한 색상이 마젠타에 가까운 색상이라면 색상을 날려버림
+             // 샘플링한 색상이 마젠타에 가까운 색상이라면 색상을 날려버림
             if (fAlpha < 0.1f)
             {
             // discard : 픽셀 쉐이더를 중간에 폐기 처리 -> 더이상 PipeLine OM단계까지 가지 않으며 깊이 저장도 안됨
@@ -110,6 +121,11 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
             }
         }
     }
+    
+    // 광원 처리
+    // 광원의 타입별 처리
+    // 광원이 여러개일 때 처리
+    vColor.rgb *= g_Light2D[0].vAmbient.rgb;
     
     return vColor;
 }

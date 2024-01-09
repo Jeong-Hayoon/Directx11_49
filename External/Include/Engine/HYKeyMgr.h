@@ -1,5 +1,7 @@
 #pragma once
 
+#include "singleton.h"
+
 // Key Value
 enum KEY
 {

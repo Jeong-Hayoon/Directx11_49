@@ -40,6 +40,8 @@ void HYLevelMgr::init()
 	m_CurLevel->GetLayer(3)->SetName(L"Player");
 	m_CurLevel->GetLayer(4)->SetName(L"Monster");
 	m_CurLevel->GetLayer(31)->SetName(L"UI");
+	m_CurLevel->GetLayer(5)->SetName(L"Light");
+
 
 	// 충돌 설정
 	HYCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");
@@ -78,6 +80,21 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pCamObj, 0);
 
+	// 광원 추가
+	HYGameObject* pLight = new HYGameObject;
+	pLight->AddComponent(new HYTransform);
+	pLight->AddComponent(new HYMeshRender);
+	pLight->AddComponent(new HYLight2D);
+
+	pLight->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	pLight->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
+	pLight->Light2D()->SetAmbient(Vec3(0.8f, 0.3f, 0.4f));
+
+
+	pLight->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	m_CurLevel->AddObject(pLight, L"Light");
+
+
 	// Player Object 생성
 	HYGameObject* pObj = nullptr;
 
@@ -87,6 +104,7 @@ void HYLevelMgr::init()
 	pObj->AddComponent(new HYTransform);
 	pObj->AddComponent(new HYMeshRender);
 	pObj->AddComponent(new HYCollider2D);
+	pObj->AddComponent(new HYAnimator2D);
 	pObj->AddComponent(new HYPlayerScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
@@ -103,13 +121,6 @@ void HYLevelMgr::init()
 	// 텍스처 생성
 	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\Character.png");
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
-
-	pObj->AddComponent(new HYAnimator2D);
-	Ptr<HYTexture> pAltasTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"AnimAtlasTex", L"texture\\NormalSprite.png");
-	pObj->Animator2D()->Create(L"Explosion", pAltasTex, Vec2(0.f, 46.f)
-		, Vec2(32.f, 46.f), Vec2(0.f, 0.f), Vec2(200.f, 200.f), 6, 10.f);
-
-	pObj->Animator2D()->Play(L"Explosion");
 
 	m_CurLevel->AddObject(pObj, L"Player", false);
 
@@ -134,8 +145,6 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pObj, L"Monster", false);
 
-	
-
 	pObj = new HYGameObject;
 	pObj->SetName(L"UI");
 
@@ -149,6 +158,9 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
 
 	m_CurLevel->AddObject(pObj, L"UI", false);
+
+	m_CurLevel->begin();
+
 }
 
 void HYLevelMgr::tick()

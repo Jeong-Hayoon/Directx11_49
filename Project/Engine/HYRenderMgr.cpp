@@ -4,11 +4,10 @@
 #include "HYStructuredBuffer.h"
 
 #include "HYDevice.h"
-#include "HYCamera.h"
-#include "HYMeshRender.h"
 #include "HYAssetMgr.h"
-#include "HYTransform.h"
 #include "HYTimeMgr.h"
+#include "components.h"
+
 
 HYRenderMgr::HYRenderMgr()
 	: m_pDebugObj(nullptr)
@@ -33,9 +32,14 @@ void HYRenderMgr::tick()
 	Vec4 vClearColor = Vec4(0.3f, 0.3f, 0.3f, 1.f);
 	HYDevice::GetInst()->ClearRenderTarget(vClearColor);
 
-	render();
+	// 구조화 버퍼로 옮기고 특정 레지스터에서 리소스 바인딩하여 보냄
+	UpdateData();
 
+	render();
 	render_debug();
+
+	// 매 프레임마다 등록될거니까 clear시켜줘야 함
+	Clear();
 
 	HYDevice::GetInst()->Present();
 }
@@ -112,6 +116,30 @@ void HYRenderMgr::render_debug()
 			++iter;
 		}
 	}
+}
+
+void HYRenderMgr::UpdateData()
+{
+	// 임시로 사용하는 벡터
+	static vector<tLightInfo> vecLight2DInfo;
+
+	// 반복문을 돌면서 광원의 info 정보를 받음
+	for (size_t i = 0; i < m_vecLight2D.size(); ++i)
+	{
+		const tLightInfo& info = m_vecLight2D[i]->GetLightInfo();
+		vecLight2DInfo.push_back(info);
+	}
+
+	// 취합한 광원 정보들을 
+	m_Light2DBuffer->SetData(vecLight2DInfo.data(), vecLight2DInfo.size());
+	m_Light2DBuffer->UpdateData(11);
+
+	vecLight2DInfo.clear();
+}
+
+void HYRenderMgr::Clear()
+{
+	m_vecLight2D.clear();
 }
 
 void HYRenderMgr::RegisterCamera(HYCamera* _Cam, int _Idx)

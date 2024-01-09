@@ -1,5 +1,8 @@
 #pragma once
 
+#include "singleton.h"
+
+
 enum class TASK_TYPE
 {
 	// Param1 : Layer Index, Param2 : Object Adress

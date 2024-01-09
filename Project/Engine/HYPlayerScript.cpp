@@ -3,6 +3,7 @@
 #include "HYAssetMgr.h"
 		 
 #include "HYMissileScript.h"
+#include "HYGameObject.h"
 
 
 HYPlayerScript::HYPlayerScript()
@@ -14,30 +15,53 @@ HYPlayerScript::~HYPlayerScript()
 {
 }
 
+void HYPlayerScript::begin()
+{
+	Ptr<HYTexture> pAltasTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"AnimAtlasTex", L"texture\\playerFrame_small.png");
+
+	Animator2D()->Create(L"IDLE_UP", pAltasTex, Vec2(100.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
+	Animator2D()->Create(L"IDLE_DOWN", pAltasTex, Vec2(0.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
+	Animator2D()->Create(L"IDLE_LEFT", pAltasTex, Vec2(300.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
+	Animator2D()->Create(L"IDLE_RIGHT", pAltasTex, Vec2(200.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
+
+	Animator2D()->Create(L"MOVE_UP", pAltasTex, Vec2(0.f, 200.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
+	Animator2D()->Create(L"MOVE_DOWN", pAltasTex, Vec2(0.f, 100.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
+	Animator2D()->Create(L"MOVE_LEFT", pAltasTex, Vec2(0.f, 400.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
+	Animator2D()->Create(L"MOVE_RIGHT", pAltasTex, Vec2(0.f, 300.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
+}
+
 void HYPlayerScript::tick()
 {
 	Vec3 vPos = Transform()->GetRelativePos();
 	Vec3 vRot = Transform()->GetRelativeRotation();
 
 	if (KEY_PRESSED(KEY::UP))
-	{
 		vPos.y += DT * m_Speed;
-	}
+	if (KEY_TAP(KEY::UP))
+		Animator2D()->Play(L"MOVE_UP");
+	if (KEY_RELEASED(UP))
+		Animator2D()->Play(L"IDLE_UP");
 
 	if (KEY_PRESSED(KEY::DOWN))
-	{
 		vPos.y -= DT * m_Speed;
-	}
+	if (KEY_TAP(KEY::DOWN))
+		Animator2D()->Play(L"MOVE_DOWN");
+	if (KEY_RELEASED(DOWN))
+		Animator2D()->Play(L"IDLE_DOWN");
 
 	if (KEY_PRESSED(KEY::LEFT))
-	{
 		vPos.x -= DT * m_Speed;
-	}
+	if (KEY_TAP(KEY::LEFT))
+		Animator2D()->Play(L"MOVE_LEFT");
+	if (KEY_RELEASED(LEFT))
+		Animator2D()->Play(L"IDLE_LEFT");
 
 	if (KEY_PRESSED(KEY::RIGHT))
-	{
 		vPos.x += DT * m_Speed;
-	}
+	if (KEY_TAP(KEY::RIGHT))
+		Animator2D()->Play(L"MOVE_RIGHT");
+	if (KEY_RELEASED(RIGHT))
+		Animator2D()->Play(L"IDLE_RIGHT");
 
 	if (KEY_PRESSED(KEY::X))
 	{

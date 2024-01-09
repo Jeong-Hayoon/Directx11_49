@@ -8,11 +8,10 @@
 
 class HYComponent;
 class HYRenderComponent;
-
 class HYScript;
 class HYCamera;
 class HYCollider2D;
-
+class HYLight2D;
 
 
 // 하나의 오브젝트를 부르는 단위
@@ -64,6 +63,8 @@ public:
     GET_COMPONENT(Camera, CAMERA);
     GET_COMPONENT(Collider2D, COLLIDER2D);
     GET_COMPONENT(Animator2D, ANIMATOR2D);
+    GET_COMPONENT(Light2D, LIGHT2D);
+
 
 
 
