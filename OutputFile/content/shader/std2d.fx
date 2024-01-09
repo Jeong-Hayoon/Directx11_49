@@ -3,6 +3,10 @@
 
 #include "value.fx"
 
+// 구조화 버퍼
+StructuredBuffer<float4> g_Data : register(t14);
+
+
 // Shader 코드는 리소스처럼 활용이 됨(런타임 도중 실시간으로 컴파일하므로0
 // 텍스처 좌표 - 좌상단이 (0,0)이고 우하단이 (1,1)인 좌표계
 // hlsl로 작성한 코드를 컴파일시켜서 GPU가 이해할 수 있는 언어로 바꿔줘야 함   
@@ -90,7 +94,9 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
           // tex_0가 true면 텍스처 출력, 그게 아니라면 기본 컬러 마젠타로 출력
         if (g_btex_0)
         {
-            vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+           // vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+            vColor = g_Data[2];
+            vColor.a = 1.f;
         
         // Clamp 함수(값을 특정 범위 내에 가둬놓고 싶을 때 사용하는 함수)
         // saturate : 0 ~ 1 을 넘지 않게 보정(0~1 넘는 값을 잘라버리는 함수)

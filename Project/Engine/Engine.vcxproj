@@ -193,6 +193,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYRenderMgr.h" />
     <ClInclude Include="HYScript.h" />
     <ClInclude Include="HYShader.h" />
+    <ClInclude Include="HYStructuredBuffer.h" />
     <ClInclude Include="HYTaskMgr.h" />
     <ClInclude Include="HYTexture.h" />
     <ClInclude Include="HYTimeMgr.h" />
@@ -241,6 +242,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYRenderMgr_Init.cpp" />
     <ClCompile Include="HYScript.cpp" />
     <ClCompile Include="HYShader.cpp" />
+    <ClCompile Include="HYStructuredBuffer.cpp" />
     <ClCompile Include="HYTaskMgr.cpp" />
     <ClCompile Include="HYTexture.cpp" />
     <ClCompile Include="HYTimeMgr.cpp" />

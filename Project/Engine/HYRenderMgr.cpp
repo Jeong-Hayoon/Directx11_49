@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "HYRenderMgr.h"
 
+#include "HYStructuredBuffer.h"
+
 #include "HYDevice.h"
 #include "HYCamera.h"
 #include "HYMeshRender.h"
@@ -10,6 +12,9 @@
 
 HYRenderMgr::HYRenderMgr()
 	: m_pDebugObj(nullptr)
+	, m_DebugPosition(true)
+	, m_Light2DBuffer(nullptr)
+
 {
 
 }
@@ -18,6 +23,9 @@ HYRenderMgr::~HYRenderMgr()
 {
 	if (nullptr != m_pDebugObj)
 		delete m_pDebugObj;
+
+	if (nullptr != m_Light2DBuffer)
+		delete m_Light2DBuffer;
 }
 
 void HYRenderMgr::tick()

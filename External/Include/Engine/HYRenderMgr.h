@@ -3,6 +3,8 @@
 
 class HYCamera;
 class HYGameObject;
+class HYStructuredBuffer;
+
 
 // 앞으로는 LevelMgr가 아니라 RenderMgr가 랜더링 기능 담당 -> 카메라를 가져와서 랜더링
 // Debug Object Rendering Manager
@@ -13,6 +15,8 @@ class HYRenderMgr :
 private:
     // 우선순위에 따라 벡터에 순차적으로 나열
     vector<HYCamera*>        m_vecCam;
+
+    HYStructuredBuffer* m_Light2DBuffer;
 
     // 유지 시간이 어떻게 될지 모르니까 list
     list<tDebugShapeInfo>   m_DbgShapeInfo;

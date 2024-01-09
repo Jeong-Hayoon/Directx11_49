@@ -1,5 +1,8 @@
 #pragma once
 
+#include "singleton.h"
+
+
 class HYTimeMgr
 	: public HYSingleton<HYTimeMgr>
 {
