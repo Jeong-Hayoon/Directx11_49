@@ -6,7 +6,6 @@
 HYAnimator2D::HYAnimator2D()
 	: HYComponent(COMPONENT_TYPE::ANIMATOR2D)
 {
-
 }
 
 HYAnimator2D::~HYAnimator2D()

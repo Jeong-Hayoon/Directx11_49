@@ -5,7 +5,8 @@
 #include "HYEntity.h"
 
 HYGC::HYGC()
-{}
+{
+}
 
 HYGC::~HYGC()
 {

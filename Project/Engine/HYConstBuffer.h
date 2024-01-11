@@ -13,7 +13,6 @@ private:
 
     CB_TYPE                 m_Type;
 
-
 public:
     // 버퍼를 만들 때 크기를 인자로
     // _ElementSize : 오브젝트 하나의 간격(요소 사이즈)
@@ -28,8 +27,6 @@ public:
     void SetData(void* _Src, UINT _ElementCount = 0);
 
     void UpdateData();
-
-
 
 public:
     // 생성할 대 상수버퍼의 타입을 지정해줘야 함(타입이 곧 레지스터 담당 번호)

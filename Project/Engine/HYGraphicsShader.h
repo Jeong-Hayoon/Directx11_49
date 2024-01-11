@@ -37,7 +37,6 @@ private:
     // Shader Domain
     SHADER_DOMAIN                   m_Domain;
 
-
 public:
     int CreateVertexShader(const wstring& _strRelativePath, const string& _strFuncName);
     int CreateHullShader();

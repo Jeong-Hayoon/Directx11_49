@@ -2,7 +2,6 @@
 
 #include "singleton.h"
 
-
 class HYTimeMgr
 	: public HYSingleton<HYTimeMgr>
 {
@@ -14,14 +13,12 @@ private:
 	LARGE_INTEGER	m_CurCount;
 	double			m_DeltaTime;
 
-
 	UINT			m_iCall;
 	double			m_Time;
 
 public:
 	float GetDeltaTime() { return m_DeltaTime; }
 	double GetDeltaTime_d() { return m_DeltaTime; }
-
 
 public:
 	void init();

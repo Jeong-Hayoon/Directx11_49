@@ -7,7 +7,6 @@
 
 HYAssetMgr::HYAssetMgr()
 {
-
 }
 
 HYAssetMgr::~HYAssetMgr()

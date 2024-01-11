@@ -14,7 +14,6 @@ private:
 	// Layer를 배열로 관리(Level을 통해 Layer 진입)
 	HYLayer* m_arrLayer[LAYER_MAX];
 
-
 public:
 	void begin();
 	void tick();
@@ -30,8 +29,6 @@ public:
 	HYLayer* GetLayer(int _iLayerIdx) { return m_arrLayer[_iLayerIdx]; }
 	// 이름을 넣어주면 찾아내도록
 	HYLayer* GetLayer(const wstring& _strLayerName);
-
-
 
 private:
 	void clear();

@@ -6,7 +6,6 @@
 
 HYSpotLightScript::HYSpotLightScript()
 {
-	
 }
 
 HYSpotLightScript::~HYSpotLightScript()

@@ -2,7 +2,6 @@
 
 #include "HYTexture.h"
 
-
 class HYConstBuffer;
 
 // DirectX11 기준으로 GPU 제어
@@ -61,6 +60,5 @@ private:
 	int CreateSamplerState();
 
 	int CreateConstBuffer();
-
 
 };

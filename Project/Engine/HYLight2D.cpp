@@ -12,7 +12,6 @@ HYLight2D::HYLight2D()
 
 HYLight2D::~HYLight2D()
 {
-
 }
 
 void HYLight2D::finaltick()

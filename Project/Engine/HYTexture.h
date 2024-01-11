@@ -1,7 +1,6 @@
 #pragma once
 #include "HYAsset.h"
 
-
 class HYTexture :
     public HYAsset
 {

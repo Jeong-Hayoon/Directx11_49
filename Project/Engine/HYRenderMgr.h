@@ -3,13 +3,11 @@
 
 #include "HYTexture.h"
 
-
 class HYCamera;
 class HYGameObject;
 class HYLight2D;
 
 class HYStructuredBuffer;
-
 
 // 앞으로는 LevelMgr가 아니라 RenderMgr가 랜더링 기능 담당 -> 카메라를 가져와서 랜더링
 // Debug Object Rendering Manager

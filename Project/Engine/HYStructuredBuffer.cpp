@@ -27,7 +27,6 @@ int HYStructuredBuffer::Create(UINT _ElementSize, UINT _ElementCount, SB_TYPE _T
 	m_SB_Read = nullptr;
 	m_SB_Write = nullptr;
 
-
 	m_ElementSize = _ElementSize;
 	m_ElementCount = _ElementCount;
 	m_Type = _Type;

@@ -7,7 +7,6 @@
 HYLayer::HYLayer()
 	: m_iLayerIdx(-1)	
 {
-
 }
 
 HYLayer::~HYLayer()

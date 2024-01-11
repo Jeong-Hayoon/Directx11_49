@@ -3,7 +3,6 @@
 #include "HYTaskMgr.h"
 #include "HYRenderMgr.h"
 
-
 // 게임의 주요 함수들은 GamePlayStatic namespace 사용
 
 // TaskMgr에게 Task 등록을 해주는 함수
@@ -25,7 +24,6 @@ void GamePlayStatic::DestroyGameObject(HYGameObject* _Target)
 	HYTaskMgr::GetInst()->AddTask(task);
 
 }
-
 
 void GamePlayStatic::DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration)
 {

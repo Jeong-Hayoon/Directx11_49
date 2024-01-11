@@ -32,7 +32,6 @@ public:
     // Material이 들고 있는 데이터를 GPU로 보내는 함수
     void UpdateData();
 
-
 public:
     HYMaterial();
     ~HYMaterial();

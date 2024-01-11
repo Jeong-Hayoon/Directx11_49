@@ -21,7 +21,6 @@
 HYLevelMgr::HYLevelMgr()
 	: m_CurLevel(nullptr)
 {
-
 }
 
 HYLevelMgr::~HYLevelMgr()

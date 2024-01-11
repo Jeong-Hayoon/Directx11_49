@@ -8,12 +8,10 @@
 
 HYTaskMgr::HYTaskMgr()
 {
-
 }
 
 HYTaskMgr::~HYTaskMgr()
 {
-
 }
 
 void HYTaskMgr::tick()

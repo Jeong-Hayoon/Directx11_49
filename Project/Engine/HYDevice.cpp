@@ -4,7 +4,6 @@
 #include "HYConstBuffer.h"
 #include "HYAssetMgr.h"
 
-
 HYDevice::HYDevice()
 	: m_hRenderWnd(nullptr)
 	, m_arrCB{}
@@ -13,7 +12,6 @@ HYDevice::HYDevice()
 	, m_arrBS{}
 	, m_arrSampler{}
 {
-
 }
 
 HYDevice::~HYDevice()
@@ -28,7 +26,6 @@ int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
 
 	// 버퍼 해상도 
 	m_vRenderResolution = _vResolution;
-
 
 	// 장치 초기화
 	// FEATURE_LEVEL : 기능 레벨의 버전 세팅

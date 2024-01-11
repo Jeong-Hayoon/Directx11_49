@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "HYTexture.h"
 
-
 #include "HYDevice.h"
 
 HYTexture::HYTexture()

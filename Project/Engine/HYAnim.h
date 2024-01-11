@@ -55,7 +55,6 @@ public:
         , Vec2 _vSliceSize, Vec2 _vOffset, Vec2 _vBackground, int _FrmCount, float _FPS);
 
 
-
 public:
     HYAnim();
     ~HYAnim();

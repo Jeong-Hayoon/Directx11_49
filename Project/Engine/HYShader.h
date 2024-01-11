@@ -5,12 +5,10 @@
 class HYShader :
     public HYAsset
 {
-   
     // 자식 클래스가 사용할 수 있게끔
 protected:
     // Shader 컴파일 시 실패 잡아내도록 
     ComPtr<ID3DBlob>    m_ErrBlob;
-
 
 public:
     virtual void UpdateData() = 0;

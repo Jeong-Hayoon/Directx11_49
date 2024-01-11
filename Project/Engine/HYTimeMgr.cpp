@@ -9,7 +9,6 @@ HYTimeMgr::HYTimeMgr()
 	, m_CurCount{}
 	, m_Time(0.f)
 {
-
 }
 
 HYTimeMgr::~HYTimeMgr()

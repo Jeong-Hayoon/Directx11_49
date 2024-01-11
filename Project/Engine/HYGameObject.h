@@ -5,14 +5,12 @@
 // ## : 구문 이어붙이기(접합)
 #define GET_COMPONENT(Type, TYPE) class HY##Type* Type() { return (HY##Type*)m_arrCom[(UINT)COMPONENT_TYPE::##TYPE]; }
 
-
 class HYComponent;
 class HYRenderComponent;
 class HYScript;
 class HYCamera;
 class HYCollider2D;
 class HYLight2D;
-
 
 // 하나의 오브젝트를 부르는 단위
 class HYGameObject :
@@ -41,8 +39,6 @@ private:
 
     bool                    m_bDead;
 
-
-
 public:
     // 본인이 소유하고 있는 모든 Component들에게 
     // begin, tick, finaltick, render 호출하는 함수
@@ -65,13 +61,9 @@ public:
     GET_COMPONENT(Animator2D, ANIMATOR2D);
     GET_COMPONENT(Light2D, LIGHT2D);
 
-
-
-
     HYGameObject* GetParent() { return m_Parent; }
     const vector<HYScript*>& GetScripts() { return m_vecScript; }
     HYRenderComponent* GetRenderComopnent() { return m_RenderCom; }
-
 
     // 특정 스크립트만 가져오고 싶을 때
     template<typename T>
@@ -92,7 +84,6 @@ public:
     void AddChild(HYGameObject* _Child);
     // 물체가 Dead 상태인지 확인하는 함수
     bool IsDead() { return m_bDead; }
-
 
     // 해당 Script를 소유하고 있는 본체 Object를 삭제시키기 위해 GC로 보내는 함수
     void Destroy();

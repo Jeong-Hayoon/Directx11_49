@@ -13,19 +13,14 @@
 #include "HYRenderMgr.h"
 #include "HYCollisionMgr.h"
 
-
-
-
 HYEngine::HYEngine()
 	: m_hMainWnd(nullptr)
 	, m_vResolution()
 {
-
 }
 
 HYEngine::~HYEngine()
 {
-	
 }
 
 int HYEngine::init(HWND _hWnd, Vec2 _vResolution)

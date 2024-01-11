@@ -18,7 +18,6 @@ HYRenderMgr::HYRenderMgr()
 	, m_Light2DBuffer(nullptr)
 
 {
-
 }
 
 HYRenderMgr::~HYRenderMgr()
