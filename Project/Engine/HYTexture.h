@@ -26,6 +26,12 @@ private:
     // 함수 호출을 하고 싶다면 AssetMgr를 통해야 함
     virtual int Load(const wstring& _strFilePath) override;
 
+    // 텍스처를 로딩하는 것이 아니라 메모리 상에 만드는 함수
+    // 에셋 매니저에서만 접근 가능 하도록 private
+    int Create(UINT _Width, UINT _Height
+        , DXGI_FORMAT _Format, UINT _BindFlag
+        , D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
+
 
 public:
     void UpdateData(int _RegisterNum);
@@ -39,6 +45,12 @@ public:
     // Desc는 어떤 상황에서든 채워지기 때문에 Desc 사용
     UINT GetWidth() { return m_Desc.Width; }
     UINT GetHeight() { return m_Desc.Height; }
+
+    // 뷰를 반환해주는 함수
+    ComPtr<ID3D11RenderTargetView>    GetRTV() { return m_RTV; }
+    ComPtr<ID3D11DepthStencilView>    GetDSV() { return m_DSV; }
+    ComPtr<ID3D11ShaderResourceView>  GetSRV() { return m_SRV; }
+    ComPtr<ID3D11UnorderedAccessView> GetUAV() { return m_UAV; }
 
    
 public:

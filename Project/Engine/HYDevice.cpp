@@ -2,6 +2,7 @@
 #include "HYDevice.h"
 
 #include "HYConstBuffer.h"
+#include "HYAssetMgr.h"
 
 
 HYDevice::HYDevice()
@@ -124,7 +125,7 @@ void HYDevice::ClearRenderTarget(float(&Color)[4])
 	// DepthStenci Texture는 이미지가 아닌 0~1의 값으로 깊이값을 저장하고 있음
 	// Texture가 꼭 이미지를 저장하고 있는 것이 아님
 	// 특정 정보를 저장하고 있을 수도 있다는 것에 익숙해져야 함
-	m_Context->ClearDepthStencilView(m_DSView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+	m_Context->ClearDepthStencilView(m_DSTex->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 
 void HYDevice::Present()
@@ -252,47 +253,13 @@ int HYDevice::CreateTargetView()
 	// 리소스가 아니라서 텍스처를 직접 생성해야 함
 	// 직접 만든 텍스처로 뷰를 만듦
 	// DepthStencilTexture 생성
-	D3D11_TEXTURE2D_DESC Desc = {};
-
-	// 픽셀 포맷은 Depth 3byte, Stencil 1byte(픽셀 하나당 4byte)
-	// 깊이 텍스처의 픽셀 하나는 4byte인데 3byte - 부동 소수점 실수값 저장(0~1 실수)
-	// 1byte - Stencil 용도(0~255)
-	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-
-	// DepthStencilState 텍스쳐 해상도는 반드시 RenderTargetTexture 와 동일해야한다.
-	Desc.Width = (UINT)m_vRenderResolution.x;
-	Desc.Height = (UINT)m_vRenderResolution.y;
-
-	// BindFlags : 텍스처의 용도
-	// DepthStencil 용도의 텍스쳐
-	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-
-	// CPU 접근 불가
-	Desc.CPUAccessFlags = 0;
-	Desc.Usage = D3D11_USAGE_DEFAULT;
-
-	// 샘플링
-	Desc.SampleDesc.Count = 1;
-	Desc.SampleDesc.Quality = 0;
-
-	// MipLevels : 저퀄리티 버전의 사본 생성여부
-	// 증가할수록 저해상도의 절반의 해상도로 복사본을 만듦
-	// 멀리 있는 오브젝트는 고해상도일 필요가 없으므로 사용
-	Desc.MipLevels = 1;		// 만들지 않음
-	Desc.MiscFlags = 0;
-
-	Desc.ArraySize = 1;
-
-	if (FAILED(m_Device->CreateTexture2D(&Desc, nullptr, m_DSTex.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
-
-	// DepthStencilView
-	m_Device->CreateDepthStencilView(m_DSTex.Get(), nullptr, m_DSView.GetAddressOf());
+	m_DSTex = HYAssetMgr::GetInst()->CreateTexture((UINT)m_vRenderResolution.x
+		, (UINT)m_vRenderResolution.y
+		, DXGI_FORMAT_D24_UNORM_S8_UINT
+		, D3D11_BIND_DEPTH_STENCIL);
 
 	// OM(Output Merge State) 에 RenderTargetTexture 와 DepthStencilTexture 를 전달한다.
-	m_Context->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSView.Get());
+	m_Context->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSTex->GetDSV().Get());
 
 	return S_OK;
 }

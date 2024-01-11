@@ -194,3 +194,16 @@ enum class LIGHT_TYPE
 	POINT,
 	SPOT,
 };
+
+
+// 작성하는 순서 == 랜더링 순서(Layer 순서가 아니게 됨)
+// 해당 Shader가 어떤 시점에 그려져야 할지 분류하는 Shader의 Flag값
+enum class SHADER_DOMAIN
+{
+	DOMAIN_OPAQUE,			// 불투명(Mesh를 꽉 채우는 것)
+	DOMAIN_MASKED,			// 불투명 or 투명(내가 원하는 형태로 discard)
+	DOMAIN_TRANSPARENT,		// 반투명(알파 블랜드 쓰면 무조건 반투명)
+	DOMAIN_POSTPROCESS,		// 후처리(추가적 가공을 하는 쉐이더)
+
+	DOMAIN_DEBUG,			// Level 안의 물체를 다 그리고 나서 랜더링, Level 내에 존재하면 안됨
+};

@@ -70,6 +70,8 @@ public:
 
     HYGameObject* GetParent() { return m_Parent; }
     const vector<HYScript*>& GetScripts() { return m_vecScript; }
+    HYRenderComponent* GetRenderComopnent() { return m_RenderCom; }
+
 
     // 특정 스크립트만 가져오고 싶을 때
     template<typename T>

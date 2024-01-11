@@ -9,6 +9,8 @@
 #include "HYLevel.h"
 #include "HYLayer.h"
 #include "HYGameObject.h"
+#include "HYRenderComponent.h"
+
 
 HYCamera::HYCamera()
 	: HYComponent(COMPONENT_TYPE::CAMERA)
@@ -121,15 +123,12 @@ void HYCamera::LayerCheck(const wstring& _strLayerName, bool _bCheck)
 	LayerCheck(idx, _bCheck);
 }
 
-void HYCamera::render()
+void HYCamera::SortObject()
 {
-	// 계산한 view 행렬과 proj 행렬을 전역변수에 담아둔다.
-	g_Transform.matView = m_matView;
-	g_Transform.matProj = m_matProj;
-
 	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
 
-	for (int i = 0; i < LAYER_MAX; ++i) 
+	// 찍고자 하는 Layer인지 Check
+	for (int i = 0; i < LAYER_MAX; ++i)
 	{
 		// m_LayerCheck와 i번째 비트값을 확인해서
 		// 카메라가 찍도록 설정된 Layer 가 아니면 무시
@@ -139,13 +138,65 @@ void HYCamera::render()
 
 		HYLayer* pLayer = pCurLevel->GetLayer(i);
 		const vector<HYGameObject*>& vecObjects = pLayer->GetLayerObjects();
-		for (size_t i = 0; i < vecObjects.size(); ++i)
+		for (size_t j = 0; j < vecObjects.size(); ++j)
 		{
-			vecObjects[i]->render();
+			// 분류를 한다는 것 자체가 랜더링 기능이 존재한다는 것이므로
+			// GetRenderComopnent를 통해 내가 보유하고 있는 Component 
+			// 랜더링 기능이 다 제대로 있다면 
+			// 메쉬, 재질, 쉐이더 확인
+			if (!(vecObjects[j]->GetRenderComopnent()
+				&& vecObjects[j]->GetRenderComopnent()->GetMesh().Get()
+				&& vecObjects[j]->GetRenderComopnent()->GetMaterial().Get()
+				&& vecObjects[j]->GetRenderComopnent()->GetMaterial()->GetShader().Get()))
+			{
+				continue;
+			}
+
+			// 쉐이더 도메인을 확인해서 각 해당 벡터에 넣어줌
+			SHADER_DOMAIN domain = vecObjects[j]->GetRenderComopnent()->GetMaterial()->GetShader()->GetDomain();
+
+			switch (domain)
+			{
+			case SHADER_DOMAIN::DOMAIN_OPAQUE:
+				m_vecOpaque.push_back(vecObjects[j]);
+				break;
+			case SHADER_DOMAIN::DOMAIN_MASKED:
+				m_vecMaked.push_back(vecObjects[j]);
+				break;
+			case SHADER_DOMAIN::DOMAIN_TRANSPARENT:
+				m_vecTransparent.push_back(vecObjects[j]);
+				break;
+			case SHADER_DOMAIN::DOMAIN_POSTPROCESS:
+				m_vecPostProcess.push_back(vecObjects[j]);
+				break;
+			case SHADER_DOMAIN::DOMAIN_DEBUG:
+				break;
+			}
 		}
 	}
 }
 
 
+void HYCamera::render()
+{
+	// 계산한 view 행렬과 proj 행렬을 전역변수에 담아둔다.
+	g_Transform.matView = m_matView;
+	g_Transform.matProj = m_matProj;
+
+	// Domain 순서대로 렌더링
+	render(m_vecOpaque);
+	render(m_vecMaked);
+	render(m_vecTransparent);
+	render(m_vecPostProcess);
+}
+
+void HYCamera::render(vector<HYGameObject*>& _vecObj)
+{
+	for (size_t i = 0; i < _vecObj.size(); ++i)
+	{
+		_vecObj[i]->render();
+	}
+	_vecObj.clear();
+}
 
 

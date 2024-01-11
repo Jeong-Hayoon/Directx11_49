@@ -51,6 +51,7 @@ void HYRenderMgr::render()
 {
 	for (size_t i = 0; i < m_vecCam.size(); ++i)
 	{
+		m_vecCam[i]->SortObject();
 		m_vecCam[i]->render();
 	}
 }
@@ -143,7 +144,10 @@ void HYRenderMgr::UpdateData()
 	}
 
 	// 취합한 광원 정보들을 
-	m_Light2DBuffer->SetData(vecLight2DInfo.data(), vecLight2DInfo.size());
+	if (!vecLight2DInfo.empty())
+	{
+		m_Light2DBuffer->SetData(vecLight2DInfo.data(), (UINT)vecLight2DInfo.size());
+	}
 	m_Light2DBuffer->UpdateData(11);
 
 	vecLight2DInfo.clear();

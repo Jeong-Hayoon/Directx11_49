@@ -10,6 +10,7 @@ HYGraphicsShader::HYGraphicsShader()
 	, m_RSType(RS_TYPE::CULL_BACK)
 	, m_DSType(DS_TYPE::LESS)
 	, m_BSType(BS_TYPE::DEFAULT)
+	, m_Domain(SHADER_DOMAIN::DOMAIN_MASKED)
 {
 }
 

@@ -1,21 +1,7 @@
 #pragma once
 
-// 스마트 포인터 동작 방식
-//class SmartPointer
-//{
-//	int* pInt;
-//
-//public:
-//	int* Get()
-//	{
-//		return pInt;
-//	}
-//
-//	int** GetAdressOf()
-//	{
-//		return &pInt;
-//	}
-//};
+#include "HYTexture.h"
+
 
 class HYConstBuffer;
 
@@ -37,8 +23,7 @@ private:
 	ComPtr<ID3D11Texture2D>			m_RTTex;     // 렌더타겟 텍스쳐
 	ComPtr<ID3D11RenderTargetView>	m_RTView;    // 렌더타겟 뷰
 
-	ComPtr<ID3D11Texture2D>			m_DSTex;	 // 뎊스 스텐실 텍스쳐	
-	ComPtr<ID3D11DepthStencilView>	m_DSView;	// 뎊스 스텐실 뷰
+	Ptr<HYTexture>					m_DSTex;
 
 	HWND							m_hRenderWnd;
 	Vec2							m_vRenderResolution;

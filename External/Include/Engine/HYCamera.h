@@ -34,6 +34,11 @@ private:
 
     UINT        m_LayerCheck;
 
+    // 물체 분류
+    vector<HYGameObject*>    m_vecOpaque;
+    vector<HYGameObject*>    m_vecMaked;
+    vector<HYGameObject*>    m_vecTransparent;
+    vector<HYGameObject*>    m_vecPostProcess;
 
 public:
     PROJ_TYPE GetProjType() { return m_ProjType; }
@@ -60,9 +65,15 @@ public:
 
 public:
     virtual void finaltick() override;
+
+    void SortObject();
+
     // Camera 시점으로 Rendering
     void render();
 
+
+private:
+    void render(vector<HYGameObject*>& _vecObj);
 
 public:
     HYCamera();

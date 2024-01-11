@@ -1,6 +1,9 @@
 #pragma once
 #include "singleton.h"
 
+#include "HYTexture.h"
+
+
 class HYCamera;
 class HYGameObject;
 class HYLight2D;
@@ -17,6 +20,9 @@ class HYRenderMgr :
 private:
     // 우선순위에 따라 벡터에 순차적으로 나열
     vector<HYCamera*>       m_vecCam;
+
+    // 후처리용 텍스처 -> 리소스를 로딩할 필요가 없음 => 메모리 상에 텍스처 생성
+    Ptr<HYTexture>           m_PostProcessTex;
 
     // 구조화 버퍼
     HYStructuredBuffer*     m_Light2DBuffer;

@@ -12,15 +12,11 @@
 #include "HYCameraMoveScript.h"
 #include "HYBackgroundScript.h"
 #include "HYSpotLightScript.h"
-
-
 		  
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
 #include "HYTexture.h"
 #include "HYCollisionMgr.h"
-
-
 
 HYLevelMgr::HYLevelMgr()
 	: m_CurLevel(nullptr)
@@ -196,6 +192,19 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
 
 	m_CurLevel->AddObject(pObj, L"UI", false);
+
+	// PostProcess 오브젝트 추가
+	pObj = new HYGameObject;
+	pObj->SetName(L"GrayFilter");
+
+	// 트랜스폼 컴포넌트를 넣어주기는 하지만 어차피 전체 영역을 덮을거라 위치, 크기 다 상관없음
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"GrayFilterMtrl"));
+
+	m_CurLevel->AddObject(pObj, L"Default", false);
 
 	m_CurLevel->begin();
 

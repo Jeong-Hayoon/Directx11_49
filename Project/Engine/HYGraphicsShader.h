@@ -34,6 +34,8 @@ private:
     // BlendState
     BS_TYPE                         m_BSType;
 
+    // Shader Domain
+    SHADER_DOMAIN                   m_Domain;
 
 
 public:
@@ -49,6 +51,10 @@ public:
     void SetRSType(RS_TYPE _Type) { m_RSType = _Type; }
     void SetDSType(DS_TYPE _Type) { m_DSType = _Type; }
     void SetBSType(BS_TYPE _Type) { m_BSType = _Type; }
+
+    void SetDomain(SHADER_DOMAIN _domain) { m_Domain = _domain; }
+
+    SHADER_DOMAIN GetDomain() { return m_Domain; }
 
 public:
     virtual void UpdateData();

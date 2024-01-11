@@ -69,6 +69,84 @@ int HYTexture::Load(const wstring& _strFilePath)
 	return S_OK;
 }
 
+
+int HYTexture::Create(UINT _Width, UINT _Height, DXGI_FORMAT _Format, UINT _BindFlag, D3D11_USAGE _Usage)
+{
+	// Texture 생성
+	// 픽셀 포맷
+	m_Desc.Format = _Format;
+
+	// 텍스쳐 해상도
+	m_Desc.Width = _Width;
+	m_Desc.Height = _Height;
+
+	// 텍스쳐 용도
+	m_Desc.BindFlags = _BindFlag;
+
+	// CPU 접근
+	m_Desc.Usage = _Usage;
+	if (_Usage == D3D11_USAGE_DYNAMIC)
+	{
+		m_Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	}
+
+	// 샘플링
+	m_Desc.SampleDesc.Count = 1;
+	m_Desc.SampleDesc.Quality = 0;
+
+	// 저퀄리티 버전의 사본 생성여부
+	m_Desc.MipLevels = 1;
+	m_Desc.MiscFlags = 0;
+	m_Desc.ArraySize = 1;
+
+	if (FAILED(DEVICE->CreateTexture2D(&m_Desc, nullptr, m_Tex2D.GetAddressOf())))
+	{
+		return E_FAIL;
+	}
+
+	// View 생성
+	// 만약 입력된 BindFlags 안의 비트 값이 D3D11_BIND_DEPTH_STENCIL이 있었다면 
+	if (m_Desc.BindFlags & D3D11_BIND_DEPTH_STENCIL)
+	{
+		if (FAILED(DEVICE->CreateDepthStencilView(m_Tex2D.Get(), nullptr, m_DSV.GetAddressOf())))
+		{
+			return E_FAIL;
+		}
+	}
+
+	// Depth Stencil은 다른 것과 조합이 안되므로 else
+	else
+	{
+		// 만약 입력된 BindFlags 안의 비트 값이 D3D11_BIND_RENDER_TARGET이 있었다면 
+		if (m_Desc.BindFlags & D3D11_BIND_RENDER_TARGET)
+		{
+			if (FAILED(DEVICE->CreateRenderTargetView(m_Tex2D.Get(), nullptr, m_RTV.GetAddressOf())))
+			{
+				return E_FAIL;
+			}
+		}
+		// 만약 입력된 BindFlags 안의 비트 값이 D3D11_BIND_SHADER_RESOURCE이 있었다면 
+		if (m_Desc.BindFlags & D3D11_BIND_SHADER_RESOURCE)
+		{
+			if (FAILED(DEVICE->CreateShaderResourceView(m_Tex2D.Get(), nullptr, m_SRV.GetAddressOf())))
+			{
+				return E_FAIL;
+			}
+		}
+		// 만약 입력된 BindFlags 안의 비트 값이 D3D11_BIND_UNORDERED_ACCESS이 있었다면 
+		// UNORDERED_ACCESS : Compute Shader에서만 사용할 수 있는 텍스처 타입
+		if (m_Desc.BindFlags & D3D11_BIND_UNORDERED_ACCESS)
+		{
+			if (FAILED(DEVICE->CreateUnorderedAccessView(m_Tex2D.Get(), nullptr, m_UAV.GetAddressOf())))
+			{
+				return E_FAIL;
+			}
+		}
+	}
+
+	return S_OK;
+}
+
 // RegisterNum을 알려주면 그 번호로 보냄
 void HYTexture::UpdateData(int _RegisterNum)
 {
