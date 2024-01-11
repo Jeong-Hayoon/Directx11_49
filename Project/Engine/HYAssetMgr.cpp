@@ -226,6 +226,11 @@ void HYAssetMgr::CreateDefaultMaterial()
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
 	AddAsset<HYMaterial>(L"Std2DMtrl", pMtrl);
 
+	// BackgroundMtrl
+	pMtrl = new HYMaterial;
+	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
+	AddAsset<HYMaterial>(L"BackgroundMtrl", pMtrl);
+
 	// DebugShapeMtrl
 	pMtrl = new HYMaterial;
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"DebugShapeShader"));

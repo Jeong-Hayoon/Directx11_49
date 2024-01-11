@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "HYRenderMgr.h"
 
+#include "HYDevice.h"
+#include "HYConstBuffer.h"
+
 #include "HYStructuredBuffer.h"
 
 #include "HYDevice.h"
@@ -29,7 +32,7 @@ HYRenderMgr::~HYRenderMgr()
 
 void HYRenderMgr::tick()
 {
-	Vec4 vClearColor = Vec4(0.3f, 0.3f, 0.3f, 1.f);
+	Vec4 vClearColor = Vec4(0.f, 0.f, 0.f, 1.f);
 	HYDevice::GetInst()->ClearRenderTarget(vClearColor);
 
 	// 구조화 버퍼로 옮기고 특정 레지스터에서 리소스 바인딩하여 보냄
@@ -120,6 +123,15 @@ void HYRenderMgr::render_debug()
 
 void HYRenderMgr::UpdateData()
 {
+	g_global.g_Light2DCount = (int)m_vecLight2D.size();
+	//g_global.g_Light3DCount = (int)m_vecLight3D.size();
+
+	// 전역 데이터 업데이트
+	static HYConstBuffer* pCB = HYDevice::GetInst()->GetConstBuffer(CB_TYPE::GLOBAL_DATA);
+	pCB->SetData(&g_global);
+	pCB->UpdateData();
+
+	// 2D 광원 정보 업데이트
 	// 임시로 사용하는 벡터
 	static vector<tLightInfo> vecLight2DInfo;
 
@@ -135,6 +147,8 @@ void HYRenderMgr::UpdateData()
 	m_Light2DBuffer->UpdateData(11);
 
 	vecLight2DInfo.clear();
+
+	// 3D 광원정보 업데이트
 }
 
 void HYRenderMgr::Clear()

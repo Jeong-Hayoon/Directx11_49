@@ -13,6 +13,8 @@
 // 키매니저 매크로
 #define KEY_CHECK(Key, State) HYKeyMgr::GetInst()->GetKeyState(Key) == State
 #define DT	HYTimeMgr::GetInst()->GetDeltaTime()
+// double
+#define DTd	HYTimeMgr::GetInst()->GetDeltaTime_d()
 
 #define KEY_TAP(Key) KEY_CHECK(Key, TAP)
 #define KEY_PRESSED(Key) KEY_CHECK(Key, PRESSED)

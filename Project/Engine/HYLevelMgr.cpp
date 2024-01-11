@@ -10,6 +10,10 @@
 #include "components.h"
 #include "HYPlayerScript.h"
 #include "HYCameraMoveScript.h"
+#include "HYBackgroundScript.h"
+#include "HYSpotLightScript.h"
+
+
 		  
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
@@ -42,11 +46,9 @@ void HYLevelMgr::init()
 	m_CurLevel->GetLayer(31)->SetName(L"UI");
 	m_CurLevel->GetLayer(5)->SetName(L"Light");
 
-
 	// 충돌 설정
 	HYCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");
 	HYCollisionMgr::GetInst()->LayerCheck(L"Monster", L"Monster");
-
 
 	// Main Camera Object 생성 -> 카메라 기능 수행
 	HYGameObject* pCamObj = new HYGameObject;
@@ -85,19 +87,53 @@ void HYLevelMgr::init()
 	pLight->AddComponent(new HYTransform);
 	pLight->AddComponent(new HYMeshRender);
 	pLight->AddComponent(new HYLight2D);
+	pLight->AddComponent(new HYSpotLightScript);
 
-	pLight->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	pLight->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
 	pLight->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
-	pLight->Light2D()->SetAmbient(Vec3(0.8f, 0.3f, 0.4f));
+	pLight->Light2D()->SetRadius(300.f);
+	pLight->Light2D()->SetAngle(100.f);
 
-
-	pLight->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	pLight->Transform()->SetRelativePos(Vec3(-200.f, 0.f, 200.f));
 	m_CurLevel->AddObject(pLight, L"Light");
+
+	// 두번째 광원 추가
+	pLight = new HYGameObject;
+	pLight->AddComponent(new HYTransform);
+	pLight->AddComponent(new HYMeshRender);
+	pLight->AddComponent(new HYLight2D);
+
+	pLight->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	pLight->Light2D()->SetLightColor(Vec3(0.3f, 0.3f, 1.f));
+	pLight->Light2D()->SetRadius(300.f);
+
+	pLight->Transform()->SetRelativePos(Vec3(200.f, 0.f, 200.f));
+	m_CurLevel->AddObject(pLight, L"Light");
+
+	HYGameObject* pObj = nullptr;
+
+	// Backgruond Object 생성
+	pObj = new HYGameObject;
+	pObj->SetName(L"Background");
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+	pObj->AddComponent(new HYBackgroundScript);
+
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
+	pObj->Transform()->SetRelativeScale(Vec3(1600.f, 800.f, 1.f));
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	// 다른 재질을 사용해야 다른 텍스처를 사용할 수 있음
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl"));
+
+	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Background.png");
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
+
+	m_CurLevel->AddObject(pObj, L"Background", false);
 
 
 	// Player Object 생성
-	HYGameObject* pObj = nullptr;
-
 	pObj = new HYGameObject;
 	pObj->SetName(L"Player");
 
@@ -116,11 +152,13 @@ void HYLevelMgr::init()
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
-	pObj->MeshRender()->GetMaterial()->SetScalarParam(FLOAT_0, 0.f);
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\Character.png"));
 
-	// 텍스처 생성
-	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\Character.png");
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
+	pObj->AddComponent(new HYLight2D);
+
+	pObj->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	pObj->Light2D()->SetLightColor(Vec3(1.f, 0.3f, 0.3f));
+	pObj->Light2D()->SetRadius(300.f);
 
 	m_CurLevel->AddObject(pObj, L"Player", false);
 

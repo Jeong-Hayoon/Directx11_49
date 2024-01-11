@@ -212,6 +212,9 @@ int HYDevice::CreateSwapChain()
 		return E_FAIL;
 	}
 
+	// 전역 데이터에 렌더링 해상도 기록(랜덤 타겟의 해상도 정보가 쉐이더 상에서 필요할 수도 있기 때문에 랜더링 해상도를 쉐이더에 전달해야 함)
+	g_global.g_RenderResolution = m_vRenderResolution;
+
 	return S_OK;
 }
 
@@ -453,6 +456,7 @@ int HYDevice::CreateSamplerState()
 	D3D11_SAMPLER_DESC tDesc = {};
 
 	// 이방성 필터링 방식의 샘플링(3D) : 주변에 가까운 색상으로 평균치를 내서 그라데이션처럼 빈틈을 채우는 방식
+	// D3D11_TEXTURE_ADDRESS_WRAP를 이용하여 물 같이 흐르는 오브젝트 표현 가능
 	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -501,6 +505,9 @@ int HYDevice::CreateConstBuffer()
 
 	m_arrCB[(UINT)CB_TYPE::ANIM2D_DATA] = new HYConstBuffer(CB_TYPE::ANIM2D_DATA);
 	m_arrCB[(UINT)CB_TYPE::ANIM2D_DATA]->Create(sizeof(tAnimData2D), 1);
+
+	m_arrCB[(UINT)CB_TYPE::GLOBAL_DATA] = new HYConstBuffer(CB_TYPE::GLOBAL_DATA);
+	m_arrCB[(UINT)CB_TYPE::GLOBAL_DATA]->Create(sizeof(tGlobalData), 1);
 
 	return S_OK;
 }

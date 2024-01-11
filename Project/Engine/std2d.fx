@@ -2,6 +2,8 @@
 #define _STD2D
 
 #include "value.fx"
+#include "func.fx"
+
 
 // 구조화 버퍼는 텍스처 레지스터에 바로 바인딩할 수 있는 구조라서 자료형을 따로 명시해주지 않아도 됨
 // 14번 레지스터에 float4 타입 구조화 버퍼
@@ -27,6 +29,9 @@ struct VS_OUT
     float4 vPosition : SV_Position;
     float4 vColor : COLOR;
     float2 vUV : TEXCOORD;
+    
+    float3 vWorldPos : POSITION;
+    
 };
 
 // VS_IN : 입력 구조체 / VS_OUT : 출력 구조체
@@ -45,6 +50,7 @@ VS_OUT VS_Std2D(VS_IN _in)
     output.vColor = _in.vColor;
     output.vUV = _in.vUV;
     
+    output.vWorldPos = mul(float4(_in.vPos, 1.f), g_matWorld);
  
     return output;
 }
@@ -105,9 +111,9 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
           // tex_0가 true면 텍스처 출력, 그게 아니라면 기본 컬러 마젠타로 출력
         if (g_btex_0)
         {
-            // vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
-            vColor = g_Data[2];
-            vColor.a = 1.f;
+            // WRAP 샘플링 방식을 통해 물이 흐르는 듯한 효과를 낼 수 있음(누적 시간 값이 전달되었기 때문에 가능)
+            // vColor = g_tex_0.Sample(g_sam_1, _in.vUV + float2(g_time * 0.1, 0.f));
+            vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
         
             // Clamp 함수(값을 특정 범위 내에 가둬놓고 싶을 때 사용하는 함수)
             // saturate : 0 ~ 1 을 넘지 않게 보정(0~1 넘는 값을 잘라버리는 함수)
@@ -125,7 +131,18 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     // 광원 처리
     // 광원의 타입별 처리
     // 광원이 여러개일 때 처리
-    vColor.rgb *= g_Light2D[0].vAmbient.rgb;
+    // g_Light2DCount;    
+    
+    tLightColor LightColor = (tLightColor) 0.f;
+    
+    // 반복문을 돌면서 받는 빛의 양 누적
+    for (int i = 0; i < g_Light2DCount; ++i)
+    {
+        CalLight2D(_in.vWorldPos, i, LightColor);
+    }
+    
+    // 최소로 보장되는 환경광은 있을 수 있으니까 
+    vColor.rgb *= (LightColor.vColor.rgb + LightColor.vAmbient.rgb);
     
     return vColor;
 }

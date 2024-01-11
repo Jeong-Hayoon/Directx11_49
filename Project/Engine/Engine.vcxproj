@@ -167,6 +167,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYAnimator2D.h" />
     <ClInclude Include="HYAsset.h" />
     <ClInclude Include="HYAssetMgr.h" />
+    <ClInclude Include="HYBackgroundScript.h" />
     <ClInclude Include="HYCamera.h" />
     <ClInclude Include="HYCameraMoveScript.h" />
     <ClInclude Include="HYCollider2D.h" />
@@ -194,6 +195,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYRenderMgr.h" />
     <ClInclude Include="HYScript.h" />
     <ClInclude Include="HYShader.h" />
+    <ClInclude Include="HYSpotLightScript.h" />
     <ClInclude Include="HYStructuredBuffer.h" />
     <ClInclude Include="HYTaskMgr.h" />
     <ClInclude Include="HYTexture.h" />
@@ -216,6 +218,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYAnimator2D.cpp" />
     <ClCompile Include="HYAsset.cpp" />
     <ClCompile Include="HYAssetMgr.cpp" />
+    <ClCompile Include="HYBackgroundScript.cpp" />
     <ClCompile Include="HYCamera.cpp" />
     <ClCompile Include="HYCameraMoveScript.cpp" />
     <ClCompile Include="HYCollider2D.cpp" />
@@ -244,6 +247,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYRenderMgr_Init.cpp" />
     <ClCompile Include="HYScript.cpp" />
     <ClCompile Include="HYShader.cpp" />
+    <ClCompile Include="HYSpotLightScript.cpp" />
     <ClCompile Include="HYStructuredBuffer.cpp" />
     <ClCompile Include="HYTaskMgr.cpp" />
     <ClCompile Include="HYTexture.cpp" />
@@ -261,6 +265,12 @@ call EngineCopy.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="debug.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="func.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

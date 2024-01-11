@@ -114,3 +114,17 @@ struct tAnimData2D
 	int  UseAnim2D;
 	Vec3 iPadding;
 };
+
+// 랜더링할 때 자주 사용할 것 같은 잡다한 상수값을 일괄적으로 몰아서 
+// 상수 버퍼 대응용으로 만든 구조체
+struct tGlobalData
+{
+	Vec2	g_RenderResolution;	// 렌더링 해상도(윈도우 해상도와 늘 일치하지 않음, 윈도우 해상도보다 클일은 X, 만약 랜더링 해상도를 변경한다면 스왑체인/랜더타겟 등을 재생성해야함)
+	float	g_dt;				// Delta Time
+	float	g_time;				// 누적 시간 : 게임을 킨 순간부터 시간이 얼마나 흘렀는지
+	int		g_Light2DCount;		// 2D 광원 개수 : Level 안에(구조화 버퍼) 광원이 몇 개 들어있는지
+	int		g_Light3DCount;		// 3D 광원 개수
+	Vec2	g_vPadding;
+};
+
+extern tGlobalData g_global;

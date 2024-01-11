@@ -4,6 +4,8 @@
 
 #include "struct.fx"
 
+#define PI 3.1415926535f
+
 
 // #ifndef _STD2D, #define _STD2D, #endif -> c 스타일의 #pragma once
 // _STD2D가 정의되어 있지 않다면 
@@ -83,6 +85,16 @@ cbuffer ANIM_DATA2D : register(b2)
     float2 g_vOffset;
     int    g_UseAnim2D;
     float3 padding;
+}
+
+cbuffer GLOBAL_DATA : register(b3)
+{
+    float2 g_RenderResolution; // 렌더링 해상도
+    float g_dt; // Delta Time
+    float g_time; // 누적 시간
+    int g_Light2DCount; // 2D 광원 개수
+    int g_Light3DCount; // 3D 광원 개수
+    float2 globalpadding;
 }
 
 

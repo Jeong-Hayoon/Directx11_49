@@ -30,6 +30,10 @@ public:
     float GetRadius() { return m_Info.fRadius; }
     float GetAngle() { return m_Info.fAngle; }
 
+
+    void SetWorldDir(Vec3 WorldDir) { m_Info.vWorldDir = WorldDir; }
+
+
 public:
     HYLight2D();
     ~HYLight2D();

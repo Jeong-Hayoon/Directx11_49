@@ -7,7 +7,7 @@ HYTimeMgr::HYTimeMgr()
 	: m_Frequency{}
 	, m_PrevCount{}
 	, m_CurCount{}
-	, m_fTime(0.f)
+	, m_Time(0.f)
 {
 
 }
@@ -28,7 +28,7 @@ void HYTimeMgr::tick()
 {
 	QueryPerformanceCounter(&m_CurCount);
 
-	m_DeltaTime = float(m_CurCount.QuadPart - m_PrevCount.QuadPart) / float(m_Frequency.QuadPart);
+	m_DeltaTime = double(m_CurCount.QuadPart - m_PrevCount.QuadPart) / double(m_Frequency.QuadPart);
 
 	m_PrevCount = m_CurCount;
 
@@ -38,16 +38,19 @@ void HYTimeMgr::tick()
 
 
 	// 시간 누적 ==> 1초마다 if 구문 실행
-	m_fTime += m_DeltaTime;
-	if (1.f <= m_fTime)
+	m_Time += m_DeltaTime;
+	if (1.f <= m_Time)
 	{
 		wchar_t szText[50] = {};
 		swprintf_s(szText, 50, L"DeltaTime : %f, FPS : %d", m_DeltaTime, m_iCall);
 		SetWindowText(HYEngine::GetInst()->GetMainWind(), szText);
 
 		m_iCall = 0;
-		m_fTime = 0.f;
+		m_Time = 0.f;
 	}
 
 	++m_iCall;
+
+	g_global.g_dt = (float)m_DeltaTime;
+	g_global.g_time += (float)m_DeltaTime;
 }
