@@ -146,6 +146,54 @@ int HYTexture::Create(UINT _Width, UINT _Height, DXGI_FORMAT _Format, UINT _Bind
 	return S_OK;
 }
 
+
+int HYTexture::Create(ComPtr<ID3D11Texture2D> _tex2D)
+{
+	assert(_tex2D.Get());
+
+	m_Tex2D = _tex2D;
+	// m_Tex2D에 들어있는 Desc 정보를 m_Desc에 넣어줌
+	m_Tex2D->GetDesc(&m_Desc);
+
+	// View 생성
+	if (m_Desc.BindFlags & D3D11_BIND_DEPTH_STENCIL)
+	{
+		if (FAILED(DEVICE->CreateDepthStencilView(m_Tex2D.Get(), nullptr, m_DSV.GetAddressOf())))
+		{
+			return E_FAIL;
+		}
+	}
+
+	else
+	{
+		if (m_Desc.BindFlags & D3D11_BIND_RENDER_TARGET)
+		{
+			if (FAILED(DEVICE->CreateRenderTargetView(m_Tex2D.Get(), nullptr, m_RTV.GetAddressOf())))
+			{
+				return E_FAIL;
+			}
+		}
+
+		if (m_Desc.BindFlags & D3D11_BIND_SHADER_RESOURCE)
+		{
+			if (FAILED(DEVICE->CreateShaderResourceView(m_Tex2D.Get(), nullptr, m_SRV.GetAddressOf())))
+			{
+				return E_FAIL;
+			}
+		}
+
+		if (m_Desc.BindFlags & D3D11_BIND_UNORDERED_ACCESS)
+		{
+			if (FAILED(DEVICE->CreateUnorderedAccessView(m_Tex2D.Get(), nullptr, m_UAV.GetAddressOf())))
+			{
+				return E_FAIL;
+			}
+		}
+	}
+
+	return S_OK;
+}
+
 // RegisterNum을 알려주면 그 번호로 보냄
 void HYTexture::UpdateData(int _RegisterNum)
 {

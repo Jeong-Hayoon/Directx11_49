@@ -53,6 +53,8 @@ public:
     // 광원을 등록시키는 함수 
     void RegisterLight2D(HYLight2D* _Light2D) { m_vecLight2D.push_back(_Light2D); }
 
+    void CopyRenderTargetToPostProcessTarget();
+    Ptr<HYTexture> GetPostProcessTex() { return m_PostProcessTex; }
 
 public:
     void init();

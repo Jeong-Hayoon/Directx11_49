@@ -218,6 +218,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYAnimator2D.cpp" />
     <ClCompile Include="HYAsset.cpp" />
     <ClCompile Include="HYAssetMgr.cpp" />
+    <ClCompile Include="HYAsssetMgr_init.cpp" />
     <ClCompile Include="HYBackgroundScript.cpp" />
     <ClCompile Include="HYCamera.cpp" />
     <ClCompile Include="HYCameraMoveScript.cpp" />

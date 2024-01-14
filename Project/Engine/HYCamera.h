@@ -74,6 +74,8 @@ public:
 
 private:
     void render(vector<HYGameObject*>& _vecObj);
+    void render_postprocess();
+
 
 public:
     HYCamera();

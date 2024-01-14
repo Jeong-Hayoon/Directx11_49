@@ -414,6 +414,9 @@
     <ClCompile Include="HYSpotLightScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="HYAsssetMgr_init.cpp">
+      <Filter>04. Manager\AssetMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

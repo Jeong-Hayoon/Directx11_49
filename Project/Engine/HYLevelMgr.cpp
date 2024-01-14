@@ -77,8 +77,24 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pCamObj, 0);
 
-	// 광원 추가
+	// 전역 광원 추가
 	HYGameObject* pLight = new HYGameObject;
+	pLight->SetName(L"Directional Light");
+	pLight->AddComponent(new HYTransform);
+	pLight->AddComponent(new HYMeshRender);
+	pLight->AddComponent(new HYLight2D);
+
+	pLight->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	pLight->Light2D()->SetAmbient(Vec3(0.8f, 0.8f, 0.8f));
+
+	m_CurLevel->AddObject(pLight, L"Light");
+
+	HYGameObject* pObj = nullptr;
+
+	// 스포트 라이트
+	/*HYGameObject* pLight = new HYGameObject;
+	pLight->SetName(L"Directional Light");
+
 	pLight->AddComponent(new HYTransform);
 	pLight->AddComponent(new HYMeshRender);
 	pLight->AddComponent(new HYLight2D);
@@ -90,7 +106,7 @@ void HYLevelMgr::init()
 	pLight->Light2D()->SetAngle(100.f);
 
 	pLight->Transform()->SetRelativePos(Vec3(-200.f, 0.f, 200.f));
-	m_CurLevel->AddObject(pLight, L"Light");
+	m_CurLevel->AddObject(pLight, L"Light");*/
 
 	// 두번째 광원 추가
 	pLight = new HYGameObject;
@@ -126,7 +142,6 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
 
 	m_CurLevel->AddObject(pObj, L"Background", false);
-
 
 	// Player Object 생성
 	pObj = new HYGameObject;
@@ -193,18 +208,35 @@ void HYLevelMgr::init()
 	m_CurLevel->AddObject(pObj, L"UI", false);
 
 	// PostProcess 오브젝트 추가
-	pObj = new HYGameObject;
-	pObj->SetName(L"GrayFilter");
+	//pObj = new HYGameObject;
+	//pObj->SetName(L"GrayFilter");
 
-	// 트랜스폼 컴포넌트를 넣어주기는 하지만 어차피 전체 영역을 덮을거라 위치, 크기 다 상관없음
+	//// 트랜스폼 컴포넌트를 넣어주기는 하지만 어차피 전체 영역을 덮을거라 위치, 크기 다 상관없음
+	//pObj->AddComponent(new HYTransform);
+	//pObj->AddComponent(new HYMeshRender);
+
+	//pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	//pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"GrayFilterMtrl"));
+
+	//m_CurLevel->AddObject(pObj, L"Default", false);
+
+	// Distortion 효과 추가
+	pObj = new HYGameObject;
+	pObj->SetName(L"Distortion Object");
+
 	pObj->AddComponent(new HYTransform);
 	pObj->AddComponent(new HYMeshRender);
 
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	pObj->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
+
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"GrayFilterMtrl"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"DistortionMtrl"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"NoiseTex", L"texture\\noise\\noise_03.jpg"));
 
 	m_CurLevel->AddObject(pObj, L"Default", false);
 
+	// Level 시작
 	m_CurLevel->begin();
 
 }

@@ -117,7 +117,7 @@ int HYDevice::init(HWND _hWnd, Vec2 _vResolution)
 void HYDevice::ClearRenderTarget(float(&Color)[4])
 {
 	// 랜더타겟을 가리키고 있는 뷰를 달라고 함
-	m_Context->ClearRenderTargetView(m_RTView.Get(), Color);
+	m_Context->ClearRenderTargetView(m_RTTex->GetRTV().Get(), Color);
 	// DepthStenci도 매 프레임마다 초기화를 시켜줘야 함(변동이 있을 수 있으므로)
 	// DepthStenci Texture는 이미지가 아닌 0~1의 값으로 깊이값을 저장하고 있음
 	// Texture가 꼭 이미지를 저장하고 있는 것이 아님
@@ -225,38 +225,25 @@ int HYDevice::CreateTargetView()
 	// ?(30)
 	// GetBuffer - Reference Count 증가 -> 연쇄적인 Release 해줘야 함 => ComPtr 활용
 	// 렌더타겟 텍스쳐를 스왑체인으로부터 얻어온다.
-	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)m_RTTex.GetAddressOf());
+	ComPtr<ID3D11Texture2D> tex2D;
+	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)tex2D.GetAddressOf());
 
-	// RenderTargetView : 랜더타겟용 텍스처를 가리키면서 만들어짐
-	//(용도가 랜더타겟용이 아니면 애초에 뷰가 안만들어짐)
-	m_Device->CreateRenderTargetView(m_RTTex.Get(), nullptr, m_RTView.GetAddressOf());
-
-	// 실제 리소스 객체는 따로 있고 리소스 객체를 통해 중간에 뷰가 만들어짐
-	// 리소스가 필요한 곳에서는 뷰를 달라고 함
-	// 뷰를 통해 접근을 하게 함
-	// 각 리소스들은 생성할 때 용도가 정해짐
-	// 용도가 렌더타겟 용도가 아니었다면 타겟뷰가 생성이 안됨
-	// 뷰가 넘어왔다는 것 자체가 랜더타겟 용도로 생성이 되었다는 것
-	// 텍스처를 만들 때 용도를 여러 개를 동시에 수행할 수 있도록 하면 
-	// 여러 개의 타겟뷰 생성도 가능
-	// View? -> 어떤 용도인지 증명해주는 ID
-	// RenderTargetView
-	// DepthStencilView
-	// ShaderResourceView
-	// UnorderedAccessView
-	
+	// RenderTargetTexture 를 AssetMgr 에 등록
+	m_RTTex = HYAssetMgr::GetInst()->CreateTexture(L"RenderTargetTex", tex2D);
 
 	// DepthStencil : 깊이감을 저장하는 텍스처
 	// 리소스가 아니라서 텍스처를 직접 생성해야 함
 	// 직접 만든 텍스처로 뷰를 만듦
 	// DepthStencilTexture 생성
-	m_DSTex = HYAssetMgr::GetInst()->CreateTexture((UINT)m_vRenderResolution.x
-		, (UINT)m_vRenderResolution.y
-		, DXGI_FORMAT_D24_UNORM_S8_UINT
-		, D3D11_BIND_DEPTH_STENCIL);
-
+	m_DSTex = HYAssetMgr::GetInst()->CreateTexture(L"DepthStencilTex"
+												,(UINT)m_vRenderResolution.x
+												, (UINT)m_vRenderResolution.y
+												, DXGI_FORMAT_D24_UNORM_S8_UINT
+												, D3D11_BIND_DEPTH_STENCIL);
+		
 	// OM(Output Merge State) 에 RenderTargetTexture 와 DepthStencilTexture 를 전달한다.
-	m_Context->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSTex->GetDSV().Get());
+	// 랜더타겟 텍스처와 깊이 텍스처의 해상도는 동일해야 함
+	m_Context->OMSetRenderTargets(1, m_RTTex->GetRTV().GetAddressOf(), m_DSTex->GetDSV().Get());
 
 	return S_OK;
 }

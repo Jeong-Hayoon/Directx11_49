@@ -11,6 +11,8 @@
 #include "HYGameObject.h"
 #include "HYRenderComponent.h"
 
+#include "HYAssetMgr.h"
+
 
 HYCamera::HYCamera()
 	: HYComponent(COMPONENT_TYPE::CAMERA)
@@ -187,7 +189,9 @@ void HYCamera::render()
 	render(m_vecOpaque);
 	render(m_vecMaked);
 	render(m_vecTransparent);
-	render(m_vecPostProcess);
+
+	// 후처리 작업(기존 랜더링과는 다르게 추가로 해줘야 하는 작업이 있어서 따로 빼줌)
+	render_postprocess();
 }
 
 void HYCamera::render(vector<HYGameObject*>& _vecObj)
@@ -197,6 +201,25 @@ void HYCamera::render(vector<HYGameObject*>& _vecObj)
 		_vecObj[i]->render();
 	}
 	_vecObj.clear();
+}
+
+void HYCamera::render_postprocess()
+{
+	for (size_t i = 0; i < m_vecPostProcess.size(); ++i)
+	{
+		// 최종 렌더링 이미지를 후처리 타겟에 복사
+		HYRenderMgr::GetInst()->CopyRenderTargetToPostProcessTarget();
+
+		// 복사받은 후처리 텍스쳐를 t13 레지스터에 바인딩
+		Ptr<HYTexture> pPostProcessTex = HYRenderMgr::GetInst()->GetPostProcessTex();
+		// 후처리 과정에서도 새로운 텍스처가 필요할 수도 있기 때문에 전용 레지스터에 바인딩
+		pPostProcessTex->UpdateData(13);
+
+		// 후처리 오브젝트 렌더링
+		m_vecPostProcess[i]->render();
+	}
+
+	m_vecPostProcess.clear();
 }
 
 
