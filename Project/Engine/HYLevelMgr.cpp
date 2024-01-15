@@ -121,7 +121,7 @@ void HYLevelMgr::init()
 	pLight->Transform()->SetRelativePos(Vec3(200.f, 0.f, 200.f));
 	m_CurLevel->AddObject(pLight, L"Light");
 
-	HYGameObject* pObj = nullptr;
+	pObj = nullptr;
 
 	// Backgruond Object »ý¼º
 	pObj = new HYGameObject;

@@ -3,13 +3,11 @@
 
 #include "HYTexture.h"
 
-
 class HYCamera;
 class HYGameObject;
 class HYLight2D;
 
 class HYStructuredBuffer;
-
 
 // 앞으로는 LevelMgr가 아니라 RenderMgr가 랜더링 기능 담당 -> 카메라를 가져와서 랜더링
 // Debug Object Rendering Manager
@@ -55,6 +53,8 @@ public:
     // 광원을 등록시키는 함수 
     void RegisterLight2D(HYLight2D* _Light2D) { m_vecLight2D.push_back(_Light2D); }
 
+    void CopyRenderTargetToPostProcessTarget();
+    Ptr<HYTexture> GetPostProcessTex() { return m_PostProcessTex; }
 
 public:
     void init();

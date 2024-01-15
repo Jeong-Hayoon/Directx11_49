@@ -43,7 +43,9 @@ public:
     Ptr<T> Load(const wstring& _strKey, const wstring& _strRelativePath);
 
     // _Flag : D3D11_BIND_FLAG
-    Ptr<HYTexture> CreateTexture(UINT _Width, UINT _Height, DXGI_FORMAT _Format, UINT _Flag, D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
+    Ptr<HYTexture> CreateTexture(const wstring& _strKey, UINT _Width, UINT _Height, DXGI_FORMAT _Format, UINT _Flag, D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
+    // 이미 SwapChain이 생성될 때 RenderTarget에 Texture2D 객체가 만들어지므로 그 객체를 통해 Texture로 전환하여 우리 자체 Texture 클래스로 만들어서 AssetMgr가 들고 있음
+    Ptr<HYTexture> CreateTexture(const wstring& _strKey, ComPtr<ID3D11Texture2D> _tex2D);
 
 };
 

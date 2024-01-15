@@ -2,7 +2,6 @@
 
 #include "singleton.h"
 
-
 enum class TASK_TYPE
 {
 	// Param1 : Layer Index, Param2 : Object Adress
@@ -27,7 +26,6 @@ struct FTask
 	UINT_PTR  Param_1;
 	UINT_PTR  Param_2;
 };
-
 
 class HYTaskMgr
 	: public HYSingleton<HYTaskMgr>

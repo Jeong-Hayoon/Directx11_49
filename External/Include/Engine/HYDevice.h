@@ -2,7 +2,6 @@
 
 #include "HYTexture.h"
 
-
 class HYConstBuffer;
 
 // DirectX11 기준으로 GPU 제어
@@ -20,9 +19,7 @@ private:
 	ComPtr<IDXGISwapChain>			m_SwapChain; // 스왚체인(출력 버퍼 지정)
 
 	// OM(OutputMergeState)
-	ComPtr<ID3D11Texture2D>			m_RTTex;     // 렌더타겟 텍스쳐
-	ComPtr<ID3D11RenderTargetView>	m_RTView;    // 렌더타겟 뷰
-
+	Ptr<HYTexture>					m_RTTex;
 	Ptr<HYTexture>					m_DSTex;
 
 	HWND							m_hRenderWnd;
@@ -61,6 +58,5 @@ private:
 	int CreateSamplerState();
 
 	int CreateConstBuffer();
-
 
 };

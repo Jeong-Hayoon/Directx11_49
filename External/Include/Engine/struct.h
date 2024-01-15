@@ -102,7 +102,6 @@ struct tMtrlConst
 	int iPadding[2];			// 8byte
 };
 
-	
 struct tAnimData2D
 {
 	// 좌상단 UV 정보

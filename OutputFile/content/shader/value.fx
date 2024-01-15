@@ -97,7 +97,6 @@ cbuffer GLOBAL_DATA : register(b3)
     float2 globalpadding;
 }
 
-
 // 이 텍스처에 들어 있는 이미지 색상 정보 = Sample
 Texture2D g_tex_0 : register(t0);
 Texture2D g_tex_1 : register(t1);
@@ -112,14 +111,14 @@ TextureCube g_texcube_1 : register(t7);
 Texture2DArray g_texarr_0 : register(t8);
 Texture2DArray g_texarr_1 : register(t9);
 
-
 // 애니메이션 전용 레지스터
 Texture2D g_anim2d_tex : register(t10);
-
 
 StructuredBuffer<tLightInfo> g_Light2D : register(t11);
 StructuredBuffer<tLightInfo> g_Light3D : register(t12);
 
+// 후처리 전용 레지스터(완성되어 있는 텍스처가 복사되어 들어와 있음)
+Texture2D g_postprocess : register(t13);
 
 // Sampling : 텍스처 추출
 // Sampler : 샘플링을 위한 도구

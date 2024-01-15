@@ -195,7 +195,6 @@ enum class LIGHT_TYPE
 	SPOT,
 };
 
-
 // 작성하는 순서 == 랜더링 순서(Layer 순서가 아니게 됨)
 // 해당 Shader가 어떤 시점에 그려져야 할지 분류하는 Shader의 Flag값
 enum class SHADER_DOMAIN

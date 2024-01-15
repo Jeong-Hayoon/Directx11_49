@@ -13,7 +13,6 @@ public:
 	T** GetAdressOf() const { return &Asset; }
 	T* operator->() const { return Asset; }
 
-
 public:
 	void operator = (const Ptr& _ptr)
 	{
@@ -66,7 +65,6 @@ public:
 	{
 		return !(*this == _Asset);
 	}
-
 
 public:
 	Ptr()

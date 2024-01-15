@@ -1,7 +1,6 @@
 #pragma once
 #include "HYAsset.h"
 
-
 class HYTexture :
     public HYAsset
 {
@@ -32,6 +31,9 @@ private:
         , DXGI_FORMAT _Format, UINT _BindFlag
         , D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
 
+    int Create(ComPtr<ID3D11Texture2D> _tex2D);
+
+
 
 public:
     void UpdateData(int _RegisterNum);
@@ -52,6 +54,8 @@ public:
     ComPtr<ID3D11ShaderResourceView>  GetSRV() { return m_SRV; }
     ComPtr<ID3D11UnorderedAccessView> GetUAV() { return m_UAV; }
 
+    // Texture2D를 반환하는 함수
+    ComPtr<ID3D11Texture2D>           GetTex2D() { return m_Tex2D; }
    
 public:
     HYTexture();

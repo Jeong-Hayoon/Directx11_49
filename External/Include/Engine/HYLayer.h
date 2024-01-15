@@ -13,7 +13,6 @@ private:
     vector<HYGameObject*>    m_vecObjects;
     int                      m_iLayerIdx;
 
-
 private:
     void begin();
     void tick();
@@ -35,7 +34,6 @@ public:
 public:
     HYLayer();
     ~HYLayer();
-
 
     // Layer에서는 private, Level에서 public(대신 friend 지정)
 private:

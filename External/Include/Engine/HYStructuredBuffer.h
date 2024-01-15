@@ -28,8 +28,6 @@ private:
     // System mem와의 소통 가능 여부
     bool                                m_bSysMemMove; 
 
-
-
 public:
     // _pSysMem - 초기 데이터 세팅으로 _ElementSize의 _ElementCount만큼 가져감
     int Create(UINT _ElementSize, UINT _ElementCount, SB_TYPE _Type, bool _bSysMemMove = false, void* _pSysMem = nullptr);
