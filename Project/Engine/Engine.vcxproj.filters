@@ -442,5 +442,8 @@
     <FxCompile Include="postprocess.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
+    <FxCompile Include="outline.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

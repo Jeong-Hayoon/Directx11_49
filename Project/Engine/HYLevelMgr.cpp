@@ -138,7 +138,7 @@ void HYLevelMgr::init()
 	// 다른 재질을 사용해야 다른 텍스처를 사용할 수 있음
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl"));
 
-	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Sea.jpg");
+	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Background.png");
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
 
 	m_CurLevel->AddObject(pObj, L"Background", false);
@@ -252,6 +252,23 @@ void HYLevelMgr::init()
 	//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"ChaosTex", L"texture\\ChaosRiftOpen6.png"));
 
 	m_CurLevel->AddObject(pObj, L"Default", false);
+
+	// 외곽선 효과
+	pObj = new HYGameObject;
+	pObj->SetName(L"OutLine Object");
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	pObj->Transform()->SetRelativeScale(Vec3(800.f, 800.f, 1.f));
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"OutLineMtrl"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"NoiseTex", L"texture\\noise\\noise_03.jpg"));
+
+	m_CurLevel->AddObject(pObj, L"Default", false);
+
 
 	// Level 시작
 	m_CurLevel->begin();

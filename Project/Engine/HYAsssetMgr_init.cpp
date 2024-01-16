@@ -250,6 +250,23 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	AddAsset(L"WaveFilterShader", pShader);
 
+	// =================================
+	// OutLine Shader	
+	// RS_TYPE		: CULL_BACK
+	// DS_TYPE		: NO_TEST_NO_WRITE
+	// BS_TYPE		: Default
+	// Domain		: DOMAIN_POSTPROCESS
+	// =================================
+	pShader = new HYGraphicsShader;
+	pShader->CreateVertexShader(L"shader\\outline.fx", "VS_Outline");
+	pShader->CreatePixelShader(L"shader\\outline.fx", "PS_Outline");
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
+
+	AddAsset(L"OutLineShader", pShader);
+
 	// ===================================================================================================
 	// DebugShape Shader - 카메라 입장에서는 무시, 이 Shader를 사용하는 오브젝트는 Level 내에 존재하면 X
 	// ===================================================================================================
@@ -297,6 +314,11 @@ void HYAssetMgr::CreateDefaultMaterial()
 	pMtrl = new HYMaterial;
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"DistortionShader"));
 	AddAsset<HYMaterial>(L"DistortionMtrl", pMtrl);
+
+	// OutLineMtrl
+	pMtrl = new HYMaterial;
+	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"OutLineShader"));
+	AddAsset<HYMaterial>(L"OutLineMtrl", pMtrl);
 
 	// DebugShapeMtrl
 	pMtrl = new HYMaterial;
