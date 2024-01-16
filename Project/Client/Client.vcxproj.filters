@@ -9,6 +9,30 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Default\ImGui">
+      <UniqueIdentifier>{b7bd5302-5046-45fb-89f6-f91d6ba57d98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGuiMgr">
+      <UniqueIdentifier>{3ac4cd6f-e2f4-4c7b-8d88-a38d1ed0a9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{1e0e102a-b2d6-456e-a7bb-357f0a9402c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Content">
+      <UniqueIdentifier>{3796fb55-06bb-4440-a01f-ff07bcbf9237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Inspector">
+      <UniqueIdentifier>{a22ae863-10f2-495b-993c-36a9dd4dbf5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Outliner">
+      <UniqueIdentifier>{ca9a2704-c34f-4a5c-8e93-f8bc649fa257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Inspector\AssetUI">
+      <UniqueIdentifier>{7f84369d-304c-4d33-be1d-7874b1688baa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Inspector\CompoenntUI">
+      <UniqueIdentifier>{3cb11ecc-096f-4ec5-80e8-1c85a6f69435}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -23,10 +47,95 @@
     <ClInclude Include="Client.h">
       <Filter>Default</Filter>
     </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Default\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HYImGuiMgr.h">
+      <Filter>ImGuiMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h">
+      <Filter>UI\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="Content.h">
+      <Filter>UI\Content</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformUI.h">
+      <Filter>UI\Inspector\CompoenntUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Outliner.h">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="imgui.cpp">
+      <Filter>Default\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Default\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Default\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>Default\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Default\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Default\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Default\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
       <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="UI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HYImGuiMgr.cpp">
+      <Filter>ImGuiMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
+      <Filter>UI\Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="Content.cpp">
+      <Filter>UI\Content</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformUI.cpp">
+      <Filter>UI\Inspector\CompoenntUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Outliner.cpp">
+      <Filter>UI\Outliner</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

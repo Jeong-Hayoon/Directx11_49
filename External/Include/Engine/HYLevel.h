@@ -30,6 +30,10 @@ public:
 	// 이름을 넣어주면 찾아내도록
 	HYLayer* GetLayer(const wstring& _strLayerName);
 
+	// Level 안에서 특정 이름을 가진 물체를 불러오는 함수(성능저하가 생길 수 있기 때문에 툴에서만 사용)
+	HYGameObject* FindObjectByName(const wstring& _strName);
+	void FindObjectsByName(const wstring& _strName, vector<HYGameObject*>& _vecObj);
+
 private:
 	void clear();
 

@@ -1,10 +1,13 @@
-﻿#include "framework.h"
+﻿#include "pch.h"
+
+#include "framework.h"
 #include "Client.h"
 
 #include <crtdbg.h>
 
 #include <Engine\global.h>
 #include <Engine\HYEngine.h>
+#include <Engine\HYDevice.h>
 
 
 #ifdef _DEBUG
@@ -13,12 +16,20 @@
 #pragma comment(lib, "Engine\\Engine.lib")
 #endif
 
+#include "HYImGuiMgr.h"
+
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 
 
-#define MAX_LOADSTRING 100
+// #define MAX_LOADSTRING 100
 
 HINSTANCE   hInst;
 HWND        hWnd;
+
+// 다른 cpp에서 비슷한 전역 변수 있을 때 이름이 겹치지 않도록 static
+static UINT g_ResizeWidth = 0, g_ResizeHeight = 0;
 
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -53,6 +64,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
     }
 
+    // ImGui 초기화
+    HYImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
+
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -69,7 +83,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         else
         {
+            // Engine Update
             HYEngine::GetInst()->progress();
+
+            // ImGui Update
+            HYImGuiMgr::GetInst()->progress();
+
+            // Engine 및 ImGui 렌더링 최종 결과를 출력한다.
+            HYDevice::GetInst()->Present();
         }
     }
 
@@ -89,17 +110,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = WndProc;
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
-    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = nullptr;// MAKEINTRESOURCEW(IDC_CLIENT); - 메뉴 필요없음
-    wcex.lpszClassName = L"MyWindow";
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.style          = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc    = WndProc;
+    wcex.cbClsExtra     = 0;
+    wcex.cbWndExtra     = 0;
+    wcex.hInstance      = hInstance;
+    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
+    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
+    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.lpszMenuName   = nullptr;// MAKEINTRESOURCEW(IDC_CLIENT); - 메뉴 필요없음
+    wcex.lpszClassName  = L"MyWindow";
+    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
 }
@@ -143,8 +164,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        return true;
+
     switch (message)
     {
     case WM_COMMAND:
@@ -175,6 +202,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+
+    case WM_DPICHANGED:
+        if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
+        {
+            //const int dpi = HIWORD(wParam);
+            //printf("WM_DPICHANGED to %d (%.0f%%)\n", dpi, (float)dpi / 96.0f * 100.0f);
+            const RECT* suggested_rect = (RECT*)lParam;
+            ::SetWindowPos(hWnd, nullptr, suggested_rect->left, suggested_rect->top, suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
+        }
+        break;
+
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

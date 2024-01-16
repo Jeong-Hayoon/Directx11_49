@@ -2,6 +2,8 @@
 #include "HYLevel.h"
 
 #include "HYLayer.h"
+#include "HYGameObject.h"
+
 
 HYLevel::HYLevel()
 	: m_arrLayer{}
@@ -68,6 +70,80 @@ HYLayer* HYLevel::GetLayer(const wstring& _strLayerName)
 		}
 	}
 	return nullptr;
+}
+
+// 최초로 찾아지는 오브젝트를 바로 return
+HYGameObject* HYLevel::FindObjectByName(const wstring& _strName)
+{
+	for (UINT i = 0; i < LAYER_MAX; ++i)
+	{
+		// 모든 부모 오브젝트를 기반으로 Layer 싹 다 Check
+		// m_vecObjects가 아니라 m_vecParent로 하는 이유는 m_vecObjects의 경우 도중에 Clear가 되어
+		// 타이밍이 안좋으면 검출이 안될 수 있음
+		const vector<HYGameObject*>& vecParent = m_arrLayer[i]->GetParentObjects();
+
+		// Parent 반복문을 돌면서 모든 자식 오브젝트까지 Queue에 넣음
+		for (size_t j = 0; j < vecParent.size(); ++j)
+		{
+			list<HYGameObject*> queue;
+			queue.push_back(vecParent[j]);
+
+			// 레이어에 입력되는 오브젝트 포함, 그 밑에 달린 자식들까지 모두 확인
+			while (!queue.empty())
+			{
+				HYGameObject* pObject = queue.front();
+				queue.pop_front();
+
+				const vector<HYGameObject*>& vecChild = pObject->GetChild();
+				for (size_t k = 0; k < vecChild.size(); ++k)
+				{
+					queue.push_back(vecChild[k]);
+				}
+
+				if (_strName == pObject->GetName())
+				{
+					return pObject;
+				}
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+// vector에서 같은 이름을 다 찾아서 결과 vector에 담아줌
+void HYLevel::FindObjectsByName(const wstring& _strName, vector<HYGameObject*>& _vecObj)
+{
+	for (UINT i = 0; i < LAYER_MAX; ++i)
+	{
+		const vector<HYGameObject*>& vecParent = m_arrLayer[i]->GetParentObjects();
+
+		// Parent 반복문을 돌면서 모든 자식 오브젝트까지 Queue에 넣음
+		for (size_t j = 0; j < vecParent.size(); ++j)
+		{
+			list<HYGameObject*> queue;
+			queue.push_back(vecParent[j]);
+
+			// 레이어에 입력되는 오브젝트 포함, 그 밑에 달린 자식들까지 모두 확인
+			while (!queue.empty())
+			{
+				HYGameObject* pObject = queue.front();
+				queue.pop_front();
+
+				const vector<HYGameObject*>& vecChild = pObject->GetChild();
+				for (size_t k = 0; k < vecChild.size(); ++k)
+				{
+					queue.push_back(vecChild[k]);
+				}
+
+				// 찾은 오브젝트가 여러 개 일 경우 vector에 담아줌
+				if (_strName == pObject->GetName())
+				{
+					_vecObj.push_back(pObject);
+				}
+			}
+		}
+	}
 }
 
 void HYLevel::clear()

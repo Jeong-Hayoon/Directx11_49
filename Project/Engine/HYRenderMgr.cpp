@@ -42,12 +42,17 @@ void HYRenderMgr::tick()
 
 	// 매 프레임마다 등록될거니까 clear시켜줘야 함
 	Clear();
-
-	HYDevice::GetInst()->Present();
 }
 
 void HYRenderMgr::render()
 {
+	// OM(Output Merge State) 에 RenderTargetTexture 와 DepthStencilTexture 를 전달한다.
+	// 랜더타겟 텍스처와 깊이 텍스처의 해상도는 동일해야 함
+	// 렌더타겟 및 깊이 타겟 설정
+	Ptr<HYTexture> pRTTex = HYAssetMgr::GetInst()->FindAsset<HYTexture>(L"RenderTargetTex");
+	Ptr<HYTexture> pDSTex = HYAssetMgr::GetInst()->FindAsset<HYTexture>(L"DepthStencilTex");
+	CONTEXT->OMSetRenderTargets(1, pRTTex->GetRTV().GetAddressOf(), pDSTex->GetDSV().Get());
+
 	for (size_t i = 0; i < m_vecCam.size(); ++i)
 	{
 		m_vecCam[i]->SortObject();

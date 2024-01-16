@@ -233,6 +233,23 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	AddAsset(L"DistortionShader", pShader);
 
+	// =================================
+	// Wave Shader	
+	// RS_TYPE		: CULL_BACK
+	// DS_TYPE		: NO_TEST_NO_WRITE
+	// BS_TYPE		: Default
+	// Domain		: DOMAIN_POSTPROCESS
+	// =================================
+	pShader = new HYGraphicsShader;
+	pShader->CreateVertexShader(L"shader\\postprocess.fx", "VS_Wave");
+	pShader->CreatePixelShader(L"shader\\postprocess.fx", "PS_Wave");
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
+
+	AddAsset(L"WaveFilterShader", pShader);
+
 	// ===================================================================================================
 	// DebugShape Shader - 카메라 입장에서는 무시, 이 Shader를 사용하는 오브젝트는 Level 내에 존재하면 X
 	// ===================================================================================================
@@ -270,6 +287,11 @@ void HYAssetMgr::CreateDefaultMaterial()
 	pMtrl = new HYMaterial;
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"GrayFilterShader"));
 	AddAsset<HYMaterial>(L"GrayFilterMtrl", pMtrl);
+
+	// WaveMtrl
+	pMtrl = new HYMaterial;
+	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"WaveFilterShader"));
+	AddAsset<HYMaterial>(L"WaveFilterMtrl", pMtrl);
 
 	// DistortionMtrl
 	pMtrl = new HYMaterial;

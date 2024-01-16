@@ -100,4 +100,51 @@ float4 PS_Distortion(VS_OUT _in) : SV_Target
     return vColor;
 }
 
+// Wave Filter
+VS_OUT VS_Wave(VS_IN _in)
+{
+    VS_OUT output = (VS_OUT) 0.f;
+    
+    output.vPosition = mul(float4(_in.vPos, 1.f), g_matWVP);
+    output.vUV = _in.vUV;
+    
+    return output;
+}
+
+float4 PS_Wave(VS_OUT _in) : SV_Target
+{
+    float4 vColor = (float4) 0.f;
+    float2 vUV = _in.vUV;
+    float2 vScreenUV = _in.vPosition.xy / g_RenderResolution;
+
+    float uPower = 0.2; // barrel power - (values between 0-1 work well)
+    float uSpeed = 5.0;
+    float uFrequency = 5.0;
+    
+    float2 xy = 2.0 * vScreenUV - 1.0;
+    float2 uvt;
+    float d = length(xy);
+
+    //distance of distortion
+    if (d < 1.0 && uPower != 0.0)
+    {
+    //if power is 0, then don't call the distortion function since there's no reason to do it :)
+        
+        float theta = atan2(xy.y, xy.x);
+        float radius = length(xy);
+        radius = pow(radius, uPower * sin(radius * uFrequency - g_time * uSpeed) + 1.0);
+        xy.x = radius * cos(theta);
+        xy.y = radius * sin(theta);
+        uvt = 0.5 * (xy + 1.0);
+    }
+    else
+    {
+        uvt = vScreenUV;
+    }
+    
+    vColor = g_postprocess.Sample(g_sam_0, uvt);
+    
+    return vColor;
+}
+
 #endif

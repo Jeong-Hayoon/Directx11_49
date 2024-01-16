@@ -85,7 +85,7 @@ void HYLevelMgr::init()
 	pLight->AddComponent(new HYLight2D);
 
 	pLight->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
-	pLight->Light2D()->SetAmbient(Vec3(0.8f, 0.8f, 0.8f));
+	pLight->Light2D()->SetAmbient(Vec3(1.f, 1.f, 1.f));
 
 	m_CurLevel->AddObject(pLight, L"Light");
 
@@ -132,13 +132,13 @@ void HYLevelMgr::init()
 	pObj->AddComponent(new HYBackgroundScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
-	pObj->Transform()->SetRelativeScale(Vec3(1600.f, 800.f, 1.f));
+	pObj->Transform()->SetRelativeScale(Vec3(1300.f, 800.f, 1.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	// 다른 재질을 사용해야 다른 텍스처를 사용할 수 있음
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl"));
 
-	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Background.png");
+	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Sea.jpg");
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
 
 	m_CurLevel->AddObject(pObj, L"Background", false);
@@ -155,6 +155,7 @@ void HYLevelMgr::init()
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
 	pObj->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
+
 
 	pObj->Collider2D()->SetAbsolute(true);
 	pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
@@ -221,7 +222,7 @@ void HYLevelMgr::init()
 	//m_CurLevel->AddObject(pObj, L"Default", false);
 
 	// Distortion 효과 추가
-	pObj = new HYGameObject;
+	/*pObj = new HYGameObject;
 	pObj->SetName(L"Distortion Object");
 
 	pObj->AddComponent(new HYTransform);
@@ -233,6 +234,22 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"DistortionMtrl"));
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"NoiseTex", L"texture\\noise\\noise_03.jpg"));
+
+	m_CurLevel->AddObject(pObj, L"Default", false);*/
+
+	// Distortion 효과 추가
+	pObj = new HYGameObject;
+	pObj->SetName(L"Wave Object");
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	pObj->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 1.f));
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CircleMesh"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"WaveFilterMtrl"));
+	//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"ChaosTex", L"texture\\ChaosRiftOpen6.png"));
 
 	m_CurLevel->AddObject(pObj, L"Default", false);
 
