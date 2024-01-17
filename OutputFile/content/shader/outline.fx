@@ -48,8 +48,7 @@ float4 PS_Outline(VS_OUT _in) : SV_Target
 
     // 주변 픽셀과의 차이 계산
     float threshold = 0.15f; // 외곽선 감지 임계값
-    float4 outlineColor = float4(0, 1, 0, 1); // 외곽선 색상 (빨간색)
-  
+    float4 outlineColor = float4(0, 1, 0, 1); // 외곽선 색상 (초록)
     
     // 외곽선이 있다면
     if (length(center - left) > threshold || length(center - right) > threshold ||

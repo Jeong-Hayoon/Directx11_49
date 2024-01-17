@@ -4,15 +4,20 @@
 #include <Engine/HYTransform.h>
 
 #include "TransformUI.h"
+#include "MeshRenderUI.h"
+
 
 Inspector::Inspector()
 	: UI("Inspector", "##Inspector")
-	, m_TargetObject(nullptr)
+	, m_TargetObject(nullptr)\
+	, m_arrComUI{}
 {
-	// 자식 UI 생성
-	m_TransformUI = new TransformUI;
-	// 자식 등록
-	AddChildUI(m_TransformUI);
+	// 자식 UI 생성 및 자식 등록
+	m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM] = new TransformUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::MESHRENDER] = new MeshRenderUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::MESHRENDER]);
 }
 
 Inspector::~Inspector()
@@ -39,8 +44,14 @@ void Inspector::SetTargetObject(HYGameObject* _Object)
 {
 	m_TargetObject = _Object;
 
-	// TransformUI한테도 Target Object를 알려줌
-	m_TransformUI->SetTargetObject(_Object);
+	// ComponentUI한테도 Target Object를 알려줌
+	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		if (nullptr != m_arrComUI[i])
+		{
+			m_arrComUI[i]->SetTargetObject(_Object);
+		}
+	}
 }
 // TargetAsset 등록
 void Inspector::SetTargetAsset(Ptr<HYAsset> _Asset)

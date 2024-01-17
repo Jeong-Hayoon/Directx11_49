@@ -10,7 +10,11 @@ class HYImGuiMgr :
     SINGLE(HYImGuiMgr);
 
 private:
-    map<string, UI*> m_mapUI;
+    map<string, UI*>        m_mapUI;
+
+    // DemoUI on/off
+    bool                    m_bDemoUI;
+
 
 public:
     void init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr <ID3D11DeviceContext> _Context);

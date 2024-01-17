@@ -1,22 +1,12 @@
 #pragma once
-#pragma once
-#include "UI.h"
+#include "ComponentUI.h"
+
 
 #include <Engine/HYGameObject.h>
 
 class TransformUI :
-    public UI
+    public ComponentUI
 {
-private:
-    HYGameObject*       m_TargetObject;
-
-
-public:
-    void SetTargetObject(HYGameObject* _Target)
-    {
-        m_TargetObject = _Target;
-    }
-
 public:
     virtual void render_update() override;
 

@@ -22,7 +22,7 @@ private:
     // 정보를 보여줘야 하는 Asset
     Ptr<HYAsset>    m_TargetAsset;
 
-    TransformUI*    m_TransformUI;
+    ComponentUI* m_arrComUI[(UINT)COMPONENT_TYPE::END];
 
 public:
     virtual void tick() override;

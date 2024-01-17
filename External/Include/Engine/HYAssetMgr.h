@@ -82,6 +82,7 @@ inline void HYAssetMgr::AddAsset(const wstring& _strKey, T* _Asset)
     // end가 아니라면 이미 존재한다는 의미이므로 assert 처리
     assert(iter == m_mapAsset[(UINT)Type].end());
 
+    _Asset->SetKey(_strKey);
     m_mapAsset[(UINT)Type].insert(make_pair(_strKey, _Asset));
 }
 

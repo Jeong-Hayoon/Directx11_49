@@ -2,14 +2,16 @@
 
 #include "imgui.h"
 
-
 class UI
 {
 private:
 	// 겉으로 보여지는 이름
-	string	m_strName;
+	string			m_strName;
 	// 고유 ID
-	string	m_strID;
+	string			m_strID;
+	// UI 사이즈(기본적으로 값을 안넣어주게 되면 부모 UI의 최대 사이즈가 Default)
+	// BeginChild의 인자로 들어감
+	ImVec2			m_vSize;
 	// true : 활성화(UI 그려짐) / false : 비활성화(이번 프레임에 해당 UI 존재 X)
 	// X버튼을 누르게 되면 false가 됨
 	bool			m_bActive;
@@ -22,6 +24,9 @@ public:
 	void SetName(const string& _name) { m_strName = _name; }
 	const string& GetName() { return m_strName; }
 	const string& GetID() { return m_strID; }
+
+	void SetSize(ImVec2 _Size) { m_vSize = _Size; }
+	ImVec2 GetSize() { return m_vSize; }
 
 	void AddChildUI(UI* _ChildUI)
 	{
@@ -48,7 +53,8 @@ public:
 public:
 	// 기본 생성자를 지웠기 때문에 반드시 아이와 이름을 넣어줘야 함
 	UI(const string& _strName, const string& _strID);
-	~UI();
+	// 상속을 했다면 소멸자에 반드시 virtual 붙이기
+	virtual ~UI();
 };
 
 

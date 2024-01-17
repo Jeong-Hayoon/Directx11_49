@@ -33,6 +33,12 @@
     <Filter Include="UI\Inspector\CompoenntUI">
       <UniqueIdentifier>{3cb11ecc-096f-4ec5-80e8-1c85a6f69435}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\Inspector\CompoenntUI\MeshRender">
+      <UniqueIdentifier>{2f3507fa-9d3e-4e1e-9bda-4b916e7ce1f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Inspector\CompoenntUI\Transform">
+      <UniqueIdentifier>{3626ec46-7c48-4db7-ab6c-a854c2a08359}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -86,11 +92,17 @@
     <ClInclude Include="Content.h">
       <Filter>UI\Content</Filter>
     </ClInclude>
-    <ClInclude Include="TransformUI.h">
-      <Filter>UI\Inspector\CompoenntUI</Filter>
-    </ClInclude>
     <ClInclude Include="Outliner.h">
       <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformUI.h">
+      <Filter>UI\Inspector\CompoenntUI\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderUI.h">
+      <Filter>UI\Inspector\CompoenntUI\MeshRender</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentUI.h">
+      <Filter>UI\Inspector\CompoenntUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,11 +143,17 @@
     <ClCompile Include="Content.cpp">
       <Filter>UI\Content</Filter>
     </ClCompile>
-    <ClCompile Include="TransformUI.cpp">
-      <Filter>UI\Inspector\CompoenntUI</Filter>
-    </ClCompile>
     <ClCompile Include="Outliner.cpp">
       <Filter>UI\Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformUI.cpp">
+      <Filter>UI\Inspector\CompoenntUI\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderUI.cpp">
+      <Filter>UI\Inspector\CompoenntUI\MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentUI.cpp">
+      <Filter>UI\Inspector\CompoenntUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

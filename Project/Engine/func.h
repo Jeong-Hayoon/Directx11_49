@@ -23,6 +23,10 @@ namespace GamePlayStatic
 }
 
 
+// 1byte string <-> 2byte wstring 서로 전환해주는 함수
+string ToString(const wstring& _str);
+wstring ToWString(const string& _str);
+
 // 배열 삭제
 template<typename T, UINT SIZE>
 void Delete_Array(T* (&Arr)[SIZE])
