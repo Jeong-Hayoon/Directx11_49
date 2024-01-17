@@ -4,7 +4,7 @@
 #include <Engine/HYGameObject.h>
 #include <Engine/HYAsset.h>
 
-class TransformUI;
+class ComponentUI;
 
 // 타겟된 물체의 정보를 띄우는 역할
 // 1. GameObject 정보를 표현하는 기능
