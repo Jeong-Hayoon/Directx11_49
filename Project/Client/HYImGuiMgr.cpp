@@ -12,10 +12,10 @@
 #include "Inspector.h"
 #include "Content.h"
 #include "Outliner.h"
+#include "ListUI.h"
 
 HYImGuiMgr::HYImGuiMgr()
     : m_bDemoUI(true)
-
 {
 
 }
@@ -175,6 +175,10 @@ void HYImGuiMgr::create_ui()
 
     // Outliner
     pUI = new Outliner;
+    AddUI(pUI->GetID(), pUI);
+
+    // List
+    pUI = new ListUI;
     AddUI(pUI->GetID(), pUI);
 }
 

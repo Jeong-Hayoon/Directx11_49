@@ -47,6 +47,10 @@ public:
     // 이미 SwapChain이 생성될 때 RenderTarget에 Texture2D 객체가 만들어지므로 그 객체를 통해 Texture로 전환하여 우리 자체 Texture 클래스로 만들어서 AssetMgr가 들고 있음
     Ptr<HYTexture> CreateTexture(const wstring& _strKey, ComPtr<ID3D11Texture2D> _tex2D);
 
+public: 
+    // 특정 Asset 타입의 이름들을 알려주는 함수
+    void GetAssetName(ASSET_TYPE _Type, vector<string>& _Out);
+
 };
 
 // template의 타입을 알아내는 함수(전역함수)

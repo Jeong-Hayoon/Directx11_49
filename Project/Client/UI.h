@@ -1,6 +1,7 @@
 #pragma once
 
 #include "imgui.h"
+//#include "HYImGuiMgr.h"
 
 class UI
 {
@@ -15,6 +16,8 @@ private:
 	// true : 활성화(UI 그려짐) / false : 비활성화(이번 프레임에 해당 UI 존재 X)
 	// X버튼을 누르게 되면 false가 됨
 	bool			m_bActive;
+	// 모달 방식 on/off
+	bool			m_bModal;
 
 	// 부모를 가리키는 변수
 	UI*				m_Parent;
@@ -37,9 +40,10 @@ public:
 	UI* GetParentUI() { return m_Parent; }
 
 	// m_bActive 제어하는 함수들
-	void Activate() { m_bActive = true; }
-	void Deactivate() { m_bActive = false; }
+	virtual void Activate() { m_bActive = true; }
+	virtual void Deactivate() { m_bActive = false; }
 	bool IsActivate() { return m_bActive; }
+	void SetModal(bool _Modal) { m_bModal = _Modal; }
 
 public:
 	virtual void tick();
@@ -55,6 +59,7 @@ public:
 	UI(const string& _strName, const string& _strID);
 	// 상속을 했다면 소멸자에 반드시 virtual 붙이기
 	virtual ~UI();
+
 };
 
 

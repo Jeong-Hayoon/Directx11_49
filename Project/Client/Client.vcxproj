@@ -164,6 +164,7 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Inspector.h" />
+    <ClInclude Include="ListUI.h" />
     <ClInclude Include="MeshRenderUI.h" />
     <ClInclude Include="Outliner.h" />
     <ClInclude Include="pch.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="ListUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeshRenderUI.cpp" />
     <ClCompile Include="Outliner.cpp" />

@@ -52,3 +52,12 @@ Ptr<HYTexture> HYAssetMgr::CreateTexture(const wstring& _strKey, ComPtr<ID3D11Te
 
 	return pTex;
 }
+
+void HYAssetMgr::GetAssetName(ASSET_TYPE _Type, vector<string>& _Out)
+{
+	for (const auto& pair : m_mapAsset[(UINT)_Type])
+	{
+		// first가 key값을 string으로 바꿔서 들어온 벡터에 담아줌
+		_Out.push_back(ToString(pair.first));
+	}
+}

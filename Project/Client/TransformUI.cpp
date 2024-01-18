@@ -15,7 +15,6 @@ TransformUI::~TransformUI()
 
 }
 
-
 void TransformUI::render_update()
 {
 	if (nullptr == GetTargetObject())

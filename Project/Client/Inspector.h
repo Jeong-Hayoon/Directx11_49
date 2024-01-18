@@ -34,6 +34,9 @@ public:
     void SetTargetObject(HYGameObject* _Object);
     void SetTargetAsset(Ptr<HYAsset> _Asset);
 
+    // 세팅된 타겟을 알려주는 함수
+    HYGameObject* GetTargetObject() { return m_TargetObject; }
+
 public:
     Inspector();
     ~Inspector();
