@@ -42,6 +42,15 @@
     <Filter Include="UI\4. ListUI">
       <UniqueIdentifier>{41ffccb0-57b8-4886-bfb4-ba472c7da766}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\3. Inspector\CompoenntUI\Animator2D">
+      <UniqueIdentifier>{c0675e0a-37e5-43df-8ed0-8eb87cfad3c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\3. Inspector\CompoenntUI\Collider2D">
+      <UniqueIdentifier>{ef9ca7a1-fc16-4f28-baa8-3e19d7de05f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\3. Inspector\CompoenntUI\Light2D">
+      <UniqueIdentifier>{a48af97e-5914-4cf6-b9a1-2b4949989d81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -110,6 +119,15 @@
     <ClInclude Include="ListUI.h">
       <Filter>UI\4. ListUI</Filter>
     </ClInclude>
+    <ClInclude Include="Light2DUI.h">
+      <Filter>UI\3. Inspector\CompoenntUI\Light2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider2DUI.h">
+      <Filter>UI\3. Inspector\CompoenntUI\Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator2DUI.h">
+      <Filter>UI\3. Inspector\CompoenntUI\Animator2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -163,6 +181,15 @@
     </ClCompile>
     <ClCompile Include="ListUI.cpp">
       <Filter>UI\4. ListUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Light2DUI.cpp">
+      <Filter>UI\3. Inspector\CompoenntUI\Light2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider2DUI.cpp">
+      <Filter>UI\3. Inspector\CompoenntUI\Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator2DUI.cpp">
+      <Filter>UI\3. Inspector\CompoenntUI\Animator2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

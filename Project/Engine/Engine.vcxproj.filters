@@ -283,6 +283,9 @@
     <ClInclude Include="HYSpotLightScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="HYTileMap.h">
+      <Filter>08. Component\RenderComponent\02. TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -417,6 +420,9 @@
     <ClCompile Include="HYAsssetMgr_init.cpp">
       <Filter>04. Manager\AssetMgr</Filter>
     </ClCompile>
+    <ClCompile Include="HYTileMap.cpp">
+      <Filter>08. Component\RenderComponent\02. TileMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -443,6 +449,9 @@
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
     <FxCompile Include="outline.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="tilemap.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
   </ItemGroup>

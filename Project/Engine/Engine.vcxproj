@@ -207,6 +207,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYStructuredBuffer.h" />
     <ClInclude Include="HYTaskMgr.h" />
     <ClInclude Include="HYTexture.h" />
+    <ClInclude Include="HYTileMap.h" />
     <ClInclude Include="HYTimeMgr.h" />
     <ClInclude Include="HYTransform.h" />
     <ClInclude Include="pch.h" />
@@ -260,6 +261,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYStructuredBuffer.cpp" />
     <ClCompile Include="HYTaskMgr.cpp" />
     <ClCompile Include="HYTexture.cpp" />
+    <ClCompile Include="HYTileMap.cpp" />
     <ClCompile Include="HYTimeMgr.cpp" />
     <ClCompile Include="HYTransform.cpp" />
     <ClCompile Include="pch.cpp">
@@ -304,6 +306,12 @@ call EngineCopy.bat</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="struct.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="tilemap.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

@@ -13,6 +13,10 @@ private:
     // 더블 클릭 발생 시 호출해줄 함수 주소를 콜백 1번 타입에 담아놓음
     CALL_BACK_1         m_CallBackFunc;
 
+    // Deligate 함수 포인터로 호출시킬 멤버 함수와 그 멤버 함수를 호출시킬 객체
+    UI*                 m_pUI;
+    Delegate_1          m_Func;
+
 public:
     // 항목을 등록하는 함수
     // 한 개씩 등록
@@ -23,21 +27,21 @@ public:
         m_vecStr.insert(m_vecStr.end(), _vecStr.begin(), _vecStr.end());
     }
 
-
-    void SetDbClickCallBack(CALL_BACK_1 _CallBack)
+    // 함수 포인터 등록시켜주는 함수(CallBack, Deligate)
+    void SetDbClickCallBack(CALL_BACK_1 _CallBack) { m_CallBackFunc = _CallBack; }
+    void SetDbClickDelegate(UI* _Inst, Delegate_1 _MemFunc)
     {
-        m_CallBackFunc = _CallBack;
+        m_pUI = _Inst;
+        m_Func = _MemFunc;
     }
 
     // 더블 클릭된 항목이 무엇인지 알려주는 함수
     string GetDoubleClicked() { return m_strDBClicked; }
 
 
-
 public:
     virtual void render_update() override;
     virtual void Deactivate() override;
-
 
 
 public:

@@ -32,7 +32,7 @@ void ListUI::render_update()
             const bool is_selected = (item_current_idx == i);
 
             // Selectable : List 안의 항목을 출력하는 함수
-            // 안의 항목을 선택하면 true
+            // 안의 항목을 선택하면 true 반환
             if (ImGui::Selectable(m_vecStr[i].c_str(), is_selected))
                 item_current_idx = i;
 
@@ -47,9 +47,20 @@ void ListUI::render_update()
                 // 선택된 항목의 정보가 날아가지 않도록 담아놓기
                 m_strDBClicked = m_vecStr[i];
 
+                // 등록된 CallBack 이 있으면 호출
                 if (nullptr != m_CallBackFunc)
-                    // m_strDBClicked가 관리하고 있는 문자열 시작 주소값을 콜백으로 줌
+                {
+                    // m_strDBClicked가 관리하고 있는 문자열 시작 주소값을 콜백으로 줌(클릭된 버튼의 문자열)
                     m_CallBackFunc((DWORD_PTR)m_strDBClicked.c_str());
+                }
+
+                // 등록된 Delegate 가 있으면 호출
+                if (m_pUI && m_Func)
+                {
+                    // 인자로 들어온 객체를 통해 멤버 함수 호출(멤버 함수가 주소기 때문에 호출을 하려면 m_Func 앞에 원본값에 접근하는 *필요)
+                    // (DWORD_PTR)m_strDBClicked.c_str() : 문자열의 주소
+                    (m_pUI->*m_Func)((DWORD_PTR)m_strDBClicked.c_str());
+                }
 
                 // 더블 클릭을 했으니까 창을 종료
                 Deactivate();
@@ -69,3 +80,4 @@ void ListUI::Deactivate()
     // 어떠한 UI도 포커스를 못가져가게 포커스 날려주는 함수
     ImGui::SetWindowFocus(nullptr);
 }
+

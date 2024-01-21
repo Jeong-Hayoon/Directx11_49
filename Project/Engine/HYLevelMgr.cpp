@@ -40,6 +40,7 @@ void HYLevelMgr::init()
 	m_CurLevel->GetLayer(4)->SetName(L"Monster");
 	m_CurLevel->GetLayer(31)->SetName(L"UI");
 	m_CurLevel->GetLayer(5)->SetName(L"Light");
+	m_CurLevel->GetLayer(6)->SetName(L"Tile");
 
 	// 충돌 설정
 	HYCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");
@@ -143,6 +144,21 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pObj, L"Background", false);
 
+	// TileMap Object
+	//pObj = new HYGameObject;
+	//pObj->SetName(L"TileMap");
+
+	//pObj->AddComponent(new HYTransform);
+	//pObj->AddComponent(new HYTileMap);
+
+	//pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 300.f));
+
+	//Ptr<HYTexture> pTileAtlas = HYAssetMgr::GetInst()->Load<HYTexture>(L"TileAtlasTex", L"texture\\TILE.bmp");
+	//// 타일 텍스처와 타일 하나 사이즈를 세팅해줌
+	//pObj->TileMap()->SetTileAtlas(pTileAtlas, Vec2(64.f, 64.f));
+
+	//m_CurLevel->AddObject(pObj, L"Tile", false);
+
 	// Player Object 생성
 	pObj = new HYGameObject;
 	pObj->SetName(L"Player");
@@ -237,8 +253,8 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pObj, L"Default", false);*/
 
-	// Distortion 효과 추가
-	pObj = new HYGameObject;
+	// Wave 효과 추가
+	/*pObj = new HYGameObject;
 	pObj->SetName(L"Wave Object");
 
 	pObj->AddComponent(new HYTransform);
@@ -249,12 +265,12 @@ void HYLevelMgr::init()
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CircleMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"WaveFilterMtrl"));
-	//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"ChaosTex", L"texture\\ChaosRiftOpen6.png"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"ChaosTex", L"texture\\ChaosRiftOpen6.png"));
 
-	m_CurLevel->AddObject(pObj, L"Default", false);
+	m_CurLevel->AddObject(pObj, L"Default", false);*/
 
 	// 외곽선 효과
-	pObj = new HYGameObject;
+	/*pObj = new HYGameObject;
 	pObj->SetName(L"OutLine Object");
 
 	pObj->AddComponent(new HYTransform);
@@ -267,7 +283,7 @@ void HYLevelMgr::init()
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"OutLineMtrl"));
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"NoiseTex", L"texture\\noise\\noise_03.jpg"));
 
-	m_CurLevel->AddObject(pObj, L"Default", false);
+	m_CurLevel->AddObject(pObj, L"Default", false);*/
 
 
 	// Level 시작

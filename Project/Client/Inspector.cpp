@@ -5,7 +5,9 @@
 
 #include "TransformUI.h"
 #include "MeshRenderUI.h"
-
+#include "Collider2DUI.h"
+#include "Light2DUI.h"
+#include "Animator2DUI.h"
 
 Inspector::Inspector()
 	: UI("Inspector", "##Inspector")
@@ -18,6 +20,15 @@ Inspector::Inspector()
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::MESHRENDER] = new MeshRenderUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::MESHRENDER]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D] = new Collider2DUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::ANIMATOR2D] = new Animator2DUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::ANIMATOR2D]);
 }
 
 Inspector::~Inspector()

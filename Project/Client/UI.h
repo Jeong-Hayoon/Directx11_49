@@ -1,7 +1,7 @@
 #pragma once
 
 #include "imgui.h"
-//#include "HYImGuiMgr.h"
+#include "HYImGuiMgr.h"
 
 class UI
 {
@@ -43,6 +43,7 @@ public:
 	virtual void Activate() { m_bActive = true; }
 	virtual void Deactivate() { m_bActive = false; }
 	bool IsActivate() { return m_bActive; }
+
 	void SetModal(bool _Modal) { m_bModal = _Modal; }
 
 public:

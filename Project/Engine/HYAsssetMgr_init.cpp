@@ -197,6 +197,21 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	AddAsset(L"EffectShader", pShader);
 
+	// =============
+	// TileMapShader
+	// =============
+	pShader = new HYGraphicsShader;
+	pShader->CreateVertexShader(L"shader\\tilemap.fx", "VS_TileMap");
+	pShader->CreatePixelShader(L"shader\\tilemap.fx", "PS_TileMap");
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::LESS);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+
+	AddAsset(L"TileMapShader", pShader);
+
 	// =================================
 	// GrayFilter Shader
 	// Mesh			: RectMesh
@@ -299,6 +314,11 @@ void HYAssetMgr::CreateDefaultMaterial()
 	pMtrl = new HYMaterial;
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
 	AddAsset<HYMaterial>(L"BackgroundMtrl", pMtrl);
+
+	// TileMapMtrl
+	pMtrl = new HYMaterial;
+	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"TileMapShader"));
+	AddAsset<HYMaterial>(L"TileMapMtrl", pMtrl);
 
 	// GrayFilterMtrl
 	pMtrl = new HYMaterial;

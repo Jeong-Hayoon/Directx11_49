@@ -8,9 +8,6 @@
 #include "ListUI.h"
 #include "Inspector.h"
 
-// 전역 함수 전방선언
-void MeshSelect(DWORD_PTR _ptr);
-void MaterialSelect(DWORD_PTR _ptr);
 
 MeshRenderUI::MeshRenderUI()
 	: ComponentUI("MeshRender", "##MeshRender", COMPONENT_TYPE::MESHRENDER)
@@ -50,17 +47,19 @@ void MeshRenderUI::render_update()
 	// Button을 누르면(보통 Button은 return값을 if문의 조건으로 활용)
 	if (ImGui::Button("##MeshBtn", ImVec2(20, 20)))
 	{
-		// 리스트 UI
+		// 리스트 UI를 가져옴
 		// 부모 포인터로 나오기 때문에 더 안전하게 하려면 dynamic cast로 확인해주는 작업 필요
 		ListUI* pListUI = (ListUI*)HYImGuiMgr::GetInst()->FindUI("##List");
 
 		vector<string> vecMeshName;
+		// vecMeshName에 Asset 타입이 Mesh인 Asset을 찾아 담아줌
 		HYAssetMgr::GetInst()->GetAssetName(ASSET_TYPE::MESH, vecMeshName);
 
-		// Mesh 항목 List에 추가
+		// Mesh 벡터를 보여줄 List에 추가
 		pListUI->AddString(vecMeshName);
-		// 더블 클릭된다면 이 함수를 호출
-		pListUI->SetDbClickCallBack(MeshSelect);
+		// 더블 클릭된다면 이 함수를 호출하도록 함수 포인터 지정
+		//pListUI->SetDbClickCallBack(MeshSelect);
+		pListUI->SetDbClickDelegate(this, (Delegate_1)&MeshRenderUI::MeshSelect);
 		pListUI->Activate();
 	}
 
@@ -71,20 +70,19 @@ void MeshRenderUI::render_update()
 	ImGui::SameLine();
 	if (ImGui::Button("##MtrlBtn", ImVec2(20, 20)))
 	{
-		// 리스트 UI
+		// 리스트 UI를 가져와서
 		ListUI* pListUI = (ListUI*)HYImGuiMgr::GetInst()->FindUI("##List");
 
 		vector<string> vecMtrlName;
 		HYAssetMgr::GetInst()->GetAssetName(ASSET_TYPE::MATERIAL, vecMtrlName);
 
 		pListUI->AddString(vecMtrlName);
-		pListUI->SetDbClickCallBack(MaterialSelect);
+		pListUI->SetDbClickDelegate(this, (Delegate_1)&MeshRenderUI::MaterialSelect);
 		pListUI->Activate();
 	}
 }
 
-// 전역 함수
-void MeshSelect(DWORD_PTR _ptr)
+void MeshRenderUI::MeshSelect(DWORD_PTR _ptr)
 {
 	// 누가 클릭했는지 알 수 있어짐
 	string strMesh = (char*)_ptr;
@@ -93,22 +91,15 @@ void MeshSelect(DWORD_PTR _ptr)
 	// 세팅해줄 Mesh
 	Ptr<HYMesh> pMesh = HYAssetMgr::GetInst()->FindAsset<HYMesh>(strMeshName);
 
-	// 세팅해줄 Target
-	Inspector* pInstector = (Inspector*)HYImGuiMgr::GetInst()->FindUI("##Inspector");
-	HYGameObject* pTargetObject = pInstector->GetTargetObject();
-
-	pTargetObject->MeshRender()->SetMesh(pMesh);
+	GetTargetObject()->MeshRender()->SetMesh(pMesh);
 }
 
-void MaterialSelect(DWORD_PTR _ptr)
+void MeshRenderUI::MaterialSelect(DWORD_PTR _ptr)
 {
 	string strMtrl = (char*)_ptr;
 	wstring strMtrlName = ToWString(strMtrl);
 
 	Ptr<HYMaterial> pMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(strMtrlName);
 
-	Inspector* pInstector = (Inspector*)HYImGuiMgr::GetInst()->FindUI("##Inspector");
-	HYGameObject* pTargetObject = pInstector->GetTargetObject();
-
-	pTargetObject->MeshRender()->SetMaterial(pMtrl);
+	GetTargetObject()->MeshRender()->SetMaterial(pMtrl);
 }
