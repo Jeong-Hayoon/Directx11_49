@@ -82,7 +82,7 @@ void HYLevelMgr::init()
 	HYGameObject* pLight = new HYGameObject;
 	pLight->SetName(L"Directional Light");
 	pLight->AddComponent(new HYTransform);
-	pLight->AddComponent(new HYMeshRender);
+	//pLight->AddComponent(new HYMeshRender);
 	pLight->AddComponent(new HYLight2D);
 
 	pLight->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
@@ -93,34 +93,34 @@ void HYLevelMgr::init()
 	HYGameObject* pObj = nullptr;
 
 	// 스포트 라이트
-	/*HYGameObject* pLight = new HYGameObject;
-	pLight->SetName(L"Directional Light");
+	//pLight = new HYGameObject;
+	//pLight->SetName(L"Spot Light");
 
-	pLight->AddComponent(new HYTransform);
-	pLight->AddComponent(new HYMeshRender);
-	pLight->AddComponent(new HYLight2D);
-	pLight->AddComponent(new HYSpotLightScript);
+	//pLight->AddComponent(new HYTransform);
+	//pLight->AddComponent(new HYMeshRender);
+	//pLight->AddComponent(new HYLight2D);
+	//pLight->AddComponent(new HYSpotLightScript);
 
-	pLight->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
-	pLight->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
-	pLight->Light2D()->SetRadius(300.f);
-	pLight->Light2D()->SetAngle(100.f);
+	//pLight->Light2D()->SetLightType(LIGHT_TYPE::SPOT);
+	//pLight->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
+	//pLight->Light2D()->SetRadius(300.f);
+	//pLight->Light2D()->SetAngle(100.f);
 
-	pLight->Transform()->SetRelativePos(Vec3(-200.f, 0.f, 200.f));
-	m_CurLevel->AddObject(pLight, L"Light");*/
+	////pLight->Transform()->SetRelativePos(Vec3(-200.f, 0.f, 200.f));
+	//m_CurLevel->AddObject(pLight, L"Light");
 
 	// 두번째 광원 추가
-	pLight = new HYGameObject;
-	pLight->AddComponent(new HYTransform);
-	pLight->AddComponent(new HYMeshRender);
-	pLight->AddComponent(new HYLight2D);
+	//pLight = new HYGameObject;
+	//pLight->AddComponent(new HYTransform);
+	//pLight->AddComponent(new HYMeshRender);
+	//pLight->AddComponent(new HYLight2D);
 
-	pLight->Light2D()->SetLightType(LIGHT_TYPE::POINT);
-	pLight->Light2D()->SetLightColor(Vec3(0.3f, 0.3f, 1.f));
-	pLight->Light2D()->SetRadius(300.f);
+	//pLight->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	//pLight->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
+	//pLight->Light2D()->SetRadius(300.f);
 
-	pLight->Transform()->SetRelativePos(Vec3(200.f, 0.f, 200.f));
-	m_CurLevel->AddObject(pLight, L"Light");
+	////pLight->Transform()->SetRelativePos(Vec3(100.f, 100.f, 100.f));
+	//m_CurLevel->AddObject(pLight, L"Light");
 
 	pObj = nullptr;
 
@@ -172,10 +172,9 @@ void HYLevelMgr::init()
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
 	pObj->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
 
-
 	pObj->Collider2D()->SetAbsolute(true);
 	pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
-	pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
+	//pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));

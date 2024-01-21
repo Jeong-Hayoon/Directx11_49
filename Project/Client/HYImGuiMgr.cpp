@@ -4,6 +4,8 @@
 #include <Engine/HYLevelMgr.h>
 #include <Engine/HYLevel.h>
 #include <Engine/HYGameObject.h>
+#include <Engine/HYKeyMgr.h>
+
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -16,6 +18,7 @@
 
 HYImGuiMgr::HYImGuiMgr()
     : m_bDemoUI(true)
+    , m_bCameraOn(false)
 {
 
 }
@@ -52,8 +55,8 @@ void HYImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device
     //io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleViewports; // FIXME-DPI: Experimental.
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
+    //ImGui::StyleColorsDark();
+    ImGui::StyleColorsLight();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
@@ -120,6 +123,22 @@ void HYImGuiMgr::tick()
         // Inspector, Outliner, Content 돌고 그 다음 각각의 자식 UI들도 tick
         pair.second->tick();
     }
+
+    if (KEY_TAP(KEY::K) && !m_bCameraOn)
+    {
+        m_bCameraOn = true;
+        HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
+        HYGameObject* pObject = pCurLevel->FindObjectByName(L"MainCamera");
+        ((Inspector*)FindUI("##Inspector"))->SetTargetObject(pObject);
+    }
+    if (KEY_TAP(KEY::L))
+    {
+        m_bCameraOn = false;
+        HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
+        HYGameObject* pObject = pCurLevel->FindObjectByName(L"Player");
+        ((Inspector*)FindUI("##Inspector"))->SetTargetObject(pObject);
+    }
+
 }
 
 void HYImGuiMgr::render()

@@ -12,17 +12,18 @@ HYCameraMoveScript::~HYCameraMoveScript()
 
 void HYCameraMoveScript::tick()
 {
-	if (KEY_TAP(KEY::P))
-	{
-		if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC)
-			Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
-		else
-		{
-			Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
-			// 정면을 바라봐야 하기 때문에 방향 리셋
-			Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-		}
-	}
+	// UI에서
+	//if (KEY_TAP(KEY::P))
+	//{
+	//	if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC)
+	//		Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
+	//	else
+	//	{
+	//		Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
+	//		// 정면을 바라봐야 하기 때문에 방향 리셋
+	//		Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+	//	}
+	//}
 
 
 	if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC)

@@ -193,6 +193,7 @@ enum class LIGHT_TYPE
 	// 점광원, 사실적인 광원 
 	POINT,
 	SPOT,
+	END
 };
 
 // 작성하는 순서 == 랜더링 순서(Layer 순서가 아니게 됨)

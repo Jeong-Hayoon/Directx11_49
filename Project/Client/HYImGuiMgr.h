@@ -32,6 +32,8 @@ private:
     // DemoUI on/off
     bool                    m_bDemoUI;
 
+    bool                    m_bCameraOn;
+
 
 public:
     void init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr <ID3D11DeviceContext> _Context);

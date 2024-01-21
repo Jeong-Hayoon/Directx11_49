@@ -49,6 +49,8 @@ void HYLevel::AddObject(HYGameObject* _Object, int _LayerIdx, bool _bChildMove)
 {
 	// 지정된 Layer에 GameObject를 넣어줌
 	m_arrLayer[_LayerIdx]->AddObject(_Object, _bChildMove);
+	m_ObjectName.push_back(_Object->GetName());
+
 }
 
 void HYLevel::AddObject(HYGameObject* _Object, const wstring& _strLayerName, bool _bChildMove)
@@ -58,6 +60,7 @@ void HYLevel::AddObject(HYGameObject* _Object, const wstring& _strLayerName, boo
 		return;
 
 	pLayer->AddObject(_Object, _bChildMove);
+	m_ObjectName.push_back(_Object->GetName());
 }
 
 HYLayer* HYLevel::GetLayer(const wstring& _strLayerName)
@@ -153,3 +156,4 @@ void HYLevel::clear()
 		m_arrLayer[i]->m_vecObjects.clear();
 	}
 }
+

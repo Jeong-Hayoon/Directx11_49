@@ -222,4 +222,35 @@ void HYCamera::render_postprocess()
 	m_vecPostProcess.clear();
 }
 
+void HYCamera::GetCameraTypeName(vector<string>& _Out)
+{
+	_Out.push_back("OrthoGraphic");
+	_Out.push_back("Perspective");
+}
+
+string HYCamera::GetCameraTypeName(PROJ_TYPE _Type)
+{
+	switch (_Type)
+	{
+	case PROJ_TYPE::ORTHOGRAPHIC:
+		return "OrthoGraphic";
+	case PROJ_TYPE::PERSPECTIVE:
+		return "Perspective";
+	default:
+		return "";
+	}
+}
+
+PROJ_TYPE HYCamera::GetCameraType(string str)
+{
+	if (str == "OrthoGraphic")
+	{
+		return PROJ_TYPE::ORTHOGRAPHIC;
+	}
+	else if (str == "Perspective")
+	{
+		return PROJ_TYPE::PERSPECTIVE;
+	}
+}
+
 

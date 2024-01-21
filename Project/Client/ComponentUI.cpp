@@ -20,12 +20,12 @@ void ComponentUI::render_update()
 
 	ImGui::PushID(0);
 	// 버튼이 눌렸을 때, 활성화되었을 때, 기본 색상을 일치시켜서 버튼이라기보다는 도형같은 느낌
-	ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
-	ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.f, 0.6f, 0.6f));
+	ImGui::PushStyleColor(ImGuiCol_Separator, (ImVec4)ImColor::HSV(0.8f, 1.f, 0.8f, 0.2f));
+	ImGui::PushStyleColor(ImGuiCol_SeparatorHovered, (ImVec4)ImColor::HSV(0.8f, 1.f, 0.8f, 0.2f));
+	ImGui::PushStyleColor(ImGuiCol_SeparatorActive, (ImVec4)ImColor::HSV(0.8f, 1.f, 0.8f, 0.2f));
 
 	// Component Name
-	ImGui::Button(m_ComponentTitle.c_str());
+	ImGui::SeparatorText(m_ComponentTitle.c_str());
 
 	// 등록되었던 색상과 ID를 없앰
 	ImGui::PopStyleColor(3);

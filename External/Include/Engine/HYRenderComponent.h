@@ -11,7 +11,6 @@ private:
     // 물체의 모양
     Ptr<HYMesh>      m_Mesh;
     Ptr<HYMaterial>  m_Mtrl;
- 
 
 public:
     void SetMesh(Ptr<HYMesh> _Mesh) { m_Mesh = _Mesh; }
@@ -19,7 +18,6 @@ public:
 
     Ptr<HYMesh> GetMesh() { return m_Mesh; }
     Ptr<HYMaterial> GetMaterial() { return m_Mtrl; }
-
 
 public:
     virtual void finaltick() {};

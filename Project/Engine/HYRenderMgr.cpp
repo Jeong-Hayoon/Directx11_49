@@ -31,7 +31,7 @@ HYRenderMgr::~HYRenderMgr()
 
 void HYRenderMgr::tick()
 {
-	Vec4 vClearColor = Vec4(0.f, 0.f, 0.f, 1.f);
+	Vec4 vClearColor = Vec4(0.3f, 0.3f, 0.3f, 1.f);
 	HYDevice::GetInst()->ClearRenderTarget(vClearColor);
 
 	// 구조화 버퍼로 옮기고 특정 레지스터에서 리소스 바인딩하여 보냄
