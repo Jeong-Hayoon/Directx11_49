@@ -54,6 +54,9 @@
     <Filter Include="UI\3. Inspector\CompoenntUI\Camera">
       <UniqueIdentifier>{a4512bfa-9582-431c-82ea-a2c8af981e47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\3. Inspector\CompoenntUI\Tilemap">
+      <UniqueIdentifier>{df10da3a-eb33-4ceb-b840-fc70ad062db1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -134,6 +137,12 @@
     <ClInclude Include="CameraUI.h">
       <Filter>UI\3. Inspector\CompoenntUI\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="TilemapUI.h">
+      <Filter>UI\3. Inspector\CompoenntUI\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationEditor.h">
+      <Filter>UI\3. Inspector\CompoenntUI\Animator2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -199,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="CameraUI.cpp">
       <Filter>UI\3. Inspector\CompoenntUI\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapUI.cpp">
+      <Filter>UI\3. Inspector\CompoenntUI\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationEditor.cpp">
+      <Filter>UI\3. Inspector\CompoenntUI\Animator2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,8 +19,13 @@ struct tLightInfo
 
     int LightType; // ±¤¿ø Å¸ÀÔ (0 : Directional, 1 : Point, 2 : Spot)
     float3 vPadding;
-
 };
 
+struct tTileInfo
+{
+    float2 vLeftTopUV;
+    int bRender;
+    int padding;
+};
 
 #endif

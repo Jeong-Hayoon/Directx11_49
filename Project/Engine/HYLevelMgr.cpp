@@ -156,6 +156,14 @@ void HYLevelMgr::init()
 	//Ptr<HYTexture> pTileAtlas = HYAssetMgr::GetInst()->Load<HYTexture>(L"TileAtlasTex", L"texture\\TILE.bmp");
 	//// 타일 텍스처와 타일 하나 사이즈를 세팅해줌
 	//pObj->TileMap()->SetTileAtlas(pTileAtlas, Vec2(64.f, 64.f));
+	//pObj->TileMap()->SetFace(6, 6);
+	//for (int i = 0; i < 6; ++i)
+	//{
+	//	for (int j = 0; j < 6; ++j)
+	//	{
+	//		pObj->TileMap()->SetTileIndex(i, j, i * 6 + j);
+	//	}
+	//}
 
 	//m_CurLevel->AddObject(pObj, L"Tile", false);
 

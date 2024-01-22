@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationEditor.h" />
     <ClInclude Include="Animator2DUI.h" />
     <ClInclude Include="CameraUI.h" />
     <ClInclude Include="Client.h" />
@@ -174,10 +175,12 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TilemapUI.h" />
     <ClInclude Include="TransformUI.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationEditor.cpp" />
     <ClCompile Include="Animator2DUI.cpp" />
     <ClCompile Include="CameraUI.cpp" />
     <ClCompile Include="Collider2DUI.cpp" />
@@ -201,6 +204,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TilemapUI.cpp" />
     <ClCompile Include="TransformUI.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>

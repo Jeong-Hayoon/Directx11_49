@@ -6,14 +6,13 @@
 #include <Engine/HYLevel.h>
 #include <Engine/HYGameObject.h>
 
-
-
 #include "TransformUI.h"
 #include "MeshRenderUI.h"
 #include "Collider2DUI.h"
 #include "Light2DUI.h"
 #include "Animator2DUI.h"
 #include "CameraUI.h"
+#include "TilemapUI.h"
 
 Inspector::Inspector()
 	: UI("Inspector", "##Inspector")
@@ -38,6 +37,9 @@ Inspector::Inspector()
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA] = new CameraUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::TILEMAP] = new TilemapUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TILEMAP]);
 }
 
 Inspector::~Inspector()
@@ -64,11 +66,12 @@ void Inspector::render_update()
 	vector<wstring> pObjectList = pCurLevel->GetObjectName();
 	vector<string> Name = {};
 
+	// 현재 레벨에 들어있는 오브젝트 이름 리스트를 순회하면서 Name 벡터에 string 형태로 넣어줌
 	for (int i = 0; i < pObjectList.size(); i++)
 	{
 		Name.push_back(string(pObjectList[i].begin(), pObjectList[i].end()));
 	}
-
+	
 	static int current_idx = 0;
 	const string preview = Name[current_idx];
 
@@ -77,13 +80,17 @@ void Inspector::render_update()
 		for (int i = 0; i < pObjectList.size(); ++i)
 		{
 			const bool is_selected = (current_idx == i);
+			// 특정 이름은 선택하면
 			if (ImGui::Selectable(Name[i].c_str(), is_selected))
 			{
+				// 현재 인덱스를 바꿔주고
 				current_idx = i;
+				// 타겟 오브젝트로 지정
 				SetTargetObject(pCurLevel->FindObjectByName(pObjectList[i]));
 			}
 
 			if (is_selected)
+				// 하이라이트 넣어주는 함수
 				ImGui::SetItemDefaultFocus();
 		}
 		ImGui::EndCombo();

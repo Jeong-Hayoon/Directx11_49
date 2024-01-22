@@ -34,7 +34,7 @@ void UI::render()
 
 	bool Active = m_bActive;
 
-	// 본인이 최상위 부모일 때만 Begin, End 가능
+	// 본인이 최상위 부모일 때만 Begin, End 가능 - Inspector / Outliner / Content
 	if (nullptr == GetParentUI())
 	{
 		// Modalless

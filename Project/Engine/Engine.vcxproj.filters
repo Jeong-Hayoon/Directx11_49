@@ -286,6 +286,9 @@
     <ClInclude Include="HYTileMap.h">
       <Filter>08. Component\RenderComponent\02. TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="HYParticleSystem.h">
+      <Filter>08. Component\RenderComponent\03. ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -422,6 +425,9 @@
     </ClCompile>
     <ClCompile Include="HYTileMap.cpp">
       <Filter>08. Component\RenderComponent\02. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="HYParticleSystem.cpp">
+      <Filter>08. Component\RenderComponent\03. ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
