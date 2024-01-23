@@ -17,6 +17,7 @@
 #include "HYGraphicsShader.h"
 #include "HYTexture.h"
 #include "HYCollisionMgr.h"
+#include "HYSetColorShader.h"
 
 HYLevelMgr::HYLevelMgr()
 	: m_CurLevel(nullptr)
@@ -41,6 +42,21 @@ void HYLevelMgr::init()
 	m_CurLevel->GetLayer(31)->SetName(L"UI");
 	m_CurLevel->GetLayer(5)->SetName(L"Light");
 	m_CurLevel->GetLayer(6)->SetName(L"Tile");
+
+	// ComputeShader 테스트
+	// 사용할 텍스쳐 생성
+	Ptr<HYTexture> pTestTex = HYAssetMgr::GetInst()->CreateTexture(L"TestTex"
+		, 1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM
+		, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+
+	Ptr<HYSetColorShader> pCS = (HYSetColorShader*)HYAssetMgr::GetInst()->FindAsset<HYComputeShader>(L"SetColorShader").Get();
+	pCS->SetColor(Vec3(1.f, 0.f, 0.f));
+	pCS->SetTargetTexture(pTestTex);
+	pCS->Execute();
+
+	// 텍스처에서 픽셀 가져오기
+	//tPixel* pPixel = pTestTex->GetPixels();
+	//tPixel pixel = pPixel[0];
 
 	// 충돌 설정
 	HYCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");
@@ -141,6 +157,7 @@ void HYLevelMgr::init()
 
 	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Background.png");
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTex);
+	//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_0, pTestTex); -> ComputeShdaer
 
 	m_CurLevel->AddObject(pObj, L"Background", false);
 

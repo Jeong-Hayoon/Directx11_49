@@ -15,6 +15,7 @@
 #include "Content.h"
 #include "Outliner.h"
 #include "ListUI.h"
+#include "AnimationEditor.h"
 
 HYImGuiMgr::HYImGuiMgr()
     : m_bDemoUI(true)
@@ -198,6 +199,10 @@ void HYImGuiMgr::create_ui()
 
     // List
     pUI = new ListUI;
+    AddUI(pUI->GetID(), pUI);
+
+    // Animation Editor
+    pUI = new AnimationEditor;
     AddUI(pUI->GetID(), pUI);
 }
 

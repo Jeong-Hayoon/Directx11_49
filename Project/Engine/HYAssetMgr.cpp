@@ -13,8 +13,9 @@ HYAssetMgr::~HYAssetMgr()
 {
 }
 
-Ptr<HYTexture> HYAssetMgr::CreateTexture(const wstring& _strKey, UINT _Width, UINT _Height, DXGI_FORMAT _Format
-	, UINT _Flag, D3D11_USAGE _Usage)
+Ptr<HYTexture> HYAssetMgr::CreateTexture(const wstring& _strKey, 
+										UINT _Width, UINT _Height, DXGI_FORMAT _Format,
+										UINT _Flag, D3D11_USAGE _Usage)
 {
 	// 생성하려는 텍스쳐와 동일한 키의 텍스쳐가 이미 AssetMgr 에 있다면
 	Ptr<HYTexture> pTex = FindAsset<HYTexture>(_strKey);

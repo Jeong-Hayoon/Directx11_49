@@ -30,6 +30,8 @@ public:
     void Play(const wstring& _strAnimName, bool _bRepeat = true);
 
 
+
+
 public:
     HYAnimator2D();
     ~HYAnimator2D();

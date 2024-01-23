@@ -28,6 +28,8 @@ public:
 
     void UpdateData();
 
+    void UpdateData_CS();
+
 public:
     // 생성할 대 상수버퍼의 타입을 지정해줘야 함(타입이 곧 레지스터 담당 번호)
     HYConstBuffer(CB_TYPE _Type);

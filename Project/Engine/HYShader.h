@@ -11,7 +11,7 @@ protected:
     ComPtr<ID3DBlob>    m_ErrBlob;
 
 public:
-    virtual void UpdateData() = 0;
+    virtual int UpdateData() = 0;
 
 
 public:

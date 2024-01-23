@@ -1,6 +1,8 @@
 #pragma once
 #include "HYShader.h"
 
+// 랜더링할 때 필요한 모든 요소를 모아두고
+// 랜더링 파이프라인에 맞춰 각 과정을 어떻게 진행할지를 전체적으로 명시
 class HYGraphicsShader :
     public HYShader
 {
@@ -56,7 +58,7 @@ public:
     SHADER_DOMAIN GetDomain() { return m_Domain; }
 
 public:
-    virtual void UpdateData();
+    virtual int UpdateData();
 
 public:
     HYGraphicsShader();

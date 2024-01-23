@@ -6,6 +6,7 @@
 #include "HYTexture.h"
 #include "HYMesh.h"
 #include "HYGraphicsShader.h"
+#include "HYComputeShader.h"
 #include "HYMaterial.h"
 
 
@@ -26,6 +27,7 @@ private:
     void CreateDefaultMesh();
     void CreateDefaultGraphicsShader();
     void CreateDefaultMaterial();
+    void CreateDefaultComputeShader();
 
 public:
     // template은 무조건 헤더에 구현해야 함
@@ -70,6 +72,8 @@ ASSET_TYPE GetAssetType()
         Type = ASSET_TYPE::TEXTURE;
     else if (&info == &typeid(HYGraphicsShader))
         Type = ASSET_TYPE::GRAPHICS_SHADER;
+    else if (&info == &typeid(HYComputeShader))
+        Type = ASSET_TYPE::COMPUTE_SHADER;
     else if (&info == &typeid(HYMaterial))
         Type = ASSET_TYPE::MATERIAL;
 

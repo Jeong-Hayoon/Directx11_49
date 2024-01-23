@@ -120,7 +120,7 @@ int HYGraphicsShader::CreatePixelShader(const wstring& _strRelativePath, const s
 	return S_OK;
 }
 
-void HYGraphicsShader::UpdateData()
+int HYGraphicsShader::UpdateData()
 {
 	CONTEXT->IASetInputLayout(m_Layout.Get());
 	CONTEXT->IASetPrimitiveTopology(m_Topology);
@@ -142,4 +142,6 @@ void HYGraphicsShader::UpdateData()
 	CONTEXT->DSSetShader(m_DS.Get(), nullptr, 0);
 	CONTEXT->GSSetShader(m_GS.Get(), nullptr, 0);
 	CONTEXT->PSSetShader(m_PS.Get(), nullptr, 0);
+
+	return S_OK;
 }

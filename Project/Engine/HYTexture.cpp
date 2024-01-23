@@ -3,6 +3,16 @@
 
 #include "HYDevice.h"
 
+tPixel* HYTexture::GetPixels()
+{
+	if (nullptr == m_Image.GetPixels())
+	{
+		CaptureTexture(DEVICE, CONTEXT, m_Tex2D.Get(), m_Image);
+	}
+
+	return (tPixel*)m_Image.GetPixels();
+}
+
 HYTexture::HYTexture()
 	: HYAsset(ASSET_TYPE::TEXTURE)
 	, m_Desc{}
@@ -205,6 +215,29 @@ void HYTexture::UpdateData(int _RegisterNum)
 	CONTEXT->PSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
 }
 
+int HYTexture::UpdateData_CS_SRV(int _RegisterNum)
+{
+	if (nullptr == m_SRV)
+		return E_FAIL;
+
+	m_RecentNum_SRV = _RegisterNum;
+
+	CONTEXT->CSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
+	return S_OK;
+}
+
+int HYTexture::UpdateData_CS_UAV(int _RegisterNum)
+{
+	if (nullptr == m_UAV)
+		return E_FAIL;
+
+	m_RecentNum_UAV = _RegisterNum;
+
+	UINT i = -1;
+	CONTEXT->CSSetUnorderedAccessViews(_RegisterNum, 1, m_UAV.GetAddressOf(), &i);
+	return S_OK;
+}
+
 // Texture 레지스터를 nullptr로 깔끔하게 비워주는 함수
 void HYTexture::Clear(int _RegisterNum)
 {
@@ -215,4 +248,19 @@ void HYTexture::Clear(int _RegisterNum)
 	CONTEXT->DSSetShaderResources(_RegisterNum, 1, &pSRV);
 	CONTEXT->GSSetShaderResources(_RegisterNum, 1, &pSRV);
 	CONTEXT->PSSetShaderResources(_RegisterNum, 1, &pSRV);
+}
+
+void HYTexture::Clear_CS_SRV()
+{
+	ID3D11ShaderResourceView* pSRV = nullptr;
+
+	CONTEXT->CSSetShaderResources(m_RecentNum_SRV, 1, &pSRV);
+}
+
+void HYTexture::Clear_CS_UAV()
+{
+	ID3D11UnorderedAccessView* pUAV = nullptr;
+
+	UINT i = -1;
+	CONTEXT->CSSetUnorderedAccessViews(m_RecentNum_UAV, 1, &pUAV, &i);
 }

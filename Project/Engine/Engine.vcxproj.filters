@@ -137,6 +137,12 @@
     <Filter Include="ShaderCode\Render">
       <UniqueIdentifier>{b7cfee9a-cdc2-4be6-a62f-c4104625eaeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\Compute">
+      <UniqueIdentifier>{d35645a8-1b8e-4c83-ba13-e0b09905041a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\SetColor">
+      <UniqueIdentifier>{bdfe04f4-8f5c-4485-9840-0b1dfff0b53f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -289,6 +295,12 @@
     <ClInclude Include="HYParticleSystem.h">
       <Filter>08. Component\RenderComponent\03. ParticleSystem</Filter>
     </ClInclude>
+    <ClInclude Include="HYComputeShader.h">
+      <Filter>06. Asset\Shader\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="HYSetColorShader.h">
+      <Filter>ShaderCode\Compute\SetColor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -429,6 +441,12 @@
     <ClCompile Include="HYParticleSystem.cpp">
       <Filter>08. Component\RenderComponent\03. ParticleSystem</Filter>
     </ClCompile>
+    <ClCompile Include="HYComputeShader.cpp">
+      <Filter>06. Asset\Shader\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="HYSetColorShader.cpp">
+      <Filter>ShaderCode\Compute\SetColor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -459,6 +477,9 @@
     </FxCompile>
     <FxCompile Include="tilemap.fx">
       <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="setcolor.fx">
+      <Filter>ShaderCode\Compute\SetColor</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -20,6 +20,10 @@ private:
     ComPtr<ID3D11ShaderResourceView>    m_SRV;      // 쉐이더에서 사용하는 용도(텍스쳐 레지스터(t) 바인딩할 때)
     ComPtr<ID3D11UnorderedAccessView>   m_UAV;      // GPGPU(General Purpose GPU) - ComputeShader, 읽기 쓰기 동시가능, (Unordered Register(u) 에 바인딩 가능)
 
+    // 가장 최근에 업데이트했던 번호 기억
+    UINT                                m_RecentNum_SRV;
+    UINT                                m_RecentNum_UAV;
+
 private:
     // AssetMgr한테만 friend로 공개가 되어 있어서
     // 함수 호출을 하고 싶다면 AssetMgr를 통해야 함
@@ -33,13 +37,15 @@ private:
 
     int Create(ComPtr<ID3D11Texture2D> _tex2D);
 
-
-
 public:
     void UpdateData(int _RegisterNum);
+    int UpdateData_CS_SRV(int _RegisterNum);
+    int UpdateData_CS_UAV(int _RegisterNum);
 
     // 정적 멤버함수로 두게 되면 객체 생성 없이 호출 가능
     static void Clear(int _RegisterNum);
+    void Clear_CS_SRV();
+    void Clear_CS_UAV();
 
 
     // ScratchImage, Desc 둘 다 가로, 세로 정보 존재
@@ -56,6 +62,9 @@ public:
 
     // Texture2D를 반환하는 함수
     ComPtr<ID3D11Texture2D>           GetTex2D() { return m_Tex2D; }
+
+    // 텍스처에서 픽셀 가져오기 
+    tPixel* GetPixels();
    
 public:
     HYTexture();

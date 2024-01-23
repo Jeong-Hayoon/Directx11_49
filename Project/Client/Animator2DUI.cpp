@@ -27,10 +27,6 @@ void Animator2DUI::render_update()
 
     bool Active = m_bActive;
 
-
-   
-  
-
-    
+	HYGameObject* pTarget = GetTargetObject();
     
 }

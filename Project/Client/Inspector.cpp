@@ -73,7 +73,7 @@ void Inspector::render_update()
 	}
 	
 	static int current_idx = 0;
-	const string preview = Name[current_idx];
+	const string preview = ToString(GetTargetObject()->GetName());
 
 	if (ImGui::BeginCombo("##", preview.c_str(), ImGuiComboFlags_None))
 	{

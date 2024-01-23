@@ -11,6 +11,12 @@ struct Vtx
 	Vec2 vUV;		 // UV 좌표계 or Texture Coodinate
 };
 
+struct tPixel
+{
+	BYTE r, g, b, a;
+};
+
+
 // 필요한 정보 변화량
 struct tDebugShapeInfo
 {

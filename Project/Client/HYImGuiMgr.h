@@ -34,6 +34,11 @@ private:
 
     bool                    m_bCameraOn;
 
+    bool                    m_AnimationEditorOn;
+
+public:
+    bool GetAnimationEditorOn() { return m_AnimationEditorOn; }
+    void SetAnimationEditorOn(bool _onoff) { m_AnimationEditorOn = _onoff; }
 
 public:
     void init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr <ID3D11DeviceContext> _Context);

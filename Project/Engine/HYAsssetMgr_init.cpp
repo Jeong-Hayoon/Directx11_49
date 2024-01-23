@@ -12,6 +12,8 @@ void HYAssetMgr::init()
 
 	CreateDefaultGraphicsShader();
 
+	CreateDefaultComputeShader();
+
 	CreateDefaultMaterial();
 
 }
@@ -344,4 +346,16 @@ void HYAssetMgr::CreateDefaultMaterial()
 	pMtrl = new HYMaterial;
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"DebugShapeShader"));
 	AddAsset<HYMaterial>(L"DebugShapeMtrl", pMtrl);
+}
+
+
+#include "HYSetColorShader.h"
+void HYAssetMgr::CreateDefaultComputeShader()
+{
+	Ptr<HYComputeShader> pShader = nullptr;
+
+	// SetColorShader
+	pShader = new HYSetColorShader;
+	pShader->Create(L"shader\\setcolor.fx", "CS_SetColor");
+	AddAsset(L"SetColorShader", pShader.Get());
 }
