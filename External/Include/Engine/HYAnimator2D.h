@@ -14,6 +14,9 @@ private:
     HYAnim*                 m_CurAnim;
     bool                    m_bRepeat;
 
+    // UI 관련
+    wstring                 m_CurAnimName;
+
 public:
     virtual void finaltick() override;
 
@@ -29,8 +32,17 @@ public:
     HYAnim* FindAnim(const wstring& _strAnimName);
     void Play(const wstring& _strAnimName, bool _bRepeat = true);
 
+    // UI 관련
+    void GetAnimationName(vector<string>& _Out);
+    wstring GetCurAnimName() { return m_CurAnimName; }
 
+    //bool IsRepeat() { return m_bRepeat; }
+    //void SetRepeat(bool _repeat) { m_bRepeat = _repeat; }
 
+    bool IsRepeat() { return m_bRepeat; }
+    void SetRepeat(bool _repeat) { m_bRepeat = _repeat; }
+
+    
 
 public:
     HYAnimator2D();

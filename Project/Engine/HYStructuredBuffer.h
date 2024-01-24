@@ -4,7 +4,9 @@
 // System mem와 연관 X
 enum class SB_TYPE
 {
+    // SRV 생성
     READ_ONLY,
+    // SRV + UAV 생성
     READ_WRITE,
 };
 
@@ -15,6 +17,7 @@ private:
     ComPtr<ID3D11Buffer>                m_SB;
     // 텍스처 레지스터에 전달하기 위해 꼭 필요
     ComPtr<ID3D11ShaderResourceView>    m_SRV;
+    ComPtr<ID3D11UnorderedAccessView>   m_UAV;
 
     ComPtr<ID3D11Buffer>                m_SB_Read;
     ComPtr<ID3D11Buffer>                m_SB_Write;

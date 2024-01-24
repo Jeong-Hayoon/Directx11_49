@@ -58,6 +58,9 @@ void HYLevelMgr::init()
 	//tPixel* pPixel = pTestTex->GetPixels();
 	//tPixel pixel = pPixel[0];
 
+	//tPixel* pPixel = pTestTex->GetPixels();
+	//tPixel pixel = pPixel[pTestTex->GetWidth() * 1 + 5];
+
 	// 충돌 설정
 	HYCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");
 	HYCollisionMgr::GetInst()->LayerCheck(L"Monster", L"Monster");
@@ -309,6 +312,16 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pObj, L"Default", false);*/
 
+	// Particle Object 생성
+	pObj = new HYGameObject;
+	pObj->SetName(L"Particle");
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYParticleSystem);
+
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
+
+	m_CurLevel->AddObject(pObj, L"Default", false);
 
 	// Level 시작
 	m_CurLevel->begin();

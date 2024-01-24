@@ -40,6 +40,11 @@ void UI::render()
 		// Modalless
 		if (!m_bModal)
 		{
+			// Animation2D 일때만 플래그
+			if (m_strID == "##AnimationEditor")
+				ImGui::Begin(string(m_strName + m_strID).c_str(), &Active, ImGuiWindowFlags_MenuBar);
+			else
+
 			ImGui::Begin(string(m_strName + m_strID).c_str(), &Active);
 
 			// 활성화, 비활성화 전환이 발생한 경우에는 Activate or Deactivate 를 호출시킨다.

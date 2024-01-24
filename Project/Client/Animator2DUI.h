@@ -6,8 +6,10 @@ class Animator2DUI :
 private:
     bool			m_bActive;
 
-
     virtual void render_update() override;
+
+    void AnimationSelect(DWORD_PTR _ptr);
+
 public:
     Animator2DUI();
     ~Animator2DUI();

@@ -214,6 +214,21 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	AddAsset(L"TileMapShader", pShader);
 
+	// ====================
+	// ParticleRenderShader
+	// ====================
+	pShader = new HYGraphicsShader;
+	pShader->CreateVertexShader(L"shader\\particle.fx", "VS_Particle");
+	pShader->CreatePixelShader(L"shader\\particle.fx", "PS_Particle");
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::NO_WRITE);		// 깊이 테스트는 진행, 깊이는 기록 X
+	pShader->SetBSType(BS_TYPE::ALPHA_BLEND);
+
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+
+	AddAsset(L"ParticleRenderShader", pShader);
+
 	// =================================
 	// GrayFilter Shader
 	// Mesh			: RectMesh
@@ -321,6 +336,12 @@ void HYAssetMgr::CreateDefaultMaterial()
 	pMtrl = new HYMaterial;
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"TileMapShader"));
 	AddAsset<HYMaterial>(L"TileMapMtrl", pMtrl);
+
+	// ParticleMtrl
+	pMtrl = new HYMaterial;
+	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"ParticleRenderShader"));
+	AddAsset<HYMaterial>(L"ParticleMtrl", pMtrl);
+
 
 	// GrayFilterMtrl
 	pMtrl = new HYMaterial;

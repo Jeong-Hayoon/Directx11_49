@@ -46,6 +46,7 @@ float4 PS_TileMap(VS_OUT _in) : SV_Target
         
     if (g_btex_0)
     {
+        
         // 면 개수만큼 _in.vUV 를 배율을 늘림 -> 텍스처의 참조 범위가 면 개수만큼 증가
         float2 vUV = _in.vUV * float2(FACE_X, FACE_Y);
         // 정수 부분만을 따로 담아 놓음

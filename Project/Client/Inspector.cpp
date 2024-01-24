@@ -16,7 +16,7 @@
 
 Inspector::Inspector()
 	: UI("Inspector", "##Inspector")
-	, m_TargetObject(nullptr)\
+	, m_TargetObject(nullptr)
 	, m_arrComUI{}
 {
 	// 자식 UI 생성 및 자식 등록

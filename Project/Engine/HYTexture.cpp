@@ -3,16 +3,6 @@
 
 #include "HYDevice.h"
 
-tPixel* HYTexture::GetPixels()
-{
-	if (nullptr == m_Image.GetPixels())
-	{
-		CaptureTexture(DEVICE, CONTEXT, m_Tex2D.Get(), m_Image);
-	}
-
-	return (tPixel*)m_Image.GetPixels();
-}
-
 HYTexture::HYTexture()
 	: HYAsset(ASSET_TYPE::TEXTURE)
 	, m_Desc{}
@@ -263,4 +253,14 @@ void HYTexture::Clear_CS_UAV()
 
 	UINT i = -1;
 	CONTEXT->CSSetUnorderedAccessViews(m_RecentNum_UAV, 1, &pUAV, &i);
+}
+
+tPixel* HYTexture::GetPixels()
+{
+	if (nullptr == m_Image.GetPixels())
+	{
+		CaptureTexture(DEVICE, CONTEXT, m_Tex2D.Get(), m_Image);
+	}
+
+	return (tPixel*)m_Image.GetPixels();
 }

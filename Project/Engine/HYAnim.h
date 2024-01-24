@@ -33,9 +33,18 @@ private:
     // Finish Check
     bool                m_bFinish;          
 
-    Ptr<HYTexture>       m_AtlasTex;
+    Ptr<HYTexture>      m_AtlasTex;
 
     float               m_AccTime;
+
+    // UI 관련
+    Vec2                ui_SliceSize;
+    Vec2                ui_vLeftTop;
+    Vec2                ui_vBackground;
+    int                 ui_FrmCount;
+    float               ui_FPS;
+    Vec2                ui_vOffset;
+
 
 public:
     void finaltick();
@@ -53,6 +62,15 @@ public:
     static void Clear();
     void Create(HYAnimator2D* _Animator, Ptr<HYTexture> _Atlas, Vec2 _vLeftTop
         , Vec2 _vSliceSize, Vec2 _vOffset, Vec2 _vBackground, int _FrmCount, float _FPS);
+
+
+    // UI 관련
+    void SetSliceSize(Vec2 _vSliceSize) { ui_SliceSize = _vSliceSize; }
+    void Set(Vec2 _vSliceSize) { ui_SliceSize = _vSliceSize; }
+
+    // 임시
+    Vec2 GetOffset() { m_vecFrm[m_CurFrmIdx].vOffset; }
+
 
 
 public:

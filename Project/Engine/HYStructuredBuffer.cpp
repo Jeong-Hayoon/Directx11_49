@@ -38,7 +38,15 @@ int HYStructuredBuffer::Create(UINT _ElementSize, UINT _ElementCount, SB_TYPE _T
 	// 원래 Texture의 BindFlags가 SHADER_RESOURCE인데 구조화 버퍼 또한 텍스처 레지스터에 바인딩을
 	// 시킬거니까 SHADER_RESOURCE로 세팅해주면 됨
 	tDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+	// RW 옵션으로 생성된 구조화버퍼는 UnorderedAccessView 생성도 가능하게 만든다.
+	if (SB_TYPE::READ_WRITE == m_Type)
+	{
+		tDesc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS;
+	}
+
 	tDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+
 	// 버퍼의 요소 단위
 	tDesc.StructureByteStride = m_ElementSize;
 
@@ -71,6 +79,17 @@ int HYStructuredBuffer::Create(UINT _ElementSize, UINT _ElementCount, SB_TYPE _T
 
 	hr = DEVICE->CreateShaderResourceView(m_SB.Get(), &SRVDesc, m_SRV.GetAddressOf());
 	if (FAILED(hr)) return E_FAIL;
+
+	// Unordered Access View 생성
+	if (SB_TYPE::READ_WRITE == m_Type)
+	{
+		D3D11_UNORDERED_ACCESS_VIEW_DESC UAVDesc = {};
+		UAVDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
+		UAVDesc.Buffer.NumElements = 1;
+
+		hr = DEVICE->CreateUnorderedAccessView(m_SB.Get(), &UAVDesc, m_UAV.GetAddressOf());
+		if (FAILED(hr)) return E_FAIL;
+	}
 
 	// 구조화 버퍼는 CPUAccessFlags와 Usage를 수정할 수 없기 때문에
 	// 데이터를 입력받는 용도로 버퍼를 하나 더 만듦
