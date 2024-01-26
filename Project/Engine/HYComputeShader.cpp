@@ -6,7 +6,7 @@
 		  
 #include "HYPathMgr.h"
 
-// 생성할 때 반드시 스레드의 개수를 입력받아야 함
+// 생성할 때 반드시 스레드의 개수(그룹 하나가 몇 개의 스레드를 보유하고 있는지)를 입력받아야 함
 HYComputeShader::HYComputeShader(UINT _ThreadX, UINT _ThreadY, UINT _ThreadZ)
 	: HYShader(ASSET_TYPE::COMPUTE_SHADER)
 	, m_GroupX(1)
@@ -27,8 +27,8 @@ int HYComputeShader::Create(const wstring& _strRelativePath, const string& _strF
 	wstring strContentPath = HYPathMgr::GetContentPath();
 	wstring strFilePath = strContentPath + _strRelativePath;
 
-	// 픽셀 쉐이더 생성
-	// 픽셀 쉐이더 컴파일
+	// 컴퓨트 쉐이더 생성
+	// 컴퓨트 쉐이더 컴파일이 된 것은 m_CSBlob에 저장
 	if (FAILED(D3DCompileFromFile(strFilePath.c_str()
 		, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, _strFuncName.c_str(), "cs_5_0", D3DCOMPILE_DEBUG, 0
@@ -47,6 +47,7 @@ int HYComputeShader::Create(const wstring& _strRelativePath, const string& _strF
 		return E_FAIL;
 	}
 
+	// 성공했으면 m_CSBlob에 결과 받아짐
 	DEVICE->CreateComputeShader(m_CSBlob->GetBufferPointer()
 		, m_CSBlob->GetBufferSize(), nullptr
 		, m_CS.GetAddressOf());
@@ -65,8 +66,9 @@ void HYComputeShader::Execute()
 	pCB->UpdateData_CS();
 
 
-	// 컴퓨트 쉐이더 실행
+	// 사용할 컴퓨트 쉐이더 알려주고 컴퓨트 쉐이더 실행
 	CONTEXT->CSSetShader(m_CS.Get(), 0, 0);
+	// 그룹의 개수 지정
 	CONTEXT->Dispatch(m_GroupX, m_GroupY, m_GroupZ);
 
 	Clear();

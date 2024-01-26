@@ -10,8 +10,8 @@
 
 HYTileMap::HYTileMap()
 	: HYRenderComponent(COMPONENT_TYPE::TILEMAP)
-	, m_FaceX(2)
-	, m_FaceY(2)
+	, m_FaceX(1)
+	, m_FaceY(1)
 	, m_vTileRenderSize(Vec2(128.f, 128.f))
 	, m_TileIdx(47)
 	, m_TileInfoBuffer(nullptr)
@@ -76,6 +76,7 @@ void HYTileMap::SetTileAtlas(Ptr<HYTexture> _Atlas, Vec2 _TilePixelSize)
 	m_TileAtlas = _Atlas;
 	m_vTilePixelSize = _TilePixelSize;
 
+	// 아틀라스 내에 타일이 몇 개 있는지 계산
 	m_MaxCol = m_TileAtlas->GetWidth() / (UINT)m_vTilePixelSize.x;
 	m_MaxRow = m_TileAtlas->GetHeight() / (UINT)m_vTilePixelSize.y;
 
@@ -104,16 +105,35 @@ void HYTileMap::SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx)
 	if (nullptr == m_TileAtlas)
 		return;
 
-	// 배열 내에 접근할 인덱스
+	// 벡터 배열 내에 접근할 인덱스
 	UINT idx = _Row * m_FaceX + _Col;
 
-	// 렌더링할 타일 정보
+	// 렌더링할 타일 헹과 열 정보를 통해 좌상단을 알아냄
 	UINT iRow = _ImgIdx / m_MaxCol;
 	UINT iCol = _ImgIdx % m_MaxCol;
 
-	// 좌상단 정보를 UV 기준으로 계산
+	// 좌상단 정보를 UV 기준으로 계산(해상도로 나누는건 UV 기준으로 하려고)
 	m_vecTileInfo[idx].vLeftTopUV = Vec2((iCol * m_vTilePixelSize.x) / m_TileAtlas->GetWidth()
 		, (iRow * m_vTilePixelSize.y) / m_TileAtlas->GetHeight());
 
 	m_vecTileInfo[idx].bRender = 1;
 }
+
+//void HYTileMap::SetTileIndex()
+//{
+//	if (nullptr == m_TileAtlas)
+//		return;
+//
+//	// 배열 내에 접근할 인덱스
+//	UINT idx = UIROW * m_FaceX + UICOL;
+//
+//	// 렌더링할 타일 정보
+//	UINT iRow = UIIDX / m_MaxCol;
+//	UINT iCol = UIIDX % m_MaxCol;
+//
+//	// 좌상단 정보를 UV 기준으로 계산
+//	m_vecTileInfo[idx].vLeftTopUV = Vec2((iCol * m_vTilePixelSize.x) / m_TileAtlas->GetWidth()
+//		, (iRow * m_vTilePixelSize.y) / m_TileAtlas->GetHeight());
+//
+//	m_vecTileInfo[idx].bRender = 1;
+//}

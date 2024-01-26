@@ -20,7 +20,7 @@ private:
     ComPtr<ID3D11ShaderResourceView>    m_SRV;      // 쉐이더에서 사용하는 용도(텍스쳐 레지스터(t) 바인딩할 때)
     ComPtr<ID3D11UnorderedAccessView>   m_UAV;      // GPGPU(General Purpose GPU) - ComputeShader, 읽기 쓰기 동시가능, (Unordered Register(u) 에 바인딩 가능)
 
-    // 가장 최근에 업데이트했던 번호 기억
+    // 가장 최근에 업데이트했던 번호 기억해서 Clear할 때 사용
     UINT                                m_RecentNum_SRV;
     UINT                                m_RecentNum_UAV;
 
@@ -38,7 +38,10 @@ private:
     int Create(ComPtr<ID3D11Texture2D> _tex2D);
 
 public:
+    // 랜더링 파이프라인에서는 u 레지스터를 사용할 수 없기 때문에 분기를 나누지 않음 -> 랜더링 시에는 텍스처를 읽기만 할 수 있음
     void UpdateData(int _RegisterNum);
+    // Compute Shader 시점으로 보낼 때 목적이 연산에 필요한 텍스처로써 읽기만 할 용도인지
+    // u레지스터에 전달을 시키려는 목적이냐에 따라 분기가 나뉨
     int UpdateData_CS_SRV(int _RegisterNum);
     int UpdateData_CS_UAV(int _RegisterNum);
 

@@ -16,7 +16,6 @@ private:
 
     // UI ฐüทร
     wstring                 m_CurAnimName;
-    bool*                   p_Repeat;
 
 public:
     virtual void finaltick() override;
@@ -40,8 +39,8 @@ public:
     //bool IsRepeat() { return m_bRepeat; }
     //void SetRepeat(bool _repeat) { m_bRepeat = _repeat; }
 
-    bool* IsRepeat() { return p_Repeat; }
-    void SetRepeat(bool* _repeat) { p_Repeat = _repeat; }
+    bool IsRepeat() { return m_bRepeat; }
+    void SetRepeat(bool _repeat) { m_bRepeat = _repeat; }
 
     
 

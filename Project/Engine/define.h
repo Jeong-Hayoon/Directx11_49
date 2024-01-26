@@ -23,6 +23,10 @@
 
 #define LAYER_MAX 32
 
+#define TILE_WIDTH 128
+#define TILE_HEIGHT 128
+
+
 // 부호를 통해 6가지 방향을 표현할 수 있음
 enum class DIR_TYPE
 {

@@ -35,16 +35,43 @@ private:
     vector<tTileInfo>   m_vecTileInfo;
     HYStructuredBuffer* m_TileInfoBuffer;
 
+    // UI 관련
+   int                UIROW;
+   int                UICOL;
+   int                UIIDX;
+
 
 public:
     void SetTileAtlas(Ptr<HYTexture> _Atlas, Vec2 _TilePixelSize);
     Ptr<HYTexture> GetTileAtlas() { return m_TileAtlas; }
 
     void SetFace(UINT _FaceX, UINT _FaceY);
+
     UINT GetFaceX() { return m_FaceX; }
     UINT GetFaceY() { return m_FaceY; }
 
     void SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx);
+
+    // UI 관련
+    void SetFaceX(int _FaceX) { m_FaceX = _FaceX; }
+    void SetFaceY(int _FaceY) { m_FaceY = _FaceY; }
+    //void SetTileIndex();
+    void SetUIROW(int _row) 
+    { 
+        UIROW = _row;
+    }
+    void SetUICOL(int _row)
+    { 
+        UIROW = _row;
+    }
+    void SetUIIDX(int _row) 
+    { 
+        UIROW = _row;
+    }
+    int GetUIROW() { return UIROW; }
+    int GetUICOL() { return UICOL; }
+    int GetUIIDX() { return UIIDX; }
+
 
 public:
     virtual void finaltick() override;

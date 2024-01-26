@@ -165,27 +165,30 @@ void HYLevelMgr::init()
 	m_CurLevel->AddObject(pObj, L"Background", false);
 
 	// TileMap Object
-	//pObj = new HYGameObject;
-	//pObj->SetName(L"TileMap");
+	pObj = new HYGameObject;
+	pObj->SetName(L"TileMap");
 
-	//pObj->AddComponent(new HYTransform);
-	//pObj->AddComponent(new HYTileMap);
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYTileMap);
+	pObj->AddComponent(new HYCollider2D);
 
-	//pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 300.f));
+	pObj->Collider2D()->SetAbsolute(true);
 
-	//Ptr<HYTexture> pTileAtlas = HYAssetMgr::GetInst()->Load<HYTexture>(L"TileAtlasTex", L"texture\\TILE.bmp");
-	//// 타일 텍스처와 타일 하나 사이즈를 세팅해줌
-	//pObj->TileMap()->SetTileAtlas(pTileAtlas, Vec2(64.f, 64.f));
-	//pObj->TileMap()->SetFace(6, 6);
-	//for (int i = 0; i < 6; ++i)
-	//{
-	//	for (int j = 0; j < 6; ++j)
-	//	{
-	//		pObj->TileMap()->SetTileIndex(i, j, i * 6 + j);
-	//	}
-	//}
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 300.f));
 
-	//m_CurLevel->AddObject(pObj, L"Tile", false);
+	Ptr<HYTexture> pTileAtlas = HYAssetMgr::GetInst()->Load<HYTexture>(L"TileAtlasTex", L"texture\\TILE.bmp");
+	// 타일 텍스처와 타일 하나 사이즈를 세팅해줌
+	pObj->TileMap()->SetTileAtlas(pTileAtlas, Vec2(64.f, 64.f));
+	pObj->TileMap()->SetFace(6, 6);
+	for (int i = 0; i < 6; ++i)
+	{
+		for (int j = 0; j < 6; ++j)
+		{
+			pObj->TileMap()->SetTileIndex(i, j, i * 6 + j);
+		}
+	}
+
+	m_CurLevel->AddObject(pObj, L"Tile", false);
 
 	// Player Object 생성
 	pObj = new HYGameObject;
@@ -201,7 +204,7 @@ void HYLevelMgr::init()
 	pObj->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
 
 	pObj->Collider2D()->SetAbsolute(true);
-	pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
+	//pObj->Collider2D()->SetOffsetScale(Vec2(750.f, 750.f));
 	//pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));

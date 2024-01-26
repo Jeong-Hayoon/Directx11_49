@@ -6,7 +6,6 @@
 HYAnimator2D::HYAnimator2D()
 	: HYComponent(COMPONENT_TYPE::ANIMATOR2D)
 {
-	p_Repeat = &m_bRepeat;
 }
 
 HYAnimator2D::~HYAnimator2D()

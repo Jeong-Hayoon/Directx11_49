@@ -43,6 +43,10 @@ void UI::render()
 			// Animation2D 일때만 플래그
 			if (m_strID == "##AnimationEditor")
 				ImGui::Begin(string(m_strName + m_strID).c_str(), &Active, ImGuiWindowFlags_MenuBar);
+
+			else if (m_strID == "##TilemapEditor")
+				ImGui::Begin(string(m_strName + m_strID).c_str(), &Active, ImGuiWindowFlags_MenuBar);
+
 			else
 
 			ImGui::Begin(string(m_strName + m_strID).c_str(), &Active);
@@ -114,7 +118,6 @@ void UI::render()
 		{
 			m_vecChildUI[i]->render();
 		}
-
 		ImGui::EndChild();
 	}
 }

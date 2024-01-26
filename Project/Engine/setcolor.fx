@@ -12,16 +12,19 @@
 // RWTexture2D : Read/Write 가능한 텍스처
 RWTexture2D<float4> g_TargetTex : register(u0);
 
-// numthreads : 그룹 하나의 스레드 차원 수(하나의 그룹에 스레드 x,y,z가 있다)
-// hlsl 5.0, 하나의 그룹이 가질수 있는 최대 스레드개수 1024개
+// numthreads : 그룹 하나의 스레드 차원 수(하나의 그룹에 스레드가 x * y로 z개씩 있다는 의미)
+// 스레드를 마치 3차원 형태로 공간적인 개념으로 보게 되면 본인의 인덱스가 곧 스레드가 담당해야 할 작업 위치가 되어 아이디값을 넣을 수 있음
+// hlsl 5.0, 하나의 그룹이 가질수 있는 최대 스레드개수 1024개(32 * 32 * 1 = 1024)
 // SV_GroupID : 소속 그룹 ID
 // SV_GroupThreadID : 소속 그룹 내에서의 ID
 // SV_GroupIndex : 소속 그룹내에서의 ID 를 1차원으로 변환
 // SV_DispatchThreadID : 모든 그룹과 그룹내의 스레드를 통틀어서 전체 기준, 호출된 해당 스레드의 ID
 [numthreads(32, 32, 1)]
 // id : 본인이 무슨 그룹이고 
+// SV_DispatchThreadID : 본인을 좌상단 기준으로 했을 때 본인이 가로로 세로로 몇 번째 위치인지 아이디가 들어옴
 void CS_SetColor(uint3 id : SV_DispatchThreadID)
 {
+    // 해상도와 동일하거나 삐져나가는 스레드는 return
     if (TEX_WIDTH <= id.x || TEX_HEIGHT <= id.y)
     {
         return;

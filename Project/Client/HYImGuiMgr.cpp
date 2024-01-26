@@ -15,6 +15,7 @@
 #include "Outliner.h"
 #include "ListUI.h"
 #include "AnimationEditor.h"
+#include "TilemapEditor.h"
 
 HYImGuiMgr::HYImGuiMgr()
     : m_bDemoUI(true)
@@ -202,6 +203,10 @@ void HYImGuiMgr::create_ui()
 
     // Animation Editor
     pUI = new AnimationEditor;
+    AddUI(pUI->GetID(), pUI);
+
+    // Tilemao Editor
+    pUI = new TilemapEditor;
     AddUI(pUI->GetID(), pUI);
 }
 

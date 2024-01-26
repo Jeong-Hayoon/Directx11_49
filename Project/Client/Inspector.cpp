@@ -40,6 +40,7 @@ Inspector::Inspector()
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::TILEMAP] = new TilemapUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TILEMAP]);
+	
 }
 
 Inspector::~Inspector()

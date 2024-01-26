@@ -31,6 +31,8 @@ int HYSetColorShader::UpdateData()
 	UINT width = m_TargetTex->GetWidth();
 	UINT height = m_TargetTex->GetHeight();
 
+	// 이렇게 계산하여 텍스처가 작으면 그룹 수를 더 작게 배정하여 Dispatch
+	// +1은 32의 배수가 아닐 수도 있기 때문에
 	SetGroupX(1 + width / m_ThreadX);
 	SetGroupY(1 + height / m_ThreadY);
 	SetGroupZ(1);

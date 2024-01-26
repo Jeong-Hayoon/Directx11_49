@@ -11,14 +11,9 @@
 #include <Engine/HYTransform.h>
 #include <Engine/HYMeshRender.h>
 
-
-
 #include "HYImGuiMgr.h"
 #include "ListUI.h"
 #include "Inspector.h"
-
-
-
 
 AnimationEditor::AnimationEditor()
     : UI("AnimationEditor", "##AnimationEditor")
@@ -27,7 +22,6 @@ AnimationEditor::AnimationEditor()
 {
     Deactivate();
     SetSize(ImVec2(0.f, 0.f));
-   // SetComopnentTitle("AnimationEditor");
 }
 
 AnimationEditor::~AnimationEditor()
@@ -109,12 +103,12 @@ void AnimationEditor::render_update()
         {
             if (ImGui::MenuItem("Save"))
             {
-
+                // save 함수 호출
             }
             ImGui::Separator();
-            if (ImGui::MenuItem("Open"))
+            if (ImGui::MenuItem("Load"))
             {
-
+                // load 함수 호출
             }
             ImGui::EndMenu();
         }

@@ -210,6 +210,7 @@ int HYTexture::UpdateData_CS_SRV(int _RegisterNum)
 	if (nullptr == m_SRV)
 		return E_FAIL;
 
+	// 사용할 레지스터 넘버를 기록
 	m_RecentNum_SRV = _RegisterNum;
 
 	CONTEXT->CSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
@@ -221,6 +222,7 @@ int HYTexture::UpdateData_CS_UAV(int _RegisterNum)
 	if (nullptr == m_UAV)
 		return E_FAIL;
 
+	// 사용할 레지스터 넘버를 기록
 	m_RecentNum_UAV = _RegisterNum;
 
 	UINT i = -1;

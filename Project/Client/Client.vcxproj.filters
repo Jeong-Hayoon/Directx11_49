@@ -57,6 +57,12 @@
     <Filter Include="UI\3. Inspector\CompoenntUI\Tilemap">
       <UniqueIdentifier>{df10da3a-eb33-4ceb-b840-fc70ad062db1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\3. Inspector\CompoenntUI\Animator2D\Editor">
+      <UniqueIdentifier>{68d440b3-c6a3-4f83-9cb5-953cec47cb2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\3. Inspector\CompoenntUI\Tilemap\Editor">
+      <UniqueIdentifier>{ff1585ec-b0bd-4c08-8ee5-4a93784edc99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -140,8 +146,11 @@
     <ClInclude Include="TilemapUI.h">
       <Filter>UI\3. Inspector\CompoenntUI\Tilemap</Filter>
     </ClInclude>
+    <ClInclude Include="TilemapEditor.h">
+      <Filter>UI\3. Inspector\CompoenntUI\Tilemap\Editor</Filter>
+    </ClInclude>
     <ClInclude Include="AnimationEditor.h">
-      <Filter>UI\3. Inspector\CompoenntUI\Animator2D</Filter>
+      <Filter>UI\3. Inspector\CompoenntUI\Animator2D\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -212,8 +221,11 @@
     <ClCompile Include="TilemapUI.cpp">
       <Filter>UI\3. Inspector\CompoenntUI\Tilemap</Filter>
     </ClCompile>
+    <ClCompile Include="TilemapEditor.cpp">
+      <Filter>UI\3. Inspector\CompoenntUI\Tilemap\Editor</Filter>
+    </ClCompile>
     <ClCompile Include="AnimationEditor.cpp">
-      <Filter>UI\3. Inspector\CompoenntUI\Animator2D</Filter>
+      <Filter>UI\3. Inspector\CompoenntUI\Animator2D\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

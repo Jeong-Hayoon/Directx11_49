@@ -15,6 +15,7 @@
 
 #define TileAtlas   g_tex_0
 
+// FACE_X * FACE_Y 만큼의 g_TileInfo가 와있음
 StructuredBuffer<tTileInfo> g_TileInfo : register(t20);
 // ==========================
 
@@ -53,14 +54,14 @@ float4 PS_TileMap(VS_OUT _in) : SV_Target
         // floor : 소수점 내림 처리하는 함수
         // modf : 정수에서 실수부분만을 취하는 함수
         int2 Integer = (int2) floor(vUV);
-        // 실수 부분(0~1 사이)
+        // 실수 부분(모든 타일의 참조 범위를 0~1 사이로 만들어줌)
         vUV = vUV - Integer;
         // Integer.x : 열, Integer.y : 행(UV 좌표 기준으로)
         int bufferidx = Integer.y * FACE_X + Integer.x;
         
         // Render flag가 false이면(공백 타일이면)
         if (!g_TileInfo[bufferidx].bRender)
-            discard;
+            discard;       
         
         // 참조하려는 영역 설정
         vUV = g_TileInfo[bufferidx].vLeftTopUV + (vSliceUV * vUV);
