@@ -59,6 +59,7 @@ struct tPixel
 };
 
 // 구조화 버퍼의 요소(Elements)가 됨 -> 16byte 정렬 필요
+// 파티클 하나의 구조체
 struct tParticle
 {
 	Vec4	vWorldPos;		// 위치
@@ -74,9 +75,11 @@ struct tParticle
 	int		Active;			// 활성화, 비활성화 여부
 };
 
+// 파티클의 어떤 기능을 담당하는 작은 파트들, 파티클 전체 업데이트 시 사용할 업데이트 방식
 struct tParticleModule
 {
-	// Sapwn 모듈
+	// Spawn 모듈 - 생성 관련
+	// 각각 최소, 최대값이 있는 변수들은 그 사이의 랜덤한 값으로 값을 가질 수 있음
 	Vec4	vSpawnColor;	// 초기 컬러
 	Vec4	vSpawnMinScale;	// 초기 최소 크기
 	Vec4	vSpawnMaxScale;	// 초기 최대 크기
@@ -84,9 +87,11 @@ struct tParticleModule
 	float	MinLife;		// 최소 수명
 	float	MaxLife;		// 최대 수명
 	int		SpawnRate;		// 초당 생성 개수
+	// 좌표계 : Local이면 오브젝트를 따라다님, World면 안 따라다님
 	int		SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
 };
 
+// 파티클이 활성화되기 위해 몇 개가 살아나야 되는지
 struct tSpawnCount
 {
 	int	SpawnCount;

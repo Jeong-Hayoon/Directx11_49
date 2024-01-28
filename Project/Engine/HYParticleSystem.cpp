@@ -32,13 +32,14 @@ HYParticleSystem::HYParticleSystem()
 		arrParticle[i].Active = 1;
 	}
 
-	// 파티클을 저장하는 구조화 버퍼
+	// 파티클을 저장하는 구조화 버퍼 
+	// sysmemmove는 원래 가져오지 않아도 되는데 일단 잘 작동하는지 체크하려고 true 나중에 꺼야함
 	m_ParticleBuffer = new HYStructuredBuffer;
 	m_ParticleBuffer->Create(sizeof(tParticle), m_MaxParticleCount, SB_TYPE::READ_WRITE, true, arrParticle);
 
 	// 파티클 모듈정보를 저장하는 구조화버퍼
 	m_ParticleModuleBuffer = new HYStructuredBuffer;
-	// sysmemmove는 원래 가져오지 않아도 되는데 일단 잘 작동하는지 체크하려고 true 나중에 꺼야함
+	// 파티클 시스템 전체적인, 전역적인 정보기 때문에 1개만 Create 하면됨, 텍스처 레지스터에만 전달할 거니까 SB_TYPE::READ_ONLY 
 	m_ParticleModuleBuffer->Create(sizeof(tParticleModule), 1, SB_TYPE::READ_ONLY, true);
 	                                                                                                                                    
 	// 파티클 업데이트용 컴퓨트 쉐이더 참조
@@ -74,6 +75,7 @@ void HYParticleSystem::finaltick()
 	m_Module.MaxLife = 5.f;
 	m_Module.SpawnRate = 10;
 
+	// Module 정보의 SpawnRate를 통해 시간이 흐름에 따라 파티클 활성화
 	m_Time += DT;
 	if ((1.f / m_Module.SpawnRate) < m_Time)
 	{

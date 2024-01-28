@@ -135,6 +135,7 @@ void HYRenderMgr::UpdateData()
 	static HYConstBuffer* pCB = HYDevice::GetInst()->GetConstBuffer(CB_TYPE::GLOBAL_DATA);
 	pCB->SetData(&g_global);
 	pCB->UpdateData();
+	// Compute Shader 시점에 상수 값 업데이트
 	pCB->UpdateData_CS();
 
 	// 2D 광원 정보 업데이트

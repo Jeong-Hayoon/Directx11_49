@@ -15,6 +15,7 @@ RWStructuredBuffer<tSpawnCount> g_SpawnCount : register(u1);
 
 // 그룹 하나가 1024개가 가로로 일렬로 된 스레드로 구성
 [numthreads(1024, 1, 1)]
+// 코드 수정 필요
 void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
 {
      SpawnCount = 100;
@@ -31,7 +32,7 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
                         
             //InterlockedCompareExchange(SpawnCount, AliveCount, Exchange, Origin);
             InterlockedExchange(SpawnCount, Exchange, Origin);
-        
+            
             if (AliveCount == Origin)
             {
                 Particle.Active = 1;
