@@ -18,6 +18,7 @@ public:
 public:
     // Shader가 필요한 데이터들을 업데이트 시켜 놓아라
     virtual int UpdateData() override;
+    virtual void UpdateGroupCount() override;
     virtual void Clear() override;
 
 public:

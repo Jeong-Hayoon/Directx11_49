@@ -60,6 +60,8 @@ void HYComputeShader::Execute()
 	if (FAILED(UpdateData()))
 		return;
 
+	UpdateGroupCount();
+
 	// 상수 데이터 바인딩
 	static HYConstBuffer* pCB = HYDevice::GetInst()->GetConstBuffer(CB_TYPE::MATERIAL_CONST);
 	pCB->SetData(&m_Const);

@@ -13,6 +13,7 @@ HYTexture::~HYTexture()
 {
 }
 
+// 경로를 알려주면 확장자에 따라 주 포맷 방식에 따라 로딩 -> 텍스처 클래스의 스크래치 이미지쪽으로 로딩
 int HYTexture::Load(const wstring& _strFilePath)
 {
 	// ============== 시스템 메모리에 로딩 ==============
@@ -49,7 +50,6 @@ int HYTexture::Load(const wstring& _strFilePath)
 	}
 
 	// ============== GPU 메모리에 로딩 ==============
-
 	// 1. ID3D11Texture2D 객체 생성
 	// 2. ScratchImage 에 있는 데이터를 ID3D11Texture2D 객체 로 전달
 	// 3. ID3D11Texture2D 를 이용한 ShaderResourceView 만들기
@@ -68,7 +68,9 @@ int HYTexture::Load(const wstring& _strFilePath)
 	return S_OK;
 }
 
-
+// 시스템 메모리 상에는 없음
+// 보통 랜더타겟(계속 출력), Depth Stencil Texture(깊이 저정), Compute Shader 같은 경우에는
+// 지속적으로 수정을 가할것이기 때문에 시스템 메모리와 연동할 필요가 없는 경우에는 Create
 int HYTexture::Create(UINT _Width, UINT _Height, DXGI_FORMAT _Format, UINT _BindFlag, D3D11_USAGE _Usage)
 {
 	// Texture 생성
@@ -261,8 +263,10 @@ tPixel* HYTexture::GetPixels()
 {
 	if (nullptr == m_Image.GetPixels())
 	{
+		// Texture2D쪽에 있는 텍스처를 Scratch Image쪽으로 가져오는 함수
 		CaptureTexture(DEVICE, CONTEXT, m_Tex2D.Get(), m_Image);
 	}
 
+	// GetPixels : Scratch Image가 보유하고 있는 메모리쪽 시작 주소를 tPixel 형태로 가져옴
 	return (tPixel*)m_Image.GetPixels();
 }

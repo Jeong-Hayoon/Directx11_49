@@ -29,6 +29,7 @@ private:
 public:
     int Create(void* _Vtx, UINT _VtxCount, void* _Idx, UINT _IdxCount);
     void render();
+    void render_asparticle(UINT _ParticleCount);
 
 public:
     HYMesh();

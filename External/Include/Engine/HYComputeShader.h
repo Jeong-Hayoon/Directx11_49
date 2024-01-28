@@ -4,8 +4,8 @@
 #include "HYStructuredBuffer.h"
 #include "HYTexture.h"
 
-// 모든 Compute Shader 객체의 부모 클래스
 // 특정 기능 하나를 수행하기 위해 만들어짐 -> Compute Shader는 객체마다 하는 일이 다 다름
+// 모든 Compute Shader 클래스의 부모 클래스(각 Compute Shader마다 할 일이 다 다르기 때문에 Compute Shader마다 클래스를 만들 예정)
 class HYComputeShader :
     public HYShader
 {
@@ -43,8 +43,17 @@ protected:
     void SetGroupY(UINT _Group) { m_GroupY = _Group; }
     void SetGroupZ(UINT _Group) { m_GroupZ = _Group; }
 
+    void SetGroup(UINT _X, UINT _Y, UINT _Z)
+    {
+        m_GroupX = _X;
+        m_GroupY = _Y;
+        m_GroupZ = _Z;
+    }
+
 private:
+    // 자식 클래스들은 반드시 구현해줘야 하는 함수들
     virtual int UpdateData() = 0;
+    virtual void UpdateGroupCount() = 0;
     virtual void Clear() = 0;
 
 public:

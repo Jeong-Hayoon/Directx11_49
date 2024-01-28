@@ -135,6 +135,7 @@ void HYRenderMgr::UpdateData()
 	static HYConstBuffer* pCB = HYDevice::GetInst()->GetConstBuffer(CB_TYPE::GLOBAL_DATA);
 	pCB->SetData(&g_global);
 	pCB->UpdateData();
+	pCB->UpdateData_CS();
 
 	// 2D 광원 정보 업데이트
 	// 임시로 사용하는 벡터

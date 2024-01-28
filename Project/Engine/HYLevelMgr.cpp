@@ -59,6 +59,7 @@ void HYLevelMgr::init()
 	//tPixel pixel = pPixel[0];
 
 	//tPixel* pPixel = pTestTex->GetPixels();
+	// 두번째 줄 여섯번째 픽셀에 접근하고 싶은 경우
 	//tPixel pixel = pPixel[pTestTex->GetWidth() * 1 + 5];
 
 	// 충돌 설정
@@ -322,6 +323,7 @@ void HYLevelMgr::init()
 	pObj->AddComponent(new HYTransform);
 	pObj->AddComponent(new HYParticleSystem);
 
+	// 어차피 오브젝트의 위치는 의미가 없음 - 각 파티클의 위치 정보로 랜더링될거기 때문에
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
 
 	m_CurLevel->AddObject(pObj, L"Default", false);

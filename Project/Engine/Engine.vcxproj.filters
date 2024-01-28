@@ -143,6 +143,9 @@
     <Filter Include="ShaderCode\Compute\SetColor">
       <UniqueIdentifier>{bdfe04f4-8f5c-4485-9840-0b1dfff0b53f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\Compute\ParticleUpdate">
+      <UniqueIdentifier>{b9f369c0-7d9b-46bc-92b3-85986d008a62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -301,6 +304,9 @@
     <ClInclude Include="HYSetColorShader.h">
       <Filter>ShaderCode\Compute\SetColor</Filter>
     </ClInclude>
+    <ClInclude Include="HYParticleUpdate.h">
+      <Filter>ShaderCode\Compute\ParticleUpdate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -447,6 +453,9 @@
     <ClCompile Include="HYSetColorShader.cpp">
       <Filter>ShaderCode\Compute\SetColor</Filter>
     </ClCompile>
+    <ClCompile Include="HYParticleUpdate.cpp">
+      <Filter>ShaderCode\Compute\ParticleUpdate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -483,6 +492,9 @@
     </FxCompile>
     <FxCompile Include="particle.fx">
       <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="particle_update.fx">
+      <Filter>ShaderCode\Compute\ParticleUpdate</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ class HYTexture :
 {
 private:
     // DirectTex에서 제공해주는 클래스, 지정된 확장자에 맞는 함수로 메모리 로딩한 후 GPU로 보냄
-    ScratchImage                        m_Image;    // 텍스쳐 로딩 및 시스템메모리 관리(시스템 메모리상에 로딩된 이미지를 들고 있음)
+    ScratchImage                        m_Image;    // 텍스쳐 로딩 및 시스템메모리(CPU) 관리(시스템 메모리상에 로딩된 이미지를 들고 있음)
     ComPtr<ID3D11Texture2D>             m_Tex2D;    // 텍스쳐 데이터를 GPU 메모리에 관리
     D3D11_TEXTURE2D_DESC                m_Desc;     // 텍스쳐 생성 정보
 

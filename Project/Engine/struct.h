@@ -11,26 +11,6 @@ struct Vtx
 	Vec2 vUV;		 // UV 좌표계 or Texture Coodinate
 };
 
-struct tPixel
-{
-	BYTE r, g, b, a;
-};
-
-struct tParticle
-{
-	Vec4	vWorldPos;		// 위치
-	Vec4	vWorldScale;	// 크기
-	Vec4	vWorldRotation;	// 회전값
-	Vec4	vVelocity;		// 속도
-	Vec4	vColor;			// 색상
-
-	float	Mass;			// 질량
-	float	Age;			// 현재 나이
-	float	Life;			// 수명
-	int		Active;			// 활성화, 비활성화 여부
-};
-
-
 // 필요한 정보 변화량
 struct tDebugShapeInfo
 {
@@ -72,6 +52,47 @@ struct tLightInfo
 
 	Vec3	vPadding;
 };
+
+struct tPixel
+{
+	BYTE r, g, b, a;
+};
+
+// 구조화 버퍼의 요소(Elements)가 됨 -> 16byte 정렬 필요
+struct tParticle
+{
+	Vec4	vWorldPos;		// 위치
+	Vec4	vWorldScale;	// 크기
+	Vec4	vWorldRotation;	// 회전값
+	Vec4	vVelocity;		// 속도
+	Vec4	vColor;			// 색상
+
+
+	float	Mass;			// 질량
+	float	Age;			// 현재 나이(파티클이 생성된지 얼마나 지났는지)
+	float	Life;			// 수명
+	int		Active;			// 활성화, 비활성화 여부
+};
+
+struct tParticleModule
+{
+	// Sapwn 모듈
+	Vec4	vSpawnColor;	// 초기 컬러
+	Vec4	vSpawnMinScale;	// 초기 최소 크기
+	Vec4	vSpawnMaxScale;	// 초기 최대 크기
+
+	float	MinLife;		// 최소 수명
+	float	MaxLife;		// 최대 수명
+	int		SpawnRate;		// 초당 생성 개수
+	int		SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
+};
+
+struct tSpawnCount
+{
+	int	SpawnCount;
+	int iPadding[3];
+};
+
 
 // ====================
 // 상수버퍼 대응 구조체

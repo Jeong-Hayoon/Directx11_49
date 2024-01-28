@@ -96,3 +96,10 @@ void HYMesh::render()
 
 	CONTEXT->DrawIndexed(m_IdxCount, 0, 0);
 }
+
+void HYMesh::render_asparticle(UINT _ParticleCount)
+{
+	UpdateData();
+
+	CONTEXT->DrawIndexedInstanced(m_IdxCount, _ParticleCount, 0, 0, 0);
+}

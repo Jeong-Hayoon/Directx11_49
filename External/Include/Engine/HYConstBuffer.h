@@ -26,8 +26,10 @@ public:
     // UINT _ElementCount = 0 : 설정을 안해준다면 최대크기가 default값
     void SetData(void* _Src, UINT _ElementCount = 0);
 
+    // 랜더링 전용
     void UpdateData();
 
+    // Compute Shader 전용(Compute Shader 시점에 보냄)
     void UpdateData_CS();
 
 public:

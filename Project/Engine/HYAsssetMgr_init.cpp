@@ -371,12 +371,16 @@ void HYAssetMgr::CreateDefaultMaterial()
 
 
 #include "HYSetColorShader.h"
+#include "HYParticleUpdate.h"
 void HYAssetMgr::CreateDefaultComputeShader()
 {
 	Ptr<HYComputeShader> pShader = nullptr;
 
 	// SetColorShader
 	pShader = new HYSetColorShader;
-	pShader->Create(L"shader\\setcolor.fx", "CS_SetColor");
 	AddAsset(L"SetColorShader", pShader.Get());
+
+	// ParticleUpdateShader
+	pShader = new HYParticleUpdate;
+	AddAsset(L"ParticleUpdateShader", pShader.Get());
 }
