@@ -14,6 +14,7 @@ struct VS_IN
     // 로컬 pos
     float3 vPos : POSITION;
     float2 vUV : TEXCOORD;
+    // 인스턴싱으로 랜더링할 때 몇번째를 랜더링하고 있는지 들어옴
     uint iInstID : SV_InstanceID;
 };
 
@@ -44,6 +45,7 @@ VS_OUT VS_Particle(VS_IN _in)
 
 float4 PS_Particle(VS_OUT _in) : SV_Target
 {
+    // 비활성화 상태라면
     if (!g_ParticleBuffer[(uint) _in.InstID].Active)
     {
         discard;

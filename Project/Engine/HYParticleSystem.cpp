@@ -92,7 +92,7 @@ void HYParticleSystem::finaltick()
 	m_ParticleModuleBuffer->SetData(&m_Module);
 	m_ParticleModuleBuffer->UpdateData_CS_SRV(20);
 
-	// 파티컬 업데이트 컴퓨트 쉐이더
+	// 파티컬 업데이트 컴퓨트 쉐이더(업데이트를 받을 버퍼가 누구인지 명시)
 	m_CSParticleUpdate->SetParticleBuffer(m_ParticleBuffer);
 	m_CSParticleUpdate->SetParticleModuleBuffer(m_ParticleModuleBuffer);
 	m_CSParticleUpdate->SetParticleSpawnCount(m_SpawnCountBuffer);
@@ -120,6 +120,7 @@ void HYParticleSystem::render()
 	// 파티클 중에서 누가 랜더링되는지 순번을 넣어줌
 	GetMaterial()->SetScalarParam(INT_0, 0);
 	GetMaterial()->UpdateData();
+	// 인스턴싱을 통해 한번에 랜더링
 	GetMesh()->render_asparticle(m_MaxParticleCount);
 
 	// 렌더링때 사용한 리소스 바인딩 Clear

@@ -8,10 +8,12 @@ StructuredBuffer<tParticleModule> g_Module : register(t20);
 RWStructuredBuffer<tParticle> g_ParticleBuffer : register(u0);
 RWStructuredBuffer<tSpawnCount> g_SpawnCount : register(u1);
 
+// 파티클의 최대 개수
 #define MAX_COUNT g_int_0 
 #define SpawnCount  g_SpawnCount[0].iSpawnCount
 #define Particle    g_ParticleBuffer[id.x]
 
+// 그룹 하나가 1024개가 가로로 일렬로 된 스레드로 구성
 [numthreads(1024, 1, 1)]
 void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
 {

@@ -100,6 +100,6 @@ void HYMesh::render()
 void HYMesh::render_asparticle(UINT _ParticleCount)
 {
 	UpdateData();
-
+	// 지정된 횟수만큼 반복문 돌면서 파티클 랜더링(한 번의 파이프라인으로)
 	CONTEXT->DrawIndexedInstanced(m_IdxCount, _ParticleCount, 0, 0, 0);
 }

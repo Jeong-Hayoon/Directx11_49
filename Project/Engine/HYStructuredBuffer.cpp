@@ -122,6 +122,7 @@ void HYStructuredBuffer::UpdateData(UINT _RegisterNum)
 	CONTEXT->PSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
 }
 
+// Compute Shader 시점에 리소스 바인딩하는 함수 - ShaderResourceView
 int HYStructuredBuffer::UpdateData_CS_SRV(UINT _RegisterNum)
 {
 	if (nullptr == m_SRV)
@@ -133,6 +134,7 @@ int HYStructuredBuffer::UpdateData_CS_SRV(UINT _RegisterNum)
 	return S_OK;
 }
 
+// Compute Shader 시점에 리소스 바인딩하는 함수 - UnorderedAccessView
 int HYStructuredBuffer::UpdateData_CS_UAV(UINT _RegisterNum)
 {
 	if (nullptr == m_UAV)

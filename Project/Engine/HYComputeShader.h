@@ -53,6 +53,7 @@ protected:
 private:
     // 자식 클래스들은 반드시 구현해줘야 하는 함수들
     virtual int UpdateData() = 0;
+    // 그룹 개수 계산하는 것 강제하게끔
     virtual void UpdateGroupCount() = 0;
     virtual void Clear() = 0;
 
