@@ -63,6 +63,9 @@
     <Filter Include="UI\3. Inspector\CompoenntUI\Tilemap\Editor">
       <UniqueIdentifier>{ff1585ec-b0bd-4c08-8ee5-4a93784edc99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\3. Inspector\CompoenntUI\Particle">
+      <UniqueIdentifier>{ab81cf69-0b94-4567-a574-53ea04e2ba60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -152,6 +155,9 @@
     <ClInclude Include="AnimationEditor.h">
       <Filter>UI\3. Inspector\CompoenntUI\Animator2D\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleSystemUI.h">
+      <Filter>UI\3. Inspector\CompoenntUI\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -226,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="AnimationEditor.cpp">
       <Filter>UI\3. Inspector\CompoenntUI\Animator2D\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystemUI.cpp">
+      <Filter>UI\3. Inspector\CompoenntUI\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -88,6 +88,7 @@ struct tParticleModule
 	float	MinLife;		// 최소 수명
 	float	MaxLife;		// 최대 수명
 	int		SpawnRate;		// 초당 생성 개수
+
 	// 좌표계 : Local이면 오브젝트를 따라다님, World면 안 따라다님
 	int		SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
 
@@ -100,8 +101,8 @@ struct tParticleModule
 	int		AddVelocityType;// 0 : From Center, 1: To Center, 2: Fix Direction
 	float	MinSpeed;
 	float	MaxSpeed;
-	float	FixedAngle;		// 해당 방향에서 랜덤범위 각도
-	Vec4	FixedDirection;	// 지정 방향
+	float	FixedAngle;		// 해당 방향에서 랜덤범위 각도(Fix Direction)
+	Vec4	FixedDirection;	// 지정 방향(Fix Direction)
 
 	//
 

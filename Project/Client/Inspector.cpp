@@ -13,6 +13,7 @@
 #include "Animator2DUI.h"
 #include "CameraUI.h"
 #include "TilemapUI.h"
+#include "ParticleSystemUI.h"
 
 Inspector::Inspector()
 	: UI("Inspector", "##Inspector")
@@ -40,6 +41,9 @@ Inspector::Inspector()
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::TILEMAP] = new TilemapUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TILEMAP]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM] = new ParticleSystemUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM]);
 	
 }
 

@@ -11,6 +11,8 @@ class HYScript;
 class HYCamera;
 class HYCollider2D;
 class HYLight2D;
+class HYTileMap;
+class HYParticleSystem;
 
 // 하나의 오브젝트를 부르는 단위
 // 게임 오브젝트들은 Transform Component를 꼭 보유해야 함
@@ -62,6 +64,7 @@ public:
     GET_COMPONENT(Animator2D, ANIMATOR2D);
     GET_COMPONENT(Light2D, LIGHT2D);
     GET_COMPONENT(TileMap, TILEMAP);
+    GET_COMPONENT(ParticleSystem, PARTICLESYSTEM);
 
     HYGameObject* GetParent() { return m_Parent; }
     const vector<HYGameObject*>& GetChild() { return m_vecChild; }

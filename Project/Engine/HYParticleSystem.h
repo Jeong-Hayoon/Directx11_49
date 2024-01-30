@@ -35,7 +35,6 @@ public:
     int GetSpawnShape() { return m_Module.SpawnShape; }
     float GetSpawnRadius() { return m_Module.Radius; }
     Vec4 GetSpawnBoxScale() { return m_Module.vSpawnBoxScale; }
-    Vec4 GetSpawnBoxScale() { return m_Module.vSpawnBoxScale; }
     int GetSpawnRate() { return m_Module.SpawnRate; }
     // int GetarrModuleCheck() { return m_Module.arrModuleCheck; } -> 반복문 돌면서 배열의 값이 1인거 찾아서 리턴시키는 함수 만들기
     int GetAddVelocityType() { return m_Module.AddVelocityType; }
@@ -52,7 +51,6 @@ public:
     void SetSpawnMaxLife(float _life) {  m_Module.MaxLife = _life; }
     void SetSpawnShape(int _shape) {  m_Module.SpawnShape = _shape; }
     void SetSpawnRadius(float _radius) {  m_Module.Radius = _radius; }
-    void SetSpawnBoxScale(Vec4 _scale) {  m_Module.vSpawnBoxScale = _scale; }
     void SetSpawnBoxScale(Vec4 _scale) {  m_Module.vSpawnBoxScale = _scale; }
     void SetSpawnRate(int _rate) {  m_Module.SpawnRate = _rate; }
     // void SetarrModuleCheck(int _modulecheck) {  m_Module.arrModuleCheck = _modulecheck; } -> 반복문 돌면서 배열의 값이 1인거 찾아서 리턴시키는 함수 만들기

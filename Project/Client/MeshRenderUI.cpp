@@ -25,6 +25,7 @@ void MeshRenderUI::render_update()
 	ComponentUI::render_update();
 
 	HYGameObject* pTarget = GetTargetObject();
+
 	HYMeshRender* pMeshRender = pTarget->MeshRender();
 
 	Ptr<HYMesh> pMesh = pMeshRender->GetMesh();

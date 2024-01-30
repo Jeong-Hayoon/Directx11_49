@@ -55,6 +55,7 @@ float4 PS_Particle(VS_OUT _in) : SV_Target
     
     if (g_btex_0)
     {
+        // 파티클 텍스처들은 다 무채색이라서 원래 파티클 색상에 텍스처의 색상을 곱해주면 파티클 색상이 입혀진 텍스처가 출력됨
         vOutColor *= g_tex_0.Sample(g_sam_0, _in.vUV);
     }
     
