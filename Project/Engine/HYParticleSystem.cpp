@@ -14,7 +14,7 @@
 HYParticleSystem::HYParticleSystem()
 	: HYRenderComponent(COMPONENT_TYPE::PARTICLESYSTEM)
 	, m_ParticleBuffer(nullptr)
-	, m_MaxParticleCount(100)
+	, m_MaxParticleCount(2000)
 {
 	// 전용 메쉬와 전용 재질 사용
 	SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
@@ -23,19 +23,10 @@ HYParticleSystem::HYParticleSystem()
 	// 렌더링 해상도
 	Vec2 vResol = HYDevice::GetInst()->GetRenderResolution();
 
-	// 임시로 5개의 파티클이 초기 데이터를 입력하면서 구조화 버퍼 생성
-	tParticle arrParticle[100] = { };
-	for (int i = 0; i < m_MaxParticleCount; ++i)
-	{
-		arrParticle[i].vWorldPos = Vec3((vResol.x / -2.f) + (i + 1) * vResol.x / (m_MaxParticleCount + 1), 0.f, 200.f);
-		arrParticle[i].vWorldScale = Vec3(50.f, 50.f, 1.f);
-		arrParticle[i].Active = 0;
-	}
-
 	// 파티클을 저장하는 구조화 버퍼 
 	// sysmemmove는 원래 가져오지 않아도 되는데 일단 잘 작동하는지 체크하려고 true 나중에 꺼야함
 	m_ParticleBuffer = new HYStructuredBuffer;
-	m_ParticleBuffer->Create(sizeof(tParticle), m_MaxParticleCount, SB_TYPE::READ_WRITE, true, arrParticle);
+	m_ParticleBuffer->Create(sizeof(tParticle), m_MaxParticleCount, SB_TYPE::READ_WRITE, true);
 
 	// 파티클 모듈정보를 저장하는 구조화버퍼
 	m_ParticleModuleBuffer = new HYStructuredBuffer;
@@ -52,16 +43,25 @@ HYParticleSystem::HYParticleSystem()
 	// 초기 모듈 세팅		
 	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = 1;
 
-	m_Module.SpaceType = 1;
-	m_Module.vSpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
-	m_Module.vSpawnMinScale = Vec4(20.f, 20.f, 1.f, 1.f);
-	m_Module.vSpawnMaxScale = Vec4(20.f, 20.f, 1.f, 1.f);
-	m_Module.MinLife = 5.f;
-	m_Module.MaxLife = 5.f;
-	m_Module.SpawnShape = 0; // 0 : Sphere
+	m_Module.vSpawnColor = Vec4(0.2f, 0.4f, 0.9f, 1.f);
+	m_Module.vSpawnMinScale = Vec4(50.f, 50.f, 1.f, 1.f);
+	m_Module.vSpawnMaxScale = Vec4(200.f, 200.f, 1.f, 1.f);
+	m_Module.MinLife = 0.4f;
+	m_Module.MaxLife = 1.f;
+	m_Module.SpawnShape = 1; // 0 : Sphere, 1 : Box
 	m_Module.Radius = 100.f;
+	m_Module.vSpawnBoxScale = Vec4(500.f, 500.f, 0.f, 0.f);
+	m_Module.SpawnRate = 50;
 
-	m_Module.SpawnRate = 1;
+	// Add Velocity Module
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 1;
+	m_Module.AddVelocityType = 0;
+	m_Module.MinSpeed = 100;
+	m_Module.MaxSpeed = 200;
+	m_Module.FixedDirection;
+	m_Module.FixedAngle;
+
+	m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\CartoonSmoke.png", L"texture\\particle\\CartoonSmoke.png");
 }
 
 HYParticleSystem::~HYParticleSystem()
@@ -110,12 +110,10 @@ void HYParticleSystem::finaltick()
 	m_CSParticleUpdate->SetParticleBuffer(m_ParticleBuffer);
 	m_CSParticleUpdate->SetParticleModuleBuffer(m_ParticleModuleBuffer);
 	m_CSParticleUpdate->SetParticleSpawnCount(m_SpawnCountBuffer);
-	//m_CSParticleUpdate->SetParticleWorldPos();
+	// 파티클의 월드 위치 세팅
+	m_CSParticleUpdate->SetParticleWorldPos(Transform()->GetWorldPos());
 
 	m_CSParticleUpdate->Execute();
-
-	tParticle arrParticle[100] = { };
-	m_ParticleBuffer->GetData(arrParticle);
 
 }
 
@@ -134,6 +132,8 @@ void HYParticleSystem::render()
 
 	// 파티클 중에서 누가 랜더링되는지 순번을 넣어줌
 	GetMaterial()->SetScalarParam(INT_0, 0);
+	/// ###
+	GetMaterial()->SetTexParam(TEX_0, m_ParticleTex);
 	GetMaterial()->UpdateData();
 	// 인스턴싱을 통해 한번에 랜더링
 	GetMesh()->render_asparticle(m_MaxParticleCount);

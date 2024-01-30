@@ -324,7 +324,7 @@ void HYLevelMgr::init()
 	pObj->AddComponent(new HYParticleSystem);
 
 	// 어차피 오브젝트의 위치는 의미가 없음 - 각 파티클의 위치 정보로 랜더링될거기 때문에
-	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
+	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
 
 	m_CurLevel->AddObject(pObj, L"Default", false);
 

@@ -3,21 +3,21 @@
 
 struct tLightColor
 {
-    float4 vColor; // 빛의 색상	- 광원의 순수 색상
-    float4 vSpecular; // 반사광	- 광원이 물체 표변에 반사된 색상
-    float4 vAmbient; // 환경광(주변광) - 광원에 의해서 보장되는 최소한의 빛
+    float4 vColor;               // 빛의 색상	- 광원의 순수 색상
+    float4 vSpecular;            // 반사광	- 광원이 물체 표변에 반사된 색상
+    float4 vAmbient;             // 환경광(주변광) - 광원에 의해서 보장되는 최소한의 빛
 };
 
 struct tLightInfo
 {
     tLightColor Color;
     
-    float3 vWorldPos; // 광원의 위치
-    float3 vWorldDir; // 광원이 향하는 방향
-    float fRadius; // 광원의 영향 반경, 거리 정보
-    float fAngle; // 광원의 범위 각도
+    float3 vWorldPos;           // 광원의 위치
+    float3 vWorldDir;           // 광원이 향하는 방향
+    float fRadius;              // 광원의 영향 반경, 거리 정보
+    float fAngle;               // 광원의 범위 각도
 
-    int LightType; // 광원 타입 (0 : Directional, 1 : Point, 2 : Spot)
+    int LightType;              // 광원 타입 (0 : Directional, 1 : Point, 2 : Spot)
     float3 vPadding;
 };
 
@@ -30,16 +30,17 @@ struct tTileInfo
 
 struct tParticle
 {
-    float4 vWorldPos; // 위치
-    float4 vWorldScale; // 크기
-    float4 vWorldRotation; // 회전값
-    float4 vVelocity; // 속도
-    float4 vColor; // 색상
+    float4 vLocalPos;           // 로컬 위치
+    float4 vWorldPos;           // 월드 위치
+    float4 vWorldScale;         // 크기
+    float4 vWorldRotation;      // 회전값
+    float4 vVelocity;           // 속도
+    float4 vColor;              // 색상
 
-    float Mass; // 질량
-    float Age; // 현재 나이
-    float Life; // 수명
-    int Active; // 활성화, 비활성화 여부
+    float Mass;                 // 질량
+    float Age;                  // 현재 나이
+    float Life;                 // 수명
+    int Active;                 // 활성화, 비활성화 여부
 };
 
 struct tParticleModule
@@ -59,6 +60,13 @@ struct tParticleModule
     float4 vSpawnBoxScale;      // SpawnShape 가 Box 인 경우, Box 의 크기
     float2 padding;
     
+    // Add Velocity
+    int AddVelocityType; // 0 : From Center, 1: To Center, 2: Fix Direction
+    float MinSpeed;
+    float MaxSpeed;
+    float FixedAngle; // 해당 방향에서 랜덤범위 각도
+    float4 FixedDirection; // 지정 방향
+    
     int arrModuleCheck[4];
 };
 
@@ -70,3 +78,6 @@ struct tSpawnCount
 };
 
 #endif
+
+
+

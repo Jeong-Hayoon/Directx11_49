@@ -19,6 +19,7 @@ int HYParticleUpdate::UpdateData()
 
 	// 파티클의 최대 개수 업데이트
 	m_Const.iArr[0] = m_ParticleBuffer->GetElementCount();
+	m_Const.v4Arr[0] = m_vParticleWorldPos;
 	m_ParticleBuffer->UpdateData_CS_UAV(0);
 	m_SpawnCountBuffer->UpdateData_CS_UAV(1);
 

@@ -20,6 +20,8 @@ private:
 
     Ptr<HYParticleUpdate>   m_CSParticleUpdate;
 
+    Ptr<HYTexture>           m_ParticleTex;
+
     float                   m_Time;
 
 public:

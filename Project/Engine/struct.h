@@ -62,7 +62,8 @@ struct tPixel
 // 파티클 하나의 구조체
 struct tParticle
 {
-	Vec4	vWorldPos;		// 위치
+	Vec4	vLocalPos;		// 로컬 위치
+	Vec4	vWorldPos;		// 월드 위치
 	Vec4	vWorldScale;	// 크기
 	Vec4	vWorldRotation;	// 회전값
 	Vec4	vVelocity;		// 속도
@@ -87,6 +88,7 @@ struct tParticleModule
 	float	MinLife;		// 최소 수명
 	float	MaxLife;		// 최대 수명
 	int		SpawnRate;		// 초당 생성 개수
+
 	// 좌표계 : Local이면 오브젝트를 따라다님, World면 안 따라다님
 	int		SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
 
@@ -95,7 +97,12 @@ struct tParticleModule
 	Vec4	vSpawnBoxScale;	// SpawnShape 가 Box 인 경우, Box 의 크기
 	Vec2	padding;
 
-	//
+	// Add Velocity
+	int		AddVelocityType;// 0 : From Center, 1: To Center, 2: Fix Direction
+	float	MinSpeed;
+	float	MaxSpeed;
+	float	FixedAngle;		// 해당 방향에서 랜덤범위 각도(Fix Direction)
+	Vec4	FixedDirection;	// 지정 방향(Fix Direction)
 
 	//
 

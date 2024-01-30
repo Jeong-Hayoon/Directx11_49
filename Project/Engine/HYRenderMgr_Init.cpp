@@ -33,8 +33,8 @@ void HYRenderMgr::init()
 	m_vecNoiseTex.push_back(HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\noise\\noise_02.png", L"texture\\noise\\noise_02.png"));
 	m_vecNoiseTex.push_back(HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\noise\\noise_03.jpg", L"texture\\noise\\noise_03.jpg"));
 
-	m_vecNoiseTex[0]->UpdateData(14);
-	m_vecNoiseTex[0]->UpdateData_CS_SRV(14);
+	m_vecNoiseTex[2]->UpdateData(14);
+	m_vecNoiseTex[2]->UpdateData_CS_SRV(14);
 }
 
 void HYRenderMgr::CopyRenderTargetToPostProcessTarget()
