@@ -211,3 +211,13 @@ enum class SHADER_DOMAIN
 
 	DOMAIN_DEBUG,			// Level 안의 물체를 다 그리고 나서 랜더링, Level 내에 존재하면 안됨
 };
+
+enum class PARTICLE_MODULE
+{
+	SPAWN,	// 파티클 생성 관련
+	DRAG,	// 감속 관련 모듈
+	SCALE,	
+	INITIAL_VELOCITY,
+
+	END,
+};

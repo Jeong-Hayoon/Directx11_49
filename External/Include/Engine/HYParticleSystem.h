@@ -8,7 +8,7 @@ class HYStructuredBuffer;
 class HYParticleSystem :
     public HYRenderComponent
 {
-
+     
 private:
     HYStructuredBuffer*     m_ParticleBuffer;
     UINT                    m_MaxParticleCount;

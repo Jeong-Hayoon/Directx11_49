@@ -14,7 +14,7 @@
 HYParticleSystem::HYParticleSystem()
 	: HYRenderComponent(COMPONENT_TYPE::PARTICLESYSTEM)
 	, m_ParticleBuffer(nullptr)
-	, m_MaxParticleCount(5)
+	, m_MaxParticleCount(100)
 {
 	// 전용 메쉬와 전용 재질 사용
 	SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
@@ -24,12 +24,12 @@ HYParticleSystem::HYParticleSystem()
 	Vec2 vResol = HYDevice::GetInst()->GetRenderResolution();
 
 	// 임시로 5개의 파티클이 초기 데이터를 입력하면서 구조화 버퍼 생성
-	tParticle arrParticle[5] = { };
+	tParticle arrParticle[100] = { };
 	for (int i = 0; i < m_MaxParticleCount; ++i)
 	{
 		arrParticle[i].vWorldPos = Vec3((vResol.x / -2.f) + (i + 1) * vResol.x / (m_MaxParticleCount + 1), 0.f, 200.f);
 		arrParticle[i].vWorldScale = Vec3(50.f, 50.f, 1.f);
-		arrParticle[i].Active = 1;
+		arrParticle[i].Active = 0;
 	}
 
 	// 파티클을 저장하는 구조화 버퍼 
@@ -48,6 +48,20 @@ HYParticleSystem::HYParticleSystem()
 	// SpawnCount 전달용 구조화버퍼
 	m_SpawnCountBuffer = new HYStructuredBuffer;
 	m_SpawnCountBuffer->Create(sizeof(tSpawnCount), 1, SB_TYPE::READ_WRITE, true);
+
+	// 초기 모듈 세팅		
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = 1;
+
+	m_Module.SpaceType = 1;
+	m_Module.vSpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	m_Module.vSpawnMinScale = Vec4(20.f, 20.f, 1.f, 1.f);
+	m_Module.vSpawnMaxScale = Vec4(20.f, 20.f, 1.f, 1.f);
+	m_Module.MinLife = 5.f;
+	m_Module.MaxLife = 5.f;
+	m_Module.SpawnShape = 0; // 0 : Sphere
+	m_Module.Radius = 100.f;
+
+	m_Module.SpawnRate = 1;
 }
 
 HYParticleSystem::~HYParticleSystem()
@@ -66,21 +80,19 @@ HYParticleSystem::~HYParticleSystem()
 // 컴퓨터 쉐이더 Execute 실행 -> 스레드가 붙어서 파티클 하나하나 업데이트됨
 void HYParticleSystem::finaltick()
 {
-	// 파티클 모듈값 세팅
-	m_Module.SpaceType = 1;
-	m_Module.vSpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
-	m_Module.vSpawnMinScale = Vec4(20.f, 20.f, 1.f, 1.f);
-	m_Module.vSpawnMaxScale = Vec4(20.f, 20.f, 1.f, 1.f);
-	m_Module.MinLife = 5.f;
-	m_Module.MaxLife = 5.f;
-	m_Module.SpawnRate = 10;
-
 	// Module 정보의 SpawnRate를 통해 시간이 흐름에 따라 파티클 활성화
 	m_Time += DT;
+
 	if ((1.f / m_Module.SpawnRate) < m_Time)
 	{
-		m_Time = 0.f;
-		tSpawnCount count = tSpawnCount{ 1, 1, 1, 1 };
+		// 누적 시간을 스폰 간격으로 나눈 값(몫)
+		float fSpawnCount = m_Time / (1.f / m_Module.SpawnRate);
+
+		// 스폰 간격을 제외한 잔량을 남은 누적시간으로 설정(DT가 튀어서 한 프레임에 파티클을 여러 개 생성해야 하는 경우도 생길 수 있음)
+		m_Time -= (1.f / m_Module.SpawnRate) * floorf(fSpawnCount);
+
+		tSpawnCount count = tSpawnCount{ (int)fSpawnCount, 0, 0, 0 };
+
 		m_SpawnCountBuffer->SetData(&count);
 	}
 	else
@@ -98,6 +110,7 @@ void HYParticleSystem::finaltick()
 	m_CSParticleUpdate->SetParticleBuffer(m_ParticleBuffer);
 	m_CSParticleUpdate->SetParticleModuleBuffer(m_ParticleModuleBuffer);
 	m_CSParticleUpdate->SetParticleSpawnCount(m_SpawnCountBuffer);
+	//m_CSParticleUpdate->SetParticleWorldPos();
 
 	m_CSParticleUpdate->Execute();
 

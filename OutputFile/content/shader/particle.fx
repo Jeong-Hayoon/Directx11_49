@@ -6,12 +6,15 @@
 
 StructuredBuffer<tParticle> g_ParticleBuffer : register(t20);
 
+// g_int_0 인덱스에 해당하는 그 파티클 자체를 매크로로
 #define Particle g_ParticleBuffer[_in.iInstID]
 
 struct VS_IN
 {
+    // 로컬 pos
     float3 vPos : POSITION;
     float2 vUV : TEXCOORD;
+    // 인스턴싱으로 랜더링할 때 몇번째를 랜더링하고 있는지 들어옴
     uint iInstID : SV_InstanceID;
 };
 
@@ -28,6 +31,7 @@ VS_OUT VS_Particle(VS_IN _in)
     
     float3 vWorldPos = (_in.vPos * Particle.vWorldScale.xyz) + Particle.vWorldPos.xyz;
     
+    // 월드 행렬은 파티클 자체가 아닌 오브젝트의 월드 행렬이기 때문에 Pass
     output.vPosition = mul(mul(float4(vWorldPos, 1.f), g_matView), g_matProj);
     output.vUV = _in.vUV;
     output.InstID = _in.iInstID;
@@ -41,6 +45,7 @@ VS_OUT VS_Particle(VS_IN _in)
 
 float4 PS_Particle(VS_OUT _in) : SV_Target
 {
+    // 비활성화 상태라면
     if (!g_ParticleBuffer[(uint) _in.InstID].Active)
     {
         discard;

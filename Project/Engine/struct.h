@@ -89,6 +89,18 @@ struct tParticleModule
 	int		SpawnRate;		// 초당 생성 개수
 	// 좌표계 : Local이면 오브젝트를 따라다님, World면 안 따라다님
 	int		SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
+
+	int		SpawnShape;		// 스폰 범위(0 : Sphere, 1 : Box)
+	float	Radius;			// SpawnShape 가 Sphere 인 경우, 반지름 길이 - 반지름 이내 영역 안에 랜덤 위치에 스폰
+	Vec4	vSpawnBoxScale;	// SpawnShape 가 Box 인 경우, Box 의 크기
+	Vec2	padding;
+
+	//
+
+	//
+
+	// 각 모듈의 on/off
+	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];
 };
 
 // 파티클이 활성화되기 위해 몇 개가 살아나야 되는지

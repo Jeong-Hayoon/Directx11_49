@@ -431,12 +431,16 @@ int HYDevice::CreateSamplerState()
 	CONTEXT->DSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
 	CONTEXT->GSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
 	CONTEXT->PSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
+	// Compute Shader 시점에서도 Sampling 사용할 수 있도록 세팅
+	CONTEXT->CSSetSamplers(0, 1, m_arrSampler[0].GetAddressOf());
 
 	CONTEXT->VSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
 	CONTEXT->HSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
 	CONTEXT->DSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
 	CONTEXT->GSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
 	CONTEXT->PSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
+	// Compute Shader 시점에서도 Sampling 사용할 수 있도록 세팅
+	CONTEXT->CSSetSamplers(1, 1, m_arrSampler[1].GetAddressOf());
 
 	return S_OK;
 }

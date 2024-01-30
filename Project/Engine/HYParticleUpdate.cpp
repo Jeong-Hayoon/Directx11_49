@@ -3,7 +3,7 @@
 
 
 HYParticleUpdate::HYParticleUpdate()
-	: HYComputeShader(1024, 1, 1)
+	: HYComputeShader(32, 1, 1)
 {
 	Create(L"shader\\particle_update.fx", "CS_ParticleUpdate");
 }
