@@ -66,10 +66,13 @@ struct tParticle
 	Vec4	vWorldPos;		// 월드 위치
 	Vec4	vWorldScale;	// 크기
 	Vec4	vWorldRotation;	// 회전값
-	Vec4	vVelocity;		// 속도
+	Vec3	vVelocity;		// 속도
 	Vec4	vColor;			// 색상
+	Vec4	vForce;			// 입자에 적용된 누적 힘 총량
+	Vec3	vNoiseForce;	// NoiseForce 모듈로 인한 랜덤 힘
+	float	NoiseForceTime;	// NoiseForce 를 세팅받은 시간 값
 
-
+	float	NormalizeAge;	// Age 를 Life 기준으로 정규화한 값
 	float	Mass;			// 질량
 	float	Age;			// 현재 나이(파티클이 생성된지 얼마나 지났는지)
 	float	Life;			// 수명
@@ -87,6 +90,8 @@ struct tParticleModule
 
 	float	MinLife;		// 최소 수명
 	float	MaxLife;		// 최대 수명
+	float	MinMass;		// 최소 질량 - 크기와 질량이 비례할지 안할지에 대한 옵션을 줄 수 있음
+	float	MaxMass;		// 최대 질량 - 그 옵션을 키면 크기가 클수록 질량이 큰 것
 	int		SpawnRate;		// 초당 생성 개수
 
 	// 좌표계 : Local이면 오브젝트를 따라다님, World면 안 따라다님
@@ -95,7 +100,6 @@ struct tParticleModule
 	int		SpawnShape;		// 스폰 범위(0 : Sphere, 1 : Box)
 	float	Radius;			// SpawnShape 가 Sphere 인 경우, 반지름 길이 - 반지름 이내 영역 안에 랜덤 위치에 스폰
 	Vec4	vSpawnBoxScale;	// SpawnShape 가 Box 인 경우, Box 의 크기
-	Vec2	padding;
 
 	// Add Velocity
 	int		AddVelocityType;// 0 : From Center, 1: To Center, 2: Fix Direction
@@ -104,7 +108,12 @@ struct tParticleModule
 	float	FixedAngle;		// 해당 방향에서 랜덤범위 각도(Fix Direction)
 	Vec4	FixedDirection;	// 지정 방향(Fix Direction)
 
-	//
+	// Scale
+	Vec4	vScaleRatio;
+
+	// Noise Force
+	float	NoiseForceScale; // 적용되는 힘의 크기
+	float	NoiseForceTerm;	 // 랜덤 힘을 추출하는 텀(프레임 단위 X)
 
 	// 각 모듈의 on/off
 	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];
@@ -182,12 +191,12 @@ struct tAnimData2D
 // 상수 버퍼 대응용으로 만든 구조체
 struct tGlobalData
 {
-	Vec2	g_RenderResolution;	// 렌더링 해상도(윈도우 해상도와 늘 일치하지 않음, 윈도우 해상도보다 클일은 X, 만약 랜더링 해상도를 변경한다면 스왑체인/랜더타겟 등을 재생성해야함)
-	float	g_dt;				// Delta Time
-	float	g_time;				// 누적 시간 : 게임을 킨 순간부터 시간이 얼마나 흘렀는지
-	int		g_Light2DCount;		// 2D 광원 개수 : Level 안에(구조화 버퍼) 광원이 몇 개 들어있는지
-	int		g_Light3DCount;		// 3D 광원 개수
-	Vec2	g_vPadding;
+	Vec2	g_RenderResolution;		// 렌더링 해상도(윈도우 해상도와 늘 일치하지 않음, 윈도우 해상도보다 클일은 X, 만약 랜더링 해상도를 변경한다면 스왑체인/랜더타겟 등을 재생성해야함)
+	Vec2	g_NoiseTexResolution;	// 노이즈 텍스처의 해상도
+	float	g_dt;					// Delta Time
+	float	g_time;					// 누적 시간 : 게임을 킨 순간부터 시간이 얼마나 흘렀는지
+	int		g_Light2DCount;			// 2D 광원 개수 : Level 안에(구조화 버퍼) 광원이 몇 개 들어있는지
+	int		g_Light3DCount;			// 3D 광원 개수
 };
 
 extern tGlobalData g_global;

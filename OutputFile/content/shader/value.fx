@@ -89,11 +89,15 @@ cbuffer ANIM_DATA2D : register(b2)
 
 cbuffer GLOBAL_DATA : register(b3)
 {
-    float2 g_RenderResolution; // 렌더링 해상도
-    float g_dt; // Delta Time
-    float g_time; // 누적 시간
-    int g_Light2DCount; // 2D 광원 개수
-    int g_Light3DCount; // 3D 광원 개수
+    float2 g_RenderResolution;      // 렌더링 해상도
+    float2 g_NoiseTexResolution;    // Noise 텍스쳐 해상도
+    
+    float g_dt;                     // Delta Time
+    float g_time;                   // 누적 시간
+    
+    int g_Light2DCount;             // 2D 광원 개수
+    int g_Light3DCount;             // 3D 광원 개수
+    
     float2 globalpadding;
 }
 

@@ -43,7 +43,6 @@ public:
     Vec4 GetFixedDirection() { return m_Module.FixedDirection; }
     float GetFixedAngle() { return m_Module.FixedAngle; }
 
-
     void SetSpawnColor(Vec4 _color) {  m_Module.vSpawnColor = _color; }
     void SetSpawnMinScale(Vec4 _scale) {  m_Module.vSpawnMinScale = _scale; }
     void SetSpawnMaxScale(Vec4 _scale) {  m_Module.vSpawnMaxScale = _scale; }
