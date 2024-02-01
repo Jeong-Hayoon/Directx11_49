@@ -33,7 +33,7 @@ struct tParticle
     float4 vLocalPos;           // 로컬 위치
     float4 vWorldPos;           // 월드 위치
     
-    float4 vWorldInitScale;    // 초기 크기
+    float4 vWorldInitScale;     // 초기 크기
     float4 vWorldScale;         // 크기
     
     float4 vWorldRotation;      // 회전값
