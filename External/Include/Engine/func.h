@@ -27,6 +27,8 @@ namespace GamePlayStatic
 string ToString(const wstring& _str);
 wstring ToWString(const string& _str);
 
+Vec3 DecomposeRotMat(const Matrix& _matRot);
+
 // 배열 삭제
 template<typename T, UINT SIZE>
 void Delete_Array(T* (&Arr)[SIZE])

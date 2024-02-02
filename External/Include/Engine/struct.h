@@ -87,36 +87,39 @@ struct tParticleModule
 {
 	// Spawn 모듈 - 생성 관련
 	// 각각 최소, 최대값이 있는 변수들은 그 사이의 랜덤한 값으로 값을 가질 수 있음
-	Vec4	vSpawnColor;	// 초기 컬러
-	Vec4	vSpawnMinScale;	// 초기 최소 크기
-	Vec4	vSpawnMaxScale;	// 초기 최대 크기
+	Vec4	vSpawnColor;			// 초기 컬러
+	Vec4	vSpawnMinScale;			// 초기 최소 크기
+	Vec4	vSpawnMaxScale;			// 초기 최대 크기
 
-	float	MinLife;		// 최소 수명
-	float	MaxLife;		// 최대 수명
-	float	MinMass;		// 최소 질량 - 크기와 질량이 비례할지 안할지에 대한 옵션을 줄 수 있음
-	float	MaxMass;		// 최대 질량 - 그 옵션을 키면 크기가 클수록 질량이 큰 것
-	int		SpawnRate;		// 초당 생성 개수
+	float	MinLife;				// 최소 수명
+	float	MaxLife;				// 최대 수명
+	float	MinMass;				// 최소 질량 - 크기와 질량이 비례할지 안할지에 대한 옵션을 줄 수 있음
+	float	MaxMass;				// 최대 질량 - 그 옵션을 키면 크기가 클수록 질량이 큰 것
+	int		SpawnRate;				// 초당 생성 개수
 
 	// 좌표계 : Local이면 오브젝트를 따라다님, World면 안 따라다님
-	int		SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
+	int		SpaceType;				// 좌표계(0 : LocalSpace, 1 : WorldSpace)
 
-	int		SpawnShape;		// 스폰 범위(0 : Sphere, 1 : Box)
-	float	Radius;			// SpawnShape 가 Sphere 인 경우, 반지름 길이 - 반지름 이내 영역 안에 랜덤 위치에 스폰
-	Vec4	vSpawnBoxScale;	// SpawnShape 가 Box 인 경우, Box 의 크기
+	int		SpawnShape;				// 스폰 범위(0 : Sphere, 1 : Box)
+	float	Radius;					// SpawnShape 가 Sphere 인 경우, 반지름 길이 - 반지름 이내 영역 안에 랜덤 위치에 스폰
+	Vec4	vSpawnBoxScale;			// SpawnShape 가 Box 인 경우, Box 의 크기
 
 	// Add Velocity
-	int		AddVelocityType;// 0 : From Center, 1: To Center, 2: Fix Direction
+	int		AddVelocityType;		// 0 : From Center, 1: To Center, 2: Fix Direction
 	float	MinSpeed;
 	float	MaxSpeed;
-	float	FixedAngle;		// 해당 방향에서 랜덤범위 각도(Fix Direction)
-	Vec4	FixedDirection;	// 지정 방향(Fix Direction)
+	float	FixedAngle;				// 해당 방향에서 랜덤범위 각도(Fix Direction)
+	Vec4	FixedDirection;			// 지정 방향(Fix Direction)
 
 	// Scale
 	Vec4	vScaleRatio;
 
 	// Noise Force
-	float	NoiseForceScale; // 적용되는 힘의 크기
-	float	NoiseForceTerm;	 // 랜덤 힘을 추출하는 텀(프레임 단위 X)
+	float	NoiseForceScale;		// 적용되는 힘의 크기
+	float	NoiseForceTerm;			// 랜덤 힘을 추출하는 텀(프레임 단위 X)
+
+	// Render
+	int		VelocityAlignment;		// 1 : On - 빌보드 꺼져 있어야 함, 0 : Off
 
 	// 각 모듈의 on/off
 	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];

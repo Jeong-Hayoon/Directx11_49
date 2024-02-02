@@ -17,7 +17,7 @@ HYParticleSystem::HYParticleSystem()
 	, m_MaxParticleCount(2000)
 {
 	// 전용 메쉬와 전용 재질 사용
-	SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"PointMesh"));
 	SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"ParticleMtrl"));
 
 	// 렌더링 해상도
@@ -54,8 +54,8 @@ HYParticleSystem::HYParticleSystem()
 
 	m_Module.SpaceType = 1;
 	m_Module.vSpawnColor = Vec4(0.2f, 0.4f, 0.9f, 1.f);
-	m_Module.vSpawnMinScale = Vec4(30.f, 30.f, 1.f, 1.f);
-	m_Module.vSpawnMaxScale = Vec4(30.f, 30.f, 1.f, 1.f);
+	m_Module.vSpawnMinScale = Vec4(100.f, 30.f, 1.f, 1.f);
+	m_Module.vSpawnMaxScale = Vec4(100.f, 30.f, 1.f, 1.f);
 	m_Module.MinLife = 3.f;
 	m_Module.MaxLife = 5.f;
 	m_Module.MinMass = 1.f;
@@ -86,7 +86,15 @@ HYParticleSystem::HYParticleSystem()
 	// Calculate Force
 	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::CALCULATE_FORCE] = 1;
 
-	m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\CartoonSmoke.png", L"texture\\particle\\CartoonSmoke.png");
+	// Render 
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = 1;
+	// 속도에 따른 방향 정렬
+	m_Module.VelocityAlignment = 1; 
+
+
+	m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\HardRain.png", L"texture\\particle\\HardRain.png");
+
+	// m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\CartoonSmoke.png", L"texture\\particle\\CartoonSmoke.png");
 }
 
 HYParticleSystem::~HYParticleSystem()
@@ -151,6 +159,7 @@ void HYParticleSystem::render()
 
 	// ParticleBuffer 바인딩
 	m_ParticleBuffer->UpdateData(20);
+	m_ParticleModuleBuffer->UpdateData(21);
 
 	// 모든 파티클 렌더링
 	// 파티클 개별 랜더링 -> 인스턴싱
@@ -164,6 +173,7 @@ void HYParticleSystem::render()
 
 	// 렌더링때 사용한 리소스 바인딩 Clear
 	m_ParticleBuffer->Clear(20);
+	m_ParticleModuleBuffer->Clear(21);
 }
 
 void HYParticleSystem::UpdateData()

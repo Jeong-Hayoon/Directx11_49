@@ -221,5 +221,7 @@ enum class PARTICLE_MODULE
 	NOISE_FORCE,			// 랜덤으로 힘을 줘서 불규칙하게 움직이도록하는 모듈
 	CALCULATE_FORCE,		// 주어진 힘을 계산하는 모듈(연산을 마무리해주는 모듈) -> 켜져 있지 않은 상태에서 힘관련된 기능 사용하면 assert
 
+	RENDER,					// 렌더링 때의 옵션 관련
+
 	END,
 };
