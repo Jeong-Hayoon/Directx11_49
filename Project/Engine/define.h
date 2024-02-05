@@ -215,7 +215,7 @@ enum class SHADER_DOMAIN
 enum class PARTICLE_MODULE
 {
 	SPAWN,					// 파티클 생성 관련
-	DRAG,					// 감속 관련 모듈
+	DRAG,					// 감속 관련 모듈(지정된 크기로 힘을 감소시키는 모듈) - 폭죽
 	SCALE,					// 크기 변화 모듈(점진적으로 크기를 변화시키는 모듈)
 	ADD_VELOCITY,			// 초기 속도 지정 모듈
 	NOISE_FORCE,			// 랜덤으로 힘을 줘서 불규칙하게 움직이도록하는 모듈

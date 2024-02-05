@@ -120,6 +120,8 @@ struct tParticleModule
 
 	// Render
 	int		VelocityAlignment;		// 1 : On - 빌보드 꺼져 있어야 함, 0 : Off
+	int		AlphaBasedLife;			// 0 : off, 1 : NomrlizedAge, 2: Age - 수명을 기반으로 alpha 값 변화
+	float	AlphaMaxAge;			// AlphaBasedLife == 1인 경우 필요 없음
 
 	// 각 모듈의 on/off
 	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];

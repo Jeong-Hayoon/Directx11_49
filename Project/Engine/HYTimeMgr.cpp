@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "HYTimeMgr.h"
+#include "HYKeyMgr.h"
 
 #include "HYEngine.h"
 
@@ -49,6 +50,16 @@ void HYTimeMgr::tick()
 	}
 
 	++m_iCall;
+
+	// 키 누르면 시간 정지
+	if (KEY_PRESSED(KEY::Y))
+	{
+		g_global.g_dt = 0.f;
+	}
+	else
+	{
+		g_global.g_dt = (float)m_DeltaTime;
+	}
 
 	g_global.g_dt = (float)m_DeltaTime;
 	g_global.g_time += (float)m_DeltaTime;

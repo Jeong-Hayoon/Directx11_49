@@ -19,7 +19,7 @@ struct VS_IN
     // 로컬 pos
     float3 vPos : POSITION;
     float2 vUV : TEXCOORD;
-    // 인스턴싱으로 랜더링할 때 몇번째를 랜더링하고 있는지 들어옴
+    // 인스턴싱으로 랜더링할 때 몇번째를 랜더링하고 있는지 들어옴, float이 아닌 UINT로 해야 함
     uint iInstID : SV_InstanceID;
 };
 
@@ -27,7 +27,7 @@ struct VS_OUT
 {
     float3 vPos : POSITION;
     float2 vUV : TEXCOORD;
-    float InstID : FOG;
+    uint InstID : FOG;
 };
 
 // 정점에 대한 연산은 Geometry Shader를 통해 진행할 것이기 때문에 
@@ -48,16 +48,18 @@ struct GS_OUT
 {
     float4 vPosition : SV_Position;
     float2 vUV : TEXCOORD;
-    float InstID : FOG;
+    uint InstID : FOG;
 };
 
-// Geometry Shader에서는 설명 정보를 적어줘야 함, maxvertexcount(6) = 필요한 정점의 개수가 6개
-[maxvertexcount(6)]
+// Geometry Shader에서는 설명 정보를 적어줘야 함, maxvertexcount(6) = 필요한 정점의 개수가 6개(최대 개수 6게, 더 적게 사용하는 건 상관 없음)
+[maxvertexcount(12)]
 // _OutStream : Geometry Shader가 최종 결과물을 담을 출력 스트림
 void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
 {
     // 배열은 4개를 선언하고 최종 생성하는 정점은 6개(중첩되는 위치가 있을테니까)
     GS_OUT output[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
+    // 3D 공간감이 느껴질 수 있도록 십자 모양으로 Mesh 세팅
+    GS_OUT output_cross[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
     
     // GS 가 담당하는 파티클 정보를 가져온다.
     tParticle particle = g_ParticleBuffer[(int) _in[0].InstID];
@@ -85,6 +87,17 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     output[2].vPosition = float4((particle.vWorldScale.x * 0.5f), (particle.vWorldScale.y * -0.5f), 0.f, 1.f);
     output[3].vPosition = float4((particle.vWorldScale.x * -0.5f), (particle.vWorldScale.y * -0.5f), 0.f, 1.f);
     
+    // y축 값이 아닌 z축 값 수정
+    output_cross[0].vPosition = float4((particle.vWorldScale.x * -0.5f), 0.f, (particle.vWorldScale.y * 0.5f), 1.f);
+    output_cross[1].vPosition = float4((particle.vWorldScale.x * 0.5f), 0.f, (particle.vWorldScale.y * 0.5f), 1.f);
+    output_cross[2].vPosition = float4((particle.vWorldScale.x * 0.5f), 0.f, (particle.vWorldScale.y * -0.5f), 1.f);
+    output_cross[3].vPosition = float4((particle.vWorldScale.x * -0.5f), 0.f, (particle.vWorldScale.y * -0.5f), 1.f);
+    
+    output_cross[0].vUV = output[0].vUV = float2(0.f, 0.f);
+    output_cross[1].vUV = output[1].vUV = float2(1.f, 0.f);
+    output_cross[2].vUV = output[2].vUV = float2(1.f, 1.f);
+    output_cross[3].vUV = output[3].vUV = float2(0.f, 1.f);
+    
      // 렌더모듈 기능
     if (g_ParticleModule[0].arrModuleCheck[6])
     {
@@ -92,7 +105,7 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
         if (g_ParticleModule[0].VelocityAlignment)
         {
             // 진행방향을 view space로 가져와서 정규화한 것이 우벡터
-            float3 vR = normalize(mul(float4(particle.vVelocity.xyz, 1.f), g_matView).xyz);
+            float3 vR = normalize(mul(float4(particle.vVelocity.xyz, 0.f), g_matView).xyz);
             // cross에 사용한 두 인자가 단위 벡터여도 외적의 결과값이 단위벡터는 아님 -> 정규화를 별도로 해줘야 함
             float3 vF = normalize(cross(vR, float3(0.f, 1.f, 0.f)));
             float3 vU = normalize(cross(vF, vR));
@@ -108,26 +121,24 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
             for (int i = 0; i < 4; ++i)
             {
                 output[i].vPosition.xyz = mul(output[i].vPosition.xyz, vRot);
+                output_cross[i].vPosition.xyz = mul(output_cross[i].vPosition.xyz, vRot);
             }
         }
     }
-        
+       
+    // View 좌표로 이동, 투영행렬 적용
     for (int i = 0; i < 4; ++i)
     {
-        // view space의 중심 포지션 합
         output[i].vPosition.xyz += vViewPos.xyz;
+        output[i].vPosition = mul(output[i].vPosition, g_matProj);
+        
+        output_cross[i].vPosition.xyz += vViewPos.xyz;
+        output_cross[i].vPosition = mul(output_cross[i].vPosition, g_matProj);
+        
+        output[i].InstID = _in[0].InstID;
+        output_cross[i].InstID = _in[0].InstID;
     }
-    
-    // 투영행렬 적용
-    output[0].vPosition = mul(output[0].vPosition, g_matProj);
-    output[1].vPosition = mul(output[1].vPosition, g_matProj);
-    output[2].vPosition = mul(output[2].vPosition, g_matProj);
-    output[3].vPosition = mul(output[3].vPosition, g_matProj);
-    
-    output[0].vUV = float2(0.f, 0.f);
-    output[1].vUV = float2(1.f, 0.f);
-    output[2].vUV = float2(1.f, 1.f);
-    output[3].vUV = float2(0.f, 1.f);
+   
     
     // Append : 3개씩 끊어서 하나의 삼각형이라는 것을 알려줌
     _OutStream.Append(output[0]);
@@ -139,6 +150,24 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     _OutStream.Append(output[1]);
     _OutStream.Append(output[2]);
     _OutStream.RestartStrip();
+    
+    // 속도 정렬 기능이 켜져 있는 경우
+    if (g_ParticleModule[0].arrModuleCheck[6])
+    {
+        // 속도에 따른 정렬 기능
+        if (g_ParticleModule[0].VelocityAlignment)
+        {
+            _OutStream.Append(output_cross[0]);
+            _OutStream.Append(output_cross[2]);
+            _OutStream.Append(output_cross[3]);
+            _OutStream.RestartStrip();
+    
+            _OutStream.Append(output_cross[0]);
+            _OutStream.Append(output_cross[1]);
+            _OutStream.Append(output_cross[2]);
+            _OutStream.RestartStrip();
+        }
+    }
 }
 
 
@@ -146,12 +175,35 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
 float4 PS_Particle(GS_OUT _in) : SV_Target
 {
     
-    float4 vOutColor = g_ParticleBuffer[(uint) _in.InstID].vColor;
+    tParticle particle = g_ParticleBuffer[_in.InstID];
+    tParticleModule module = g_ParticleModule[0];
+    
+    // 출력 색상
+    float4 vOutColor = particle.vColor;
     
     if (g_btex_0)
     {
-        // 파티클 텍스처들은 다 무채색이라서 원래 파티클 색상에 텍스처의 색상을 곱해주면 파티클 색상이 입혀진 텍스처가 출력됨
-        vOutColor *= g_tex_0.Sample(g_sam_0, _in.vUV);
+        float4 vSampleColor = g_tex_0.Sample(g_sam_0, _in.vUV);
+        vOutColor.rgb *= vSampleColor.rgb;
+        vOutColor.a = vSampleColor.a;
+    }
+    
+    // 렌더모듈이 켜져 있으면
+    if (module.arrModuleCheck[6])
+    {
+        // NormalizedAge 기반
+        if (1 == module.AlphaBasedLife)
+        {
+            // NomalizedAge 자체를 알파값의 비율로 사용
+            // saturate : 음수로 못내려가도록
+            vOutColor.a = saturate(1.f - clamp(particle.NomalizedAge, 0.f, 1.f));
+        }
+        // 절대 나이 기반
+        else if (2 == module.AlphaBasedLife)
+        {
+            float fRatio = particle.Age / module.AlphaMaxAge;
+            vOutColor.a = saturate(1.f - clamp(fRatio, 0.f, 1.f));
+        }
     }
     
     return vOutColor;

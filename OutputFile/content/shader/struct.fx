@@ -83,7 +83,9 @@ struct tParticleModule
     float NoiseForceTerm;
     
     // Render
-    int VelocityAlignment; // 1 : On, 0 : Off
+    int VelocityAlignment;      // 1 : On, 0 : Off
+    int AlphaBasedLife;         // 0 : off, 1 : NomrlizedAge, 2: Age
+    float AlphaMaxAge;          // 알파가 0 가 되기까지의 수명
     
     int arrModuleCheck[7];
 };

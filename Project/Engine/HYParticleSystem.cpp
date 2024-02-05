@@ -14,7 +14,7 @@
 HYParticleSystem::HYParticleSystem()
 	: HYRenderComponent(COMPONENT_TYPE::PARTICLESYSTEM)
 	, m_ParticleBuffer(nullptr)
-	, m_MaxParticleCount(2000)
+	, m_MaxParticleCount(1000)
 {
 	// 전용 메쉬와 전용 재질 사용
 	SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"PointMesh"));
@@ -88,11 +88,15 @@ HYParticleSystem::HYParticleSystem()
 
 	// Render 
 	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = 1;
+
 	// 속도에 따른 방향 정렬
 	m_Module.VelocityAlignment = 1; 
+	m_Module.AlphaBasedLife = 1;
+	m_Module.AlphaMaxAge = 2.f;
 
+	m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\Sparks.png", L"texture\\particle\\Sparks.png");
 
-	m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\HardRain.png", L"texture\\particle\\HardRain.png");
+	// m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\HardRain.png", L"texture\\particle\\HardRain.png");
 
 	// m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\CartoonSmoke.png", L"texture\\particle\\CartoonSmoke.png");
 }
@@ -178,4 +182,5 @@ void HYParticleSystem::render()
 
 void HYParticleSystem::UpdateData()
 {
+
 }
