@@ -37,7 +37,6 @@ HYParticleSystem::HYParticleSystem()
 	{
 		ModuleAddSize = 16 - (sizeof(tParticleModule) % 16);
 	}
-	m_ParticleModuleBuffer = new HYStructuredBuffer;
 
 	// 파티클 시스템 전체적인, 전역적인 정보기 때문에 1개만 Create 하면됨, 텍스처 레지스터에만 전달할 거니까 SB_TYPE::READ_ONLY 
 	m_ParticleModuleBuffer->Create(sizeof(tParticleModule) + ModuleAddSize, 1, SB_TYPE::READ_ONLY, true);

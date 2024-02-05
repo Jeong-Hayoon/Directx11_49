@@ -19,7 +19,7 @@ struct VS_IN
     // 로컬 pos
     float3 vPos : POSITION;
     float2 vUV : TEXCOORD;
-    // 인스턴싱으로 랜더링할 때 몇번째를 랜더링하고 있는지 들어옴
+    // 인스턴싱으로 랜더링할 때 몇번째를 랜더링하고 있는지 들어옴, float이 아닌 UINT로 해야 함
     uint iInstID : SV_InstanceID;
 };
 
@@ -51,13 +51,14 @@ struct GS_OUT
     uint InstID : FOG;
 };
 
-// Geometry Shader에서는 설명 정보를 적어줘야 함, maxvertexcount(6) = 필요한 정점의 개수가 6개
-[maxvertexcount(6)]
+// Geometry Shader에서는 설명 정보를 적어줘야 함, maxvertexcount(6) = 필요한 정점의 개수가 6개(최대 개수 6게, 더 적게 사용하는 건 상관 없음)
+[maxvertexcount(12)]
 // _OutStream : Geometry Shader가 최종 결과물을 담을 출력 스트림
 void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
 {
     // 배열은 4개를 선언하고 최종 생성하는 정점은 6개(중첩되는 위치가 있을테니까)
     GS_OUT output[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
+    // 3D 공간감이 느껴질 수 있도록 십자 모양으로 Mesh 세팅
     GS_OUT output_cross[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
     
     // GS 가 담당하는 파티클 정보를 가져온다.
@@ -86,6 +87,7 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     output[2].vPosition = float4((particle.vWorldScale.x * 0.5f), (particle.vWorldScale.y * -0.5f), 0.f, 1.f);
     output[3].vPosition = float4((particle.vWorldScale.x * -0.5f), (particle.vWorldScale.y * -0.5f), 0.f, 1.f);
     
+    // y축 값이 아닌 z축 값 수정
     output_cross[0].vPosition = float4((particle.vWorldScale.x * -0.5f), 0.f, (particle.vWorldScale.y * 0.5f), 1.f);
     output_cross[1].vPosition = float4((particle.vWorldScale.x * 0.5f), 0.f, (particle.vWorldScale.y * 0.5f), 1.f);
     output_cross[2].vPosition = float4((particle.vWorldScale.x * 0.5f), 0.f, (particle.vWorldScale.y * -0.5f), 1.f);
@@ -149,6 +151,7 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     _OutStream.Append(output[2]);
     _OutStream.RestartStrip();
     
+    // 속도 정렬 기능이 켜져 있는 경우
     if (g_ParticleModule[0].arrModuleCheck[6])
     {
         // 속도에 따른 정렬 기능
@@ -188,10 +191,14 @@ float4 PS_Particle(GS_OUT _in) : SV_Target
     // 렌더모듈이 켜져 있으면
     if (module.arrModuleCheck[6])
     {
+        // NormalizedAge 기반
         if (1 == module.AlphaBasedLife)
         {
+            // NomalizedAge 자체를 알파값의 비율로 사용
+            // saturate : 음수로 못내려가도록
             vOutColor.a = saturate(1.f - clamp(particle.NomalizedAge, 0.f, 1.f));
         }
+        // 절대 나이 기반
         else if (2 == module.AlphaBasedLife)
         {
             float fRatio = particle.Age / module.AlphaMaxAge;
