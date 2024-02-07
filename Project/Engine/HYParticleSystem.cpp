@@ -65,10 +65,10 @@ HYParticleSystem::HYParticleSystem()
 	m_Module.SpawnRate = 50;
 
 	// Add Velocity Module
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 0;
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 1;
 	m_Module.AddVelocityType = 0;
-	m_Module.MinSpeed = 100;
-	m_Module.MaxSpeed = 150;
+	m_Module.MinSpeed = 500;
+	m_Module.MaxSpeed = 500;
 	m_Module.FixedDirection;
 	m_Module.FixedAngle;
 
@@ -82,6 +82,10 @@ HYParticleSystem::HYParticleSystem()
 	m_Module.NoiseForceScale = 50.f;
 	m_Module.NoiseForceTerm = 0.3f;
 
+	// Drag Module
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::DRAG] = 1;
+	m_Module.DragTime = 0.5f;
+
 	// Calculate Force
 	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::CALCULATE_FORCE] = 1;
 
@@ -93,7 +97,9 @@ HYParticleSystem::HYParticleSystem()
 	m_Module.AlphaBasedLife = 1;
 	m_Module.AlphaMaxAge = 2.f;
 
-	m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\Sparks.png", L"texture\\particle\\Sparks.png");
+	m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\ray.png", L"texture\\particle\\ray.png");
+	
+	// ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\Sparks.png", L"texture\\particle\\Sparks.png");
 
 	// m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\HardRain.png", L"texture\\particle\\HardRain.png");
 

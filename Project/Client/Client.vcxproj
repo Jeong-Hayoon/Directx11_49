@@ -179,6 +179,7 @@
     <ClInclude Include="TilemapEditor.h" />
     <ClInclude Include="TilemapUI.h" />
     <ClInclude Include="TransformUI.h" />
+    <ClInclude Include="TreeUI.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +211,7 @@
     <ClCompile Include="TilemapEditor.cpp" />
     <ClCompile Include="TilemapUI.cpp" />
     <ClCompile Include="TransformUI.cpp" />
+    <ClCompile Include="TreeUI.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>

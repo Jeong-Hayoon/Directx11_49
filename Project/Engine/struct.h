@@ -118,6 +118,9 @@ struct tParticleModule
 	float	NoiseForceScale;		// 적용되는 힘의 크기
 	float	NoiseForceTerm;			// 랜덤 힘을 추출하는 텀(프레임 단위 X)
 
+	// Drag
+	float	DragTime;				// 감속시키는데 걸리는 시간
+
 	// Render
 	int		VelocityAlignment;		// 1 : On - 빌보드 꺼져 있어야 함, 0 : Off
 	int		AlphaBasedLife;			// 0 : off, 1 : NomrlizedAge, 2: Age - 수명을 기반으로 alpha 값 변화

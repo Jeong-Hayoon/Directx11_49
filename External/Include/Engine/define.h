@@ -47,6 +47,8 @@ enum class ASSET_TYPE
 	END,
 };
 
+extern const char* ASSET_TYPE_STRING[(UINT)ASSET_TYPE::END];
+
 enum class COMPONENT_TYPE
 {
 	TRANSFORM,	// 오브젝트의 위치,크기,회전
@@ -212,6 +214,8 @@ enum class SHADER_DOMAIN
 	DOMAIN_DEBUG,			// Level 안의 물체를 다 그리고 나서 랜더링, Level 내에 존재하면 안됨
 };
 
+
+// CALCULATE_FORCE가 함께 켜져 있어야 하는 모듈 - DRAG, ADD_VELOCITY, NOISE_FORCE
 enum class PARTICLE_MODULE
 {
 	SPAWN,					// 파티클 생성 관련
@@ -219,7 +223,7 @@ enum class PARTICLE_MODULE
 	SCALE,					// 크기 변화 모듈(점진적으로 크기를 변화시키는 모듈)
 	ADD_VELOCITY,			// 초기 속도 지정 모듈
 	NOISE_FORCE,			// 랜덤으로 힘을 줘서 불규칙하게 움직이도록하는 모듈
-	CALCULATE_FORCE,		// 주어진 힘을 계산하는 모듈(연산을 마무리해주는 모듈) -> 켜져 있지 않은 상태에서 힘관련된 기능 사용하면 assert
+	CALCULATE_FORCE,		// 주어진 힘을 계산하는 모듈(연산을 마무리해주는 모듈) -> 켜져 있지 않은 상태에서 힘 관련된 기능 사용하면 assert
 
 	RENDER,					// 렌더링 때의 옵션 관련
 

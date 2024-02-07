@@ -31,6 +31,12 @@ private:
 
 public:
     // template은 무조건 헤더에 구현해야 함
+
+    // 각 Asset 타입별로 항목의 이름을 반환해주는 함수
+    template<typename T>
+    const map<wstring, Ptr<HYAsset>>& GetAssets();
+    const map<wstring, Ptr<HYAsset>>& GetAssets(ASSET_TYPE _Type) { return m_mapAsset[(UINT)_Type]; }
+
     // 만들어진 Asset 등록
     // T*로 한 이유는 그래야 알맞은 Asset type에 맞는 map 배열로
     // 넣을 수 있기 때문
@@ -78,6 +84,14 @@ ASSET_TYPE GetAssetType()
         Type = ASSET_TYPE::MATERIAL;
 
     return Type;
+}
+
+template<typename T>
+inline const map<wstring, Ptr<HYAsset>>& HYAssetMgr::GetAssets()
+{
+    ASSET_TYPE Type = GetAssetType<T>();
+
+    return m_mapAsset[(UINT)Type];
 }
 
 template<typename T>

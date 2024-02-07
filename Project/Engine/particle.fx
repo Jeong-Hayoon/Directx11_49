@@ -55,7 +55,7 @@ struct GS_OUT
 [maxvertexcount(12)]
 // _OutStream : Geometry Shader가 최종 결과물을 담을 출력 스트림
 void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
-{
+{   
     // 배열은 4개를 선언하고 최종 생성하는 정점은 6개(중첩되는 위치가 있을테니까)
     GS_OUT output[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
     // 3D 공간감이 느껴질 수 있도록 십자 모양으로 Mesh 세팅
@@ -180,6 +180,8 @@ float4 PS_Particle(GS_OUT _in) : SV_Target
     
     // 출력 색상
     float4 vOutColor = particle.vColor;
+    // 기본 알파값
+    vOutColor.a = 1.f;
     
     if (g_btex_0)
     {
@@ -188,7 +190,7 @@ float4 PS_Particle(GS_OUT _in) : SV_Target
         vOutColor.a = vSampleColor.a;
     }
     
-    // 렌더모듈이 켜져 있으면
+    // 렌더모듈이 켜져 있으면 - 텍스처 자체의 알파가 있으니까 제거되어야 할 부분은 제거되고 남은 알파값은 누적되어야 함
     if (module.arrModuleCheck[6])
     {
         // NormalizedAge 기반
@@ -196,13 +198,13 @@ float4 PS_Particle(GS_OUT _in) : SV_Target
         {
             // NomalizedAge 자체를 알파값의 비율로 사용
             // saturate : 음수로 못내려가도록
-            vOutColor.a = saturate(1.f - clamp(particle.NomalizedAge, 0.f, 1.f));
+            vOutColor.a *= saturate(1.f - clamp(particle.NomalizedAge, 0.f, 1.f));
         }
         // 절대 나이 기반
         else if (2 == module.AlphaBasedLife)
         {
             float fRatio = particle.Age / module.AlphaMaxAge;
-            vOutColor.a = saturate(1.f - clamp(fRatio, 0.f, 1.f));
+            vOutColor.a *= saturate(1.f - clamp(fRatio, 0.f, 1.f));
         }
     }
     

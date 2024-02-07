@@ -213,7 +213,25 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
             // Accel 연산(속도에 가속도를 더함)
             Particle.vVelocity.xyz += vAccel * g_dt;
             
-            // Velocity 연산
+             // Drag 모듈이 켜져있으면
+            if (Module.arrModuleCheck[1])
+            {
+                // LimitTime : 잔여 시간
+                float LimitTime = Module.DragTime - Particle.Age;
+            
+                if (LimitTime <= 0.f)
+                {
+                    // 속도에 따른 정렬 때문에 속도가 0이 되게 되면 회전행렬에 문제가 생김
+                    Particle.vVelocity = 0.f;
+                }
+                else
+                {
+                    float DT = g_dt / LimitTime;
+                    Particle.vVelocity -= Particle.vVelocity * DT;
+                }
+            }
+            
+            // Velocity에 따른 위치이동 연산
             // Local Space였을 경우
             if (0 == Module.SpaceType)
             {

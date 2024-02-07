@@ -66,6 +66,12 @@
     <Filter Include="UI\3. Inspector\CompoenntUI\Particle">
       <UniqueIdentifier>{ab81cf69-0b94-4567-a574-53ea04e2ba60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\5. Module">
+      <UniqueIdentifier>{3d803ed6-5adb-431a-b1d7-31b38f878af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\5. Module\TreeUI">
+      <UniqueIdentifier>{532961be-a48f-4610-8e54-d8ebe4cb97bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -158,6 +164,9 @@
     <ClInclude Include="ParticleSystemUI.h">
       <Filter>UI\3. Inspector\CompoenntUI\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="TreeUI.h">
+      <Filter>UI\5. Module\TreeUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -235,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="ParticleSystemUI.cpp">
       <Filter>UI\3. Inspector\CompoenntUI\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeUI.cpp">
+      <Filter>UI\5. Module\TreeUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
