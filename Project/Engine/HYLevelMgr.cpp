@@ -317,16 +317,31 @@ void HYLevelMgr::init()
 	m_CurLevel->AddObject(pObj, L"Default", false);*/
 
 	// Particle Object 생성
-	pObj = new HYGameObject;
-	pObj->SetName(L"Particle");
+	//pObj = new HYGameObject;
+	//pObj->SetName(L"Particle");
 
-	pObj->AddComponent(new HYTransform);
-	pObj->AddComponent(new HYParticleSystem);
+	//pObj->AddComponent(new HYTransform);
+	//pObj->AddComponent(new HYParticleSystem);
 
-	// 어차피 오브젝트의 위치는 의미가 없음 - 각 파티클의 위치 정보로 랜더링될거기 때문에
-	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	//// 어차피 오브젝트의 위치는 의미가 없음 - 각 파티클의 위치 정보로 랜더링될거기 때문에
+	//pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
 
-	m_CurLevel->AddObject(pObj, L"Default", false);
+	//m_CurLevel->AddObject(pObj, L"Default", false);
+
+	// UI Test
+	// Particle Object
+	HYGameObject* pParticleObj = new HYGameObject;
+	pParticleObj->SetName(L"Particle");
+
+	pParticleObj->AddComponent(new HYTransform);
+	pParticleObj->AddComponent(new HYParticleSystem);
+
+	pParticleObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+
+	//m_CurLevel->AddObject(pObj, L"Default", false);
+
+	pObj->AddChild(pParticleObj);
+	m_CurLevel->AddObject(pObj, L"Player", false);
 
 	// Level 시작
 	m_CurLevel->begin();

@@ -46,7 +46,7 @@ enum class ASSET_TYPE
 	GRAPHICS_SHADER,
 	END,
 };
-
+// 이런 배열이 있을 것이라는 것을 명시
 extern const char* ASSET_TYPE_STRING[(UINT)ASSET_TYPE::END];
 
 enum class COMPONENT_TYPE

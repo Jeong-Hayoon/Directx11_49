@@ -5,20 +5,38 @@
 class TreeNode
 {
 private:
+    // 소속되어 있는 TreeUI
+    TreeUI*             m_Owner;
+
     // Node의 노출되는 이름
     string              m_Name;
+
     // 숨겨져 있는 고유 ID
     string              m_ID;
+
     // Node 안에 자식으로 Node를 들고 있을 수 있기 때문에 vector로 관리
     vector<TreeNode*>   m_vecChildNode;
 
     TreeNode*           m_ParentNode;
+
     // Node 하나가 가지고 있을 데이터(ex) Asset의 실제 주소)
     DWORD_PTR           m_Data;
+
+    // Node의 형태를 Frame으로 할지 
+    bool                m_bFrame;
+
+    //
+    bool                m_bSelected;
 
 public:
     // Node의 이름 지정하는 함수
     void SetName(string& _Name) { m_Name = _Name; } 
+
+    void SetFrame(bool _Frame) { m_bFrame = _Frame; }
+
+    const string& GetName() { return m_Name; }
+    DWORD_PTR GetData() { return m_Data; }
+
 
 private:
     // ID 설정해주는 함수(고유한 아이디를 가져야 하기 때문에 Private)
@@ -55,14 +73,31 @@ private:
 private:
     // Node들 중에서 가장 최상위 Node(밑의 자식들은 이미 최상위 Node가 vector로 관리하고 있기 때문에 RootNode만 알면 됨)
     TreeNode*               m_Root;
+
+    // 선택된 Node(멀티 셀렉트를 구현하고 싶다면 단일 포인터가 아닌 vector로 만들고 선택될 때마다 pushback)
+    TreeNode*               m_Selected;
+
     // Root Name 노출 여부
     bool                    m_bShowRoot;
+
+    // Select가 발생했을 때 호출시킬 객체의 주소
+    UI*                     m_SelectInst;
+
+    // Select가 발생했을 때 호출시킬 함수 포인터
+    Delegate_1              m_SelectFunc;
+
+    // 이번 프레임에 특정 Node가 선택되는 일이 발생했는지 여부
+    bool                    m_bSelectEvent;
+
 
 public:
     virtual void render_update() override;
 
 
 public:
+    // _Inst는 Content, Outliner, Inspector와 같은 UI 자체가 들어감
+    void AddSelectDelegate(UI* _Inst, Delegate_1 _pFunc) { m_SelectInst = _Inst; m_SelectFunc = _pFunc; }
+
     // Root Name 노출 여부 설정 함수
     void ShowRootNode(bool _bShow) { m_bShowRoot = _bShow; }
 
@@ -78,8 +113,14 @@ public:
         }
     }
 
+private:
+    // TreeNode가 본인이 선택되었다는 것을 TreeUI에게 알려주는 함수
+    void SetSelectedNode(TreeNode* _SelectedNode);
+
 public:
     TreeUI(const string& _ID);
     ~TreeUI();
+
+    friend class TreeNode;
 };
 

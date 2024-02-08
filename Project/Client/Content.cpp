@@ -3,6 +3,9 @@
 
 #include <Engine/HYAssetMgr.h>
 
+
+#include "HYImGuiMgr.h"
+#include "Inspector.h"
 #include "TreeUI.h"
 
 Content::Content()
@@ -13,20 +16,11 @@ Content::Content()
 	m_Tree->ShowRootNode(false);
 	AddChildUI(m_Tree);
 
-	// Tree 구성
-	TreeNode* pNode = m_Tree->AddTreeNode(nullptr, "RootNode", 0);
-
-	// pNode를 부모로 하는 Node 추가
-	m_Tree->AddTreeNode(pNode, "Child1", 0);
-	m_Tree->AddTreeNode(pNode, "Child2", 0);
-
-	pNode = m_Tree->AddTreeNode(pNode, "Child3", 0);
-
-	// Child3을 부모로 하는 Node 추가
-	m_Tree->AddTreeNode(pNode, "Child3-1", 0);
-	m_Tree->AddTreeNode(pNode, "Child3-2", 0);
-
+	// AssetMgr 의 에셋상태를 트리에 적용한다.
 	ResetContent();
+
+	// 트리에 Delegate 를 등록한다.
+	m_Tree->AddSelectDelegate(this, (Delegate_1)&Content::SelectAsset);
 }
 
 Content::~Content()
@@ -41,14 +35,18 @@ void Content::render_update()
 // Content 내용을 Reset한 후 다시 현재 모든 Asset의 이름으로 Tree를 가득 채워주는 함수
 void Content::ResetContent()
 {
+	// Tree Clear
 	m_Tree->ClearNode();
 
+	// 루트 노드 추가
 	TreeNode* RootNode = m_Tree->AddTreeNode(nullptr, "Root", 0);
 
 	for (UINT i = 0; i < (UINT)ASSET_TYPE::END; ++i)
 	{
 		// 중간층 노드
 		TreeNode* CategoryNode = m_Tree->AddTreeNode(RootNode, ASSET_TYPE_STRING[i], 0);
+		// 카테고리가 되는 노드들은 Frame 형태의 Node가 되도록 세팅
+		CategoryNode->SetFrame(true);
 
 		const map<wstring, Ptr<HYAsset>>& mapAsset = HYAssetMgr::GetInst()->GetAssets((ASSET_TYPE)i);
 
@@ -62,4 +60,25 @@ void Content::ResetContent()
 				, (DWORD_PTR)pair.second.Get());
 		}
 	}
+}
+
+// _Node : 선택된 Node의 주소
+void Content::SelectAsset(DWORD_PTR _Node)
+{
+	TreeNode* pNode = (TreeNode*)_Node;
+
+	if (nullptr == pNode)
+		return;
+
+	// 실제 Asset의 주소를 pAsset에 담는다.
+	Ptr<HYAsset> pAsset = (HYAsset*)pNode->GetData();
+
+	// 카테고리 형태의 Node들은 데이터를 안넣어놨기 때문에 nullptr이 들어오므로 return
+	if (nullptr == pAsset)
+		return;
+
+	// 선택한 에셋을 Inspector 에게 알려준다.
+	Inspector* pInspector = (Inspector*)HYImGuiMgr::GetInst()->FindUI("##Inspector");
+	// 타겟이 되는 Asset 지정
+	pInspector->SetTargetAsset(pAsset);
 }

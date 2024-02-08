@@ -32,10 +32,9 @@ private:
 public:
     // template은 무조건 헤더에 구현해야 함
 
-    // 
+    // 각 Asset 타입별로 항목의 이름을 반환해주는 함수
     template<typename T>
     const map<wstring, Ptr<HYAsset>>& GetAssets();
-
     const map<wstring, Ptr<HYAsset>>& GetAssets(ASSET_TYPE _Type) { return m_mapAsset[(UINT)_Type]; }
 
     // 만들어진 Asset 등록
