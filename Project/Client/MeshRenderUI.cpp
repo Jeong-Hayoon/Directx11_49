@@ -31,8 +31,17 @@ void MeshRenderUI::render_update()
 	Ptr<HYMesh> pMesh = pMeshRender->GetMesh();
 	Ptr<HYMaterial> pMtrl = pMeshRender->GetMaterial();
 
-	string meshname = ToString(pMesh->GetKey()).c_str();
-	string mtrlname = ToString(pMtrl->GetKey()).c_str();
+	string meshname, mtrlname;
+
+	// Mesh, Material이 참조되어 있는 경우에만 보이도록
+	if (nullptr != pMesh)
+	{
+		meshname = ToString(pMesh->GetKey()).c_str();
+	}
+	if (nullptr != pMtrl)
+	{
+		mtrlname = ToString(pMtrl->GetKey()).c_str();
+	}
 
 	// 무슨 Mesh를 참조하고 있는지 
 	ImGui::Text("Mesh    ");
@@ -44,6 +53,26 @@ void MeshRenderUI::render_update()
 	// ImGuiInputTextFlags : 타입 재정의
 	// ImGuiInputTextFlags_ : enum
 	ImGui::InputText("##MeshName", (char*)meshname.c_str(), meshname.length(), ImGuiInputTextFlags_ReadOnly);
+	
+	// Mesh Drop 체크(InputText에 Drop이 되었는지 Check하는 함수)
+	if (ImGui::BeginDragDropTarget())
+	{
+		// ContentTree로부터 날라온 Payload를 받음
+		const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
+
+		if (payload)
+		{
+			// 데이터 꺼냄
+			DWORD_PTR data = *((DWORD_PTR*)payload->Data);
+			HYAsset* pAsset = (HYAsset*)data;
+			if (ASSET_TYPE::MESH == pAsset->GetType())
+			{
+				GetTargetObject()->MeshRender()->SetMesh((HYMesh*)pAsset);
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
+	
 	ImGui::SameLine();
 	// Button을 누르면(보통 Button은 return값을 if문의 조건으로 활용)
 	if (ImGui::Button("##MeshBtn", ImVec2(20, 20)))
@@ -69,6 +98,24 @@ void MeshRenderUI::render_update()
 	ImGui::SameLine();
 	ImGui::InputText("##MtrlName", (char*)mtrlname.c_str(), mtrlname.length(), ImGuiInputTextFlags_ReadOnly);
 	ImGui::SameLine();
+
+	// Material Drop 체크
+	if (ImGui::BeginDragDropTarget())
+	{
+		const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
+
+		if (payload)
+		{
+			DWORD_PTR data = *((DWORD_PTR*)payload->Data);
+			HYAsset* pAsset = (HYAsset*)data;
+			if (ASSET_TYPE::MATERIAL == pAsset->GetType())
+			{
+				GetTargetObject()->MeshRender()->SetMaterial((HYMaterial*)pAsset);
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
+
 	if (ImGui::Button("##MtrlBtn", ImVec2(20, 20)))
 	{
 		// 리스트 UI를 가져와서

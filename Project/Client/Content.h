@@ -19,6 +19,8 @@ public:
     // Asset이 선택되었을 때 호출되는 함수
     void SelectAsset(DWORD_PTR _Node);
 
+
+
 public:
     virtual void render_update() override;
 

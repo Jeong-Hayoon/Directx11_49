@@ -25,7 +25,6 @@ private:
     // Node의 형태를 Frame으로 할지 
     bool                m_bFrame;
 
-    //
     bool                m_bSelected;
 
 public:
@@ -77,8 +76,15 @@ private:
     // 선택된 Node(멀티 셀렉트를 구현하고 싶다면 단일 포인터가 아닌 vector로 만들고 선택될 때마다 pushback)
     TreeNode*               m_Selected;
 
+    // Drag & Drop된 Node 기록
+    TreeNode*               m_DragNode;
+    TreeNode*               m_DropNode;
+
     // Root Name 노출 여부
     bool                    m_bShowRoot;
+
+    // Drag & Drop 기능 사용 여부
+    bool                    m_bDragDrop;
 
     // Select가 발생했을 때 호출시킬 객체의 주소
     UI*                     m_SelectInst;
@@ -89,6 +95,14 @@ private:
     // 이번 프레임에 특정 Node가 선택되는 일이 발생했는지 여부
     bool                    m_bSelectEvent;
 
+    // =============== Drag & Drop =============== //
+    // Drag & Drop 발생 시 호출시킬 객체와 멤버 함수
+    UI*                     m_DragDropInst;
+    Delegate_2              m_DragDropFunc;
+
+    // Drag & Drop이 발생했는지 Check
+    bool                    m_bDragDropEvent;
+
 
 public:
     virtual void render_update() override;
@@ -98,8 +112,12 @@ public:
     // _Inst는 Content, Outliner, Inspector와 같은 UI 자체가 들어감
     void AddSelectDelegate(UI* _Inst, Delegate_1 _pFunc) { m_SelectInst = _Inst; m_SelectFunc = _pFunc; }
 
+    void AddDragDropDelegate(UI* _Inst, Delegate_2 _pFunc) { m_DragDropInst = _Inst; m_DragDropFunc = _pFunc; }
+
     // Root Name 노출 여부 설정 함수
     void ShowRootNode(bool _bShow) { m_bShowRoot = _bShow; }
+
+    void UseDragDrop(bool _Use) { m_bDragDrop = _Use; }
 
     TreeNode* AddTreeNode(TreeNode* _Parent, string _strName, DWORD_PTR _dwData);
 
@@ -116,6 +134,8 @@ public:
 private:
     // TreeNode가 본인이 선택되었다는 것을 TreeUI에게 알려주는 함수
     void SetSelectedNode(TreeNode* _SelectedNode);
+    void SetDragNode(TreeNode* _DragNode);
+    void SetDropNode(TreeNode* _DropNode);
 
 public:
     TreeUI(const string& _ID);

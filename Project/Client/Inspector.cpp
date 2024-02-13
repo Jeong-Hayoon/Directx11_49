@@ -30,7 +30,6 @@ Inspector::~Inspector()
 {
 }
 
-
 void Inspector::tick()
 {
 }
@@ -91,8 +90,10 @@ void Inspector::render_update()
 // TargetObject 등록
 void Inspector::SetTargetObject(HYGameObject* _Object)
 {
+	// Target 오브젝트 설정
 	m_TargetObject = _Object;
 
+	// 해당 오브젝트가 보유하고 있는 컴포넌트에 대응하는 컴포넌트UI 활성화
 	// ComponentUI한테도 Target Object를 알려줌
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
 	{
@@ -101,7 +102,14 @@ void Inspector::SetTargetObject(HYGameObject* _Object)
 			m_arrComUI[i]->SetTargetObject(_Object);
 		}
 	}
+
+	// AssetUI 비활성화
+	for (UINT i = 0; i < (UINT)ASSET_TYPE::END; ++i)
+	{
+		m_arrAssetUI[i]->Deactivate();
+	}
 }
+
 // TargetAsset 등록
 void Inspector::SetTargetAsset(Ptr<HYAsset> _Asset)
 {

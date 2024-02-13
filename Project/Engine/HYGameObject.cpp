@@ -175,9 +175,15 @@ void HYGameObject::AddComponent(HYComponent* _Comonent)
 	}
 }
 
-
-void HYGameObject::DisconnectWithParent()
+// 기존의 Layer index 값 반환
+int HYGameObject::DisconnectWithParent()
 {
+	// 부모가 없는 오브젝트에 DisconnectWithParent 함수를 호출했으면
+	if (nullptr == m_Parent)
+		return -1;
+
+	bool bSuccess = false;
+
 	vector<HYGameObject*>::iterator iter = m_Parent->m_vecChild.begin();
 	for (; iter != m_Parent->m_vecChild.end(); ++iter)
 	{
@@ -185,28 +191,45 @@ void HYGameObject::DisconnectWithParent()
 		{
 			m_Parent->m_vecChild.erase(iter);
 			m_Parent = nullptr;
-			return;
+			bSuccess = true;
+			break;
 		}
 	}
 
 	// 부모가 없는 오브젝트에 DisconnectWithParent 함수를 호출 했거나
-	// 부모는 자식을 가리키기지 않고 있는데, 자식은 부모를 가리키고 있는 경우
-	assert(nullptr);
+	// 부모는 자식을 가리키지도 않고 있는데, 자식은 부모를 가리키고 있는 경우
+	if (!bSuccess)
+	{
+		assert(nullptr);
+	}
+
+	int layeridx = m_iLayerIdx;
+
+	m_iLayerIdx = -1;
+
+	return layeridx;
 }
 
 // 자신이 소속되어 있던 Layer에서 빠져나오는 함수
-void HYGameObject::DisconnectWithLayer()
+// 기존의 Layer index 값 반환
+int HYGameObject::DisconnectWithLayer()
 {
 	// 이미 무소속
 	if (-1 == m_iLayerIdx)
-		return;
+		return -1;
 
 	// 현재 Level을 알아야 Layer에 접근을 할 수 있음
 	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
 	// 본인이 알고 있는 LayerIdx를 통해 소속되어 있는 Layer를 알아냄
 	HYLayer* pCurLayer = pCurLevel->GetLayer(m_iLayerIdx);
+
+	// 기존의 레이어 인덱스 받아놓고
+	int LayerIdx = m_iLayerIdx;
+
 	// Layer에서 GameObject 제거
 	pCurLayer->DetachGameObject(this);
+
+	return LayerIdx;
 }
 
 void HYGameObject::AddChild(HYGameObject* _Child)
@@ -216,6 +239,18 @@ void HYGameObject::AddChild(HYGameObject* _Child)
 	{
 		// 이전 부모 오브젝트랑 연결 해제
 		_Child->DisconnectWithParent();
+	}
+	else
+	{
+		// 자식으로 들어오는 오브젝트가 최상위 부모타입이면,
+		// 소속 레이어의 Parent 오브젝트 목록에서 제거되어야 한다.
+		// 레이어를 완전히 등지고 싶었던 것은 아니었어...
+		int LayerIdx = _Child->m_iLayerIdx;
+
+		_Child->DisconnectWithLayer();
+
+		// DisconnectWithLayer를 호출하게 되면 부모 벡터에서 제거됨과 동시에 LayerIdx도 -1로 초기화 되버림 -> 기존의 LayerIdx를 저장해놨다가 다시 세팅
+		_Child->m_iLayerIdx = LayerIdx;
 	}
 
 	// 부모 자식 연결

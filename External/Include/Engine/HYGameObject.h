@@ -66,6 +66,8 @@ public:
     GET_COMPONENT(TileMap, TILEMAP);
     GET_COMPONENT(ParticleSystem, PARTICLESYSTEM);
 
+    int GetLayerIdx() { return m_iLayerIdx; }
+
     HYGameObject* GetParent() { return m_Parent; }
     const vector<HYGameObject*>& GetChild() { return m_vecChild; }
 
@@ -84,8 +86,8 @@ public:
         return nullptr;
     }
 
-    void DisconnectWithParent();
-    void DisconnectWithLayer();
+    int DisconnectWithParent();
+    int DisconnectWithLayer();
 
     // 자식 오브젝트를 넣어주는 함수
     void AddChild(HYGameObject* _Child);

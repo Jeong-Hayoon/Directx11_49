@@ -134,6 +134,7 @@ void HYLayer::DetachGameObject(HYGameObject* _Object)
 		{
 			if (*iter == _Object)
 			{
+				// m_vecParent에서 제거 
 				m_vecParent.erase(iter);
 				_Object->m_iLayerIdx = -1;
 				return;

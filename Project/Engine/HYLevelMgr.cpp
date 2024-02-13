@@ -328,7 +328,7 @@ void HYLevelMgr::init()
 
 	//m_CurLevel->AddObject(pObj, L"Default", false);
 
-	// UI Test
+	// UI Test // 
 	// Particle Object
 	HYGameObject* pParticleObj = new HYGameObject;
 	pParticleObj->SetName(L"Particle");

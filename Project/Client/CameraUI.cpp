@@ -40,6 +40,26 @@ void CameraUI::render_update()
 	ImGui::Text("CameraType");
 	ImGui::SameLine();
 	ImGui::InputText("##CameraTypeName", (char*)cameratypename.c_str(), cameratypename.length(), ImGuiInputTextFlags_ReadOnly);
+	
+	// Drop 체크(InputText에 Drop이 되었는지 Check하는 함수)
+	//if (ImGui::BeginDragDropTarget())
+	//{
+	//	// ContentTree로부터 날라온 Payload를 받음
+	//	const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
+
+	//	if (payload)
+	//	{
+	//		// 데이터 꺼냄
+	//		DWORD_PTR data = *((DWORD_PTR*)payload->Data);
+	//		HYAsset* pAsset = (HYAsset*)data;
+	//		if (ASSET_TYPE::MESH == pAsset->GetType())
+	//		{
+	//			pTarget->Camera()->GetCameraTypeName();
+	//		}
+	//	}
+	//	ImGui::EndDragDropTarget();
+	//}
+
 	ImGui::SameLine();
 	if (ImGui::Button("##CameraBtn", ImVec2(20, 20)))
 	{
@@ -48,7 +68,7 @@ void CameraUI::render_update()
 		vector<string> vecCameraTypeName;
 		pTarget->Camera()->GetCameraTypeName(vecCameraTypeName);
 
-		// Mesh 벡터를 보여줄 List에 추가
+		// 벡터를 보여줄 List에 추가
 		pListUI->AddString(vecCameraTypeName);
 		pListUI->SetDbClickDelegate(this, (Delegate_1)&CameraUI::ProjTypeSelect);
 		pListUI->Activate();

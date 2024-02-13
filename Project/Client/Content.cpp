@@ -79,6 +79,7 @@ void Content::SelectAsset(DWORD_PTR _Node)
 
 	// 선택한 에셋을 Inspector 에게 알려준다.
 	Inspector* pInspector = (Inspector*)HYImGuiMgr::GetInst()->FindUI("##Inspector");
+
 	// 타겟이 되는 Asset 지정
 	pInspector->SetTargetAsset(pAsset);
 }
