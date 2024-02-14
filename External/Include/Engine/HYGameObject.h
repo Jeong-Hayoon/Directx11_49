@@ -86,16 +86,20 @@ public:
         return nullptr;
     }
 
+    // 기존 Layer Index 반환
     int DisconnectWithParent();
     int DisconnectWithLayer();
 
     // 자식 오브젝트를 넣어주는 함수
     void AddChild(HYGameObject* _Child);
+
     // 물체가 Dead 상태인지 확인하는 함수
     bool IsDead() { return m_bDead; }
 
     // 해당 Script를 소유하고 있는 본체 Object를 삭제시키기 위해 GC로 보내는 함수
     void Destroy();
+
+    bool IsAncestor(HYGameObject* _Other);
 
 public:
     HYGameObject();

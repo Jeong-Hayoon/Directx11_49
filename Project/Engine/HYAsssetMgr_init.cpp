@@ -178,7 +178,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	// =========================================================
 	// Std2DShader
 	// =========================================================
-	HYGraphicsShader* pShader = nullptr;
+	Ptr<HYGraphicsShader> pShader = nullptr;
 
 	pShader = new HYGraphicsShader;
 	pShader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
@@ -190,7 +190,14 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 
-	AddAsset(L"Std2DShader", pShader);
+	AddAsset(L"Std2DShader", pShader.Get());
+
+	// Parameter
+	// 테스트용
+	pShader->AddScalarParam(INT_0, "Test Parameter");
+	// 0번 텍스처 자리에 이 Shader를 사용한다면 재질은 0번 텍스처 자리에다가 전달시킬 텍스처를 전달을 시켜줘야 함
+	// 세팅된 텍스처는 출력 용도
+	pShader->AddTexParam(TEX_0, "Output Texture");		
 
 	// =========================================================
 	// EffectShader : 함수는 같은데 블랜드 스테이트만 다름
@@ -205,7 +212,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
 
-	AddAsset(L"EffectShader", pShader);
+	AddAsset(L"EffectShader", pShader.Get());
 
 	// =============
 	// TileMapShader
@@ -220,7 +227,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 
-	AddAsset(L"TileMapShader", pShader);
+	AddAsset(L"TileMapShader", pShader.Get());
 
 	// ====================
 	// ParticleRenderShader
@@ -237,7 +244,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
 
-	AddAsset(L"ParticleRenderShader", pShader);
+	AddAsset(L"ParticleRenderShader", pShader.Get());
 
 	// =================================
 	// GrayFilter Shader
@@ -255,7 +262,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
 
-	AddAsset(L"GrayFilterShader", pShader);
+	AddAsset(L"GrayFilterShader", pShader.Get());
 
 	// ==================================================================
 	// Distortion Shader	
@@ -273,7 +280,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
 
-	AddAsset(L"DistortionShader", pShader);
+	AddAsset(L"DistortionShader", pShader.Get());
 
 	// =================================
 	// Wave Shader	
@@ -290,7 +297,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
 
-	AddAsset(L"WaveFilterShader", pShader);
+	AddAsset(L"WaveFilterShader", pShader.Get());
 
 	// =================================
 	// OutLine Shader	
@@ -307,7 +314,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
 
-	AddAsset(L"OutLineShader", pShader);
+	AddAsset(L"OutLineShader", pShader.Get());
 
 	// ===================================================================================================
 	// DebugShape Shader - 카메라 입장에서는 무시, 이 Shader를 사용하는 오브젝트는 Level 내에 존재하면 X
@@ -325,7 +332,7 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_DEBUG);
 
 
-	AddAsset(L"DebugShapeShader", pShader);
+	AddAsset(L"DebugShapeShader", pShader.Get());
 }
 
 void HYAssetMgr::CreateDefaultMaterial()
@@ -333,48 +340,47 @@ void HYAssetMgr::CreateDefaultMaterial()
 	HYMaterial* pMtrl = nullptr;
 
 	// Std2DMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
 	AddAsset<HYMaterial>(L"Std2DMtrl", pMtrl);
 
 	// BackgroundMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
 	AddAsset<HYMaterial>(L"BackgroundMtrl", pMtrl);
 
 	// TileMapMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"TileMapShader"));
 	AddAsset<HYMaterial>(L"TileMapMtrl", pMtrl);
 
 	// ParticleMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"ParticleRenderShader"));
 	AddAsset<HYMaterial>(L"ParticleMtrl", pMtrl);
 
-
 	// GrayFilterMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"GrayFilterShader"));
 	AddAsset<HYMaterial>(L"GrayFilterMtrl", pMtrl);
 
 	// WaveMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"WaveFilterShader"));
 	AddAsset<HYMaterial>(L"WaveFilterMtrl", pMtrl);
 
 	// DistortionMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"DistortionShader"));
 	AddAsset<HYMaterial>(L"DistortionMtrl", pMtrl);
 
 	// OutLineMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"OutLineShader"));
 	AddAsset<HYMaterial>(L"OutLineMtrl", pMtrl);
 
 	// DebugShapeMtrl
-	pMtrl = new HYMaterial;
+	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"DebugShapeShader"));
 	AddAsset<HYMaterial>(L"DebugShapeMtrl", pMtrl);
 }

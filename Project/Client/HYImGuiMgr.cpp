@@ -14,6 +14,9 @@
 #include "Content.h"
 #include "Outliner.h"
 #include "ListUI.h"
+
+#include "ParamUI.h"
+
 #include "AnimationEditor.h"
 #include "TilemapEditor.h"
 
@@ -124,6 +127,8 @@ void HYImGuiMgr::tick()
         // Inspector, Outliner, Content 돌고 그 다음 각각의 자식 UI들도 tick
         pair.second->tick();
     }
+
+    ParamUI::ResetID();
 
     if (KEY_TAP(KEY::K) && !m_bCameraOn)
     {

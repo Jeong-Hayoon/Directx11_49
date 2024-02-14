@@ -14,6 +14,8 @@ private:
     // 한 번 세팅하면 타입을 바꾸지 못하도록 const
     const ASSET_TYPE    m_Type;
 
+    const bool          m_bEngineAsset;
+
 public:
     const wstring& GetKey() { return m_Key; }
     const wstring& GetRelativePath() { return m_RelativePath; }
@@ -43,7 +45,7 @@ private:
 
 public:
     // 상속받은 클래스들은 무조건 타입을 입력해줘야 함
-    HYAsset(ASSET_TYPE _Type);
+    HYAsset(ASSET_TYPE _Type, bool _bEngineAsset = false);
     ~HYAsset();
 
     // friend 선언 해주는 클래스들은 해당 클래스 private에 접근 가능

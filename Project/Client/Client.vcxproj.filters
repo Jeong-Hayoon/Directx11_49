@@ -93,6 +93,9 @@
     <Filter Include="UI\3. Inspector\AssetUI\TextureUI">
       <UniqueIdentifier>{56109a16-99bf-46a0-9900-c725bf46ca8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\5. Module\ParamUI">
+      <UniqueIdentifier>{60df357a-40ef-43a5-89d2-a22058330bf5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -212,6 +215,9 @@
     <ClInclude Include="ComputeShaderUI.h">
       <Filter>UI\3. Inspector\AssetUI\ComputeShader</Filter>
     </ClInclude>
+    <ClInclude Include="ParamUI.h">
+      <Filter>UI\5. Module\ParamUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -319,6 +325,9 @@
     </ClCompile>
     <ClCompile Include="Inspector_init.cpp">
       <Filter>UI\3. Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamUI.cpp">
+      <Filter>UI\5. Module\ParamUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -73,6 +73,9 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     // Texture∞° nullptr¿œ ∂ß
     float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
     
+    if (g_int_0)
+        return float4(1.f, 1.f, 0.f, 1.f);
+    
     if (g_UseAnim2D)
     {
         // g_vLeftTop + (g_vSlizeSize / 2.f) : Center

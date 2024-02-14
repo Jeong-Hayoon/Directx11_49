@@ -29,11 +29,13 @@ public:
 
     void SetTexParam(TEX_PARAM _Param, Ptr<HYTexture> _pTex);
 
+	void* GetScalarParam(SCALAR_PARAM _ParamType);
+
     // Material이 들고 있는 데이터를 GPU로 보내는 함수
     void UpdateData();
 
 public:
-    HYMaterial();
+    HYMaterial(bool _bEngine = false);
     ~HYMaterial();
 };
 

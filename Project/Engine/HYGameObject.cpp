@@ -234,20 +234,27 @@ int HYGameObject::DisconnectWithLayer()
 
 void HYGameObject::AddChild(HYGameObject* _Child)
 {
+	// LayerIdx가 -1 == 어떤 Layer에도 속해있지 않은 상태
+	if (-1 == _Child->m_iLayerIdx)
+	{
+		// 레벨에 속하지 않았던 오브젝트가 자식으로 들어올때는 부모의 레이어를 따라감
+		_Child->m_iLayerIdx = m_iLayerIdx;
+	}
 	// 이미 부모가 있었다면
-	if (_Child->m_Parent)
+	else if (_Child->m_Parent)
 	{
 		// 이전 부모 오브젝트랑 연결 해제
-		_Child->DisconnectWithParent();
+		// 원래 레이어 유지
+		int LayerIdx = _Child->DisconnectWithParent();
+		_Child->m_iLayerIdx = LayerIdx;
+
 	}
 	else
 	{
 		// 자식으로 들어오는 오브젝트가 최상위 부모타입이면,
-		// 소속 레이어의 Parent 오브젝트 목록에서 제거되어야 한다.
-		// 레이어를 완전히 등지고 싶었던 것은 아니었어...
-		int LayerIdx = _Child->m_iLayerIdx;
-
-		_Child->DisconnectWithLayer();
+		// 소속 레이어의 Parent 오브젝트 목록에서 제거되어야 함
+		// 제거되기 전의 레이어 유지
+		int LayerIdx = _Child->DisconnectWithLayer();
 
 		// DisconnectWithLayer를 호출하게 되면 부모 벡터에서 제거됨과 동시에 LayerIdx도 -1로 초기화 되버림 -> 기존의 LayerIdx를 저장해놨다가 다시 세팅
 		_Child->m_iLayerIdx = LayerIdx;
@@ -261,4 +268,20 @@ void HYGameObject::AddChild(HYGameObject* _Child)
 void HYGameObject::Destroy()
 {
 	GamePlayStatic::DestroyGameObject(this);
+}
+
+// 반복문을 돌면서 조상 중에 존재하면 true, 존재하지 않으면 false
+bool HYGameObject::IsAncestor(HYGameObject* _Other)
+{
+	HYGameObject* pParent = m_Parent;
+
+	while (pParent)
+	{
+		if (pParent == _Other)
+			return true;
+
+		pParent = pParent->m_Parent;
+	}
+
+	return false;
 }

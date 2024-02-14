@@ -178,6 +178,7 @@
     <ClInclude Include="MeshRenderUI.h" />
     <ClInclude Include="MeshUI.h" />
     <ClInclude Include="Outliner.h" />
+    <ClInclude Include="ParamUI.h" />
     <ClInclude Include="ParticleSystemUI.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="MeshRenderUI.cpp" />
     <ClCompile Include="MeshUI.cpp" />
     <ClCompile Include="Outliner.cpp" />
+    <ClCompile Include="ParamUI.cpp" />
     <ClCompile Include="ParticleSystemUI.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
