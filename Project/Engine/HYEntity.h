@@ -18,6 +18,9 @@ public:
 	const wstring& GetName() { return m_strName; }
 	UINT GetID() { return m_ID; }
 
+	// 본인 스스로의 복제를 주는 함수 -> 나중에는 순수 가상 함수로 만들거임
+	virtual HYEntity* Clone() { return nullptr; };
+
 public:
 	HYEntity();
 	virtual ~HYEntity();

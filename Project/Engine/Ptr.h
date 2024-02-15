@@ -14,7 +14,8 @@ public:
 	T* operator->() const { return Asset; }
 
 public:
-	void operator = (const Ptr& _ptr)
+	// 데이터를 받고 나면 자기 자신을 반환
+	Ptr<T>& operator = (const Ptr& _ptr)
 	{
 		if (nullptr != Asset)
 			Asset->Release();
@@ -23,9 +24,12 @@ public:
 
 		if (nullptr != Asset)
 			Asset->AddRef();
+
+		return *this;
 	}
 
-	void operator = (T* _Asset)
+	// 데이터를 받고 나면 자기 자신을 반환
+	Ptr<T>& operator = (T* _Asset)
 	{
 		if (nullptr != Asset)
 			Asset->Release();
@@ -34,6 +38,8 @@ public:
 
 		if (nullptr != Asset)
 			Asset->AddRef();
+
+		return *this;
 	}
 
 	bool operator ==(const Ptr<T>& _Other)

@@ -26,13 +26,16 @@ public:
 
     template<typename T>
     void SetScalarParam(SCALAR_PARAM _ParamType, const T& _Value);
-
     void SetTexParam(TEX_PARAM _Param, Ptr<HYTexture> _pTex);
-
 	void* GetScalarParam(SCALAR_PARAM _ParamType);
+	Ptr<HYTexture> GetTexParam(TEX_PARAM _ParamType) { return m_arrTex[(UINT)_ParamType]; }
+
 
     // Material이 들고 있는 데이터를 GPU로 보내는 함수
     void UpdateData();
+
+	// 재질의 복제본을 반환해주는 함수
+	virtual HYMaterial* Clone() { return new HYMaterial(*this); }
 
 public:
     HYMaterial(bool _bEngine = false);

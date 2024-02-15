@@ -4,7 +4,7 @@
 struct tScalarParam
 {
     SCALAR_PARAM    Type;
-    string          Desc;
+    string          Desc;   // 파라미터의 정보
 };
 
 struct tTexParam

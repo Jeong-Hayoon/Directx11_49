@@ -9,4 +9,38 @@ HYRenderComponent::HYRenderComponent(COMPONENT_TYPE _Type)
 
 HYRenderComponent::~HYRenderComponent()
 {
+	// 원래라면 AssetMgr에 등록되지 않는 동적 재질을 지워줘야 하지만 Ptr이기 때문에 신경쓰지 않아도 됨
+}
+
+// 아예 재질을 교체하는 함수 -> 동적 재질을 초기화 시켜야 함
+void HYRenderComponent::SetMaterial(Ptr<HYMaterial> _Mtrl)
+{
+	// 재질이 변경되면 기존에 복사본 받아둔 DynamicMaterial 을 삭제한다.
+	m_CurMtrl = m_SharedMtrl = _Mtrl;
+	m_DynamicMtrl = nullptr;
+}
+
+// 동적 재질을 반환해주는 함수(동적 재질은 특정 오브젝트만의 재질)
+Ptr<HYMaterial> HYRenderComponent::GetDynamicMaterial()
+{
+	// 이미 동적 재질을 보유하고 있으면 그걸 준다.
+	if (nullptr != m_DynamicMtrl)
+		return m_DynamicMtrl;
+
+	// 동적 재질이 없고 공유 재질이 있다면
+	if (nullptr != m_SharedMtrl)
+	{
+		// 공유 재질을 복사해서 동적재질을 만들고 그걸 현재 사용 재질로 설정한다.
+		m_CurMtrl = m_DynamicMtrl = m_SharedMtrl->Clone();
+
+		return m_DynamicMtrl;
+	}
+
+	return nullptr;
+}
+
+// 원래 재질로 돌아가도록 해주는 함수
+void HYRenderComponent::RestoreMaterial()
+{
+	m_CurMtrl = m_SharedMtrl;
 }

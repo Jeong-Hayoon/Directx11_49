@@ -73,9 +73,18 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     // Texture가 nullptr일 때
     float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
     
-    // Shader Parameter Test용 
-    if (g_int_0)
+    // Shader Parameter Test용 1
+    // if (g_int_0)
+        // return float4(1.f, 1.f, 0.f, 1.f);
+    
+    // Shader Parameter Test용 2
+    // if (g_vec2_2.y == 2.4f)
+    //    return float4(1.f, 1.f, 0.f, 1.f);
+    
+    // Shader Parameter Test용 3
+    if (g_vec4_1.w == 3.14f)
         return float4(1.f, 1.f, 0.f, 1.f);
+    
     
     if (g_UseAnim2D)
     {
