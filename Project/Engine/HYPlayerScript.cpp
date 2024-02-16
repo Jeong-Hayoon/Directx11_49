@@ -118,7 +118,10 @@ void HYPlayerScript::BeginOverlap(HYCollider2D* _Collider
 	// _OtherObj->Destroy();
 	
 	// 특정 오브젝트에만 특정 효과를 주고 싶은 경우에는 동적 재질을 받아서 효과를 줌
-	Ptr<HYMaterial> pMtrl = GetOwner()->GetRenderComponent()->GetDynamicMaterial();
+	
+	// Ptr<HYMaterial> pMtrl = GetOwner()->GetRenderComponent()->GetDynamicMaterial();
+
+	Ptr<HYMaterial> pMtrl = GetRenderComponent()->GetDynamicMaterial();
 }
 
 void HYPlayerScript::Overlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider)

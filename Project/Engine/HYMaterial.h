@@ -37,6 +37,9 @@ public:
 	// 재질의 복제본을 반환해주는 함수
 	virtual HYMaterial* Clone() { return new HYMaterial(*this); }
 
+	virtual int Save(const wstring& _strRelativePath);
+	virtual int Load(const wstring& _strFilePath);
+
 public:
     HYMaterial(bool _bEngine = false);
     ~HYMaterial();

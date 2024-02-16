@@ -202,8 +202,10 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 	// pShader->AddScalarParam(VEC2_2, "Test Parameter");
 	// pShader->AddScalarParam(VEC4_1, "Test Parameter");
 
+	pShader->AddScalarParam(INT_0, "Test Param");
+
 	pShader->AddTexParam(TEX_0, "Output Texture 1");
-	pShader->AddTexParam(TEX_1, "Output Texture 2");
+	//pShader->AddTexParam(TEX_1, "Output Texture 2");
 
 	// =========================================================
 	// EffectShader : 함수는 같은데 블랜드 스테이트만 다름
@@ -349,6 +351,14 @@ void HYAssetMgr::CreateDefaultMaterial()
 	pMtrl = new HYMaterial(true);
 	pMtrl->SetShader(FindAsset<HYGraphicsShader>(L"Std2DShader"));
 	AddAsset<HYMaterial>(L"Std2DMtrl", pMtrl);
+
+	// TestMtrl
+	// pMtrl = new CMaterial(true);
+	// pMtrl->SetShader(FindAsset<CGraphicsShader>(L"Std2DShader"));
+	// pMtrl->SetTexParam(TEX_0, Load<CTexture>(L"BackgroundTex", L"texture\\Background.jpg"));
+	// pMtrl->SetScalarParam(INT_0, 10);
+	// pMtrl->Save(L"material\\testmtrl.mtrl");
+	// AddAsset<CMaterial>(L"TestMtrl", pMtrl);
 
 	// BackgroundMtrl
 	pMtrl = new HYMaterial(true);

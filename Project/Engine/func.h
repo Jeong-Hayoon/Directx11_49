@@ -27,6 +27,68 @@ namespace GamePlayStatic
 string ToString(const wstring& _str);
 wstring ToWString(const string& _str);
 
+template<typename T>
+class Ptr;
+
+#include "HYAssetMgr.h"
+
+// Asset의 참조 정보 Save
+template<typename T>
+void SaveAssetRef(Ptr<T> _Asset, FILE* _File)
+{
+	// 해당 레지스터에 전달할 Asset이 존재하는지
+	bool bAssetExist = false;
+
+	_Asset == nullptr ? bAssetExist = false : bAssetExist = true;
+
+	fwrite(&bAssetExist, sizeof(bool), 1, _File);
+
+	// Asset이 존재한다면 Asset이 참조하고 있는 키값과 상대경로를 저장
+	if (bAssetExist)
+	{
+		// 텍스처가 이미 있는 경우 키값으로 find 
+		wstring strKey = _Asset->GetKey();
+		size_t len = strKey.length();
+		fwrite(&len, sizeof(size_t), 1, _File);
+		fwrite(strKey.c_str(), sizeof(wchar_t), strKey.length(), _File);
+
+		// 텍스처가 아직 로딩이 되지 않은 경우 경로를 통해 로딩
+		wstring strRelativePath = _Asset->GetRelativePath();
+		len = strRelativePath.length();
+		fwrite(&len, sizeof(size_t), 1, _File);
+		fwrite(strRelativePath.c_str(), sizeof(wchar_t), strRelativePath.length(), _File);
+	}
+}
+
+template<typename T>
+void LoadAssetRef(Ptr<T>& _Asset, FILE* _File)
+{
+	bool bAssetExist = false;
+
+	fread(&bAssetExist, sizeof(bool), 1, _File);
+
+	if (bAssetExist)
+	{
+		wstring strKey, strRelativePath;
+		size_t len = 0;
+		wchar_t szBuff[256] = {};
+
+		fread(&len, sizeof(size_t), 1, _File);
+		fread(szBuff, sizeof(wchar_t), len, _File);
+		strKey = szBuff;
+
+		// Buffer Clear
+		wmemset(szBuff, 0, 256);
+
+		fread(&len, sizeof(size_t), 1, _File);
+		fread(szBuff, sizeof(wchar_t), len, _File);
+		strRelativePath = szBuff;
+
+		_Asset = CAssetMgr::GetInst()->Load<T>(strKey, strRelativePath);
+	}
+}
+
+
 Vec3 DecomposeRotMat(const Matrix& _matRot);
 
 // 배열 삭제

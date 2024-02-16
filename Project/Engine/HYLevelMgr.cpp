@@ -32,6 +32,9 @@ HYLevelMgr::~HYLevelMgr()
 
 void HYLevelMgr::init()
 {
+	// 재질 로드 테스트
+	HYAssetMgr::GetInst()->Load<HYMaterial>(L"TestMtrl", L"material\\testmtrl.mtrl");
+
 	// 초기 레벨 구성하기
 	m_CurLevel = new HYLevel;
 	m_CurLevel->GetLayer(0)->SetName(L"Default");

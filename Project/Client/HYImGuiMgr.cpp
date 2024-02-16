@@ -13,6 +13,7 @@
 #include "Inspector.h"
 #include "Content.h"
 #include "Outliner.h"
+#include "MenuUI.h"
 #include "ListUI.h"
 
 #include "ParamUI.h"
@@ -200,6 +201,10 @@ void HYImGuiMgr::create_ui()
 
     // Outliner
     pUI = new Outliner;
+    AddUI(pUI->GetID(), pUI);
+
+    // MunuUI
+    pUI = new MenuUI;
     AddUI(pUI->GetID(), pUI);
 
     // List

@@ -40,6 +40,7 @@ public:
     GET_OTHER_COMPONENT(TileMap);
     GET_OTHER_COMPONENT(ParticleSystem);
 
+    HYRenderComponent* GetRenderComponent() { return m_Owner->GetRenderComopnent(); }
 
 
 public:

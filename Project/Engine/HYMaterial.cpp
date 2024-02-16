@@ -7,6 +7,9 @@
 #include "HYConstBuffer.h"
 #include "HYTexture.h"
 
+#include "HYPathMgr.h"
+
+#include "Ptr.h"
 
 HYMaterial::HYMaterial(bool _bEngine)
 	: HYAsset(ASSET_TYPE::MATERIAL)
@@ -113,4 +116,59 @@ void* HYMaterial::GetScalarParam(SCALAR_PARAM _ParamType)
 	}
 
 	return nullptr;
+}
+
+int HYMaterial::Save(const wstring& _strRelativePath)
+{
+	wstring strFilePath = HYPathMgr::GetContentPath();
+	strFilePath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+
+	// 쓰기 모드(wb)
+	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");
+
+	if (nullptr == pFile)
+		return E_FAIL;
+
+	// 재질 상수값 저장
+	fwrite(&m_Const, sizeof(tMtrlConst), 1, pFile);
+
+	// 재질이 참조하는 텍스쳐 정보를 저장
+	// (텍스처를 저장하는 것이 아닌 텍스처를 다시 참조할 수 있을만한 정보를 저장)
+	for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
+	{
+		SaveAssetRef<HYTexture>(m_arrTex[i], pFile);
+	}
+
+	// 재질이 참조하는 쉐이더 정보를 저장
+	SaveAssetRef<HYGraphicsShader>(m_pShader, pFile);
+
+	return 0;
+}
+
+int HYMaterial::Load(const wstring& _strFilePath)
+{
+	FILE* pFile = nullptr;
+	
+	// 읽기 모드(rb)
+	_wfopen_s(&pFile, _strFilePath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+		return E_FAIL;
+
+	// 재질 상수값 저장
+	fread(&m_Const, sizeof(tMtrlConst), 1, pFile);
+
+
+	// 재질이 참조하는 텍스쳐 정보를 로드
+	for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
+	{
+		LoadAssetRef<HYTexture>(m_arrTex[i], pFile);
+	}
+
+	// 재질이 참조하는 쉐이더 정보를 저장
+	LoadAssetRef<HYGraphicsShader>(m_pShader, pFile);
+
+	return 0;
 }
