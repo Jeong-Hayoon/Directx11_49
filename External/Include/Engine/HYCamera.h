@@ -89,6 +89,7 @@ private:
     void render(vector<HYGameObject*>& _vecObj);
     void render_postprocess();
 
+    CLONE(HYCamera);
 
 public:
     HYCamera();

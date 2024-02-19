@@ -1,8 +1,5 @@
 #include "pch.h"
 
-#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\Inspector_init.cpp"
-
-
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\Light2DUI.cpp"
 
 
@@ -13,6 +10,9 @@
 
 
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\MaterialUI.cpp"
+
+
+#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\MenuUI.cpp"
 
 
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\MeshDataUI.cpp"

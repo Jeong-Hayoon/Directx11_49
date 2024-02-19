@@ -84,7 +84,7 @@ void LoadAssetRef(Ptr<T>& _Asset, FILE* _File)
 		fread(szBuff, sizeof(wchar_t), len, _File);
 		strRelativePath = szBuff;
 
-		_Asset = CAssetMgr::GetInst()->Load<T>(strKey, strRelativePath);
+		_Asset = HYAssetMgr::GetInst()->Load<T>(strKey, strRelativePath);
 	}
 }
 

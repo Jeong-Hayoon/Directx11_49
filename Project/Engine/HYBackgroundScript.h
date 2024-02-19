@@ -7,6 +7,8 @@ class HYBackgroundScript :
 public:
     virtual void tick() override;
 
+    CLONE(HYBackgroundScript);
+
 public:
     HYBackgroundScript();
     ~HYBackgroundScript();

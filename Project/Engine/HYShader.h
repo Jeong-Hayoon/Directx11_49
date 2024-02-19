@@ -13,6 +13,7 @@ protected:
 public:
     virtual int UpdateData() = 0;
 
+    CLONE_DISABLE(HYShader);
 
 public:
     HYShader(ASSET_TYPE _Type);

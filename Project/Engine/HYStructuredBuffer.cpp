@@ -13,6 +13,17 @@ HYStructuredBuffer::HYStructuredBuffer()
 {
 }
 
+HYStructuredBuffer::HYStructuredBuffer(const HYStructuredBuffer& _OriginBuffer)
+	: m_ElementSize(_OriginBuffer.m_ElementSize)
+	, m_ElementCount(_OriginBuffer.m_ElementCount)
+	, m_Type(_OriginBuffer.m_Type)
+	, m_bSysMemMove(_OriginBuffer.m_bSysMemMove)
+	, m_RegentSRV(0)   // 최근에 바인딩한 t레지스터 번호
+	, m_RegentUAV(0) // 최근에 바인딩한 u레지스터 번호
+{
+	Create(m_ElementSize, m_ElementCount, m_Type, m_bSysMemMove);
+}
+
 HYStructuredBuffer::~HYStructuredBuffer()
 {
 }

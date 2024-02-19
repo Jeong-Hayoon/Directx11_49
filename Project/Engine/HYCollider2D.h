@@ -58,8 +58,12 @@ public:
     void Overlap(HYCollider2D* _OtherCollider);
     void EndOverlap(HYCollider2D* _OtherCollider);
 
+
+    CLONE(HYCollider2D);
+
 public:
     HYCollider2D();
+    HYCollider2D(const HYCollider2D& _OriginCollider2D);
     ~HYCollider2D();
 };
 

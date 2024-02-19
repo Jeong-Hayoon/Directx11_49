@@ -146,6 +146,9 @@
     <Filter Include="ShaderCode\Compute\ParticleUpdate">
       <UniqueIdentifier>{b9f369c0-7d9b-46bc-92b3-85986d008a62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Asset\Prefab">
+      <UniqueIdentifier>{a93f1990-0247-4e97-ba7b-f65a3e048b01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

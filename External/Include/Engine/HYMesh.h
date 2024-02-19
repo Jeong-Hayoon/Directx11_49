@@ -32,6 +32,8 @@ public:
     // 파티클로써 랜더링될 때
     void render_asparticle(UINT _ParticleCount);
 
+    CLONE_DISABLE(HYMesh);
+
 public:
     HYMesh();
     ~HYMesh();

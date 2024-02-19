@@ -71,10 +71,13 @@ public:
     // юс╫ц
     Vec2 GetOffset() { m_vecFrm[m_CurFrmIdx].vOffset; }
 
-
+    CLONE(HYAnim);
 
 public:
     HYAnim();
+    HYAnim(const HYAnim& _OriginAnim);
     ~HYAnim();
+
+    friend class HYAnimator2D;
 };
 

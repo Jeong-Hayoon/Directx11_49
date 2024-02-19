@@ -78,8 +78,13 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         // return float4(1.f, 1.f, 0.f, 1.f);
     
     // Shader Parameter Test¿ë 2
+    // if (g_vec2_2.y == 2.4f)
+    //    return float4(1.f, 1.f, 0.f, 1.f);
+    
+    // Shader Parameter Test¿ë 3
     if (g_vec4_1.w == 3.14f)
         return float4(1.f, 1.f, 0.f, 1.f);
+    
     
     if (g_UseAnim2D)
     {

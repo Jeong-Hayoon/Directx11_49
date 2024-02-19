@@ -30,8 +30,6 @@ private:
     UINT                m_MaxCol;           // 실제 텍스처에서 총 열
     UINT                m_MaxRow;           // 실제 텍스처에서 총 행
 
-    UINT                m_TileIdx;          // 타일 인덱스
-
     vector<tTileInfo>   m_vecTileInfo;
     HYStructuredBuffer* m_TileInfoBuffer;
 
@@ -78,8 +76,11 @@ public:
     virtual void UpdateData() override;
     virtual void render() override;
 
+    CLONE(HYTileMap);
+
 public:
     HYTileMap();
+    HYTileMap(const HYTileMap& _OriginTileMap);
     ~HYTileMap();
 };
 

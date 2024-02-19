@@ -57,6 +57,7 @@ public:
     void AddComponent(HYComponent* _Comonent);
     HYComponent* GetComponent(COMPONENT_TYPE _Type) { return m_arrCom[(UINT)_Type]; }
 
+    // RenderComponent를 반환해주는 함수
     HYRenderComponent* GetRenderComponent() { return m_RenderCom; }
 
     GET_COMPONENT(Transform, TRANSFORM);
@@ -103,8 +104,11 @@ public:
 
     bool IsAncestor(HYGameObject* _Other);
 
+    CLONE(HYGameObject);
+
 public:
     HYGameObject();
+    HYGameObject(const HYGameObject& _OriginObject);
     ~HYGameObject();
 
     friend class HYLayer;

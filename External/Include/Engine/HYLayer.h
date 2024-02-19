@@ -30,16 +30,22 @@ public:
     // 레이어에 담겨 있는 모든 오브젝트 벡터를 반환해주는 함수
     const vector<HYGameObject*>& GetLayerObjects() { return m_vecObjects; }
 
-
-public:
-    HYLayer();
-    ~HYLayer();
-
-    // Layer에서는 private, Level에서 public(대신 friend 지정)
 private:
+    // Layer에서는 private, Level에서 public(대신 friend 지정)
     // _bMove가 true면 자식 오브젝트 존재 -> 부모와 같은 레이어로 세팅
     // _bMove가 false면 자식 오브젝트 존재, 소속 X -> 부모와 같은 레이어로 세팅
     void AddObject(HYGameObject* _Object, bool _bMove);
+
+public:
+    CLONE(HYLayer);
+
+public:
+    HYLayer();
+    HYLayer(const HYLayer& _OriginLayer);
+    ~HYLayer();
+
+private:
+
     friend class HYLevel;
 };
 

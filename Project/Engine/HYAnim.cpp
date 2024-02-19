@@ -20,6 +20,16 @@ HYAnim::HYAnim()
 {	  
 }
 
+HYAnim::HYAnim(const HYAnim& _OriginAnim)
+	: m_Animator(nullptr)
+	, m_vecFrm(_OriginAnim.m_vecFrm)
+	, m_CurFrmIdx(_OriginAnim.m_CurFrmIdx)
+	, m_bFinish(_OriginAnim.m_bFinish)
+	, m_AtlasTex(_OriginAnim.m_AtlasTex)
+	, m_AccTime(_OriginAnim.m_AccTime)
+{
+}
+
 HYAnim::~HYAnim()
 {
 }

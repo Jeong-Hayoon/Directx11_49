@@ -22,6 +22,33 @@ HYGameObject::HYGameObject()
 {
 }
 
+HYGameObject::HYGameObject(const HYGameObject& _OriginObject)
+	: HYEntity(_OriginObject)
+	, m_arrCom{}
+	, m_RenderCom(nullptr)
+	, m_Parent(nullptr)
+	, m_iLayerIdx(-1)
+	, m_bDead(false)
+{
+	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		if (nullptr == _OriginObject.m_arrCom[i])
+			continue;
+
+		AddComponent(_OriginObject.m_arrCom[i]->Clone());
+	}
+
+	for (size_t i = 0; i < _OriginObject.m_vecScript.size(); ++i)
+	{
+		AddComponent(_OriginObject.m_vecScript[i]->Clone());
+	}
+
+	for (size_t i = 0; i < _OriginObject.m_vecChild.size(); ++i)
+	{
+		AddChild(_OriginObject.m_vecChild[i]->Clone());
+	}
+}
+
 HYGameObject::~HYGameObject()
 {
 	// 원래 정석적으로는 이런식으로 배열과 배열의 크기를 알려줘야하는데

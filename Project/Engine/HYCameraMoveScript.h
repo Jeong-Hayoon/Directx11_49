@@ -14,6 +14,8 @@ private:
     void MoveOrthographic();
     void MovePerspective();
 
+    CLONE(HYCameraMoveScript);
+
 public:
     HYCameraMoveScript();
     ~HYCameraMoveScript();

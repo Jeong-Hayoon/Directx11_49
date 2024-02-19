@@ -8,6 +8,26 @@ HYAnimator2D::HYAnimator2D()
 {
 }
 
+HYAnimator2D::HYAnimator2D(const HYAnimator2D& _OriginAnimator)
+	: HYComponent(_OriginAnimator)
+	, m_CurAnim(nullptr)
+	, m_bRepeat(_OriginAnimator.m_bRepeat)
+{
+	map<wstring, HYAnim*>::const_iterator iter = _OriginAnimator.m_mapAnim.begin();
+	for (; iter != _OriginAnimator.m_mapAnim.end(); ++iter)
+	{
+		HYAnim* pCloneAnim = iter->second->Clone();
+
+		pCloneAnim->m_Animator = this;
+		m_mapAnim.insert(make_pair(iter->first, pCloneAnim));
+	}
+
+	if (nullptr != _OriginAnimator.m_CurAnim)
+	{
+		m_CurAnim = FindAnim(_OriginAnimator.m_CurAnim->GetName());
+	}
+}
+
 HYAnimator2D::~HYAnimator2D()
 {
 	Delete_Map(m_mapAnim);

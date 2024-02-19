@@ -40,10 +40,13 @@ public:
     GET_OTHER_COMPONENT(TileMap);
     GET_OTHER_COMPONENT(ParticleSystem);
 
+    HYRenderComponent* GetRenderComponent() { return m_Owner->GetRenderComopnent(); }
 
+    virtual HYComponent* Clone() = 0;
 
 public:
     HYComponent(COMPONENT_TYPE _Type);
+    HYComponent(const HYComponent& _OriginComponent);
     ~HYComponent();
 
     friend class HYGameObject;

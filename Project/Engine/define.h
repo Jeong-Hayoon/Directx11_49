@@ -23,6 +23,10 @@
 
 #define LAYER_MAX 32
 
+#define CLONE(TYPE) virtual TYPE* Clone() { return new TYPE(*this); }
+#define CLONE_DISABLE(TYPE) TYPE* Clone() { return nullptr; assert(nullptr); }\
+							TYPE(const TYPE& _OriginBuffer) = delete;
+
 #define TILE_WIDTH 128
 #define TILE_HEIGHT 128
 

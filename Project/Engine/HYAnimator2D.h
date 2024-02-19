@@ -42,10 +42,11 @@ public:
     bool IsRepeat() { return m_bRepeat; }
     void SetRepeat(bool _repeat) { m_bRepeat = _repeat; }
 
-    
+    CLONE(HYAnimator2D);
 
 public:
     HYAnimator2D();
+    HYAnimator2D(const HYAnimator2D& _OriginAnimator);
     ~HYAnimator2D();
 };
 

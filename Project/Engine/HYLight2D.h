@@ -47,6 +47,8 @@ public:
     string GetLightTypeName(LIGHT_TYPE _Type);
     LIGHT_TYPE GetLightType(string str);
 
+    CLONE(HYLight2D);
+
 public:
     HYLight2D();
     ~HYLight2D();

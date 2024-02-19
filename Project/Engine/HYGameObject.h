@@ -104,8 +104,11 @@ public:
 
     bool IsAncestor(HYGameObject* _Other);
 
+    CLONE(HYGameObject);
+
 public:
     HYGameObject();
+    HYGameObject(const HYGameObject& _OriginObject);
     ~HYGameObject();
 
     friend class HYLayer;

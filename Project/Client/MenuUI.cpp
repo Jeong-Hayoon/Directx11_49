@@ -36,7 +36,6 @@ void MenuUI::render_update()
         if (ImGui::MenuItem("Copy", "CTRL+C")) {}
         if (ImGui::MenuItem("Paste", "CTRL+V")) {}
 
-
         ImGui::EndMenu();
     }
 }

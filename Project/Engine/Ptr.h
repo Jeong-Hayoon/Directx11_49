@@ -42,7 +42,7 @@ public:
 		return *this;
 	}
 
-	bool operator ==(const Ptr<T>& _Other)
+	bool operator ==(const Ptr<T>& _Other) const
 	{
 		if (Asset == _Other.Asset)
 		{
@@ -54,12 +54,12 @@ public:
 		}
 	}
 
-	bool operator != (const Ptr<T>& _Other)
+	bool operator != (const Ptr<T>& _Other) const
 	{
 		return !(*this == _Other);
 	}
 
-	bool operator ==(const T* _Asset)
+	bool operator ==(const T* _Asset) const
 	{
 		if (Asset == _Asset)
 			return true;
@@ -67,7 +67,7 @@ public:
 			return false;
 	}
 
-	bool operator != (const T* _Asset)
+	bool operator != (const T* _Asset) const
 	{
 		return !(*this == _Asset);
 	}

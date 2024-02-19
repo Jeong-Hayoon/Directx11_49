@@ -9,6 +9,16 @@ HYLayer::HYLayer()
 {
 }
 
+HYLayer::HYLayer(const HYLayer& _OriginLayer)
+	: HYEntity(_OriginLayer)
+	, m_iLayerIdx(_OriginLayer.m_iLayerIdx)
+{
+	for (size_t i = 0; i < _OriginLayer.m_vecParent.size(); ++i)
+	{
+		m_vecParent.push_back(_OriginLayer.m_vecParent[i]->Clone());
+	}
+}
+
 HYLayer::~HYLayer()
 {
 	// Layer이 지워질 때는 Layer가 소유하고 있던 

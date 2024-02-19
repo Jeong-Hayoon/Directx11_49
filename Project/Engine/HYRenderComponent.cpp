@@ -7,6 +7,25 @@ HYRenderComponent::HYRenderComponent(COMPONENT_TYPE _Type)
 {
 }
 
+HYRenderComponent::HYRenderComponent(const HYRenderComponent& _OriginRenderCom)
+	: HYComponent(_OriginRenderCom)
+	, m_Mesh(_OriginRenderCom.m_Mesh)
+	, m_SharedMtrl(_OriginRenderCom.m_SharedMtrl)
+{
+	// 원본 오브젝트가 공유재질을 참조하고 있고, 현재 사용재질은 공유재질이 아닌경우
+	if (_OriginRenderCom.m_SharedMtrl != _OriginRenderCom.m_CurMtrl)
+	{
+		assert(_OriginRenderCom.m_DynamicMtrl.Get());
+
+		// 복사 렌더 컴포넌트도 별도의 동적재질을 생성한다.
+		GetDynamicMaterial();
+	}
+	else
+	{
+		m_CurMtrl = m_SharedMtrl;
+	}
+}
+
 HYRenderComponent::~HYRenderComponent()
 {
 	// 원래라면 AssetMgr에 등록되지 않는 동적 재질을 지워줘야 하지만 Ptr이기 때문에 신경쓰지 않아도 됨

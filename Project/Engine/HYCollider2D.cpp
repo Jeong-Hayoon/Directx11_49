@@ -17,6 +17,16 @@ HYCollider2D::HYCollider2D()
 
 }
 
+HYCollider2D::HYCollider2D(const HYCollider2D& _OriginCollider2D)
+	: HYComponent(_OriginCollider2D)
+	, m_vOffsetPos(_OriginCollider2D.m_vOffsetPos)
+	, m_vOffsetScale(_OriginCollider2D.m_vOffsetScale)
+	, m_CollisionCount(0)
+	, m_bAbsolute(_OriginCollider2D.m_bAbsolute)
+	, m_Type(_OriginCollider2D.m_Type)
+{
+}
+
 HYCollider2D::~HYCollider2D()
 {
 }

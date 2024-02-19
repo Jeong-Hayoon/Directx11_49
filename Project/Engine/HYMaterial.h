@@ -34,11 +34,11 @@ public:
     // Material이 들고 있는 데이터를 GPU로 보내는 함수
     void UpdateData();
 
-	// 재질의 복제본을 반환해주는 함수
-	virtual HYMaterial* Clone() { return new HYMaterial(*this); }
-
 	virtual int Save(const wstring& _strRelativePath);
 	virtual int Load(const wstring& _strFilePath);
+
+	// 재질의 복제본을 반환해주는 함수
+	CLONE(HYMaterial);
 
 public:
     HYMaterial(bool _bEngine = false);

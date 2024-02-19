@@ -68,6 +68,8 @@ public:
 
     // 텍스처에서 픽셀 가져오기 
     tPixel* GetPixels();
+
+    CLONE_DISABLE(HYTexture);
    
 public:
     HYTexture();

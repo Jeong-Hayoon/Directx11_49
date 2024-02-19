@@ -8,6 +8,8 @@ public:
     virtual void finaltick() override;
     virtual void render() override;
 
+    CLONE(HYMeshRender);
+
 public:
     HYMeshRender();
     ~HYMeshRender();

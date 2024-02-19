@@ -21,6 +21,8 @@ void MaterialUI::render_update()
 {
     AssetUI::render_update();
 
+    int a = 0;
+
     // 해당 텍스쳐 이미지 출력
     Ptr<HYMaterial> pMtrl = (HYMaterial*)GetAsset().Get();
     string strPath = string(pMtrl->GetRelativePath().begin(), pMtrl->GetRelativePath().end());

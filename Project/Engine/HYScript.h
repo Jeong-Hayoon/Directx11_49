@@ -17,8 +17,6 @@ class HYScript :
 private:
     UINT        m_iScriptType;
 
-
-
 public:
     // tick에서 Component들이 주요 기능을 수행하고 나서
     // 이후 확정된 값을 통해 충돌 처리 등을 하기 위해 마무리하는 작업
@@ -32,6 +30,7 @@ public:
     virtual void Overlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider) {}
     virtual void EndOverlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider) {}
 
+    HYScript* Clone() = 0;
 public:
     HYScript();
     ~HYScript();

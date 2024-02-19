@@ -54,8 +54,11 @@ public:
     UINT GetElementSize() { return m_ElementSize; }
     UINT GetElementCount() { return m_ElementCount; }
 
+    CLONE(HYStructuredBuffer);
+
 public:
     HYStructuredBuffer();
+    HYStructuredBuffer(const HYStructuredBuffer& _OriginBuffer);
     ~HYStructuredBuffer();
 };
 

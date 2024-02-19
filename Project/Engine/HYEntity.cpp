@@ -8,6 +8,12 @@ HYEntity::HYEntity()
 {
 }
 
+HYEntity::HYEntity(const HYEntity& _Origin)
+	: m_ID(g_NextID++)
+	, m_strName(_Origin.m_strName)
+{
+}
+
 HYEntity::~HYEntity()
 {
 }

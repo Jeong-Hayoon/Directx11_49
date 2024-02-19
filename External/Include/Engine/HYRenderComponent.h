@@ -32,7 +32,11 @@ public:
     virtual void render() = 0;
 
 public:
+    virtual HYRenderComponent* Clone() = 0;
+
+public:
     HYRenderComponent(COMPONENT_TYPE _Type);
+    HYRenderComponent(const HYRenderComponent& _OriginRenderCom);
     ~HYRenderComponent();
 };
 

@@ -32,6 +32,8 @@ public:
     // Compute Shader 전용(Compute Shader 시점에 보냄)
     void UpdateData_CS();
 
+    CLONE_DISABLE(HYConstBuffer);
+
 public:
     // 생성할 대 상수버퍼의 타입을 지정해줘야 함(타입이 곧 레지스터 담당 번호)
     HYConstBuffer(CB_TYPE _Type);

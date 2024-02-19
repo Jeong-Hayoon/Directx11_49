@@ -16,6 +16,17 @@ HYLevel::HYLevel()
 	}
 }
 
+HYLevel::HYLevel(const HYLevel& _OriginLevel)
+	: HYEntity(_OriginLevel)
+	, m_arrLayer{}
+{
+	for (UINT i = 0; i < LAYER_MAX; ++i)
+	{
+		m_arrLayer[i] = _OriginLevel.m_arrLayer[i]->Clone();
+	}
+}
+
+
 HYLevel::~HYLevel()
 {
 	Delete_Array(m_arrLayer);

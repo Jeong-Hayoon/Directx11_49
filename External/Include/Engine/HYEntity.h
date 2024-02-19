@@ -18,9 +18,11 @@ public:
 	const wstring& GetName() { return m_strName; }
 	UINT GetID() { return m_ID; }
 
-	virtual HYEntity* Clone() { return nullptr; };
+	// 본인 스스로의 복제를 주는 함수
+	virtual HYEntity* Clone() = 0;
 
 public:
 	HYEntity();
+	HYEntity(const HYEntity& _Origin);
 	virtual ~HYEntity();
 };

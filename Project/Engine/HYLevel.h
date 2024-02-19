@@ -52,8 +52,12 @@ public:
 private:
 	void clear();
 
+
+	CLONE(HYLevel);
+
 public:
 	HYLevel();
+	HYLevel(const HYLevel& _OriginLevel);
 	~HYLevel();
 
 	friend class HYLevelMgr;

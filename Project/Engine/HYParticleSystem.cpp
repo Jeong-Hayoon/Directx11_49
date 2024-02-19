@@ -106,6 +106,28 @@ HYParticleSystem::HYParticleSystem()
 	// m_ParticleTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\particle\\CartoonSmoke.png", L"texture\\particle\\CartoonSmoke.png");
 }
 
+HYParticleSystem::HYParticleSystem(const HYParticleSystem& _OriginParticle)
+	: HYRenderComponent(_OriginParticle)
+	, m_ParticleBuffer(nullptr)
+	, m_MaxParticleCount(_OriginParticle.m_MaxParticleCount)
+	, m_Module(_OriginParticle.m_Module)
+	, m_ParticleModuleBuffer(nullptr)
+	, m_SpawnCountBuffer(nullptr)
+	, m_CSParticleUpdate(_OriginParticle.m_CSParticleUpdate)
+	, m_ParticleTex(_OriginParticle.m_ParticleTex)
+	, m_Time(0.f)
+{
+	if (nullptr != _OriginParticle.m_ParticleBuffer)
+		m_ParticleBuffer = _OriginParticle.m_ParticleBuffer->Clone();
+
+	if (nullptr != _OriginParticle.m_ParticleModuleBuffer)
+		m_ParticleModuleBuffer = _OriginParticle.m_ParticleModuleBuffer->Clone();
+
+	if (nullptr != _OriginParticle.m_SpawnCountBuffer)
+		m_SpawnCountBuffer = _OriginParticle.m_SpawnCountBuffer->Clone();
+}
+
+
 HYParticleSystem::~HYParticleSystem()
 {
 	if (nullptr != m_ParticleBuffer)

@@ -4,6 +4,15 @@
 class HYLayer;
 class HYGameObject;
 
+// 레벨의 상태
+enum class LEVEL_STATE
+{
+	PLAY,		// tick, DT 동작, Main Camera Object는 Player를 따라 다님
+	PAUSE,
+	STOP,		// 시작했을 때 처음 상태, tick 동작 X, DT == 0 -> 초기 상태로 돌아갈 때
+};
+
+
 // 자식 오브젝트를 제외하고 부모 오브젝트들만 관리
 // 부모 오브젝트를 호출시키면 부모의 자식 오브젝트를 호출시키면서
 // 부모보다 먼저 호출되는 자식 오브젝트가 없도록 계층 구조 설계
@@ -43,8 +52,12 @@ public:
 private:
 	void clear();
 
+
+	CLONE(HYLevel);
+
 public:
 	HYLevel();
+	HYLevel(const HYLevel& _OriginLevel);
 	~HYLevel();
 
 	friend class HYLevelMgr;

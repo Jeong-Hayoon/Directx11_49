@@ -33,7 +33,7 @@ HYLevelMgr::~HYLevelMgr()
 void HYLevelMgr::init()
 {
 	// 재질 로드 테스트
-	HYAssetMgr::GetInst()->Load<HYMaterial>(L"TestMtrl", L"material\\testmtrl.mtrl");
+	//HYAssetMgr::GetInst()->Load<HYMaterial>(L"TestMtrl", L"material\\testmtrl.mtrl");
 
 	// 초기 레벨 구성하기
 	m_CurLevel = new HYLevel;
@@ -223,6 +223,26 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pObj, L"Player", false);
 
+	// Player Clone
+	pObj = pObj->Clone();
+	pObj->Transform()->SetRelativePos(Vec3(-500.f, 0.f, 500.f));
+	m_CurLevel->AddObject(pObj, L"Player", false);
+
+	// Particle Object Clone
+	HYGameObject* pParticleObj = new HYGameObject;
+	pParticleObj->SetName(L"Particle");
+
+	pParticleObj->AddComponent(new HYTransform);
+	pParticleObj->AddComponent(new HYParticleSystem);
+
+	pParticleObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	m_CurLevel->AddObject(pParticleObj, L"Default", false);
+
+	pParticleObj = pParticleObj->Clone();
+	pParticleObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 200.f));
+	m_CurLevel->AddObject(pParticleObj, L"Default", false);
+
+
 	// Monster Object 생성
 	pObj = new HYGameObject;
 	pObj->SetName(L"Monster");
@@ -333,7 +353,7 @@ void HYLevelMgr::init()
 
 	// UI Test // 
 	// Particle Object
-	HYGameObject* pParticleObj = new HYGameObject;
+	pParticleObj = new HYGameObject;
 	pParticleObj->SetName(L"Particle");
 
 	pParticleObj->AddComponent(new HYTransform);
@@ -345,6 +365,11 @@ void HYLevelMgr::init()
 
 	pObj->AddChild(pParticleObj);
 	m_CurLevel->AddObject(pObj, L"Player", false);
+
+	// Level Clone Test -> 실패
+	/*CLevel* pNewLevel = m_CurLevel->Clone();
+	delete m_CurLevel;
+	m_CurLevel = pNewLevel;*/
 
 	// Level 시작
 	m_CurLevel->begin();

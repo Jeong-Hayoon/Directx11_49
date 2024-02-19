@@ -14,6 +14,7 @@ public:
 	T* operator->() const { return Asset; }
 
 public:
+	// 데이터를 받고 나면 자기 자신을 반환
 	Ptr<T>& operator = (const Ptr& _ptr)
 	{
 		if (nullptr != Asset)
@@ -27,6 +28,7 @@ public:
 		return *this;
 	}
 
+	// 데이터를 받고 나면 자기 자신을 반환
 	Ptr<T>& operator = (T* _Asset)
 	{
 		if (nullptr != Asset)
@@ -40,7 +42,7 @@ public:
 		return *this;
 	}
 
-	bool operator ==(const Ptr<T>& _Other)
+	bool operator ==(const Ptr<T>& _Other) const
 	{
 		if (Asset == _Other.Asset)
 		{
@@ -52,12 +54,12 @@ public:
 		}
 	}
 
-	bool operator != (const Ptr<T>& _Other)
+	bool operator != (const Ptr<T>& _Other) const
 	{
 		return !(*this == _Other);
 	}
 
-	bool operator ==(const T* _Asset)
+	bool operator ==(const T* _Asset) const
 	{
 		if (Asset == _Asset)
 			return true;
@@ -65,7 +67,7 @@ public:
 			return false;
 	}
 
-	bool operator != (const T* _Asset)
+	bool operator != (const T* _Asset) const
 	{
 		return !(*this == _Asset);
 	}

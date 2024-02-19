@@ -59,15 +59,16 @@ public:
     void SetFixedDirection(Vec4 _direction) {  m_Module.FixedDirection = _direction; }
     void SetFixedAngle(float _angle) {  m_Module.FixedAngle = _angle; }
 
-
-
 public:
     virtual void UpdateData() override;
     virtual void finaltick() override;
     virtual void render() override;
 
+    CLONE(HYParticleSystem);
+
 public:
     HYParticleSystem();
+    HYParticleSystem(const HYParticleSystem& _OriginParticle);
     ~HYParticleSystem();
 };
 

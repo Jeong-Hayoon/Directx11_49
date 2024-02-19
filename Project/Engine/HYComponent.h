@@ -42,9 +42,11 @@ public:
 
     HYRenderComponent* GetRenderComponent() { return m_Owner->GetRenderComopnent(); }
 
+    virtual HYComponent* Clone() = 0;
 
 public:
     HYComponent(COMPONENT_TYPE _Type);
+    HYComponent(const HYComponent& _OriginComponent);
     ~HYComponent();
 
     friend class HYGameObject;

@@ -55,7 +55,7 @@ public:
     ~HYAsset();
 
     // override는 받았으나 Asset은 애초에 공유 개념이라서 Clone의 개념이 X
-    virtual HYAsset* Clone() { return nullptr; }
+    virtual HYAsset* Clone() = 0;
 
     // friend 선언 해주는 클래스들은 해당 클래스 private에 접근 가능
     friend class HYAssetMgr;

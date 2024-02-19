@@ -15,6 +15,8 @@ public:
     virtual void Overlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider);
     virtual void EndOverlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider);
 
+    CLONE(HYPlayerScript);
+
 public:
     HYPlayerScript();
     ~HYPlayerScript();
