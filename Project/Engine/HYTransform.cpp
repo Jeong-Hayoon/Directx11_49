@@ -37,10 +37,12 @@ void HYTransform::finaltick()
 	// 월드행렬은 이 세가지의 행렬을 모두 합한 것
 	m_matWorld = matScale * matRotX * matRotY * matRotZ * matTranslation;
 
-	// 물체의 방향값을 다시 계산한다.
-	m_arrLocalDir[(UINT)DIR_TYPE::RIGHT] = Vec3(1.f, 0.f, 0.f);
-	m_arrLocalDir[(UINT)DIR_TYPE::UP] = Vec3(0.f, 1.f, 0.f);
-	m_arrLocalDir[(UINT)DIR_TYPE::FRONT] = Vec3(0.f, 0.f, 1.f);
+	static const Vec3 arrAxis[3] =
+	{
+		Vec3(1.f, 0.f, 0.f),
+		Vec3(0.f, 1.f, 0.f),
+		Vec3(0.f, 0.f, 1.f)
+	};
 
 	// Vec3 를 Vec4 타입으로 확장해서 행렬을 적용시켜야 함
 	// XMVector3TransformCoord	- w 를 1로 확장(이동 적용)
@@ -50,7 +52,7 @@ void HYTransform::finaltick()
 	for (int i = 0; i < 3; ++i)
 	{
 		// m_matWorld 행렬에 크기정보가 있을 수 있기 때문에 다시 길이를 1로 정규화 시킨다.
-		m_arrLocalDir[i] = XMVector3TransformNormal(m_arrLocalDir[i], m_matWorld);
+		m_arrLocalDir[i] = XMVector3TransformNormal(arrAxis[i], m_matWorld);
 		m_arrWorldDir[i] = m_arrLocalDir[i].Normalize();
 
 	}
@@ -79,7 +81,7 @@ void HYTransform::finaltick()
 		for (int i = 0; i < 3; ++i)
 		{
 			// m_matWorld 행렬에 크기정보가 있을 수 있기 때문에 다시 길이를 1로 정규화 시킨다.
-			m_arrWorldDir[i] = XMVector3TransformNormal(m_arrWorldDir[i], m_matWorld);
+			m_arrWorldDir[i] = XMVector3TransformNormal(arrAxis[i], m_matWorld);
 			m_arrWorldDir[i].Normalize();
 		}
 	}

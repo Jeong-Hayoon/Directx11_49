@@ -23,6 +23,7 @@ HYCamera::HYCamera()
 	, m_AspectRatio(1.f)
 	, m_Far(10000.f)
 	, m_LayerCheck(0)
+	, m_CameraPriority(-1)
 {
 	Vec2 vResol = HYDevice::GetInst()->GetRenderResolution();
 
@@ -34,6 +35,13 @@ HYCamera::HYCamera()
 HYCamera::~HYCamera()
 {
 }
+
+void HYCamera::begin()
+{
+	// 카메라를 우선순위값에 맞게 RenderMgr 에 등록시킴
+	HYRenderMgr::GetInst()->RegisterCamera(this, m_CameraPriority);
+}
+
 
 // 뷰행렬, 투영행렬 생성
 void HYCamera::finaltick()
@@ -91,10 +99,11 @@ void HYCamera::finaltick()
 	g_Transform.matView = m_matView;
 	g_Transform.matProj = m_matProj;
 }
+
 // Camera의 우선 순위 지정
 void HYCamera::SetCameraPriority(int _Priority)
 {
-	HYRenderMgr::GetInst()->RegisterCamera(this, _Priority);
+	m_CameraPriority = _Priority;
 }
 
 // LayerIdx로 들어온 것은 Level을 알 필요가 없음

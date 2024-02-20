@@ -17,7 +17,7 @@ HYGameObject::HYGameObject()
 	: m_arrCom{}
 	, m_RenderCom(nullptr)
 	, m_Parent(nullptr)
-	, m_iLayerIdx(-1) // 어떠한 레벨(레이어) 소속되어있지 않은 상태
+	, m_iLayerIdx(-1)	// 어떠한 레벨(레이어) 소속되어있지 않은 상태
 	, m_bDead(false)
 {
 }
@@ -43,9 +43,13 @@ HYGameObject::HYGameObject(const HYGameObject& _OriginObject)
 		AddComponent(_OriginObject.m_vecScript[i]->Clone());
 	}
 
+	// 복사되는 GameObject 는 부모만 레이어소속을 -1 로 하고, 
+	// 자식들은 원본객체랑 동일한 레이어소속을 유지한다.
 	for (size_t i = 0; i < _OriginObject.m_vecChild.size(); ++i)
 	{
-		AddChild(_OriginObject.m_vecChild[i]->Clone());
+		HYGameObject* ChildClone = _OriginObject.m_vecChild[i]->Clone();
+		ChildClone->m_iLayerIdx = _OriginObject.m_vecChild[i]->m_iLayerIdx;
+		AddChild(ChildClone);
 	}
 }
 

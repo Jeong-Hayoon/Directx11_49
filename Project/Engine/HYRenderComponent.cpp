@@ -63,3 +63,4 @@ void HYRenderComponent::RestoreMaterial()
 {
 	m_CurMtrl = m_SharedMtrl;
 }
+

@@ -21,7 +21,10 @@
 #include "imgui_impl_dx11.h"
 
 #include "HYImGuiMgr.h"
+#include "HYEditorObjMgr.h"
 
+// 실제 게임 플레이 시 주석 해제
+// #define _RELEASE_GAME
 
 
 // #define MAX_LOADSTRING 100
@@ -65,9 +68,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
     }
 
+#ifndef _RELEASE_GAME
+    // EditorObjectManager 초기화
+    HYEditorObjMgr::GetInst()->init();
+
     // ImGui 초기화
     HYImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
-
+#endif
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -87,9 +94,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             // Engine Update
             HYEngine::GetInst()->progress();
 
+#ifndef _RELEASE_GAME
+            // EditorObj
+            HYEditorObjMgr::GetInst()->progress();
+
             // ImGui Update
             HYImGuiMgr::GetInst()->progress();
-
+#endif
             // Engine 및 ImGui 렌더링 최종 결과를 출력한다.
             HYDevice::GetInst()->Present();
         }

@@ -86,7 +86,7 @@ void HYLevelMgr::init()
 
 	m_CurLevel->AddObject(pCamObj, 0);
 
-	// Sub Camera
+	// Sub Camera(UI 카메라 생성)
 	pCamObj = new HYGameObject;
 	pCamObj->SetName(L"UICamera");
 	pCamObj->AddComponent(new HYTransform);
@@ -371,7 +371,7 @@ void HYLevelMgr::init()
 	delete m_CurLevel;
 	m_CurLevel = pNewLevel;*/
 
-	// Level 시작
+	// Level 시작(Play)
 	m_CurLevel->begin();
 
 }

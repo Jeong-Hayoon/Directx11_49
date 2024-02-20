@@ -63,6 +63,8 @@ void HYEngine::progress()
 	// Level Update
 	HYLevelMgr::GetInst()->tick();
 	HYCollisionMgr::GetInst()->tick();
+
+	// Render
 	HYRenderMgr::GetInst()->tick();
 
 	// GC

@@ -15,7 +15,7 @@ HYLayer::HYLayer(const HYLayer& _OriginLayer)
 {
 	for (size_t i = 0; i < _OriginLayer.m_vecParent.size(); ++i)
 	{
-		m_vecParent.push_back(_OriginLayer.m_vecParent[i]->Clone());
+		AddObject(_OriginLayer.m_vecParent[i]->Clone(), false);
 	}
 }
 
