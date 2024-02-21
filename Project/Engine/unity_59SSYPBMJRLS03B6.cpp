@@ -30,9 +30,6 @@
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Engine\HYCamera.cpp"
 
 
-#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Engine\HYCameraMoveScript.cpp"
-
-
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Engine\HYCollider2D.cpp"
 
 
@@ -70,4 +67,7 @@
 
 
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Engine\HYLayer.cpp"
+
+
+#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Engine\HYLevel.cpp"
 

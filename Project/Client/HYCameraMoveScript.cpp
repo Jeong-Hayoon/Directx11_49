@@ -39,17 +39,17 @@ void HYCameraMoveScript::tick()
 	if (KEY_PRESSED(KEY::NUM1))
 	{
 		if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC)
-			Camera()->SetScale(Camera()->GetScale() + DT * 0.2f);
+			Camera()->SetScale(Camera()->GetScale() + DT_ENGINE * 0.2f);
 		else
-			Camera()->SetFOV(Camera()->GetFOV() + DT * 2.f);
+			Camera()->SetFOV(Camera()->GetFOV() + DT_ENGINE * 2.f);
 	}
 
 	if (KEY_PRESSED(KEY::NUM2))
 	{
 		if (Camera()->GetProjType() == PROJ_TYPE::ORTHOGRAPHIC)
-			Camera()->SetScale(Camera()->GetScale() - DT * 0.2f);
+			Camera()->SetScale(Camera()->GetScale() - DT_ENGINE * 0.2f);
 		else
-			Camera()->SetFOV(Camera()->GetFOV() - DT * 2.f);
+			Camera()->SetFOV(Camera()->GetFOV() - DT_ENGINE * 2.f);
 	}
 }
 
@@ -61,22 +61,22 @@ void HYCameraMoveScript::MoveOrthographic()
 	// 
 	if (KEY_PRESSED(KEY::W))
 	{
-		vPos.y += DT * m_CamSpeed;
+		vPos.y += DT_ENGINE * m_CamSpeed;
 	}
 
 	if (KEY_PRESSED(KEY::S))
 	{
-		vPos.y -= DT * m_CamSpeed;
+		vPos.y -= DT_ENGINE * m_CamSpeed;
 	}
 
 	if (KEY_PRESSED(KEY::A))
 	{
-		vPos.x -= DT * m_CamSpeed;
+		vPos.x -= DT_ENGINE * m_CamSpeed;
 	}
 
 	if (KEY_PRESSED(KEY::D))
 	{
-		vPos.x += DT * m_CamSpeed;
+		vPos.x += DT_ENGINE * m_CamSpeed;
 	}
 
 	Transform()->SetRelativePos(vPos);
@@ -93,22 +93,22 @@ void HYCameraMoveScript::MovePerspective()
 	// WS ╬у╣з AD аб©Л
 	if (KEY_PRESSED(KEY::W))
 	{
-		vPos += DT * m_CamSpeed * vFront;
+		vPos += DT_ENGINE * m_CamSpeed * vFront;
 	}
 
 	if (KEY_PRESSED(KEY::S))
 	{
-		vPos += DT * m_CamSpeed * -vFront;
+		vPos += DT_ENGINE * m_CamSpeed * -vFront;
 	}
 
 	if (KEY_PRESSED(KEY::A))
 	{
-		vPos += DT * m_CamSpeed * -vRight;
+		vPos += DT_ENGINE * m_CamSpeed * -vRight;
 	}
 
 	if (KEY_PRESSED(KEY::D))
 	{
-		vPos += DT * m_CamSpeed * vRight;
+		vPos += DT_ENGINE * m_CamSpeed * vRight;
 	}
 
 	Transform()->SetRelativePos(vPos);
@@ -118,8 +118,8 @@ void HYCameraMoveScript::MovePerspective()
 	{
 		Vec2 vDrag = HYKeyMgr::GetInst()->GetMouseDrag();
 		Vec3 vRot = Transform()->GetRelativeRotation();
-		vRot.y += vDrag.x * DT * XM_PI * 4.f;
-		vRot.x += vDrag.y * DT * XM_PI * 4.f;
+		vRot.y += vDrag.x * DT_ENGINE * XM_PI * 4.f;
+		vRot.x += vDrag.y * DT_ENGINE * XM_PI * 4.f;
 		Transform()->SetRelativeRotation(vRot);
 	}
 }

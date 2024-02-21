@@ -3,13 +3,13 @@
 		  
 #include "HYDevice.h"
 #include "HYAssetMgr.h"
+#include "HYTaskMgr.h"
 		  
 #include "HYLevel.h"
 #include "HYLayer.h"
 #include "HYGameObject.h"
 #include "components.h"
 #include "HYPlayerScript.h"
-#include "HYCameraMoveScript.h"
 #include "HYBackgroundScript.h"
 #include "HYSpotLightScript.h"
 		  
@@ -74,7 +74,6 @@ void HYLevelMgr::init()
 	pCamObj->SetName(L"MainCamera");
 	pCamObj->AddComponent(new HYTransform);
 	pCamObj->AddComponent(new HYCamera);
-	pCamObj->AddComponent(new HYCameraMoveScript);
 
 	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
 	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
@@ -226,7 +225,7 @@ void HYLevelMgr::init()
 	// Player Clone
 	pObj = pObj->Clone();
 	pObj->Transform()->SetRelativePos(Vec3(-500.f, 0.f, 500.f));
-	m_CurLevel->AddObject(pObj, L"Player", false);
+	// m_CurLevel->AddObject(pObj, L"Player", false);
 
 	// Particle Object Clone
 	HYGameObject* pParticleObj = new HYGameObject;
@@ -240,8 +239,14 @@ void HYLevelMgr::init()
 
 	pParticleObj = pParticleObj->Clone();
 	pParticleObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 200.f));
-	m_CurLevel->AddObject(pParticleObj, L"Default", false);
+	//m_CurLevel->AddObject(pParticleObj, L"Default", false);
 
+	// 자식이 있는 오브젝트의 복제 Test
+	pObj->AddChild(pParticleObj);
+	m_CurLevel->AddObject(pObj, L"Default", false);
+
+	HYGameObject* pCloneObj = pObj->Clone();
+	m_CurLevel->AddObject(pCloneObj, L"Default", false);
 
 	// Monster Object 생성
 	pObj = new HYGameObject;
@@ -367,9 +372,9 @@ void HYLevelMgr::init()
 	m_CurLevel->AddObject(pObj, L"Player", false);
 
 	// Level Clone Test -> 실패
-	/*CLevel* pNewLevel = m_CurLevel->Clone();
+	HYLevel* pNewLevel = m_CurLevel->Clone();
 	delete m_CurLevel;
-	m_CurLevel = pNewLevel;*/
+	m_CurLevel = pNewLevel;
 
 	// Level 시작(Play)
 	m_CurLevel->begin();
@@ -390,3 +395,14 @@ void HYLevelMgr::tick()
 	m_CurLevel->finaltick();
 }
 
+// Level의 상태를 변경시켜달라고 TaskMgr에게 요청
+void HYLevelMgr::ChangeLevelState(LEVEL_STATE _State)
+{
+	tTask task = {};
+
+	task.Type = TASK_TYPE::CHANGE_LEVELSTATE;
+	task.Param_1 = (DWORD_PTR)m_CurLevel;
+	task.Param_2 = (DWORD_PTR)_State;
+
+	HYTaskMgr::GetInst()->AddTask(task);
+}

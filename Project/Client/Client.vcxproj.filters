@@ -108,6 +108,9 @@
     <Filter Include="01. Manager\02. EditorObjMgr\GameObjectEx">
       <UniqueIdentifier>{168f4def-da3b-44c6-8974-d58a6a84e8e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scripts">
+      <UniqueIdentifier>{96d46312-f7d8-4deb-93ee-033ca9064207}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -239,6 +242,9 @@
     <ClInclude Include="HYEditorObjMgr.h">
       <Filter>01. Manager\02. EditorObjMgr</Filter>
     </ClInclude>
+    <ClInclude Include="HYCameraMoveScript.h">
+      <Filter>03. Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -358,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="HYEditorObjMgr.cpp">
       <Filter>01. Manager\02. EditorObjMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYCameraMoveScript.cpp">
+      <Filter>03. Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

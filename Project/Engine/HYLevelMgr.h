@@ -16,6 +16,9 @@ public:
     void tick();
 
 public:
+    void ChangeLevelState(LEVEL_STATE _State);
+
+public:
     HYLevel* GetCurrentLevel() { return m_CurLevel; }
 };
 

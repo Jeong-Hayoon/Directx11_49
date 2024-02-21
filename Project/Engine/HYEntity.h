@@ -15,8 +15,8 @@ private:
 
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
-	const wstring& GetName() { return m_strName; }
-	UINT GetID() { return m_ID; }
+	const wstring& GetName() const { return m_strName; }
+	UINT GetID() const { return m_ID; }
 
 	// 본인 스스로의 복제를 주는 함수
 	virtual HYEntity* Clone() = 0;

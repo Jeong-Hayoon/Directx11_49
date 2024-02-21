@@ -17,28 +17,35 @@ class HYRenderMgr :
     SINGLE(HYRenderMgr);
 private:
     // 우선순위에 따라 벡터에 순차적으로 나열
-    vector<HYCamera*>       m_vecCam;
+    vector<HYCamera*>           m_vecCam;
+
+    HYCamera*                   m_EditorCam;
 
     // 후처리용 텍스처 -> 리소스를 로딩할 필요가 없음 => 메모리 상에 텍스처 생성
-    Ptr<HYTexture>           m_PostProcessTex;
+    Ptr<HYTexture>              m_PostProcessTex;
 
     // 구조화 버퍼
-    HYStructuredBuffer*     m_Light2DBuffer;
+    HYStructuredBuffer*         m_Light2DBuffer;
+
     // 광원 2D 정보를 모아놓는 벡터
-    vector<HYLight2D*>       m_vecLight2D;
+    vector<HYLight2D*>          m_vecLight2D;
 
 
     // 유지 시간이 어떻게 될지 모르니까 list
-    list<tDebugShapeInfo>   m_DbgShapeInfo;
+    list<tDebugShapeInfo>       m_DbgShapeInfo;
 
     // 디버그용 물체
-    HYGameObject* m_pDebugObj;
+    HYGameObject*               m_pDebugObj;
 
     // 캐릭터의 위치 값 표시 여부
-    bool                    m_DebugPosition;
+    bool                        m_DebugPosition;
 
     // NoiseTexture
-    vector<Ptr<HYTexture>>   m_vecNoiseTex;
+    vector<Ptr<HYTexture>>      m_vecNoiseTex;
+
+    // render function pointer(render_play or render_editor)
+    typedef void(HYRenderMgr::* RENDER_FUNC)(void);
+    RENDER_FUNC             m_RenderFunc;
 
 
 public:
@@ -53,11 +60,23 @@ public:
     void SetDebugPosition(bool _OnOff) { m_DebugPosition = _OnOff; }
     bool IsDebugPosition() { return m_DebugPosition; }
     
-    // 광원을 등록시키는 함수 
+    // 광원 등록
     void RegisterLight2D(HYLight2D* _Light2D) { m_vecLight2D.push_back(_Light2D); }
 
     void CopyRenderTargetToPostProcessTarget();
     Ptr<HYTexture> GetPostProcessTex() { return m_PostProcessTex; }
+
+    // 에디터 카메라 등록
+    void RegisterEditorCamera(HYCamera* _Cam) { m_EditorCam = _Cam; }
+
+    // 랜더링 모드 설정
+    void ActiveEditorMode(bool _bActive)
+    {
+        if (_bActive)
+            m_RenderFunc = &HYRenderMgr::render_editor;
+        else
+            m_RenderFunc = &HYRenderMgr::render_play;
+    }
 
 public:
     void init();
@@ -65,7 +84,9 @@ public:
     void tick();
 
 private:
-    void render();
+    void render_play();
+    void render_editor();
+
     void render_debug();
 
     // 리소스 바인딩

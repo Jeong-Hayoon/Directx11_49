@@ -247,9 +247,6 @@
     <ClInclude Include="HYCamera.h">
       <Filter>08. Component\08. Camera</Filter>
     </ClInclude>
-    <ClInclude Include="HYCameraMoveScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="HYTexture.h">
       <Filter>06. Asset\Texture</Filter>
     </ClInclude>
@@ -389,9 +386,6 @@
     </ClCompile>
     <ClCompile Include="extern.cpp">
       <Filter>01. Header</Filter>
-    </ClCompile>
-    <ClCompile Include="HYCameraMoveScript.cpp">
-      <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="HYTexture.cpp">
       <Filter>06. Asset\Texture</Filter>

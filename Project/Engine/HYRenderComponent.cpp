@@ -19,6 +19,9 @@ HYRenderComponent::HYRenderComponent(const HYRenderComponent& _OriginRenderCom)
 
 		// 복사 렌더 컴포넌트도 별도의 동적재질을 생성한다.
 		GetDynamicMaterial();
+
+		// 원본 렌더컴포넌트의 동적재질 값을 현재 생성한 동적재질로 복사한다.(파라미터 대입)
+		*m_DynamicMtrl.Get() = *_OriginRenderCom.m_DynamicMtrl.Get();
 	}
 	else
 	{

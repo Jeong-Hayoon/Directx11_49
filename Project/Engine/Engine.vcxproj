@@ -177,7 +177,6 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYAssetMgr.h" />
     <ClInclude Include="HYBackgroundScript.h" />
     <ClInclude Include="HYCamera.h" />
-    <ClInclude Include="HYCameraMoveScript.h" />
     <ClInclude Include="HYCollider2D.h" />
     <ClInclude Include="HYCollisionMgr.h" />
     <ClInclude Include="HYComponent.h" />
@@ -234,7 +233,6 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYAsssetMgr_init.cpp" />
     <ClCompile Include="HYBackgroundScript.cpp" />
     <ClCompile Include="HYCamera.cpp" />
-    <ClCompile Include="HYCameraMoveScript.cpp" />
     <ClCompile Include="HYCollider2D.cpp" />
     <ClCompile Include="HYCollisionMgr.cpp" />
     <ClCompile Include="HYComponent.cpp" />

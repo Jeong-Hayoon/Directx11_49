@@ -48,8 +48,8 @@ HYGameObject::HYGameObject(const HYGameObject& _OriginObject)
 	for (size_t i = 0; i < _OriginObject.m_vecChild.size(); ++i)
 	{
 		HYGameObject* ChildClone = _OriginObject.m_vecChild[i]->Clone();
-		ChildClone->m_iLayerIdx = _OriginObject.m_vecChild[i]->m_iLayerIdx;
 		AddChild(ChildClone);
+		ChildClone->m_iLayerIdx = _OriginObject.m_vecChild[i]->m_iLayerIdx;
 	}
 }
 
@@ -155,11 +155,6 @@ void HYGameObject::render()
 	if (nullptr != m_RenderCom)
 	{
 		m_RenderCom->render();
-	}
-
-	for (size_t i = 0; i < m_vecChild.size(); ++i)
-	{
-		m_vecChild[i]->render();
 	}
 }
 

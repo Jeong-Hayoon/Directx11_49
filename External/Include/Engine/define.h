@@ -12,9 +12,13 @@
 
 // 키매니저 매크로
 #define KEY_CHECK(Key, State) HYKeyMgr::GetInst()->GetKeyState(Key) == State
+
 #define DT	HYTimeMgr::GetInst()->GetDeltaTime()
 // double
 #define DTd	HYTimeMgr::GetInst()->GetDeltaTime_d()
+
+#define DT_ENGINE	HYTimeMgr::GetInst()->GetEngineDeltaTime()
+#define DTd_ENGINE	HYTimeMgr::GetInst()->GetEngineDeltaTime_d()
 
 #define KEY_TAP(Key) KEY_CHECK(Key, TAP)
 #define KEY_PRESSED(Key) KEY_CHECK(Key, PRESSED)
@@ -232,4 +236,13 @@ enum class PARTICLE_MODULE
 	RENDER,					// 렌더링 때의 옵션 관련
 
 	END,
+};
+
+// 레벨의 상태
+enum class LEVEL_STATE
+{
+	PLAY,		// tick, DT 동작, Main Camera Object는 Player를 따라 다님
+	PAUSE,
+	STOP,		// 시작했을 때 처음 상태, tick 동작 X, DT == 0 -> 초기 상태로 돌아갈 때
+	NONE,
 };

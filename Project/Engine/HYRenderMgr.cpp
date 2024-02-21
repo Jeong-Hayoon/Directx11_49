@@ -16,8 +16,12 @@ HYRenderMgr::HYRenderMgr()
 	: m_pDebugObj(nullptr)
 	, m_DebugPosition(true)
 	, m_Light2DBuffer(nullptr)
+	, m_EditorCam(nullptr)
+	, m_RenderFunc(nullptr)
 
 {
+	// 기본적으로는 render_play
+	m_RenderFunc = &HYRenderMgr::render_play;
 }
 
 HYRenderMgr::~HYRenderMgr()
@@ -31,28 +35,30 @@ HYRenderMgr::~HYRenderMgr()
 
 void HYRenderMgr::tick()
 {
+	// 렌더타겟 및 깊이 타겟 설정
+	// OM(Output Merge State) 에 RenderTargetTexture 와 DepthStencilTexture 를 전달한다.
+	// 랜더타겟 텍스처와 깊이 텍스처의 해상도는 동일해야 함
+	Ptr<HYTexture> pRTTex = HYAssetMgr::GetInst()->FindAsset<HYTexture>(L"RenderTargetTex");
+	Ptr<HYTexture> pDSTex = HYAssetMgr::GetInst()->FindAsset<HYTexture>(L"DepthStencilTex");
+	CONTEXT->OMSetRenderTargets(1, pRTTex->GetRTV().GetAddressOf(), pDSTex->GetDSV().Get());
+
 	Vec4 vClearColor = Vec4(0.3f, 0.3f, 0.3f, 1.f);
 	HYDevice::GetInst()->ClearRenderTarget(vClearColor);
 
 	// 구조화 버퍼로 옮기고 특정 레지스터에서 리소스 바인딩하여 보냄
 	UpdateData();
 
-	render();
+	// 함수 포인터가 가리키고 있는 render 함수 호출
+	(this->*m_RenderFunc)();
+
 	render_debug();
 
 	// 매 프레임마다 등록될거니까 clear시켜줘야 함
 	Clear();
 }
 
-void HYRenderMgr::render()
+void HYRenderMgr::render_play()
 {
-	// OM(Output Merge State) 에 RenderTargetTexture 와 DepthStencilTexture 를 전달한다.
-	// 랜더타겟 텍스처와 깊이 텍스처의 해상도는 동일해야 함
-	// 렌더타겟 및 깊이 타겟 설정
-	Ptr<HYTexture> pRTTex = HYAssetMgr::GetInst()->FindAsset<HYTexture>(L"RenderTargetTex");
-	Ptr<HYTexture> pDSTex = HYAssetMgr::GetInst()->FindAsset<HYTexture>(L"DepthStencilTex");
-	CONTEXT->OMSetRenderTargets(1, pRTTex->GetRTV().GetAddressOf(), pDSTex->GetDSV().Get());
-
 	for (size_t i = 0; i < m_vecCam.size(); ++i)
 	{
 		m_vecCam[i]->SortObject();
@@ -60,8 +66,20 @@ void HYRenderMgr::render()
 	}
 }
 
+void HYRenderMgr::render_editor()
+{
+	if (nullptr == m_EditorCam)
+		return;
+
+	m_EditorCam->SortObject();
+	m_EditorCam->render();
+}
+
 void HYRenderMgr::render_debug()
 {
+	if (m_vecCam.empty())
+		return;
+
 	// 이 작업을 해줘야 Main Camera의 View 행렬, Projection 행렬이 적용될 수 있음
 	g_Transform.matView = m_vecCam[0]->GetViewMat();
 	g_Transform.matProj = m_vecCam[0]->GetProjMat();

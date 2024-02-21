@@ -50,7 +50,7 @@ public:
     // 모든 Component가 가상함수로 가지고 있을 필요가 없음
     void begin();
     void tick();
-    void finaltick();
+    virtual void finaltick();
     void render();
 
 public:

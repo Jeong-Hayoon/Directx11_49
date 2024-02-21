@@ -37,6 +37,7 @@ void HYTransform::finaltick()
 	// 월드행렬은 이 세가지의 행렬을 모두 합한 것
 	m_matWorld = matScale * matRotX * matRotY * matRotZ * matTranslation;
 
+	// static이기 때문에 딱 한 번만 초기화되고 Transform::finaltick에서만 접근할 수 있는 전역 변수
 	static const Vec3 arrAxis[3] =
 	{
 		Vec3(1.f, 0.f, 0.f),
@@ -54,7 +55,6 @@ void HYTransform::finaltick()
 		// m_matWorld 행렬에 크기정보가 있을 수 있기 때문에 다시 길이를 1로 정규화 시킨다.
 		m_arrLocalDir[i] = XMVector3TransformNormal(arrAxis[i], m_matWorld);
 		m_arrWorldDir[i] = m_arrLocalDir[i].Normalize();
-
 	}
 
 	// 부모 오브젝트가 있다면

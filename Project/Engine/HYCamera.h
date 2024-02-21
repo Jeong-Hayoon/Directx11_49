@@ -9,7 +9,6 @@ enum class PROJ_TYPE
     END
 };
 
-
 // 카메라를 매니저가 아닌 카메라 역할 하는 오브젝트가 카메라로 취급
 // 앞으로 랜더링 기능은 카메라가 함
 class HYCamera :
@@ -37,10 +36,7 @@ private:
 
     int         m_CameraPriority;   // Camera 우선 순위 기록
 
-
-
     map<string, PROJ_TYPE>   m_mapCameraType[(UINT)PROJ_TYPE::END];
-
 
     // 물체 분류
     vector<HYGameObject*>    m_vecOpaque;
@@ -60,7 +56,6 @@ public:
 
     float GetFar() { return m_Far; }
     void SetFar(float _Far) { m_Far = _Far; }
-
 
     // View, Projection 행렬을 반환해주는 함수
     const Matrix& GetViewMat() { return m_matView; }

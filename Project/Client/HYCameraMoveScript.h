@@ -1,5 +1,7 @@
 #pragma once
-#include "HYScript.h"
+
+#include <Engine/HYScript.h>
+
 class HYCameraMoveScript :
     public HYScript
 {

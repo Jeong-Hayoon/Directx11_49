@@ -27,6 +27,15 @@
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\GraphicsShaderUI.cpp"
 
 
+#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\HYCameraMoveScript.cpp"
+
+
+#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\HYEditorObjMgr.cpp"
+
+
+#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\HYGameObjectEx.cpp"
+
+
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\HYImGuiMgr.cpp"
 
 
@@ -49,10 +58,4 @@
 
 
 #include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\imgui_widgets.cpp"
-
-
-#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\Inspector.cpp"
-
-
-#include "C:\Users\User\Desktop\Directx11_2D\Directx11_49\Project\Client\Inspector_init.cpp"
 

@@ -30,9 +30,23 @@ public:
 	void* GetScalarParam(SCALAR_PARAM _ParamType);
 	Ptr<HYTexture> GetTexParam(TEX_PARAM _ParamType) { return m_arrTex[(UINT)_ParamType]; }
 
-
     // Material이 들고 있는 데이터를 GPU로 보내는 함수
     void UpdateData();
+
+	// 재질의 파라미터 대입(재질 복사)
+	void operator = (const HYMaterial& _OtherMtrl)
+	{
+		SetName(_OtherMtrl.GetName());
+
+		m_Const = _OtherMtrl.m_Const;
+
+		for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
+		{
+			m_arrTex[i] = _OtherMtrl.m_arrTex[i];
+		}
+
+		m_pShader = _OtherMtrl.m_pShader;
+	}
 
 	virtual int Save(const wstring& _strRelativePath);
 	virtual int Load(const wstring& _strFilePath);
