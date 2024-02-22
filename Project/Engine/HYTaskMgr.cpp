@@ -64,6 +64,11 @@ void HYTaskMgr::tick()
 					queue.push_back(pObject->m_vecChild[i]);
 				}
 			}
+
+			if (m_DeleteFrameCount == 0)
+				++m_DeleteFrameCount;
+			else if (m_DeleteFrameCount == 2)
+				m_DeleteFrameCount = 1;
 		}
 		break;
 
