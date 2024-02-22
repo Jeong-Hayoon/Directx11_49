@@ -1,12 +1,16 @@
 #include "pch.h"
-#include "HYTaskMgr.h"
 
+#include "HYTaskMgr.h"
 #include "HYLevelMgr.h"
 #include "HYLevel.h"
 #include "HYGameObject.h"
 #include "HYComponent.h"
 
+#include "HYAssetMgr.h"
+
 HYTaskMgr::HYTaskMgr()
+	: m_bCreateObject(false)
+	, m_bDeleteObject(false)
 {
 }
 
@@ -16,6 +20,8 @@ HYTaskMgr::~HYTaskMgr()
 
 void HYTaskMgr::tick()
 {
+	Clear();
+
 	for (size_t i = 0; i < m_vecTask.size(); ++i)
 	{
 		switch (m_vecTask[i].Type)
@@ -28,6 +34,8 @@ void HYTaskMgr::tick()
 			// 현재 레벨에 넣으려는 Object를 AddObject
 			HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
 			pCurLevel->AddObject(Object, LayerIdx, true);
+
+			m_bCreateObject = true;
 
 			/*if (LEVEL_STATE::PLAY == pCurLevel->GetState())
 			{
@@ -56,9 +64,18 @@ void HYTaskMgr::tick()
 					queue.push_back(pObject->m_vecChild[i]);
 				}
 			}
-
 		}
 		break;
+
+		case TASK_TYPE::ADD_ASSET:
+		{
+			// Param1 : Asset Address
+			HYAsset* pAsset = (HYAsset*)m_vecTask[i].Param_1;
+			HYAssetMgr::GetInst()->AddAsset(pAsset->GetName(), pAsset);
+			m_bAssetChange = true;
+		}
+		break;
+
 		case TASK_TYPE::CHANGE_LEVELSTATE:
 		{
 			HYLevel* pLevel = (HYLevel*)m_vecTask[i].Param_1;
@@ -84,4 +101,23 @@ void HYTaskMgr::tick()
 	}
 
 	m_vecTask.clear();
+}
+
+void HYTaskMgr::Clear()
+{
+	m_bCreateObject = false;
+
+	// 억지
+	if (1 == m_DeleteFrameCount)
+	{
+		++m_DeleteFrameCount;
+		m_bDeleteObject = true;
+	}
+	else if (2 <= m_DeleteFrameCount)
+	{
+		m_DeleteFrameCount = 0;
+		m_bDeleteObject = false;
+	}
+
+	m_bAssetChange = false;
 }

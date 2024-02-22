@@ -13,6 +13,19 @@ HYAssetMgr::~HYAssetMgr()
 {
 }
 
+// AddAsset 일반 함수 버전
+void HYAssetMgr::AddAsset(const wstring& _strKey, HYAsset* _Asset)
+{
+	ASSET_TYPE Type = _Asset->GetType();
+
+	map<wstring, Ptr<HYAsset>>::iterator iter = m_mapAsset[(UINT)Type].find(_strKey);
+	assert(iter == m_mapAsset[(UINT)Type].end());
+
+	_Asset->SetKey(_strKey);
+	_Asset->SetRelativePath(_strKey);
+	m_mapAsset[(UINT)Type].insert(make_pair(_strKey, _Asset));
+}
+
 Ptr<HYTexture> HYAssetMgr::CreateTexture(const wstring& _strKey, 
 										UINT _Width, UINT _Height, DXGI_FORMAT _Format,
 										UINT _Flag, D3D11_USAGE _Usage)

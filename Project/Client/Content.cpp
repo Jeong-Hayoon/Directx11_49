@@ -2,7 +2,7 @@
 #include "Content.h"
 
 #include <Engine/HYAssetMgr.h>
-
+#include <Engine/HYTaskMgr.h>
 
 #include "HYImGuiMgr.h"
 #include "Inspector.h"
@@ -29,6 +29,10 @@ Content::~Content()
 
 void Content::render_update()
 {
+	if (HYTaskMgr::GetInst()->GetAssetEvent())
+	{
+		ResetContent();
+	}
 }
 
 

@@ -69,6 +69,7 @@ public:
     // 에디터 카메라 등록
     void RegisterEditorCamera(HYCamera* _Cam) { m_EditorCam = _Cam; }
 
+    // 랜더링 모드 설정
     void ActiveEditorMode(bool _bActive)
     {
         if (_bActive)

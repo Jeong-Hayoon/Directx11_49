@@ -10,6 +10,9 @@ enum class TASK_TYPE
 	// Param1 : Object Adress
 	DELETE_OBJECT,
 
+	// Param1 : Asset Adress, Param2 : Asset 
+	ADD_ASSET,
+
 	// Param1 : Level(상태가 바뀔), Param2 : LEVEL_STATE(바뀔 Level의 상태)
 	CHANGE_LEVELSTATE,
 
@@ -38,6 +41,12 @@ class HYTaskMgr
 private:
 	vector<tTask>	m_vecTask;
 
+	bool			m_bCreateObject;
+	bool			m_bDeleteObject;
+	bool			m_bAssetChange;
+
+	int				m_DeleteFrameCount;
+
 public:
 	void tick();
 
@@ -45,5 +54,12 @@ public:
 	{
 		m_vecTask.push_back(_Task);
 	}
+
+	bool GetObjectEvent() { return m_bCreateObject || m_bDeleteObject; }
+	bool GetAssetEvent() { return m_bAssetChange; }
+
+private:
+	void Clear();
+
 };
 

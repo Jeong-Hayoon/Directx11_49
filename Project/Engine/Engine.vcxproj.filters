@@ -11,9 +11,6 @@
     <Filter Include="02. Engine">
       <UniqueIdentifier>{49934e54-386b-4191-a9c7-07596824403b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Device">
-      <UniqueIdentifier>{7b7407a9-5571-4060-a76b-07e963b1b0d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity">
       <UniqueIdentifier>{a00e1c85-d243-48aa-a89e-ff80676a3752}</UniqueIdentifier>
     </Filter>
@@ -58,9 +55,6 @@
     </Filter>
     <Filter Include="08. Component\08. Camera">
       <UniqueIdentifier>{0e6f1a77-d8d7-43d8-a85a-48bfec3a17a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Device\ConstBuffer">
-      <UniqueIdentifier>{5cce5788-888b-4100-9523-85a05814f3b4}</UniqueIdentifier>
     </Filter>
     <Filter Include="08. Component\RenderComponent">
       <UniqueIdentifier>{e5759e32-a2ed-4549-b8ad-7d32c131efac}</UniqueIdentifier>
@@ -128,9 +122,6 @@
     <Filter Include="08. Component\04. Animator2D\Anim">
       <UniqueIdentifier>{62835934-68b1-4612-a226-685e8be0a52b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Device\StructuredBuffer">
-      <UniqueIdentifier>{284b76de-36eb-4ba6-8ef9-f3037b42cf01}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ShaderCode\Util">
       <UniqueIdentifier>{88849bbf-fe13-4f8a-bc45-838933e49f4b}</UniqueIdentifier>
     </Filter>
@@ -148,6 +139,15 @@
     </Filter>
     <Filter Include="06. Asset\Prefab">
       <UniqueIdentifier>{a93f1990-0247-4e97-ba7b-f65a3e048b01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Device">
+      <UniqueIdentifier>{7b7407a9-5571-4060-a76b-07e963b1b0d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Device\ConstBuffer">
+      <UniqueIdentifier>{5cce5788-888b-4100-9523-85a05814f3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Device\StructuredBuffer">
+      <UniqueIdentifier>{284b76de-36eb-4ba6-8ef9-f3037b42cf01}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

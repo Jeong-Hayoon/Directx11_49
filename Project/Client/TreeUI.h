@@ -109,6 +109,12 @@ public:
 
 
 public:
+
+    TreeNode* GetRootNode() { return m_Root; }
+
+    // 클릭한 노드를 반환해주는 함수
+    TreeNode* GetSelectedNode() { return m_Selected; }
+
     // _Inst는 Content, Outliner, Inspector와 같은 UI 자체가 들어감
     void AddSelectDelegate(UI* _Inst, Delegate_1 _pFunc) { m_SelectInst = _Inst; m_SelectFunc = _pFunc; }
 

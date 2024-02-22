@@ -371,13 +371,16 @@ void HYLevelMgr::init()
 	pObj->AddChild(pParticleObj);
 	m_CurLevel->AddObject(pObj, L"Player", false);
 
-	// Level Clone Test -> 실패
+	// Level Clone Test 
 	HYLevel* pNewLevel = m_CurLevel->Clone();
 	delete m_CurLevel;
 	m_CurLevel = pNewLevel;
 
 	// Level 시작(Play)
 	m_CurLevel->begin();
+
+	// 처음의 한 프레임이 붕 떠버리기 때문에 일단 TaskMgr로 처리하지 않고 직접 호출
+	m_CurLevel->ChangeState(LEVEL_STATE::STOP);
 
 }
 

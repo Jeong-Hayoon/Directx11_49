@@ -5,6 +5,8 @@
 #include <Engine/HYLevel.h>
 #include <Engine/HYLayer.h>
 #include <Engine/HYGameObject.h>
+#include <Engine/HYKeyMgr.h>
+#include <Engine/HYTaskMgr.h>
 
 #include "HYImGuiMgr.h"
 #include "Inspector.h"
@@ -37,6 +39,21 @@ Outliner::~Outliner()
 
 void Outliner::render_update()
 {
+	if (HYTaskMgr::GetInst()->GetObjectEvent())
+	{
+		ResetCurrentLevel();
+	}
+
+	if (KEY_TAP(KEY::DEL))
+	{
+		// 선택된 노드의 데이터에 접근하여 게임 오브젝트 삭제
+		TreeNode* pNode = m_Tree->GetSelectedNode();
+		if (nullptr != pNode)
+		{
+			HYGameObject* pSelectObj = (HYGameObject*)pNode->GetData();
+			GamePlayStatic::DestroyGameObject(pSelectObj);
+		}
+	}
 }
 
 // 현재 레벨의 상태를 확인할 수 있는 함수

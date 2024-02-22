@@ -43,6 +43,8 @@ public:
     template<typename T>
     void AddAsset(const wstring& _strKey, T* _Asset);
 
+    void AddAsset(const wstring& _strKey, HYAsset* _Asset);
+
     // Asset을 찾아오는 기능
     template<typename T>
     Ptr<T> FindAsset(const wstring& _strKey);
@@ -107,6 +109,8 @@ inline void HYAssetMgr::AddAsset(const wstring& _strKey, T* _Asset)
     _Asset->SetKey(_strKey);
     m_mapAsset[(UINT)Type].insert(make_pair(_strKey, _Asset));
 }
+
+
 
 template<typename T>
 Ptr<T> HYAssetMgr::FindAsset(const wstring& _strKey)

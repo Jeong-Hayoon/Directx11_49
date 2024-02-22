@@ -1,11 +1,14 @@
 #pragma once
 
 class HYGameObject;
+class HYAsset;
 
 namespace GamePlayStatic
 {
 	void SpawnGameObject(HYGameObject* _Target, int _LayerIdx);
 	void DestroyGameObject(HYGameObject* _Target);
+
+	void AddAsset(HYAsset* _Asset);
 
 	// Debug Shape 관련 함수(월드행렬을 인자로 주는 경우, 따로 행렬 정보를 계산해놓지 않고 행렬 정보를 전부 전달하는 경우)
 	// _Duration의 Default 인자가 0 -> 1Frame만 존재하게 하고 싶을 때(tick처럼 매번 호출되는 곳에서는 Default값을 사용하는 것이 좋음 -> 안그러면 엄청 많이 누적됨)

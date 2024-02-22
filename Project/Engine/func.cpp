@@ -22,7 +22,14 @@ void GamePlayStatic::DestroyGameObject(HYGameObject* _Target)
 	task.Type = TASK_TYPE::DELETE_OBJECT;
 	task.Param_1 = (DWORD_PTR)_Target;
 	HYTaskMgr::GetInst()->AddTask(task);
+}
 
+void GamePlayStatic::AddAsset(HYAsset* _Asset)
+{
+	tTask task = {};
+	task.Type = TASK_TYPE::ADD_ASSET;
+	task.Param_1 = (DWORD_PTR)_Asset;
+	HYTaskMgr::GetInst()->AddTask(task);
 }
 
 void GamePlayStatic::DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration)
