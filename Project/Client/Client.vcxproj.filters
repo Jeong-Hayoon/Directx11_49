@@ -111,6 +111,9 @@
     <Filter Include="03. Scripts">
       <UniqueIdentifier>{96d46312-f7d8-4deb-93ee-033ca9064207}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Manager\03. CreateTempLevel">
+      <UniqueIdentifier>{2e46dcac-a872-47a7-a0de-1cb078dc5382}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -245,6 +248,9 @@
     <ClInclude Include="HYCameraMoveScript.h">
       <Filter>03. Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="HYCreateTempLevel.h">
+      <Filter>01. Manager\03. CreateTempLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -367,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="HYCameraMoveScript.cpp">
       <Filter>03. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYCreateTempLevel.cpp">
+      <Filter>01. Manager\03. CreateTempLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Default">
+      <UniqueIdentifier>{91477718-dff1-4da8-b1fc-4b4cb6df5090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{6d7d3ae8-3bdc-44de-b60e-e09846b070ce}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="HYBackgroundScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="HYMissileScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="HYPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="HYSpotLightScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Scripts.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="HYBackgroundScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYMissileScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYPlayerScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYSpotLightScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

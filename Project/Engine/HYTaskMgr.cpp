@@ -89,8 +89,13 @@ void HYTaskMgr::tick()
 			pLevel->ChangeState(NextState);
 		}
 		break;
-		case TASK_TYPE::LEVEL_CHANGE:
+		case TASK_TYPE::CHANGE_LEVEL:
 		{
+			HYLevel* pNextLevel = (HYLevel*)m_vecTask[i].Param_1;
+			LEVEL_STATE State = (LEVEL_STATE)m_vecTask[i].Param_2;
+			HYLevelMgr::GetInst()->ChangeLevel_Task(pNextLevel, State);
+			m_bCreateObject = true;
+
 			break;
 		}
 		case TASK_TYPE::ADD_CHILD:

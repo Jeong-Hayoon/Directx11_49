@@ -92,14 +92,6 @@ void HYImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device
     //IM_ASSERT(font != nullptr);
 
     create_ui();
-
-    HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
-    HYGameObject* pObject = pCurLevel->FindObjectByName(L"Player");
-    // Inspector UI한테 Target Object를 알려줌(이 Target에 대한 정보를 띄워라)
-    // FindUI는 Inspector에만 있는 기능이기 때문에 다운 캐스팅
-    // == 해당 UI 기능으로 타겟을 지정
-    ((Inspector*)FindUI("##Inspector"))->SetTargetObject(pObject);
-
 }
 
 void HYImGuiMgr::progress()

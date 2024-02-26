@@ -9,6 +9,10 @@
 #include "HYComputeShader.h"
 #include "HYMaterial.h"
 
+template<typename T1, typename T2>
+constexpr bool MyBool = false;
+template<typename T1>
+constexpr bool MyBool<T1, T1> = true;
 
 class HYAssetMgr :
     public HYSingleton<HYAssetMgr>
@@ -74,15 +78,15 @@ ASSET_TYPE GetAssetType()
     // 두 주소가 일치한다면 해당 타입으로 땅땅
     // 아래와 같이 hash_code로도 확인 가능
     // if (info.hash_code() == &typeid(HYMesh).hash_code())
-    if (&info == &typeid(HYMesh))
+    if constexpr (std::is_same_v<HYMesh, T>)
         Type = ASSET_TYPE::MESH;
-    else if (&info == &typeid(HYTexture))
+    if constexpr (std::is_same_v<HYTexture, T>)
         Type = ASSET_TYPE::TEXTURE;
-    else if (&info == &typeid(HYGraphicsShader))
+    if constexpr (MyBool<HYGraphicsShader, T>)
         Type = ASSET_TYPE::GRAPHICS_SHADER;
-    else if (&info == &typeid(HYComputeShader))
+    if constexpr (std::is_same_v<HYComputeShader, T>)
         Type = ASSET_TYPE::COMPUTE_SHADER;
-    else if (&info == &typeid(HYMaterial))
+    if constexpr (std::is_same_v<HYMaterial, T>)
         Type = ASSET_TYPE::MATERIAL;
 
     return Type;

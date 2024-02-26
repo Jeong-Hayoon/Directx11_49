@@ -18,18 +18,23 @@ void Inspector::CreateChildUI()
 void Inspector::CreateComponentUI()
 {
 	m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM] = new TransformUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TRANSFORM]);
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::MESHRENDER] = new MeshRenderUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::MESHRENDER]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::MESHRENDER]);
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D] = new Collider2DUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D]);
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]);
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::ANIMATOR2D] = new Animator2DUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::ANIMATOR2D]->Deactivate();
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::ANIMATOR2D]);
 }
 

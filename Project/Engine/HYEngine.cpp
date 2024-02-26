@@ -62,10 +62,6 @@ void HYEngine::progress()
 	
 	// Level Update
 	HYLevelMgr::GetInst()->tick();
-	HYCollisionMgr::GetInst()->tick();
-
-	// Render
-	HYRenderMgr::GetInst()->tick();
 
 	// GC
 	HYGC::GetInst()->tick();
@@ -74,8 +70,6 @@ void HYEngine::progress()
 	HYTaskMgr::GetInst()->tick();
 
 	DebugFunctionCheck();
-
-
 }
 
 // 디버그 랜더링 옵션

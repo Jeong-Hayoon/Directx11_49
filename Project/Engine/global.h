@@ -25,6 +25,11 @@ using std::string;
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+#include <experimental/filesystem>
+using namespace std::experimental;
+using namespace std::experimental::filesystem;
+using std::experimental::filesystem::path;
 
 // Directx 11 헤더 및 라이브러리 참조
 // 구조체나 Buffer 사이즈 계산 시 제일 큰 자료형의 사이즈를

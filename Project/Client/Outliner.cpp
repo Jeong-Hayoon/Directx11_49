@@ -62,11 +62,13 @@ void Outliner::ResetCurrentLevel()
 	// 트리 내용을 삭제
 	m_Tree->ClearNode();
 
-	// 트리에 루트 추가
-	TreeNode* pRootNode = m_Tree->AddTreeNode(nullptr, "DummyRoot", 0);
-
 	// 현재 레벨을 가져온다.
 	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
+	if (nullptr == pCurLevel)
+		return;
+
+	// 트리에 루트 추가
+	TreeNode* pRootNode = m_Tree->AddTreeNode(nullptr, "DummyRoot", 0);
 
 	for (UINT i = 0; i < LAYER_MAX; ++i)
 	{

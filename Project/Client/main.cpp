@@ -16,12 +16,20 @@
 #pragma comment(lib, "Engine\\Engine.lib")
 #endif
 
+#ifdef _DEBUG
+#pragma comment(lib, "Scripts\\Scripts_d.lib")
+#else
+#pragma comment(lib, "Scripts\\Scripts.lib")
+#endif
+
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
 #include "HYImGuiMgr.h"
 #include "HYEditorObjMgr.h"
+
+#include "HYCreateTempLevel.h"
 
 // 실제 게임 플레이 시 주석 해제
 // #define _RELEASE_GAME
@@ -47,7 +55,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     // 메모리 누수 체크
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(433);
+    //_CrtSetBreakAlloc(1359);
 
     MyRegisterClass(hInstance);
 
@@ -67,6 +75,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         MessageBox(nullptr, L"HYEngine 초기화 실패", L"초기화 실패", MB_OK);
         return 0;
     }
+
+    // 임시 레벨 생성
+    HYCreateTempLevel::CreateTempLevel();
 
 #ifndef _RELEASE_GAME
     // EditorObjectManager 초기화
@@ -108,8 +119,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     return (int)msg.wParam;
 }
-
-
 
 //
 //  함수: MyRegisterClass()

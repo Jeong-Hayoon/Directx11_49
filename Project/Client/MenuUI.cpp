@@ -3,6 +3,8 @@
 
 #include <Engine/HYTaskMgr.h>
                  
+#include <Engine/HYPathMgr.h>
+
 #include <Engine/HYGameObject.h>
 #include <Engine/components.h>
 
@@ -112,9 +114,24 @@ void MenuUI::Asset()
         // 재질 생성하는 기능
         if (ImGui::MenuItem("Create Empty Material"))
         {
+            wchar_t szPath[255] = {};
+            wstring FilePath = HYPathMgr::GetContentPath();
+
+            int num = 0;
+            while (true)
+            {
+                // 새로 생성하는 재질의 이름이 겹치지 않도록 숫자를 부여하여 이름 설정
+                swprintf_s(szPath, L"Material//New Material_%d.mtrl", num);
+                
+                // 파일 있는지 Check
+                if (!exists(FilePath + szPath))
+                    break;
+                ++num;
+            }
+
             HYMaterial* pMtrl = new HYMaterial;
-            pMtrl->SetName(L"Material//New Material.mtrl");
-            pMtrl->Save(L"Material//New Material.mtrl");
+            pMtrl->SetName(szPath);
+            pMtrl->Save(szPath);
             GamePlayStatic::AddAsset(pMtrl);
         }
 

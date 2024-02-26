@@ -77,9 +77,6 @@
     <Filter Include="08. Component\Script">
       <UniqueIdentifier>{8334604e-7f6b-477e-a259-6976daf859c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts">
-      <UniqueIdentifier>{e91911b5-4296-468a-b4b4-c94342d0fbb8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. Asset">
       <UniqueIdentifier>{dc5ac5f6-fe5a-42e2-9d2a-1157cc5eefa3}</UniqueIdentifier>
     </Filter>
@@ -241,9 +238,6 @@
     <ClInclude Include="HYScript.h">
       <Filter>08. Component\Script</Filter>
     </ClInclude>
-    <ClInclude Include="HYPlayerScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="HYCamera.h">
       <Filter>08. Component\08. Camera</Filter>
     </ClInclude>
@@ -252,9 +246,6 @@
     </ClInclude>
     <ClInclude Include="HYTaskMgr.h">
       <Filter>04. Manager\TaskMgr</Filter>
-    </ClInclude>
-    <ClInclude Include="HYMissileScript.h">
-      <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="HYGC.h">
       <Filter>04. Manager\GCMgr</Filter>
@@ -285,12 +276,6 @@
     </ClInclude>
     <ClInclude Include="HYLight2D.h">
       <Filter>08. Component\06. Light2D</Filter>
-    </ClInclude>
-    <ClInclude Include="HYBackgroundScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="HYSpotLightScript.h">
-      <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="HYTileMap.h">
       <Filter>08. Component\RenderComponent\02. TileMap</Filter>
@@ -378,9 +363,6 @@
     <ClCompile Include="HYScript.cpp">
       <Filter>08. Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="HYPlayerScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="HYCamera.cpp">
       <Filter>08. Component\08. Camera</Filter>
     </ClCompile>
@@ -395,9 +377,6 @@
     </ClCompile>
     <ClCompile Include="HYTaskMgr.cpp">
       <Filter>04. Manager\TaskMgr</Filter>
-    </ClCompile>
-    <ClCompile Include="HYMissileScript.cpp">
-      <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="HYGC.cpp">
       <Filter>04. Manager\GCMgr</Filter>
@@ -428,12 +407,6 @@
     </ClCompile>
     <ClCompile Include="HYLight2D.cpp">
       <Filter>08. Component\06. Light2D</Filter>
-    </ClCompile>
-    <ClCompile Include="HYBackgroundScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="HYSpotLightScript.cpp">
-      <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="HYAsssetMgr_init.cpp">
       <Filter>04. Manager\AssetMgr</Filter>

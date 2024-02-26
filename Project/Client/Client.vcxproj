@@ -162,6 +162,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GraphicsShaderUI.h" />
     <ClInclude Include="HYCameraMoveScript.h" />
+    <ClInclude Include="HYCreateTempLevel.h" />
     <ClInclude Include="HYEditorObjMgr.h" />
     <ClInclude Include="HYGameObjectEx.h" />
     <ClInclude Include="HYImGuiMgr.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="GraphicsShaderUI.cpp" />
     <ClCompile Include="HYCameraMoveScript.cpp" />
+    <ClCompile Include="HYCreateTempLevel.cpp" />
     <ClCompile Include="HYEditorObjMgr.cpp" />
     <ClCompile Include="HYGameObjectEx.cpp" />
     <ClCompile Include="HYImGuiMgr.cpp" />

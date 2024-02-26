@@ -16,8 +16,8 @@ enum class TASK_TYPE
 	// Param1 : Level(상태가 바뀔), Param2 : LEVEL_STATE(바뀔 Level의 상태)
 	CHANGE_LEVELSTATE,
 
-	// Param1 : LEVEL_TYPE
-	LEVEL_CHANGE,
+	// Param1 : Level Address(바꿀 레벨의 주소), Param2 : Next Level Start State
+	CHANGE_LEVEL,
 
 	// Param1 : Parent Object, Param2 : Child Object
 	ADD_CHILD,
