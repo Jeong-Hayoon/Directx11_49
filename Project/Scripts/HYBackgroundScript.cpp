@@ -13,7 +13,6 @@ HYBackgroundScript::~HYBackgroundScript()
 {
 }
 
-
 void HYBackgroundScript::tick()
 {
 	static int i = 0;

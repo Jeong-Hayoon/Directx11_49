@@ -132,6 +132,7 @@
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
 call ScriptsCopy.bat
+
 cd $(SolutionDir)CodeGen\
 call CodeGen.exe</Command>
     </PreBuildEvent>
@@ -157,6 +158,7 @@ call CodeGen.exe</Command>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
 call ScriptsCopy.bat
+
 cd $(SolutionDir)CodeGen\
 call CodeGen.exe</Command>
     </PreBuildEvent>
