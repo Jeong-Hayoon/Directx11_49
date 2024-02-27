@@ -110,7 +110,7 @@ void HYRenderMgr::render_debug()
 
 		m_pDebugObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"DebugShapeMtrl"));
 		// vColor인데 VEC4_0에 받을 수 있는 이유는 Vec3를 인자로 받는 생성자가 존재하기 때문
-		m_pDebugObj->MeshRender()->GetMaterial()->SetScalarParam(VEC4_0, (*iter).vColor);
+		m_pDebugObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, (*iter).vColor);
 
 		// Cross Shape를 사용했을 경우에는 우선 Topology를 저장해놨다가 사용 이후에 더사 되돌려주기
 		D3D11_PRIMITIVE_TOPOLOGY PrevTopology = m_pDebugObj->MeshRender()->GetMaterial()->GetShader()->GetTopology();

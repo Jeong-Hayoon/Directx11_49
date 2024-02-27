@@ -196,8 +196,8 @@ void HYParticleSystem::render()
 	// 파티클 개별 랜더링 -> 인스턴싱
 
 	// 파티클 중에서 누가 랜더링되는지 순번을 넣어줌
-	GetMaterial()->SetScalarParam(INT_0, 0);
-	GetMaterial()->SetTexParam(TEX_0, m_ParticleTex);
+	GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+	GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, m_ParticleTex);
 	GetMaterial()->UpdateData();
 	// 인스턴싱을 통해 한번에 랜더링
 	GetMesh()->render_asparticle(m_MaxParticleCount);

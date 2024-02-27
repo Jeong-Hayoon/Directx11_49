@@ -62,34 +62,34 @@ void MaterialUI::render_update()
     {
         switch (vecScalarParam[i].Type)
         {
-        case INT_0:
-        case INT_1:
-        case INT_2:
-        case INT_3:
+        case SCALAR_PARAM::INT_0:
+        case SCALAR_PARAM::INT_1:
+        case SCALAR_PARAM::INT_2:
+        case SCALAR_PARAM::INT_3:
             ParamUI::Param_INT((int*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);      
         break;
-        case FLOAT_0:
-        case FLOAT_1:
-        case FLOAT_2:
-        case FLOAT_3:
+        case SCALAR_PARAM::FLOAT_0:
+        case SCALAR_PARAM::FLOAT_1:
+        case SCALAR_PARAM::FLOAT_2:
+        case SCALAR_PARAM::FLOAT_3:
             ParamUI::Param_FLOAT((float*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);
             break;
-        case VEC2_0:
-        case VEC2_1:
-        case VEC2_2:
-        case VEC2_3:
+        case SCALAR_PARAM::VEC2_0:
+        case SCALAR_PARAM::VEC2_1:
+        case SCALAR_PARAM::VEC2_2:
+        case SCALAR_PARAM::VEC2_3:
             ParamUI::Param_VEC2((Vec2*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);
             break;
-        case VEC4_0:
-        case VEC4_1:
-        case VEC4_2:
-        case VEC4_3:
+        case SCALAR_PARAM::VEC4_0:
+        case SCALAR_PARAM::VEC4_1:
+        case SCALAR_PARAM::VEC4_2:
+        case SCALAR_PARAM::VEC4_3:
             ParamUI::Param_VEC4((Vec4*)pMtrl->GetScalarParam(vecScalarParam[i].Type), vecScalarParam[i].Desc);
             break;
-        case MAT_0:
-        case MAT_1:
-        case MAT_2:
-        case MAT_3:
+        case SCALAR_PARAM::MAT_0:
+        case SCALAR_PARAM::MAT_1:
+        case SCALAR_PARAM::MAT_2:
+        case SCALAR_PARAM::MAT_3:
             break;
         }
     }

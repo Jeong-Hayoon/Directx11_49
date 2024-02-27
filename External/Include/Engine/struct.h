@@ -180,7 +180,7 @@ struct tMtrlConst
 	Vec4 v4Arr[4];				// 16*4 byte
 	Matrix matArr[4];			// 16*4 byte
 
-	int	bTex[TEX_PARAM::END];	// 40byte
+	int	bTex[(UINT)TEX_PARAM::END];	// 40byte
 
 	// 패딩(16byte 정렬 해야함)
 	int iPadding[2];			// 8byte

@@ -166,6 +166,7 @@
     <ClInclude Include="HYEditorObjMgr.h" />
     <ClInclude Include="HYGameObjectEx.h" />
     <ClInclude Include="HYImGuiMgr.h" />
+    <ClInclude Include="HYLevelSaveLoad.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_dx11.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="HYEditorObjMgr.cpp" />
     <ClCompile Include="HYGameObjectEx.cpp" />
     <ClCompile Include="HYImGuiMgr.cpp" />
+    <ClCompile Include="HYLevelSaveLoad.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />

@@ -2,11 +2,16 @@
 #include "MenuUI.h"
 
 #include <Engine/HYTaskMgr.h>
-                 
 #include <Engine/HYPathMgr.h>
 
 #include <Engine/HYGameObject.h>
 #include <Engine/components.h>
+
+#include <Scripts/HYScriptMgr.h>
+#include <Engine/HYScript.h>
+
+#include "HYImGuiMgr.h"
+#include "Inspector.h"
 
 MenuUI::MenuUI()
     : UI("Menu", "##Menu")
@@ -99,6 +104,26 @@ void MenuUI::GameObject()
             if (ImGui::MenuItem("Cut", "CTRL+X")) {}
             if (ImGui::MenuItem("Copy", "CTRL+C")) {}
             if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Script", ""))
+        {
+            vector<wstring> vecScriptName;
+            HYScriptMgr::GetScriptInfo(vecScriptName);
+
+            for (size_t i = 0; i < vecScriptName.size(); ++i)
+            {
+                if (ImGui::MenuItem(ToString(vecScriptName[i]).c_str()))
+                {
+                    Inspector* inspector = (Inspector*)HYImGuiMgr::GetInst()->FindUI("##Inspector");
+                    if (nullptr != inspector->GetTargetObject())
+                    {
+                        inspector->GetTargetObject()->AddComponent(HYScriptMgr::GetScript(vecScriptName[i]));
+                    }
+                }
+            }
 
             ImGui::EndMenu();
         }

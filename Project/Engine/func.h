@@ -30,6 +30,9 @@ namespace GamePlayStatic
 string ToString(const wstring& _str);
 wstring ToWString(const string& _str);
 
+void SaveWString(const wstring& _str, FILE* _File);
+void LoadWString(wstring& _str, FILE* _FILE);
+
 template<typename T>
 class Ptr;
 
@@ -49,17 +52,9 @@ void SaveAssetRef(Ptr<T> _Asset, FILE* _File)
 	// Asset이 존재한다면 Asset이 참조하고 있는 키값과 상대경로를 저장
 	if (bAssetExist)
 	{
-		// 텍스처가 이미 있는 경우 키값으로 find 
-		wstring strKey = _Asset->GetKey();
-		size_t len = strKey.length();
-		fwrite(&len, sizeof(size_t), 1, _File);
-		fwrite(strKey.c_str(), sizeof(wchar_t), strKey.length(), _File);
-
-		// 텍스처가 아직 로딩이 되지 않은 경우 경로를 통해 로딩
-		wstring strRelativePath = _Asset->GetRelativePath();
-		len = strRelativePath.length();
-		fwrite(&len, sizeof(size_t), 1, _File);
-		fwrite(strRelativePath.c_str(), sizeof(wchar_t), strRelativePath.length(), _File);
+		// 텍스처가 이미 있는 경우 키값으로 find , 텍스처가 아직 로딩이 되지 않은 경우 경로를 통해 로딩
+		SaveWString(_Asset->GetKey(), _File);
+		SaveWString(_Asset->GetRelativePath(), _File);
 	}
 }
 
@@ -73,19 +68,9 @@ void LoadAssetRef(Ptr<T>& _Asset, FILE* _File)
 	if (bAssetExist)
 	{
 		wstring strKey, strRelativePath;
-		size_t len = 0;
-		wchar_t szBuff[256] = {};
-
-		fread(&len, sizeof(size_t), 1, _File);
-		fread(szBuff, sizeof(wchar_t), len, _File);
-		strKey = szBuff;
-
-		// Buffer Clear
-		wmemset(szBuff, 0, 256);
-
-		fread(&len, sizeof(size_t), 1, _File);
-		fread(szBuff, sizeof(wchar_t), len, _File);
-		strRelativePath = szBuff;
+	
+		LoadWString(strKey, _File);
+		LoadWString(strRelativePath, _File);
 
 		_Asset = HYAssetMgr::GetInst()->Load<T>(strKey, strRelativePath);
 	}

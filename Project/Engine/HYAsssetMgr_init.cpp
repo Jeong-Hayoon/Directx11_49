@@ -194,18 +194,18 @@ void HYAssetMgr::CreateDefaultGraphicsShader()
 
 	// Parameter
 	// 테스트용
-	// pShader->AddScalarParam(INT_0, "Test Parameter");
+	// pShader->AddScalarParam(SCALAR_PARAM::INT_0, "Test Parameter");
 	// 0번 텍스처 자리에 이 Shader를 사용한다면 재질은 0번 텍스처 자리에다가 전달시킬 텍스처를 전달을 시켜줘야 함
 	// 세팅된 텍스처는 출력 용도
-	// pShader->AddTexParam(TEX_0, "Output Texture");		
+	// pShader->AddTexParam(TEX_PARAM::TEX_0, "Output Texture");		
 	// Parameter	
-	// pShader->AddScalarParam(VEC2_2, "Test Parameter");
-	// pShader->AddScalarParam(VEC4_1, "Test Parameter");
+	// pShader->AddScalarParam(SCALAR_PARAM::VEC2_2, "Test Parameter");
+	// pShader->AddScalarParam(SCALAR_PARAM::VEC4_1, "Test Parameter");
 
-	pShader->AddScalarParam(INT_0, "Test Param");
+	pShader->AddScalarParam(SCALAR_PARAM::INT_0, "Test Param");
 
-	pShader->AddTexParam(TEX_0, "Output Texture 1");
-	//pShader->AddTexParam(TEX_1, "Output Texture 2");
+	pShader->AddTexParam(TEX_PARAM::TEX_0, "Output Texture 1");
+	//pShader->AddTexParam(TEX_PARAM::TEX_1, "Output Texture 2");
 
 	// =========================================================
 	// EffectShader : 함수는 같은데 블랜드 스테이트만 다름

@@ -68,42 +68,42 @@ void HYMaterial::SetScalarParam(SCALAR_PARAM _ParamType, const T& _Value)
 
 	switch (_ParamType)
 	{
-	case INT_0:
-	case INT_1:
-	case INT_2:
-	case INT_3:
+	case SCALAR_PARAM::INT_0:
+	case SCALAR_PARAM::INT_1:
+	case SCALAR_PARAM::INT_2:
+	case SCALAR_PARAM::INT_3:
 		/*	if constexpr (std::is_same_v<T, int>) {
 
 			}*/
-		m_Const.iArr[_ParamType] = *((int*)pValue);
+		m_Const.iArr[(UINT)_ParamType] = *((int*)pValue);
 		break;
 
-	case FLOAT_0:
-	case FLOAT_1:
-	case FLOAT_2:
-	case FLOAT_3:
-		m_Const.fArr[_ParamType - FLOAT_0] = *((float*)pValue);
+	case SCALAR_PARAM::FLOAT_0:
+	case SCALAR_PARAM::FLOAT_1:
+	case SCALAR_PARAM::FLOAT_2:
+	case SCALAR_PARAM::FLOAT_3:
+		m_Const.fArr[(UINT)_ParamType - (UINT)SCALAR_PARAM::FLOAT_0] = *((float*)pValue);
 		break;
 
-	case VEC2_0:
-	case VEC2_1:
-	case VEC2_2:
-	case VEC2_3:
-		m_Const.v2Arr[_ParamType - VEC2_0] = *((Vec2*)pValue);
+	case SCALAR_PARAM::VEC2_0:
+	case SCALAR_PARAM::VEC2_1:
+	case SCALAR_PARAM::VEC2_2:
+	case SCALAR_PARAM::VEC2_3:
+		m_Const.v2Arr[(UINT)_ParamType - (UINT)SCALAR_PARAM::VEC2_0] = *((Vec2*)pValue);
 
 		break;
-	case VEC4_0:
-	case VEC4_1:
-	case VEC4_2:
-	case VEC4_3:
-		m_Const.v4Arr[_ParamType - VEC4_0] = *((Vec4*)pValue);
+	case SCALAR_PARAM::VEC4_0:
+	case SCALAR_PARAM::VEC4_1:
+	case SCALAR_PARAM::VEC4_2:
+	case SCALAR_PARAM::VEC4_3:
+		m_Const.v4Arr[(UINT)_ParamType - (UINT)SCALAR_PARAM::VEC4_0] = *((Vec4*)pValue);
 
 		break;
-	case MAT_0:
-	case MAT_1:
-	case MAT_2:
-	case MAT_3:
-		m_Const.matArr[_ParamType - MAT_0] = *((Matrix*)pValue);
+	case SCALAR_PARAM::MAT_0:
+	case SCALAR_PARAM::MAT_1:
+	case SCALAR_PARAM::MAT_2:
+	case SCALAR_PARAM::MAT_3:
+		m_Const.matArr[(UINT)_ParamType - (UINT)SCALAR_PARAM::MAT_0] = *((Matrix*)pValue);
 		break;
 	}
 }

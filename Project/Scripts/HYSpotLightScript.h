@@ -10,6 +10,8 @@ private:
 public:
     virtual void tick() override;
 
+    CLONE(HYSpotLightScript);
+
 public:
     HYSpotLightScript();
     ~HYSpotLightScript();

@@ -114,6 +114,9 @@
     <Filter Include="01. Manager\03. CreateTempLevel">
       <UniqueIdentifier>{2e46dcac-a872-47a7-a0de-1cb078dc5382}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Manager\04. LevelSaveLoad">
+      <UniqueIdentifier>{c0f06bd4-31d7-4c54-9943-53b0cdafd444}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -251,6 +254,9 @@
     <ClInclude Include="HYCreateTempLevel.h">
       <Filter>01. Manager\03. CreateTempLevel</Filter>
     </ClInclude>
+    <ClInclude Include="HYLevelSaveLoad.h">
+      <Filter>01. Manager\04. LevelSaveLoad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -376,6 +382,9 @@
     </ClCompile>
     <ClCompile Include="HYCreateTempLevel.cpp">
       <Filter>01. Manager\03. CreateTempLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="HYLevelSaveLoad.cpp">
+      <Filter>01. Manager\04. LevelSaveLoad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

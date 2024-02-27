@@ -4,6 +4,7 @@
 
 HYMissileScript::HYMissileScript()
 	: m_fSpeed(1500.f)
+	, HYScript(SCRIPT_TYPE::MISSILESCRIPT)
 {
 }
 

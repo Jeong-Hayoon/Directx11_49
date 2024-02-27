@@ -18,5 +18,6 @@
 #pragma comment(lib, "Engine\\Engine.lib")
 #endif
 
+#include "HYScriptMgr.h"
 
 #endif //PCH_H

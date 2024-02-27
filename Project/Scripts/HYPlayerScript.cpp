@@ -10,7 +10,8 @@
 
 
 HYPlayerScript::HYPlayerScript()
-	: m_Speed(500.f)
+	: HYScript(SCRIPT_TYPE::PLAYERSCRIPT)
+	, m_Speed(500.f)
 {
 }
 

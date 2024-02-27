@@ -3,6 +3,7 @@
 
 HYCameraMoveScript::HYCameraMoveScript()
 	: m_CamSpeed(500.f)
+	, HYScript(-1)
 {
 }
 

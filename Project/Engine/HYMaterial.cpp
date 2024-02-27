@@ -32,7 +32,7 @@ void HYMaterial::UpdateData()
 	m_pShader->UpdateData();
 
 	// Texture Update(Register Binding)
-	for (UINT i = 0; i < TEX_PARAM::END; ++i)
+	for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
 	{
 		if (nullptr != m_arrTex[i].Get())
 		{
@@ -58,58 +58,58 @@ void HYMaterial::UpdateData()
 // 텍스처 전달
 void HYMaterial::SetTexParam(TEX_PARAM _Param, Ptr<HYTexture>_pTex)
 {
-	m_arrTex[_Param] = _pTex;
+	m_arrTex[(UINT)_Param] = _pTex;
 }
 
 void* HYMaterial::GetScalarParam(SCALAR_PARAM _ParamType)
 {
 	switch (_ParamType)
 	{
-	case INT_0:
-	case INT_1:
-	case INT_2:
-	case INT_3:
+	case SCALAR_PARAM::INT_0:
+	case SCALAR_PARAM::INT_1:
+	case SCALAR_PARAM::INT_2:
+	case SCALAR_PARAM::INT_3:
 	{
 		// 인덱스는 0부터 시작하니까
-		int idx = _ParamType - INT_0;
+		int idx = (UINT)_ParamType - (UINT)SCALAR_PARAM::INT_0;
 
 		// 배열의 인덱스 위치 return
 		return m_Const.iArr + idx;
 	}
 	break;
-	case FLOAT_0:
-	case FLOAT_1:
-	case FLOAT_2:
-	case FLOAT_3:
+	case SCALAR_PARAM::FLOAT_0:
+	case SCALAR_PARAM::FLOAT_1:
+	case SCALAR_PARAM::FLOAT_2:
+	case SCALAR_PARAM::FLOAT_3:
 	{
-		int idx = _ParamType - FLOAT_0;
+		int idx = (UINT)_ParamType - (UINT)SCALAR_PARAM::FLOAT_0;
 		return m_Const.fArr + idx;
 	}
 	break;
-	case VEC2_0:
-	case VEC2_1:
-	case VEC2_2:
-	case VEC2_3:
+	case SCALAR_PARAM::VEC2_0:
+	case SCALAR_PARAM::VEC2_1:
+	case SCALAR_PARAM::VEC2_2:
+	case SCALAR_PARAM::VEC2_3:
 	{
-		int idx = _ParamType - VEC2_0;
+		int idx = (UINT)_ParamType - (UINT)SCALAR_PARAM::VEC2_0;
 		return m_Const.v2Arr + idx;
 	}
 	break;
-	case VEC4_0:
-	case VEC4_1:
-	case VEC4_2:
-	case VEC4_3:
+	case SCALAR_PARAM::VEC4_0:
+	case SCALAR_PARAM::VEC4_1:
+	case SCALAR_PARAM::VEC4_2:
+	case SCALAR_PARAM::VEC4_3:
 	{
-		int idx = _ParamType - VEC4_0;
+		int idx = (UINT)_ParamType - (UINT)SCALAR_PARAM::VEC4_0;
 		return m_Const.v4Arr + idx;
 	}
 	break;
-	case MAT_0:
-	case MAT_1:
-	case MAT_2:
-	case MAT_3:
+	case SCALAR_PARAM::MAT_0:
+	case SCALAR_PARAM::MAT_1:
+	case SCALAR_PARAM::MAT_2:
+	case SCALAR_PARAM::MAT_3:
 	{
-		int idx = _ParamType - MAT_0;
+		int idx = (UINT)_ParamType - (UINT)SCALAR_PARAM::MAT_0;
 		return m_Const.matArr + idx;
 	}
 	break;

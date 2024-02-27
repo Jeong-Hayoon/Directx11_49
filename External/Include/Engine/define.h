@@ -141,7 +141,7 @@ enum class BS_TYPE
 };
 
 // ScalarParam : Material을 통해 넘겨줄 수 있는 일반 상수 파라미터의 타입
-enum SCALAR_PARAM
+enum class SCALAR_PARAM
 {
 	INT_0,
 	INT_1,
@@ -170,7 +170,7 @@ enum SCALAR_PARAM
 };
 
 // Material이 Shader가 필요로하는 Texture를 전달할 때 파라미터
-enum TEX_PARAM
+enum class TEX_PARAM
 {
 	TEX_0,
 	TEX_1,

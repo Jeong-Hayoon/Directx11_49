@@ -185,7 +185,8 @@ void HYLevel::ChangeState(LEVEL_STATE _NextState)
 		// 레벨 카메라 모드
 		HYRenderMgr::GetInst()->ActiveEditorMode(false);
 
-		if (LEVEL_STATE::STOP == m_State)
+		// None, Stop -> Play
+		if (LEVEL_STATE::STOP == m_State || LEVEL_STATE::NONE == m_State)
 		{
 			begin();
 		}

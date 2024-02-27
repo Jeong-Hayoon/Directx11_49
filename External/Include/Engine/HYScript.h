@@ -15,7 +15,11 @@ class HYScript :
     public HYComponent
 {
 private:
-    UINT        m_iScriptType;
+    // 어떤 스크립트인지 구별할 수 있는 고유 아이디
+    const UINT        m_iScriptType;
+
+public:
+    UINT GetScriptType() { return m_iScriptType; }
 
 public:
     // tick에서 Component들이 주요 기능을 수행하고 나서
@@ -32,7 +36,7 @@ public:
 
     HYScript* Clone() = 0;
 public:
-    HYScript();
+    HYScript(UINT _ScriptType);
     ~HYScript();
 };
 

@@ -60,14 +60,14 @@ void HYTileMap::finaltick()
 void HYTileMap::render()
 {
 	// 재질에 아틀라스 텍스쳐 전달.
-	GetMaterial()->SetTexParam(TEX_0, m_TileAtlas);
+	GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, m_TileAtlas);
 		
 	// 타일의 가로 세로 개수
-	GetMaterial()->SetScalarParam(INT_0, m_FaceX);
-	GetMaterial()->SetScalarParam(INT_1, m_FaceY);
+	GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, m_FaceX);
+	GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_1, m_FaceY);
 
 	// 아틀라스 이미지에서 타일 1개의 자르는 사이즈(UV 기준)
-	GetMaterial()->SetScalarParam(VEC2_0, m_vSliceSizeUV);
+	GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC2_0, m_vSliceSizeUV);
 
 	// 각 타일 정보를 구조화 버퍼로 이동
 	m_TileInfoBuffer->SetData(m_vecTileInfo.data(), m_vecTileInfo.size());

@@ -5,6 +5,7 @@
 
 
 HYSpotLightScript::HYSpotLightScript()
+	: HYScript(SCRIPT_TYPE::SPOTLIGHTSCRIPT)
 {
 }
 

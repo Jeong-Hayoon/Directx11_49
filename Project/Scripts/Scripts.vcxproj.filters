@@ -7,6 +7,9 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{6d7d3ae8-3bdc-44de-b60e-e09846b070ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ScriptMgr">
+      <UniqueIdentifier>{4bf87e54-b75d-4739-81e9-272407321ad8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -27,6 +30,9 @@
     <ClInclude Include="HYSpotLightScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="HYScriptMgr.h">
+      <Filter>ScriptMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scripts.cpp">
@@ -46,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="HYSpotLightScript.cpp">
       <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="HYScriptMgr.cpp">
+      <Filter>ScriptMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
