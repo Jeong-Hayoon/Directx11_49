@@ -4,7 +4,6 @@
 #include "HYTransform.h"
 #include "HYScript.h"
 
-
 HYCollider2D::HYCollider2D()
 	: HYComponent(COMPONENT_TYPE::COLLIDER2D)
 	, m_CollisionCount(0)
@@ -146,4 +145,20 @@ COLLIDER2D_TYPE HYCollider2D::GetColliderType(string str)
 	{
 		return COLLIDER2D_TYPE::CIRCLE;
 	}
+}
+
+void HYCollider2D::SaveToFile(FILE* _File)
+{
+	fwrite(&m_vOffsetPos, sizeof(Vec3), 1, _File);
+	fwrite(&m_vOffsetScale, sizeof(Vec3), 1, _File);
+	fwrite(&m_bAbsolute, sizeof(bool), 1, _File);
+	fwrite(&m_Type, sizeof(UINT), 1, _File);
+}
+
+void HYCollider2D::LoadFromFile(FILE* _File)
+{
+	fread(&m_vOffsetPos, sizeof(Vec3), 1, _File);
+	fread(&m_vOffsetScale, sizeof(Vec3), 1, _File);
+	fread(&m_bAbsolute, sizeof(bool), 1, _File);
+	fread(&m_Type, sizeof(UINT), 1, _File);
 }

@@ -21,7 +21,7 @@ private:
     UINT                m_FaceY;            // 세로 타일 개수
     Vec2                m_vTileRenderSize;  // 랜더링될 타일의 1칸 사이즈
 
-    Vec3                m_vTileMapWorldPos;
+    // Vec3                m_vTileMapWorldPos; -> 사용이 안됨
 
     Ptr<HYTexture>      m_TileAtlas;
     Vec2                m_vTilePixelSize;   // 실제 텍스처에서 타일 한 칸의 사이즈
@@ -38,7 +38,6 @@ private:
    int                UICOL;
    int                UIIDX;
 
-
 public:
     void SetTileAtlas(Ptr<HYTexture> _Atlas, Vec2 _TilePixelSize);
     Ptr<HYTexture> GetTileAtlas() { return m_TileAtlas; }
@@ -53,6 +52,7 @@ public:
     // UI 관련
     void SetFaceX(int _FaceX) { m_FaceX = _FaceX; }
     void SetFaceY(int _FaceY) { m_FaceY = _FaceY; }
+
     //void SetTileIndex();
     void SetUIROW(int _row) 
     { 
@@ -70,11 +70,13 @@ public:
     int GetUICOL() { return UICOL; }
     int GetUIIDX() { return UIIDX; }
 
-
 public:
     virtual void finaltick() override;
     virtual void UpdateData() override;
     virtual void render() override;
+
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
 
     CLONE(HYTileMap);
 

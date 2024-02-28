@@ -32,6 +32,9 @@ public:
     virtual void render() = 0;
 
 public:
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
+
     virtual HYRenderComponent* Clone() = 0;
 
 public:

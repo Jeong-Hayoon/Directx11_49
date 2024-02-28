@@ -129,3 +129,19 @@ Vec3 HYTransform::GetWorldScale()
 
 	return vWorldScale;
 }
+
+void HYTransform::SaveToFile(FILE* _File)
+{
+	fwrite(&m_vRelativePos, sizeof(Vec3), 1, _File);
+	fwrite(&m_vRelativeScale, sizeof(Vec3), 1, _File);
+	fwrite(&m_vRealtiveRotation, sizeof(Vec3), 1, _File);
+	fwrite(&m_bAbsolute, sizeof(bool), 1, _File);
+}
+
+void HYTransform::LoadFromFile(FILE* _File)
+{
+	fread(&m_vRelativePos, sizeof(Vec3), 1, _File);
+	fread(&m_vRelativeScale, sizeof(Vec3), 1, _File);
+	fread(&m_vRealtiveRotation, sizeof(Vec3), 1, _File);
+	fread(&m_bAbsolute, sizeof(bool), 1, _File);
+}

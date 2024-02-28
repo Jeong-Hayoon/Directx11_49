@@ -90,6 +90,9 @@ private:
     void render(vector<HYGameObject*>& _vecObj);
     void render_postprocess();
 
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
+
     CLONE(HYCamera);
 
 public:

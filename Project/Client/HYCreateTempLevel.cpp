@@ -17,8 +17,15 @@
 #include <Engine/HYTexture.h>
 #include <Engine/HYSetColorShader.h>
 
+#include "HYLevelSaveLoad.h"
+
 void HYCreateTempLevel::CreateTempLevel()
 {
+	// Save된 Level Load Test
+	HYLevel* pLevel = HYLevelSaveLoad::LoadLevel(L"level\\temp.lv");
+	HYLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::STOP);
+	return;
+
 	HYLevel* pTempLevel = new HYLevel;
 
 	// 재질 로드 테스트
@@ -373,4 +380,7 @@ void HYCreateTempLevel::CreateTempLevel()
 
 	// 현재 레벨을 pTempLevel로 하고 레벨의 상태는 STOP으로 해달라고 Level Change 요청
 	HYLevelMgr::GetInst()->ChangeLevel(pTempLevel, LEVEL_STATE::STOP);
+
+	// Level Save Test
+	HYLevelSaveLoad::SaveLevel(pTempLevel, L"level\\temp.lv");
 }

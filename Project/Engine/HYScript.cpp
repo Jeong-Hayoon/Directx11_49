@@ -11,3 +11,12 @@ HYScript::~HYScript()
 {
 }
 
+void HYScript::SaveToFile(FILE* _File)
+{
+
+}
+
+void HYScript::LoadFromFile(FILE* _File)
+{
+}
+

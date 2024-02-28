@@ -8,7 +8,6 @@
 #include <Engine/HYMaterial.h>
 #include <Engine/HYRenderComponent.h>
 
-
 HYPlayerScript::HYPlayerScript()
 	: HYScript(SCRIPT_TYPE::PLAYERSCRIPT)
 	, m_Speed(500.f)
@@ -32,6 +31,8 @@ void HYPlayerScript::begin()
 	Animator2D()->Create(L"MOVE_DOWN", pAltasTex, Vec2(0.f, 100.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
 	Animator2D()->Create(L"MOVE_LEFT", pAltasTex, Vec2(0.f, 400.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
 	Animator2D()->Create(L"MOVE_RIGHT", pAltasTex, Vec2(0.f, 300.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
+
+	GetRenderComponent()->GetDynamicMaterial();
 }
 
 void HYPlayerScript::tick()
@@ -131,4 +132,14 @@ void HYPlayerScript::Overlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, H
 
 void HYPlayerScript::EndOverlap(HYCollider2D* _Collider, HYGameObject* _OtherObj, HYCollider2D* _OtherCollider)
 {
+}
+
+void HYPlayerScript::SaveToFile(FILE* _File)
+{
+	fwrite(&m_Speed, sizeof(float), 1, _File);
+}
+
+void HYPlayerScript::LoadFromFile(FILE* _File)
+{
+	fread(&m_Speed, sizeof(float), 1, _File);
 }

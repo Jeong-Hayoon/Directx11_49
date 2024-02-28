@@ -262,4 +262,26 @@ PROJ_TYPE HYCamera::GetCameraType(string str)
 	}
 }
 
+void HYCamera::SaveToFile(FILE* _File)
+{
+	fwrite(&m_ProjType, sizeof(PROJ_TYPE), 1, _File);
+	fwrite(&m_FOV, sizeof(float), 1, _File);
+	fwrite(&m_Width, sizeof(float), 1, _File);
+	fwrite(&m_Scale, sizeof(float), 1, _File);
+	fwrite(&m_AspectRatio, sizeof(float), 1, _File);
+	fwrite(&m_Far, sizeof(float), 1, _File);
+	fwrite(&m_LayerCheck, sizeof(UINT), 1, _File);
+	fwrite(&m_CameraPriority, sizeof(int), 1, _File);
+}
 
+void HYCamera::LoadFromFile(FILE* _File)
+{
+	fread(&m_ProjType, sizeof(PROJ_TYPE), 1, _File);
+	fread(&m_FOV, sizeof(float), 1, _File);
+	fread(&m_Width, sizeof(float), 1, _File);
+	fread(&m_Scale, sizeof(float), 1, _File);
+	fread(&m_AspectRatio, sizeof(float), 1, _File);
+	fread(&m_Far, sizeof(float), 1, _File);
+	fread(&m_LayerCheck, sizeof(UINT), 1, _File);
+	fread(&m_CameraPriority, sizeof(int), 1, _File);
+}

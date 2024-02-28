@@ -23,7 +23,6 @@ private:
     Ptr<HYTexture>           m_ParticleTex;
 
     float                   m_Time;
-
     
 public:
     // UI 관련 모듈 세팅 함수들
@@ -63,6 +62,9 @@ public:
     virtual void UpdateData() override;
     virtual void finaltick() override;
     virtual void render() override;
+
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
 
     CLONE(HYParticleSystem);
 

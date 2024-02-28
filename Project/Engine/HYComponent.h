@@ -42,6 +42,9 @@ public:
 
     HYRenderComponent* GetRenderComponent() { return m_Owner->GetRenderComopnent(); }
 
+    virtual void SaveToFile(FILE* _File) = 0;
+    virtual void LoadFromFile(FILE* _File) = 0;
+
     virtual HYComponent* Clone() = 0;
 
 public:

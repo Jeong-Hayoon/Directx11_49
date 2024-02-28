@@ -47,6 +47,9 @@ public:
     string GetLightTypeName(LIGHT_TYPE _Type);
     LIGHT_TYPE GetLightType(string str);
 
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
+
     CLONE(HYLight2D);
 
 public:

@@ -16,10 +16,14 @@ private:
     void MoveOrthographic();
     void MovePerspective();
 
+    virtual void SaveToFile(FILE* _File) override {};
+    virtual void LoadFromFile(FILE* _File) override {};
+
     CLONE(HYCameraMoveScript);
 
 public:
     HYCameraMoveScript();
     ~HYCameraMoveScript();
 };
+
 

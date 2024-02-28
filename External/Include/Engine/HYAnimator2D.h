@@ -42,6 +42,9 @@ public:
     bool IsRepeat() { return m_bRepeat; }
     void SetRepeat(bool _repeat) { m_bRepeat = _repeat; }
 
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
+
     CLONE(HYAnimator2D);
 
 public:

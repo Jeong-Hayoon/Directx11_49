@@ -22,3 +22,12 @@ void HYBackgroundScript::tick()
 		i = !i;
 	}
 }
+
+void HYBackgroundScript::SaveToFile(FILE* _File)
+{
+}
+
+void HYBackgroundScript::LoadFromFile(FILE* _File)
+{
+}
+

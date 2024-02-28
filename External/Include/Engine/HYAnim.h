@@ -71,6 +71,9 @@ public:
     // юс╫ц
     Vec2 GetOffset() { m_vecFrm[m_CurFrmIdx].vOffset; }
 
+    void SaveToFile(FILE* _File);
+    void LoadFromFile(FILE* _File);
+
     CLONE(HYAnim);
 
 public:

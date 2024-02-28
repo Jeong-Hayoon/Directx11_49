@@ -6,7 +6,6 @@
 
 #include "HYTimeMgr.h"
 
-
 #include "HYAssetMgr.h"
 #include "HYMesh.h"
 #include "HYMaterial.h"
@@ -210,4 +209,32 @@ void HYParticleSystem::render()
 void HYParticleSystem::UpdateData()
 {
 
+}
+
+void HYParticleSystem::SaveToFile(FILE* _File)
+{
+	// 파티클 최대 갯수 및 모듈 정보 저장
+	fwrite(&m_MaxParticleCount, sizeof(UINT), 1, _File);
+	fwrite(&m_Module, sizeof(tParticleModule), 1, _File);
+
+	// 사용하던 CS 가 누군지 저장 -> 일단 보류
+	//SaveAssetRef(m_CSParticleUpdate, _File);
+
+	// 파티클 입자 텍스쳐 정보 저장
+	SaveAssetRef(m_ParticleTex, _File);
+}
+
+void HYParticleSystem::LoadFromFile(FILE* _File)
+{
+	// 파티클 최대 갯수 및 모듈 정보 로드
+	fread(&m_MaxParticleCount, sizeof(UINT), 1, _File);
+	fread(&m_Module, sizeof(tParticleModule), 1, _File);
+
+	// 사용하던 CS 가 누군지 로드
+	/*Ptr<CComputeShader> cs;
+	LoadAssetRef(cs, _File);
+	m_CSParticleUpdate = (CParticleUpdate*)cs.Get();*/
+
+	// 파티클 입자 텍스쳐 정보 로드
+	LoadAssetRef(m_ParticleTex, _File);
 }

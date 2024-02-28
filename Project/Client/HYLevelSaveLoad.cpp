@@ -9,6 +9,9 @@
 #include <Engine/components.h>
 #include <Engine/HYAssetMgr.h>
 
+#include <Scripts/HYScriptMgr.h>
+#include <Engine/HYScript.h>
+
 void HYLevelSaveLoad::SaveLevel(HYLevel* _Level, const wstring& _strLevelPath)
 {
 	assert(_Level);
@@ -51,7 +54,48 @@ void HYLevelSaveLoad::SaveLayer(HYLayer* _Layer, FILE* _File)
 
 void HYLevelSaveLoad::SaveGameObject(HYGameObject* _Obj, FILE* _File)
 {
+	// GameObject 의 이름을 저장
+	SaveWString(_Obj->GetName(), _File);
 
+	UINT i = 0;
+
+	// 보유하고 있는 모든 컴포넌트 정보 저장
+	for (; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		HYComponent* pCom = _Obj->GetComponent((COMPONENT_TYPE)i);
+		if (nullptr == pCom)
+			continue;
+
+		// 컴포넌트 타입 정보 저장
+		fwrite(&i, sizeof(UINT), 1, _File);
+
+		// 해당 컴포넌트가 저장할 데이터 저장(가상 함수)
+		pCom->SaveToFile(_File);
+	}
+	fwrite(&i, sizeof(UINT), 1, _File);
+
+	// 스크립트 정보 저장
+	const vector<HYScript*>& vecScripts = _Obj->GetScripts();
+	size_t ScriptCount = vecScripts.size();
+
+	// 스크립트 개수 저장
+	fwrite(&ScriptCount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < vecScripts.size(); ++i)
+	{
+		SaveWString(HYScriptMgr::GetScriptName(vecScripts[i]), _File);
+		vecScripts[i]->SaveToFile(_File);
+	}
+
+	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장
+	const vector<HYGameObject*>& vecChild = _Obj->GetChild();
+	size_t childcount = vecChild.size();
+	fwrite(&childcount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < childcount; ++i)
+	{
+		SaveGameObject(vecChild[i], _File);
+	}
 }
 
 HYLevel* HYLevelSaveLoad::LoadLevel(const wstring& _strLevelPath)
@@ -108,6 +152,81 @@ void HYLevelSaveLoad::LoadLayer(HYLayer* _Layer, FILE* _File)
 HYGameObject* HYLevelSaveLoad::LoadGameObject(FILE* _File)
 {
 
+	HYGameObject* pObject = new HYGameObject;
 
-	return nullptr;
+	// GameObject 의 이름을 로드
+	wstring strName;
+	LoadWString(strName, _File);
+	pObject->SetName(strName);
+
+	// 컴포넌트 정보를 불러오기
+	COMPONENT_TYPE type = COMPONENT_TYPE::END;
+	while (true)
+	{
+		fread(&type, sizeof(UINT), 1, _File);
+		if (COMPONENT_TYPE::END == type)
+			break;
+
+		HYComponent* pComponent = nullptr;
+
+		switch (type)
+		{
+		case COMPONENT_TYPE::TRANSFORM:
+			pComponent = new HYTransform;
+			break;
+		case COMPONENT_TYPE::COLLIDER2D:
+			pComponent = new HYCollider2D;
+			break;
+		case COMPONENT_TYPE::ANIMATOR2D:
+			pComponent = new HYAnimator2D;
+			break;
+		case COMPONENT_TYPE::LIGHT2D:
+			pComponent = new HYLight2D;
+			break;
+		case COMPONENT_TYPE::CAMERA:
+			pComponent = new HYCamera;
+			break;
+		case COMPONENT_TYPE::MESHRENDER:
+			pComponent = new HYMeshRender;
+			break;
+		case COMPONENT_TYPE::TILEMAP:
+			pComponent = new HYTileMap;
+			break;
+		case COMPONENT_TYPE::PARTICLESYSTEM:
+			pComponent = new HYParticleSystem;
+			break;
+		default:
+			assert(nullptr);
+			break;
+		}
+
+		// 해당 컴포넌트가 저장한 데이터를 로드
+		pObject->AddComponent(pComponent);
+		pComponent->LoadFromFile(_File);
+	}
+
+	// 스크립트 개수 읽기
+	size_t ScriptCount = 0;
+	fread(&ScriptCount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < ScriptCount; ++i)
+	{
+		wstring strScriptName;
+		LoadWString(strScriptName, _File);
+
+		HYScript* pScript = HYScriptMgr::GetScript(strScriptName);
+		pObject->AddComponent(pScript);
+		pScript->LoadFromFile(_File);
+	}
+
+	// 자식 오브젝트가 있으면 자식 오브젝트 정보 저장	
+	size_t childcount = 0;
+	fread(&childcount, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < childcount; ++i)
+	{
+		pObject->AddChild(LoadGameObject(_File));
+	}
+
+	return pObject;
 }

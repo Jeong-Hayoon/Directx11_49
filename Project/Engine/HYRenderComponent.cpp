@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "HYRenderComponent.h"
 
+#include "HYLevelMgr.h"
+#include "HYLevel.h"
 
 HYRenderComponent::HYRenderComponent(COMPONENT_TYPE _Type)
 	: HYComponent(_Type)
@@ -45,6 +47,11 @@ void HYRenderComponent::SetMaterial(Ptr<HYMaterial> _Mtrl)
 // 동적 재질을 반환해주는 함수(동적 재질은 특정 오브젝트만의 재질)
 Ptr<HYMaterial> HYRenderComponent::GetDynamicMaterial()
 {
+	// 레벨이 플레이 상태인 경우에만
+	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
+	if (pCurLevel->GetState() != LEVEL_STATE::PLAY)
+		nullptr;
+
 	// 이미 동적 재질을 보유하고 있으면 그걸 준다.
 	if (nullptr != m_DynamicMtrl)
 		return m_DynamicMtrl;
@@ -65,5 +72,19 @@ Ptr<HYMaterial> HYRenderComponent::GetDynamicMaterial()
 void HYRenderComponent::RestoreMaterial()
 {
 	m_CurMtrl = m_SharedMtrl;
+}
+
+void HYRenderComponent::SaveToFile(FILE* _File)
+{
+	SaveAssetRef(m_Mesh, _File);
+	SaveAssetRef(m_SharedMtrl, _File);
+}
+
+void HYRenderComponent::LoadFromFile(FILE* _File)
+{
+	LoadAssetRef(m_Mesh, _File);
+	LoadAssetRef(m_SharedMtrl, _File);
+
+	SetMaterial(m_SharedMtrl);
 }
 

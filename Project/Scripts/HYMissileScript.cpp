@@ -21,3 +21,11 @@ void HYMissileScript::tick()
 
 	Transform()->SetRelativePos(vPos);
 } 
+
+void HYMissileScript::SaveToFile(FILE* _File)
+{
+}
+
+void HYMissileScript::LoadFromFile(FILE* _File)
+{
+}

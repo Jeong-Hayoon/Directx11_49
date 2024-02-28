@@ -80,3 +80,12 @@ LIGHT_TYPE HYLight2D::GetLightType(string str)
 	}
 }
 
+void HYLight2D::SaveToFile(FILE* _File)
+{
+	fwrite(&m_Info, sizeof(tLightInfo), 1, _File);
+}
+
+void HYLight2D::LoadFromFile(FILE* _File)
+{
+	fread(&m_Info, sizeof(tLightInfo), 1, _File);
+}

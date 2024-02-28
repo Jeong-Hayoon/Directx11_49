@@ -58,6 +58,8 @@ public:
     void Overlap(HYCollider2D* _OtherCollider);
     void EndOverlap(HYCollider2D* _OtherCollider);
 
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
 
     CLONE(HYCollider2D);
 

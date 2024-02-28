@@ -33,3 +33,11 @@ void HYSpotLightScript::tick()
 	Transform()->SetRelativeRotation(vRot);
 
 }
+
+void HYSpotLightScript::SaveToFile(FILE* _File)
+{
+}
+
+void HYSpotLightScript::LoadFromFile(FILE* _File)
+{
+}
