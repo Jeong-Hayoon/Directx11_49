@@ -292,6 +292,9 @@
     <ClInclude Include="HYParticleUpdate.h">
       <Filter>ShaderCode\Compute\ParticleUpdate</Filter>
     </ClInclude>
+    <ClInclude Include="HYPrefab.h">
+      <Filter>06. Asset\Prefab</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -425,6 +428,9 @@
     </ClCompile>
     <ClCompile Include="HYParticleUpdate.cpp">
       <Filter>ShaderCode\Compute\ParticleUpdate</Filter>
+    </ClCompile>
+    <ClCompile Include="HYPrefab.cpp">
+      <Filter>06. Asset\Prefab</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

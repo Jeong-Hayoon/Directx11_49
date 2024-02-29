@@ -128,6 +128,8 @@ HYLevel* HYLevelSaveLoad::LoadLevel(const wstring& _strLevelPath)
 	}
 
 	fclose(pFile);
+
+	return pLevel;
 }
 
 void HYLevelSaveLoad::LoadLayer(HYLayer* _Layer, FILE* _File)

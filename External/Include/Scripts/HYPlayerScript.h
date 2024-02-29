@@ -5,7 +5,9 @@ class HYPlayerScript :
     public HYScript
 {
 private:
-    float       m_Speed;
+    float            m_Speed;
+
+    Ptr<HYPrefab>    m_Missile;
 
 public:
 

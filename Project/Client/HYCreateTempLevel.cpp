@@ -19,11 +19,46 @@
 
 #include "HYLevelSaveLoad.h"
 
+#include <Scripts/HYMissileScript.h>
+
+#include <Engine/HYAssetMgr.h>
+#include <Engine/HYPrefab.h>
+
+void HYCreateTempLevel::Init()
+{
+	// Missile Prefab 생성
+	HYGameObject* pObj = nullptr;
+
+	pObj = new HYGameObject;
+	pObj->SetName(L"Missile");
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+	pObj->AddComponent(new HYMissileScript);
+
+	pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+
+	Ptr<HYPrefab> pMissilePrefab = new HYPrefab(pObj);
+	HYAssetMgr::GetInst()->AddAsset<HYPrefab>(L"MissilePrefab", pMissilePrefab.Get());
+
+	pMissilePrefab->Save(L"prefab\\missile.pref");
+	
+}
+
 void HYCreateTempLevel::CreateTempLevel()
 {
+	// 재질의 파라미터 미리 세팅
+	Ptr<HYMaterial> pBackgroudMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl");
+	Ptr<HYMaterial> pStd2DMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl");
+
+	pBackgroudMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Background.png"));
+	pStd2DMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\player.bmp"));
+
 	// Save된 Level Load Test
 	HYLevel* pLevel = HYLevelSaveLoad::LoadLevel(L"level\\temp.lv");
-	HYLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::STOP);
+	HYLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
 	return;
 
 	HYLevel* pTempLevel = new HYLevel;
@@ -146,7 +181,7 @@ void HYCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new HYBackgroundScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
-	pObj->Transform()->SetRelativeScale(Vec3(1300.f, 800.f, 1.f));
+	pObj->Transform()->SetRelativeScale(Vec3(1600.f, 800.f, 1.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	// 다른 재질을 사용해야 다른 텍스처를 사용할 수 있음
@@ -159,30 +194,30 @@ void HYCreateTempLevel::CreateTempLevel()
 	pTempLevel->AddObject(pObj, L"Background", false);
 
 	// TileMap Object
-	pObj = new HYGameObject;
-	pObj->SetName(L"TileMap");
+	//pObj = new HYGameObject;
+	//pObj->SetName(L"TileMap");
 
-	pObj->AddComponent(new HYTransform);
-	pObj->AddComponent(new HYTileMap);
-	pObj->AddComponent(new HYCollider2D);
+	//pObj->AddComponent(new HYTransform);
+	//pObj->AddComponent(new HYTileMap);
+	//pObj->AddComponent(new HYCollider2D);
 
-	pObj->Collider2D()->SetAbsolute(true);
+	//pObj->Collider2D()->SetAbsolute(true);
 
-	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 300.f));
+	//pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 300.f));
 
-	Ptr<HYTexture> pTileAtlas = HYAssetMgr::GetInst()->Load<HYTexture>(L"TileAtlasTex", L"texture\\TILE.bmp");
-	// 타일 텍스처와 타일 하나 사이즈를 세팅해줌
-	pObj->TileMap()->SetTileAtlas(pTileAtlas, Vec2(64.f, 64.f));
-	pObj->TileMap()->SetFace(6, 6);
-	for (int i = 0; i < 6; ++i)
-	{
-		for (int j = 0; j < 6; ++j)
-		{
-			pObj->TileMap()->SetTileIndex(i, j, i * 6 + j);
-		}
-	}
+	//Ptr<HYTexture> pTileAtlas = HYAssetMgr::GetInst()->Load<HYTexture>(L"TileAtlasTex", L"texture\\TILE.bmp");
+	//// 타일 텍스처와 타일 하나 사이즈를 세팅해줌
+	//pObj->TileMap()->SetTileAtlas(pTileAtlas, Vec2(64.f, 64.f));
+	//pObj->TileMap()->SetFace(6, 6);
+	//for (int i = 0; i < 6; ++i)
+	//{
+	//	for (int j = 0; j < 6; ++j)
+	//	{
+	//		pObj->TileMap()->SetTileIndex(i, j, i * 6 + j);
+	//	}
+	//}
 
-	pTempLevel->AddObject(pObj, L"Tile", false);
+	//pTempLevel->AddObject(pObj, L"Tile", false);
 
 	// Player Object 생성
 	pObj = new HYGameObject;
@@ -195,21 +230,21 @@ void HYCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new HYPlayerScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
-	pObj->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
+	pObj->Transform()->SetRelativeScale(Vec3(100.f, 180.f, 1.f));
 
 	pObj->Collider2D()->SetAbsolute(true);
-	//pObj->Collider2D()->SetOffsetScale(Vec2(750.f, 750.f));
-	//pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
+	pObj->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
+	pObj->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\Character.png"));
 
-	pObj->AddComponent(new HYLight2D);
+	//pObj->AddComponent(new HYLight2D);
 
-	pObj->Light2D()->SetLightType(LIGHT_TYPE::POINT);
-	pObj->Light2D()->SetLightColor(Vec3(1.f, 0.3f, 0.3f));
-	pObj->Light2D()->SetRadius(300.f);
+	//pObj->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	//pObj->Light2D()->SetLightColor(Vec3(1.f, 0.3f, 0.3f));
+	//pObj->Light2D()->SetRadius(300.f);
 
 	pTempLevel->AddObject(pObj, L"Player", false);
 
@@ -240,39 +275,39 @@ void HYCreateTempLevel::CreateTempLevel()
 	pTempLevel->AddObject(pCloneObj, L"Default", false);
 
 	// Monster Object 생성
-	pObj = new HYGameObject;
-	pObj->SetName(L"Monster");
+	//pObj = new HYGameObject;
+	//pObj->SetName(L"Monster");
 
-	pObj->AddComponent(new HYTransform);
-	pObj->AddComponent(new HYMeshRender);
-	pObj->AddComponent(new HYCollider2D);
+	//pObj->AddComponent(new HYTransform);
+	//pObj->AddComponent(new HYMeshRender);
+	//pObj->AddComponent(new HYCollider2D);
 
-	pObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 500.f));
-	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+	//pObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 500.f));
+	//pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
 
-	pObj->Collider2D()->SetAbsolute(true);
-	pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
-	pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
+	//pObj->Collider2D()->SetAbsolute(true);
+	//pObj->Collider2D()->SetOffsetScale(Vec2(50.f, 50.f));
+	//pObj->Collider2D()->SetOffsetPos(Vec2(100.f, 0.f));
 
-	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
-	pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.f);
+	//pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	//pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+	//pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.f);
 
-	pTempLevel->AddObject(pObj, L"Monster", false);
+	//pTempLevel->AddObject(pObj, L"Monster", false);
 
-	pObj = new HYGameObject;
-	pObj->SetName(L"UI");
+	//pObj = new HYGameObject;
+	//pObj->SetName(L"UI");
 
-	pObj->AddComponent(new HYTransform);
-	pObj->AddComponent(new HYMeshRender);
+	//pObj->AddComponent(new HYTransform);
+	//pObj->AddComponent(new HYMeshRender);
 
-	pObj->Transform()->SetRelativePos(Vec3(-590, 310.f, 500.f));
-	pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+	//pObj->Transform()->SetRelativePos(Vec3(-590, 310.f, 500.f));
+	//pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
 
-	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+	//pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	//pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
 
-	pTempLevel->AddObject(pObj, L"UI", false);
+	//pTempLevel->AddObject(pObj, L"UI", false);
 
 	// PostProcess 오브젝트 추가
 	//pObj = new HYGameObject;
@@ -369,7 +404,7 @@ void HYCreateTempLevel::CreateTempLevel()
 	//pTempLevel = pNewLevel;
 
 	// Level 시작(Play)
-	pTempLevel->begin();
+	// pTempLevel->begin();
 
 	// 처음의 한 프레임이 붕 떠버리기 때문에 일단 TaskMgr로 처리하지 않고 직접 호출
 	// pTempLevel->ChangeState(LEVEL_STATE::STOP);

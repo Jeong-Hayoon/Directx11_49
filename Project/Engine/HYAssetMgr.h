@@ -8,6 +8,7 @@
 #include "HYGraphicsShader.h"
 #include "HYComputeShader.h"
 #include "HYMaterial.h"
+#include "HYPrefab.h"
 
 template<typename T1, typename T2>
 constexpr bool MyBool = false;
@@ -88,6 +89,8 @@ ASSET_TYPE GetAssetType()
         Type = ASSET_TYPE::COMPUTE_SHADER;
     if constexpr (std::is_same_v<HYMaterial, T>)
         Type = ASSET_TYPE::MATERIAL;
+    if constexpr (std::is_same_v<HYPrefab, T>)
+        Type = ASSET_TYPE::PREFAB;
 
     return Type;
 }

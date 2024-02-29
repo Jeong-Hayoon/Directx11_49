@@ -9,6 +9,10 @@
 #include <Engine\HYEngine.h>
 #include <Engine\HYDevice.h>
 
+#include <Engine/HYPrefab.h>
+
+#include "HYLevelSaveLoad.h"
+
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine\\Engine_d.lib")
@@ -77,6 +81,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     // 임시 레벨 생성
+    HYPrefab::GAMEOBJECT_SAVE = &HYLevelSaveLoad::SaveGameObject;
+    HYPrefab::GAMEOBJECT_LOAD = &HYLevelSaveLoad::LoadGameObject;
+
+    HYCreateTempLevel::Init();
+
     HYCreateTempLevel::CreateTempLevel();
 
 #ifndef _RELEASE_GAME

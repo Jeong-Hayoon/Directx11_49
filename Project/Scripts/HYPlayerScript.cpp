@@ -33,6 +33,9 @@ void HYPlayerScript::begin()
 	Animator2D()->Create(L"MOVE_RIGHT", pAltasTex, Vec2(0.f, 300.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
 
 	GetRenderComponent()->GetDynamicMaterial();
+
+	//m_Missile = HYAssetMgr::GetInst()->FindAsset<HYPrefab>(L"MissilePrefab");
+	m_Missile = HYAssetMgr::GetInst()->Load<HYPrefab>(L"MissilePrefab", L"prefab\\missile.pref");
 }
 
 void HYPlayerScript::tick()
@@ -88,25 +91,26 @@ void HYPlayerScript::tick()
 
 	if (KEY_TAP(KEY::SPACE))
 	{
-		GetOwner()->Destroy();
-		
-		// GameObject 생성
-		HYGameObject* pObj = nullptr;
-
-		pObj = new HYGameObject;
-		pObj->SetName(L"Missile");
-		pObj->AddComponent(new HYTransform);
-		pObj->AddComponent(new HYMeshRender);
-		pObj->AddComponent(new HYMissileScript);
-
-		// 위치는 이 Script Component를 소유하고 있는 GameObject의 위치
-		pObj->Transform()->SetRelativePos(Transform()->GetRelativePos());
-		pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
-
-		pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
-
-		GamePlayStatic::SpawnGameObject(pObj, 0);
+		Instantiate(m_Missile, Transform()->GetWorldPos(), 0);
 	}
+
+	if (KEY_PRESSED(KEY::SPACE))
+	{
+		Ptr<HYMaterial> pMtrl = MeshRender()->GetMaterial();
+		if (nullptr != pMtrl)
+		{
+			pMtrl->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+		}
+	}
+	else if (KEY_RELEASED(KEY::SPACE))
+	{
+		Ptr<HYMaterial> pMtrl = MeshRender()->GetMaterial();
+		if (nullptr != pMtrl)
+		{
+			pMtrl->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+		}
+	}
+
 
 	//GamePlayStatic::DrawDebugRect(Vec3(0.f, 0.f, 0.f), Vec3(200.f, 200.f, 1.f), Vec3(0.f, 0.f, 0.f), Vec3(1.f, 1.f, 1.f), true, 20);
 	//GamePlayStatic::DrawDebugCircle(Vec3(0.f, 0.f, 0.f), 200.f, Vec3(0.f, 1.f, 1.f), true);

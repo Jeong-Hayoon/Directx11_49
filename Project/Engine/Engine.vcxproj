@@ -198,6 +198,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYParticleSystem.h" />
     <ClInclude Include="HYParticleUpdate.h" />
     <ClInclude Include="HYPathMgr.h" />
+    <ClInclude Include="HYPrefab.h" />
     <ClInclude Include="HYRenderComponent.h" />
     <ClInclude Include="HYRenderMgr.h" />
     <ClInclude Include="HYScript.h" />
@@ -250,6 +251,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYParticleSystem.cpp" />
     <ClCompile Include="HYParticleUpdate.cpp" />
     <ClCompile Include="HYPathMgr.cpp" />
+    <ClCompile Include="HYPrefab.cpp" />
     <ClCompile Include="HYRenderComponent.cpp" />
     <ClCompile Include="HYRenderMgr.cpp" />
     <ClCompile Include="HYRenderMgr_Init.cpp" />

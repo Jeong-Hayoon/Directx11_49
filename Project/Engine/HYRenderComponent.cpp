@@ -50,7 +50,7 @@ Ptr<HYMaterial> HYRenderComponent::GetDynamicMaterial()
 	// 레벨이 플레이 상태인 경우에만
 	HYLevel* pCurLevel = HYLevelMgr::GetInst()->GetCurrentLevel();
 	if (pCurLevel->GetState() != LEVEL_STATE::PLAY)
-		nullptr;
+		return nullptr;
 
 	// 이미 동적 재질을 보유하고 있으면 그걸 준다.
 	if (nullptr != m_DynamicMtrl)
