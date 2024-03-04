@@ -130,6 +130,7 @@ wstring ToWString(const string& _str)
 	return wstring(_str.begin(), _str.end());
 }
 
+// 문자열을 저장하는 함수
 void SaveWString(const wstring& _str, FILE* _File)
 {
 	size_t len = _str.length();
@@ -137,6 +138,7 @@ void SaveWString(const wstring& _str, FILE* _File)
 	fwrite(_str.c_str(), sizeof(wchar_t), _str.length(), _File);
 }
 
+// 저장한 문자열을 불러오는 함수
 void LoadWString(wstring& _str, FILE* _FILE)
 {
 	size_t len = 0;

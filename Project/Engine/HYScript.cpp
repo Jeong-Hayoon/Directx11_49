@@ -20,7 +20,6 @@ void HYScript::Instantiate(Ptr<HYPrefab> _Prefab, Vec3 _vWorldPos, int _layerIdx
 	GamePlayStatic::SpawnGameObject(pNewObj, _layerIdx);
 }
 
-
 void HYScript::SaveToFile(FILE* _File)
 {
 }

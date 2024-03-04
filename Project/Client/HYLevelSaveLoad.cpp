@@ -12,6 +12,7 @@
 #include <Scripts/HYScriptMgr.h>
 #include <Engine/HYScript.h>
 
+// SaveLevel(저장할 레벨, 경로)
 void HYLevelSaveLoad::SaveLevel(HYLevel* _Level, const wstring& _strLevelPath)
 {
 	assert(_Level);
@@ -23,7 +24,7 @@ void HYLevelSaveLoad::SaveLevel(HYLevel* _Level, const wstring& _strLevelPath)
 	FILE* pFile = nullptr;
 	_wfopen_s(&pFile, strLevelPath.c_str(), L"wb");
 
-	// 레벨의 이름
+	// 레벨의 이름 저장
 	SaveWString(_Level->GetName(), pFile);
 
 	// 레벨의 레이어 저장
@@ -35,6 +36,7 @@ void HYLevelSaveLoad::SaveLevel(HYLevel* _Level, const wstring& _strLevelPath)
 	fclose(pFile);
 }
 
+// 레이어를 저장하는 함수
 void HYLevelSaveLoad::SaveLayer(HYLayer* _Layer, FILE* _File)
 {
 	// Layer 의 이름 저장
@@ -43,6 +45,7 @@ void HYLevelSaveLoad::SaveLayer(HYLayer* _Layer, FILE* _File)
 	// Layer 가 보유하고 있는 GameObject 들을 저장
 	const vector<HYGameObject*>& vecObject = _Layer->GetParentObjects();
 
+	// 오브젝트의 개수 저장
 	size_t ObjCount = vecObject.size();
 	fwrite(&ObjCount, sizeof(size_t), 1, _File);
 
@@ -132,13 +135,13 @@ HYLevel* HYLevelSaveLoad::LoadLevel(const wstring& _strLevelPath)
 	return pLevel;
 }
 
+// Layer를 하나씩 생성해서 주는 개념이 아닌 Layer를 받아서 입력으로 들어온 레이어를 파일에 저장된 걸로 채움
 void HYLevelSaveLoad::LoadLayer(HYLayer* _Layer, FILE* _File)
 {
 	// Layer 의 이름 저장
 	wstring strLayerName;
 	LoadWString(strLayerName, _File);
 	_Layer->SetName(strLayerName);
-
 
 	// Layer 가 보유하던 GameObject 들을 불러온다.
 	size_t ObjCount = 0;
