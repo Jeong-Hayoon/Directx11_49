@@ -26,6 +26,7 @@
 
 void HYCreateTempLevel::Init()
 {
+	// Prefab Test(위치는 Spawn 하는 오브젝트가 설정)
 	// Missile Prefab 생성
 	HYGameObject* pObj = nullptr;
 
