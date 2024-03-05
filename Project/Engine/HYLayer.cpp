@@ -92,7 +92,6 @@ void HYLayer::AddObject(HYGameObject* _Object, bool _bMove)
 	// 현재 오브젝트부터 넣고
 	queue.push_back(_Object);
 
-
 	// 레이어에 입력되는 오브젝트 포함, 그 밑에 달린 자식들까지 모두 확인
 	// 큐가 empty가 되었다는 것은 밑의 모든 자식을 확인했다는 의미
 	while (!queue.empty())

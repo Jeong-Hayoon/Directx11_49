@@ -166,6 +166,7 @@ HYGameObject* HYLevelSaveLoad::LoadGameObject(FILE* _File)
 
 	// 컴포넌트 정보를 불러오기
 	COMPONENT_TYPE type = COMPONENT_TYPE::END;
+
 	while (true)
 	{
 		fread(&type, sizeof(UINT), 1, _File);
@@ -201,6 +202,8 @@ HYGameObject* HYLevelSaveLoad::LoadGameObject(FILE* _File)
 			pComponent = new HYParticleSystem;
 			break;
 		default:
+
+			// 새로운 Component 를 추가했는데 case 추가를 안했을 경우 알 수 있도록 assert
 			assert(nullptr);
 			break;
 		}
