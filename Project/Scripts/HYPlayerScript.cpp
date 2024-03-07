@@ -20,7 +20,7 @@ HYPlayerScript::~HYPlayerScript()
 
 void HYPlayerScript::begin()
 {
-	Ptr<HYTexture> pAltasTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"AnimAtlasTex", L"texture\\playerFrame_small.png");
+	Ptr<HYTexture> pAltasTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\playerFrame_small.png", L"texture\\playerFrame_small.png");
 
 	Animator2D()->Create(L"IDLE_UP", pAltasTex, Vec2(100.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
 	Animator2D()->Create(L"IDLE_DOWN", pAltasTex, Vec2(0.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
@@ -37,7 +37,7 @@ void HYPlayerScript::begin()
 	// Prefab Test
 	//m_Missile = HYAssetMgr::GetInst()->FindAsset<HYPrefab>(L"MissilePrefab");
 	// Save한 Prefab 로딩해서 사용
-	m_Missile = HYAssetMgr::GetInst()->Load<HYPrefab>(L"MissilePrefab", L"prefab\\missile.pref");
+	m_Missile = HYAssetMgr::GetInst()->Load<HYPrefab>(L"prefab\\missile.pref", L"prefab\\missile.pref");
 }
 
 void HYPlayerScript::tick()

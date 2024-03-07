@@ -5,6 +5,7 @@
 #include <Engine/HYLevel.h>
 #include <Engine/HYGameObject.h>
 #include <Engine/HYKeyMgr.h>
+#include <Engine/HYPathMgr.h>
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -24,6 +25,7 @@
 HYImGuiMgr::HYImGuiMgr()
     : m_bDemoUI(true)
     , m_bCameraOn(false)
+    , m_hNotify(nullptr)
 {
 
 }
@@ -37,6 +39,9 @@ HYImGuiMgr::~HYImGuiMgr()
 
     // UI 
     Delete_Map(m_mapUI);
+
+    // 디렉터리 변경 감시 종료
+    FindCloseChangeNotification(m_hNotify);
 }
 
 void HYImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device
@@ -92,6 +97,13 @@ void HYImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device
     //IM_ASSERT(font != nullptr);
 
     create_ui();
+
+    // Content 폴더 감시
+    wstring strContentPath = HYPathMgr::GetContentPath();
+
+    m_hNotify = FindFirstChangeNotification(strContentPath.c_str(), true
+                , FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME
+                | FILE_ACTION_ADDED | FILE_ACTION_REMOVED);
 }
 
 void HYImGuiMgr::progress()
@@ -99,6 +111,8 @@ void HYImGuiMgr::progress()
     tick();
 
     render();
+
+    observe_content();
 }
 
 void HYImGuiMgr::tick()
@@ -137,7 +151,6 @@ void HYImGuiMgr::tick()
         HYGameObject* pObject = pCurLevel->FindObjectByName(L"Player");
         ((Inspector*)FindUI("##Inspector"))->SetTargetObject(pObject);
     }
-
 }
 
 void HYImGuiMgr::render()
@@ -212,4 +225,17 @@ void HYImGuiMgr::create_ui()
     AddUI(pUI->GetID(), pUI);
 }
 
+// content 폴더의 변경점을 체크
+void HYImGuiMgr::observe_content()
+{
+    // WaitForSingleObject 를 이용해서 알림이 있는지 확인(변경점 체크),
+    // 대기시간은 0로 설정해서 알림이 있던 없던 바로 반환
+    // WAIT_OBJECT_0 : WaitForSingleObject 반환값이 WAIT_OBJECT_0가 나오면 변경점이 있었다는 의미
+    if (WAIT_OBJECT_0 == WaitForSingleObject(m_hNotify, 0))
+    {
+        // Content UI가 Content 폴더 내의 Asset을 보여주니까 변경점 발생 시
+        // 새롭게 UI의 Tree 상태를 다시 반영하는 코드 추가
 
+        FindNextChangeNotification(m_hNotify);
+    }
+}

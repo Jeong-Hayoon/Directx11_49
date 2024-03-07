@@ -36,6 +36,9 @@ private:
 
     bool                    m_AnimationEditorOn;
 
+    // content 폴더의 변경점 알림 관련한 핸들(감시자)
+    HANDLE                  m_hNotify;
+
 public:
     bool GetAnimationEditorOn() { return m_AnimationEditorOn; }
     void SetAnimationEditorOn(bool _onoff) { m_AnimationEditorOn = _onoff; }
@@ -49,6 +52,7 @@ private:
     void render();
 
     void create_ui();
+    void observe_content();
 
 public:
     UI* FindUI(const string& _strUIName);

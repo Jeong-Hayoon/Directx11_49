@@ -54,8 +54,8 @@ void HYCreateTempLevel::CreateTempLevel()
 	Ptr<HYMaterial> pBackgroudMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl");
 	Ptr<HYMaterial> pStd2DMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl");
 
-	pBackgroudMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Background.png"));
-	pStd2DMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\player.bmp"));
+	pBackgroudMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\Background.png", L"texture\\Background.png"));
+	pStd2DMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\player.bmp", L"texture\\player.bmp"));
 
 	// Save된 Level Load Test
 	HYLevel* pLevel = HYLevelSaveLoad::LoadLevel(L"level\\temp.lv");
@@ -65,7 +65,7 @@ void HYCreateTempLevel::CreateTempLevel()
 	HYLevel* pTempLevel = new HYLevel;
 
 	// 재질 로드 테스트
-	//HYAssetMgr::GetInst()->Load<HYMaterial>(L"TestMtrl", L"material\\testmtrl.mtrl");
+	//HYAssetMgr::GetInst()->Load<HYMaterial>(L"material\\testmtrl.mtrl", L"material\\testmtrl.mtrl");
 
 	// 초기 레벨 구성하기
 	pTempLevel->GetLayer(0)->SetName(L"Default");
@@ -188,7 +188,7 @@ void HYCreateTempLevel::CreateTempLevel()
 	// 다른 재질을 사용해야 다른 텍스처를 사용할 수 있음
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl"));
 
-	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"BackgroundTex", L"texture\\Background.png");
+	Ptr<HYTexture> pTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\Background.png", L"texture\\Background.png");
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
 	//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTestTex); -> ComputeShdaer
 
@@ -239,7 +239,7 @@ void HYCreateTempLevel::CreateTempLevel()
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"PlayerTexture", L"texture\\Character.png"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\Character.png", L"texture\\Character.png"));
 
 	//pObj->AddComponent(new HYLight2D);
 
@@ -335,7 +335,7 @@ void HYCreateTempLevel::CreateTempLevel()
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"DistortionMtrl"));
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"NoiseTex", L"texture\\noise\\noise_03.jpg"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\noise\\noise_03.jpg", L"texture\\noise\\noise_03.jpg"));
 
 	pTempLevel->AddObject(pObj, L"Default", false);*/
 
@@ -351,7 +351,7 @@ void HYCreateTempLevel::CreateTempLevel()
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"CircleMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"WaveFilterMtrl"));
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"ChaosTex", L"texture\\ChaosRiftOpen6.png"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\ChaosRiftOpen6.png", L"texture\\ChaosRiftOpen6.png"));
 
 	pTempLevel->AddObject(pObj, L"Default", false);*/
 
@@ -367,7 +367,7 @@ void HYCreateTempLevel::CreateTempLevel()
 
 	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"OutLineMtrl"));
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"NoiseTex", L"texture\\noise\\noise_03.jpg"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\noise\\noise_03.jpg", L"texture\\noise\\noise_03.jpg"));
 
 	pTempLevel->AddObject(pObj, L"Default", false);*/
 
