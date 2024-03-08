@@ -72,7 +72,7 @@ public:
     CLONE_DISABLE(HYTexture);
    
 public:
-    HYTexture();
+    HYTexture(bool _Engine = false);
     ~HYTexture();
 
     friend class HYAssetMgr;

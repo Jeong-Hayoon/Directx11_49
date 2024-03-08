@@ -66,6 +66,13 @@ public:
     // 특정 Asset 타입의 이름들을 알려주는 함수
     void GetAssetName(ASSET_TYPE _Type, vector<string>& _Out);
 
+private:
+    // 지정된 에셋을 삭제한다.
+    template<typename T>
+    void DeleteAsset(const wstring& _strKey);
+    void DeleteAsset(ASSET_TYPE _Type, const wstring& _strKey);
+
+    friend class HYTaskMgr;
 };
 
 // template의 타입을 알아내는 함수(전역함수)
@@ -166,4 +173,18 @@ Ptr<T> HYAssetMgr::Load(const wstring& _strKey, const wstring& _strRelativePath)
     AddAsset<T>(_strKey, (T*)pAsset.Get());
 
     return (T*)pAsset.Get();
+}
+
+
+template<typename T>
+inline void HYAssetMgr::DeleteAsset(const wstring& _strKey)
+{
+    ASSET_TYPE AssetType = GetAssetType<T>();
+
+    map<wstring, Ptr<HYAsset>>::iterator iter = m_mapAsset[(UINT)AssetType].find(_strKey);
+
+    // Asset을 Delete 요청했는데 해당 Asset이 존재하지 않는 경우 
+    assert(!(iter == m_mapAsset[(UINT)AssetType].end()));
+
+    m_mapAsset[(UINT)AssetType].erase(iter);
 }

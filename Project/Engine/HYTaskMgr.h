@@ -10,8 +10,11 @@ enum class TASK_TYPE
 	// Param1 : Object Address
 	DELETE_OBJECT,
 
-	// Param1 : Asset Address(생성시킨 에셋 포인터), Param2 : Asset 
+	// Param1 : Asset Address(생성시킨 에셋 포인터)
 	ADD_ASSET,
+
+	// Param1 : AssetType, Param2 : Asset Adress
+	DELETE_ASSET,
 
 	// Param1 : Level(상태가 바뀔), Param2 : LEVEL_STATE(바뀔 Level의 상태)
 	CHANGE_LEVELSTATE,

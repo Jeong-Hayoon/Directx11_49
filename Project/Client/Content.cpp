@@ -130,6 +130,45 @@ void Content::ReloadContent()
 	}
 
 	// 삭제된 에셋이 있으면, AssetMgr 에서도 메모리 해제 
+	for (UINT i = 0; i < (UINT)ASSET_TYPE::END; ++i)
+	{
+		const map<wstring, Ptr<HYAsset>>& mapAsset = HYAssetMgr::GetInst()->GetAssets((ASSET_TYPE)i);
+
+		for (const auto& pair : mapAsset)
+		{
+			// 엔진 에셋인 경우 continue 
+			// 엔진 에셋은 파일로부터 로딩된 에셋이 아니라, 프로그램 실행 도중 만들어진 에셋들이기 때문애 
+			// Exist 체크를 해봤자 없다고 뜨기 때문
+			if (pair.second->IsEngineAsset())
+				continue;
+
+			// 메모리에 로딩된 에셋의 원본파일이, content 폴더 내에서 삭제된 경우
+			// 실제 로딩되어있는 에셋도 삭제시켜서 sync 를 맞춘다.
+			wstring strFilePath = strContentPath + pair.second->GetRelativePath();
+
+			if (!exists(strFilePath))
+			{
+				MessageBox(nullptr, L"원본파일이 삭제되었습니다.", L"Asset 싱크", MB_OK);
+
+				// 여러 곳에서 참조하고 있는 경우
+				if (1 < pair.second->GetRefCount())
+				{
+					int value = MessageBox(nullptr, L"Asset 이 참조되고 있습니다.\n강제 삭제하시겠습니까?", L"Asset 싱크", MB_YESNO);
+					
+					// 아니오를 누르면 패스
+					if (value == IDCANCEL)
+						continue;
+				}
+
+				// 에셋 매니저에서 해당 에셋을 삭제한다.
+				tTask task = {};
+				task.Type = TASK_TYPE::DELETE_ASSET;
+				task.Param_1 = (DWORD_PTR)i;
+				task.Param_2 = (DWORD_PTR)pair.second.Get();
+				HYTaskMgr::GetInst()->AddTask(task);
+			}
+		}
+	}
 
 	ResetContent();
 }

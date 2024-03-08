@@ -25,7 +25,7 @@ void HYAssetMgr::CreateDefaultMesh()
 	// Geometry Shader 전용 Mesh
 	Vtx vPoint;
 	UINT Idx = 0;
-	pMesh = new HYMesh;
+	pMesh = new HYMesh(true);
 	// 점이기 때문에 Position, Color, UV 아무것도 설정해주지 않아도 됨
 	pMesh->Create(&vPoint, 1, &Idx, 1);
 	AddAsset(L"PointMesh", pMesh);
@@ -62,7 +62,7 @@ void HYAssetMgr::CreateDefaultMesh()
 	arrIdx[4] = 2;
 	arrIdx[5] = 3;
 
-	pMesh = new HYMesh;
+	pMesh = new HYMesh(true);
 	pMesh->Create(arrVtx, 4, arrIdx, 6);
 	AddAsset(L"RectMesh", pMesh);
 
@@ -73,7 +73,7 @@ void HYAssetMgr::CreateDefaultMesh()
 	// VS를 0-1-2-3-0으로 5번 호출
 	arrIdx[0] = 0;	arrIdx[1] = 1;	arrIdx[2] = 2;	arrIdx[3] = 3; 	arrIdx[4] = 0;
 
-	pMesh = new HYMesh;
+	pMesh = new HYMesh(true);
 	pMesh->Create(arrVtx, 4, arrIdx, 5);
 	AddAsset(L"RectMesh_Debug", pMesh);
 
@@ -122,7 +122,7 @@ void HYAssetMgr::CreateDefaultMesh()
 		vecIdx.push_back(i + 1);
 	}
 
-	pMesh = new HYMesh;
+	pMesh = new HYMesh(true);
 	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
 	AddAsset(L"CircleMesh", pMesh);
 
@@ -136,7 +136,7 @@ void HYAssetMgr::CreateDefaultMesh()
 		vecIdx.push_back(i);
 	}
 
-	pMesh = new HYMesh;
+	pMesh = new HYMesh(true);
 	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
 	AddAsset(L"CircleMesh_Debug", pMesh);
 
@@ -165,7 +165,7 @@ void HYAssetMgr::CreateDefaultMesh()
 	vecIdx.push_back(0); vecIdx.push_back(1);
 	vecIdx.push_back(2); vecIdx.push_back(3);
 
-	pMesh = new HYMesh;
+	pMesh = new HYMesh(true);
 	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
 	AddAsset(L"CrossMesh", pMesh);
 	vecVtx.clear();

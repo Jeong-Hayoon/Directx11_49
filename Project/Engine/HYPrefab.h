@@ -25,8 +25,8 @@ public:
     virtual int Load(const wstring& _strFilePath);
 
 public:
-    HYPrefab();
-    HYPrefab(HYGameObject* _Proto);
+    HYPrefab(bool _Engine = false);
+    HYPrefab(HYGameObject* _Proto, bool _Engine);
     ~HYPrefab();
 };
 

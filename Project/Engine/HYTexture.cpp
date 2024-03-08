@@ -3,8 +3,8 @@
 
 #include "HYDevice.h"
 
-HYTexture::HYTexture()
-	: HYAsset(ASSET_TYPE::TEXTURE)
+HYTexture::HYTexture(bool _Engine)
+	: HYAsset(ASSET_TYPE::TEXTURE, _Engine)
 	, m_Desc{}
 {
 }

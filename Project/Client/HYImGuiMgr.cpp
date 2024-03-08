@@ -234,8 +234,11 @@ void HYImGuiMgr::observe_content()
     if (WAIT_OBJECT_0 == WaitForSingleObject(m_hNotify, 0))
     {
         // Content UI가 Content 폴더 내의 Asset을 보여주니까 변경점 발생 시
-        // 새롭게 UI의 Tree 상태를 다시 반영하는 코드 추가
-
+        // 새롭게 UI의 Tree 상태를 다시 반영하는 코드 추가(다시 알림 활성화)
         FindNextChangeNotification(m_hNotify);
+
+        // ContentUI 에 Reload 작업 수행
+        Content* pContentUI = (Content*)FindUI("##Content");
+        pContentUI->ReloadContent();
     }
 }

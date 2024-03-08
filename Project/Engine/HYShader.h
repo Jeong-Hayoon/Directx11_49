@@ -16,7 +16,7 @@ public:
     CLONE_DISABLE(HYShader);
 
 public:
-    HYShader(ASSET_TYPE _Type);
+    HYShader(ASSET_TYPE _Type, bool _Engine = true);
     ~HYShader();
 };
 

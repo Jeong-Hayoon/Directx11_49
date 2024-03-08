@@ -34,7 +34,7 @@ Ptr<HYTexture> HYAssetMgr::CreateTexture(const wstring& _strKey,
 	Ptr<HYTexture> pTex = FindAsset<HYTexture>(_strKey);
 	assert(!pTex.Get());
 
-	pTex = new HYTexture;
+	pTex = new HYTexture(true);
 
 	if (FAILED(pTex->Create(_Width, _Height, _Format, _Flag, _Usage)))
 	{
@@ -54,7 +54,7 @@ Ptr<HYTexture> HYAssetMgr::CreateTexture(const wstring& _strKey, ComPtr<ID3D11Te
 	Ptr<HYTexture> pTex = FindAsset<HYTexture>(_strKey);
 	assert(!pTex.Get());
 
-	pTex = new HYTexture;
+	pTex = new HYTexture(true);
 
 	if (FAILED(pTex->Create(_tex2D)))
 	{
@@ -65,6 +65,15 @@ Ptr<HYTexture> HYAssetMgr::CreateTexture(const wstring& _strKey, ComPtr<ID3D11Te
 	AddAsset<HYTexture>(_strKey, pTex.Get());
 
 	return pTex;
+}
+
+void HYAssetMgr::DeleteAsset(ASSET_TYPE _Type, const wstring& _strKey)
+{
+	map<wstring, Ptr<HYAsset>>::iterator iter = m_mapAsset[(UINT)_Type].find(_strKey);
+
+	assert(!(iter == m_mapAsset[(UINT)_Type].end()));
+
+	m_mapAsset[(UINT)_Type].erase(iter);
 }
 
 void HYAssetMgr::GetAssetName(ASSET_TYPE _Type, vector<string>& _Out)

@@ -12,7 +12,7 @@
 #include "Ptr.h"
 
 HYMaterial::HYMaterial(bool _bEngine)
-	: HYAsset(ASSET_TYPE::MATERIAL)
+	: HYAsset(ASSET_TYPE::MATERIAL, _bEngine)
 	, m_Const{}
 {
 }

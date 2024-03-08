@@ -6,15 +6,15 @@
 SAVE_TYPE HYPrefab::GAMEOBJECT_SAVE = nullptr;
 LOAD_TYPE HYPrefab::GAMEOBJECT_LOAD = nullptr;
 
-HYPrefab::HYPrefab()
-	: HYAsset(ASSET_TYPE::PREFAB)
+HYPrefab::HYPrefab(bool _Engine)
+	: HYAsset(ASSET_TYPE::PREFAB, _Engine)
 	, m_ProtoObj(nullptr)
 {
 }
 
 // Prefab을 처음부터 등록하는 버전의 생성자
-HYPrefab::HYPrefab(HYGameObject* _Proto)
-	: HYAsset(ASSET_TYPE::PREFAB)
+HYPrefab::HYPrefab(HYGameObject* _Proto, bool _Engine)
+	: HYAsset(ASSET_TYPE::PREFAB, _Engine)
 	, m_ProtoObj(_Proto)
 {
 }

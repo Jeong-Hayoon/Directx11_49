@@ -35,7 +35,7 @@ public:
     CLONE_DISABLE(HYMesh);
 
 public:
-    HYMesh();
+    HYMesh(bool _Engine = false);
     ~HYMesh();
 };
 

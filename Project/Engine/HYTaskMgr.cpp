@@ -81,6 +81,16 @@ void HYTaskMgr::tick()
 		}
 		break;
 
+		case TASK_TYPE::DELETE_ASSET:
+		{
+			// Param1 : AssetType, Param2 : Asset Adress
+			ASSET_TYPE Type = (ASSET_TYPE)m_vecTask[i].Param_1;
+			HYAsset* pAsset = (HYAsset*)m_vecTask[i].Param_2;
+			HYAssetMgr::GetInst()->DeleteAsset(Type, pAsset->GetKey());
+			m_bAssetChange = true;
+		}
+		break;
+
 		case TASK_TYPE::CHANGE_LEVELSTATE:
 		{
 			HYLevel* pLevel = (HYLevel*)m_vecTask[i].Param_1;

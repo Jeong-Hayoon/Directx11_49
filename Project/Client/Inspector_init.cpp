@@ -14,6 +14,7 @@ void Inspector::CreateChildUI()
 #include "Collider2DUI.h"
 #include "Light2DUI.h"
 #include "Animator2DUI.h"
+#include "PrefabUI.h"
 
 void Inspector::CreateComponentUI()
 {
@@ -68,4 +69,7 @@ void Inspector::CreateAssetUI()
 
 	m_arrAssetUI[(UINT)ASSET_TYPE::SOUND] = new SoundUI;
 	AddChildUI(m_arrAssetUI[(UINT)ASSET_TYPE::SOUND]);
+
+	m_arrAssetUI[(UINT)ASSET_TYPE::PREFAB] = new PrefabUI;
+	AddChildUI(m_arrAssetUI[(UINT)ASSET_TYPE::PREFAB]);
 }
