@@ -11,7 +11,6 @@
 #pragma comment(lib, "FMOD/fmod64_vc.lib")
 #endif
 
-
 class HYSound :
 	public HYAsset
 {

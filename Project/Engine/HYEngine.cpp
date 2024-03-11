@@ -13,6 +13,8 @@
 #include "HYRenderMgr.h"
 #include "HYCollisionMgr.h"
 
+#include "HYSound.h"
+
 HYEngine::HYEngine()
 	: m_hMainWnd(nullptr)
 	, m_vResolution()

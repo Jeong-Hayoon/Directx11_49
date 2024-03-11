@@ -5,6 +5,8 @@
 #include "HYGraphicsShader.h"
 #include "HYMaterial.h"
 
+#include "HYSound.h"
+
 HYAssetMgr::HYAssetMgr()
 {
 }

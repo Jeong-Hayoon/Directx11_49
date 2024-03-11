@@ -17,7 +17,6 @@ void HYAssetMgr::init()
 	CreateDefaultComputeShader();
 
 	CreateDefaultMaterial();
-
 }
 
 void HYAssetMgr::CreateDefaultMesh()
