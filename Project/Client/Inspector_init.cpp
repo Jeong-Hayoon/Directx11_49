@@ -14,7 +14,6 @@ void Inspector::CreateChildUI()
 #include "Collider2DUI.h"
 #include "Light2DUI.h"
 #include "Animator2DUI.h"
-#include "PrefabUI.h"
 
 void Inspector::CreateComponentUI()
 {
@@ -46,6 +45,8 @@ void Inspector::CreateComponentUI()
 #include "GraphicsShaderUI.h"
 #include "ComputeShaderUI.h"
 #include "SoundUI.h"
+#include "PrefabUI.h"
+
 
 void Inspector::CreateAssetUI()
 {

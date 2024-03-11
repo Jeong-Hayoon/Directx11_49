@@ -28,23 +28,23 @@ void HYCreateTempLevel::Init()
 {
 	// Prefab Test(위치는 Spawn 하는 오브젝트가 설정)
 	// Missile Prefab 생성
-	HYGameObject* pObj = nullptr;
-
-	pObj = new HYGameObject;
-	pObj->SetName(L"Missile");
-	pObj->AddComponent(new HYTransform);
-	pObj->AddComponent(new HYMeshRender);
-	pObj->AddComponent(new HYMissileScript);
-
-	pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
-
-	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
-
-	Ptr<HYPrefab> pMissilePrefab = new HYPrefab(pObj);
-	HYAssetMgr::GetInst()->AddAsset<HYPrefab>(L"MissilePrefab", pMissilePrefab.Get());
-
-	pMissilePrefab->Save(L"prefab\\missile.pref");
+	//HYGameObject* pObj = nullptr;
+	//
+	//pObj = new HYGameObject;
+	//pObj->SetName(L"Missile");
+	//pObj->AddComponent(new HYTransform);
+	//pObj->AddComponent(new HYMeshRender);
+	//pObj->AddComponent(new HYMissileScript);
+	//
+	//pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+	//
+	//pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	//pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+	//
+	//Ptr<HYPrefab> pMissilePrefab = new HYPrefab(pObj);
+	//HYAssetMgr::GetInst()->AddAsset<HYPrefab>(L"MissilePrefab", pMissilePrefab.Get());
+	//
+	//pMissilePrefab->Save(L"prefab\\missile.pref");
 	
 }
 
@@ -231,7 +231,7 @@ void HYCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new HYPlayerScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 500.f));
-	pObj->Transform()->SetRelativeScale(Vec3(100.f, 180.f, 1.f));
+	pObj->Transform()->SetRelativeScale(Vec3(200.f, 360.f, 1.f));
 
 	pObj->Collider2D()->SetAbsolute(true);
 	pObj->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));

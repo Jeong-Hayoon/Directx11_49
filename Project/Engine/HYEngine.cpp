@@ -21,6 +21,11 @@ HYEngine::HYEngine()
 
 HYEngine::~HYEngine()
 {
+	if (nullptr != HYSound::g_pFMOD)
+	{
+		HYSound::g_pFMOD->release();
+		HYSound::g_pFMOD = nullptr;
+	}
 }
 
 int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
@@ -59,6 +64,9 @@ void HYEngine::progress()
 	// Manager Update
 	HYTimeMgr::GetInst()->tick();
 	HYKeyMgr::GetInst()->tick();
+
+	// FMOD Update
+	HYSound::g_pFMOD->update();
 	
 	// Level Update
 	HYLevelMgr::GetInst()->tick();

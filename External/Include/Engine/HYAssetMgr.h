@@ -9,6 +9,7 @@
 #include "HYComputeShader.h"
 #include "HYMaterial.h"
 #include "HYPrefab.h"
+#include "HYSound.h"
 
 template<typename T1, typename T2>
 constexpr bool MyBool = false;
@@ -29,6 +30,7 @@ private:
 public:
     void init();
 private:
+    void InitSound();
     void CreateDefaultMesh();
     void CreateDefaultGraphicsShader();
     void CreateDefaultMaterial();
@@ -98,6 +100,8 @@ ASSET_TYPE GetAssetType()
         Type = ASSET_TYPE::MATERIAL;
     if constexpr (std::is_same_v<HYPrefab, T>)
         Type = ASSET_TYPE::PREFAB;
+    if constexpr (std::is_same_v<HYSound, T>)
+        Type = ASSET_TYPE::SOUND;
 
     return Type;
 }

@@ -106,6 +106,38 @@ void GamePlayStatic::DrawDebugCross(Vec3 _vWorldPos, float _fScale, Vec3 _Color,
 	HYRenderMgr::GetInst()->AddDebugShapeInfo(info);
 }
 
+// 사운드 재생하고 싶은데 AssetMgr에서 매번 호출하는게 귀찮으니까 함수화
+// 타격음, 폭발음, 효과
+void GamePlayStatic::Play2DSound(const wstring& _SoundPath, int _Loop, float _Volume, bool _Overlap)
+{
+	Ptr<HYSound> pSound = HYAssetMgr::GetInst()->Load<HYSound>(_SoundPath, _SoundPath);
+
+	if (nullptr != pSound)
+	{
+		pSound->Play(_Loop, _Volume, _Overlap);
+	}
+}
+
+// 배경음악
+void GamePlayStatic::Play2DBGM(const wstring& _SoundPath, float _Volume)
+{
+	static Ptr<HYSound> CurBGM = nullptr;
+
+	Ptr<HYSound> pSound = HYAssetMgr::GetInst()->Load<HYSound>(_SoundPath, _SoundPath);
+
+	if (nullptr != pSound)
+	{
+		if (nullptr != CurBGM)
+		{
+			CurBGM->Stop();
+		}
+
+		pSound->Play(0, _Volume);
+		CurBGM = pSound;
+	}
+}
+
+
 void Vector3::ToDegree()
 {
 	x = (x / XM_PI) * 180.f;

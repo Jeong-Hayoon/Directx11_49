@@ -124,7 +124,7 @@ void Content::ReloadContent()
 			HYAssetMgr::GetInst()->Load<HYMaterial>(m_vecAssetFileName[i], m_vecAssetFileName[i]);
 			break;
 		case ASSET_TYPE::SOUND:
-			//HYAssetMgr::GetInst()->Load<HYSound>(m_vecAssetFileName[i], m_vecAssetFileName[i]);
+			HYAssetMgr::GetInst()->Load<HYSound>(m_vecAssetFileName[i], m_vecAssetFileName[i]);
 			break;
 		}
 	}

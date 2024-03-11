@@ -8,6 +8,8 @@
 // 기본적으로 필요한 필수 Asset 등록
 void HYAssetMgr::init()
 {
+	InitSound();
+
 	CreateDefaultMesh();
 
 	CreateDefaultGraphicsShader();
@@ -415,4 +417,19 @@ void HYAssetMgr::CreateDefaultComputeShader()
 	// ParticleUpdateShader
 	pShader = new HYParticleUpdate;
 	AddAsset(L"ParticleUpdateShader", pShader.Get());
+}
+
+#include "HYSound.h"
+void HYAssetMgr::InitSound()
+{
+	// 관리자 객체 생성
+	FMOD::System_Create(&HYSound::g_pFMOD);
+
+	if (nullptr == HYSound::g_pFMOD)
+	{
+		assert(nullptr);
+	}
+
+	// 32개 채널 생성
+	HYSound::g_pFMOD->init(32, FMOD_DEFAULT, nullptr);
 }

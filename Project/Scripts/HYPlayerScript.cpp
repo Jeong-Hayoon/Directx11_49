@@ -22,15 +22,15 @@ void HYPlayerScript::begin()
 {
 	Ptr<HYTexture> pAltasTex = HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\playerFrame_small.png", L"texture\\playerFrame_small.png");
 
-	Animator2D()->Create(L"IDLE_UP", pAltasTex, Vec2(100.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
-	Animator2D()->Create(L"IDLE_DOWN", pAltasTex, Vec2(0.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
-	Animator2D()->Create(L"IDLE_LEFT", pAltasTex, Vec2(300.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
-	Animator2D()->Create(L"IDLE_RIGHT", pAltasTex, Vec2(200.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 1, 10);
+	Animator2D()->Create(L"IDLE_UP", pAltasTex, Vec2(100.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 1, 10);
+	Animator2D()->Create(L"IDLE_DOWN", pAltasTex, Vec2(0.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 1, 10);
+	Animator2D()->Create(L"IDLE_LEFT", pAltasTex, Vec2(300.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 1, 10);
+	Animator2D()->Create(L"IDLE_RIGHT", pAltasTex, Vec2(200.f, 0.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 1, 10);
 
-	Animator2D()->Create(L"MOVE_UP", pAltasTex, Vec2(0.f, 200.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
-	Animator2D()->Create(L"MOVE_DOWN", pAltasTex, Vec2(0.f, 100.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
-	Animator2D()->Create(L"MOVE_LEFT", pAltasTex, Vec2(0.f, 400.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
-	Animator2D()->Create(L"MOVE_RIGHT", pAltasTex, Vec2(0.f, 300.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(350.f, 350.f), 10, 10);
+	Animator2D()->Create(L"MOVE_UP", pAltasTex, Vec2(0.f, 200.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 10, 10);
+	Animator2D()->Create(L"MOVE_DOWN", pAltasTex, Vec2(0.f, 100.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 10, 10);
+	Animator2D()->Create(L"MOVE_LEFT", pAltasTex, Vec2(0.f, 400.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 10, 10);
+	Animator2D()->Create(L"MOVE_RIGHT", pAltasTex, Vec2(0.f, 300.f), Vec2(100.f, 100.f), Vec2(0.f, 0.f), Vec2(70.f, 150.f), 10, 10);
 
 	GetRenderComponent()->GetDynamicMaterial();
 
@@ -94,6 +94,8 @@ void HYPlayerScript::tick()
 	if (KEY_TAP(KEY::SPACE))
 	{
 		Instantiate(m_Missile, Transform()->GetWorldPos(), 0);
+		//GamePlayStatic::Play2DSound(L"sound\\DM.wav", 1, 0.5f, false);
+		GamePlayStatic::Play2DBGM(L"sound\\DM.wav", 0.5f);
 	}
 
 	if (KEY_PRESSED(KEY::SPACE))

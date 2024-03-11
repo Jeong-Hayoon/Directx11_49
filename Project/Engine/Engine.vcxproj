@@ -204,6 +204,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYScript.h" />
     <ClInclude Include="HYSetColorShader.h" />
     <ClInclude Include="HYShader.h" />
+    <ClInclude Include="HYSound.h" />
     <ClInclude Include="HYStructuredBuffer.h" />
     <ClInclude Include="HYTaskMgr.h" />
     <ClInclude Include="HYTexture.h" />
@@ -258,6 +259,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYScript.cpp" />
     <ClCompile Include="HYSetColorShader.cpp" />
     <ClCompile Include="HYShader.cpp" />
+    <ClCompile Include="HYSound.cpp" />
     <ClCompile Include="HYStructuredBuffer.cpp" />
     <ClCompile Include="HYTaskMgr.cpp" />
     <ClCompile Include="HYTexture.cpp" />

@@ -295,6 +295,9 @@
     <ClInclude Include="HYPrefab.h">
       <Filter>06. Asset\Prefab</Filter>
     </ClInclude>
+    <ClInclude Include="HYSound.h">
+      <Filter>06. Asset\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -431,6 +434,9 @@
     </ClCompile>
     <ClCompile Include="HYPrefab.cpp">
       <Filter>06. Asset\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="HYSound.cpp">
+      <Filter>06. Asset\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

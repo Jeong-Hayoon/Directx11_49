@@ -38,7 +38,13 @@ void HYLevelMgr::tick()
 	// clear을 해줘야 함(이전 프레임이 다 모여있을 거니까)
 	m_CurLevel->clear();
 
-	m_CurLevel->tick();
+	// 레벨이 Play 상태일 경우에만 tick() 호출
+	if (m_CurLevel->GetState() == LEVEL_STATE::PLAY)
+	{
+		m_CurLevel->tick();
+	}
+
+	// finaltick은 Level의 상태와 관련없이 돌아야 함(행렬 연산, 랜더링이 불가능하므로)
 	m_CurLevel->finaltick();
 
 	// 충돌 처리
