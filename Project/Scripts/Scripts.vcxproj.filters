@@ -33,6 +33,9 @@
     <ClInclude Include="HYScriptMgr.h">
       <Filter>ScriptMgr</Filter>
     </ClInclude>
+    <ClInclude Include="HYMonsterScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scripts.cpp">
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="HYScriptMgr.cpp">
       <Filter>ScriptMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="HYMonsterScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

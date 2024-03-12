@@ -53,6 +53,7 @@ enum class ASSET_TYPE
 	SOUND,
 	COMPUTE_SHADER,
 	GRAPHICS_SHADER,
+	FSM,
 	END,
 };
 // 이런 배열이 있을 것이라는 것을 명시
@@ -60,18 +61,19 @@ extern const char* ASSET_TYPE_STRING[(UINT)ASSET_TYPE::END];
 
 enum class COMPONENT_TYPE
 {
-	TRANSFORM,	// 오브젝트의 위치,크기,회전
+	TRANSFORM,			// 오브젝트의 위치,크기,회전
 
-	COLLIDER2D,	// 2차원 충돌체
-	COLLIDER3D, // 3차원 충돌체
+	COLLIDER2D,			// 2차원 충돌체
+	COLLIDER3D,			// 3차원 충돌체
 
-	ANIMATOR2D,	// 스프라이트 Animation
-	ANIMATOR3D,	// Bone Skinning Animation
+	ANIMATOR2D,			// 스프라이트 Animation
+	ANIMATOR3D,			// Bone Skinning Animation
 
-	LIGHT2D,	// 2차원 광원
-	LIGHT3D,	// 3차원 광원
+	LIGHT2D,			// 2차원 광원
+	LIGHT3D,			// 3차원 광원
 
-	CAMERA,		// 카메라 기능
+	CAMERA,				// 카메라 기능
+	STATEMACHINE,		// 상태머신
 
 	// Render Component
 	MESHRENDER,
@@ -81,10 +83,10 @@ enum class COMPONENT_TYPE
 	DECAL,
 	LANDSCAPE,
 
-	END,		// END를 기준으로 위쪽은 엔진에서 제공하는 기본 Component
-				// 아래는 따로 추가하는 Custom Component
+	END,				// END를 기준으로 위쪽은 엔진에서 제공하는 기본 Component
+						// 아래는 따로 추가하는 Custom Component
 
-	SCRIPT,		// Script는 Component안에 속해있지 않으므로 END 다음으로 배치
+	SCRIPT,				// Script는 Component안에 속해있지 않으므로 END 다음으로 배치
 };
 
 // 상수버퍼 종류

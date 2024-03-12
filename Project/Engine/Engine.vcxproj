@@ -175,6 +175,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYAnimator2D.h" />
     <ClInclude Include="HYAsset.h" />
     <ClInclude Include="HYAssetMgr.h" />
+    <ClInclude Include="HYBlackboard.h" />
     <ClInclude Include="HYCamera.h" />
     <ClInclude Include="HYCollider2D.h" />
     <ClInclude Include="HYCollisionMgr.h" />
@@ -184,6 +185,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYDevice.h" />
     <ClInclude Include="HYEngine.h" />
     <ClInclude Include="HYEntity.h" />
+    <ClInclude Include="HYFSM.h" />
     <ClInclude Include="HYGameObject.h" />
     <ClInclude Include="HYGC.h" />
     <ClInclude Include="HYGraphicsShader.h" />
@@ -205,6 +207,8 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYSetColorShader.h" />
     <ClInclude Include="HYShader.h" />
     <ClInclude Include="HYSound.h" />
+    <ClInclude Include="HYState.h" />
+    <ClInclude Include="HYStateMachine.h" />
     <ClInclude Include="HYStructuredBuffer.h" />
     <ClInclude Include="HYTaskMgr.h" />
     <ClInclude Include="HYTexture.h" />
@@ -229,6 +233,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYAsset.cpp" />
     <ClCompile Include="HYAssetMgr.cpp" />
     <ClCompile Include="HYAsssetMgr_init.cpp" />
+    <ClCompile Include="HYBlackboard.cpp" />
     <ClCompile Include="HYCamera.cpp" />
     <ClCompile Include="HYCollider2D.cpp" />
     <ClCompile Include="HYCollisionMgr.cpp" />
@@ -238,6 +243,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYDevice.cpp" />
     <ClCompile Include="HYEngine.cpp" />
     <ClCompile Include="HYEntity.cpp" />
+    <ClCompile Include="HYFSM.cpp" />
     <ClCompile Include="HYGameObject.cpp" />
     <ClCompile Include="HYGC.cpp" />
     <ClCompile Include="HYGraphicsShader.cpp" />
@@ -260,6 +266,8 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYSetColorShader.cpp" />
     <ClCompile Include="HYShader.cpp" />
     <ClCompile Include="HYSound.cpp" />
+    <ClCompile Include="HYState.cpp" />
+    <ClCompile Include="HYStateMachine.cpp" />
     <ClCompile Include="HYStructuredBuffer.cpp" />
     <ClCompile Include="HYTaskMgr.cpp" />
     <ClCompile Include="HYTexture.cpp" />

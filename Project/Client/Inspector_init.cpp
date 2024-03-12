@@ -46,6 +46,7 @@ void Inspector::CreateComponentUI()
 #include "ComputeShaderUI.h"
 #include "SoundUI.h"
 #include "PrefabUI.h"
+#include "FSMUI.h"
 
 
 void Inspector::CreateAssetUI()
@@ -73,4 +74,7 @@ void Inspector::CreateAssetUI()
 
 	m_arrAssetUI[(UINT)ASSET_TYPE::PREFAB] = new PrefabUI;
 	AddChildUI(m_arrAssetUI[(UINT)ASSET_TYPE::PREFAB]);
+
+	m_arrAssetUI[(UINT)ASSET_TYPE::FSM] = new FSMUI;
+	AddChildUI(m_arrAssetUI[(UINT)ASSET_TYPE::FSM]);
 }

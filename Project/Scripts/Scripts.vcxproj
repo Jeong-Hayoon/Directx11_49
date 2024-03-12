@@ -167,6 +167,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="framework.h" />
     <ClInclude Include="HYBackgroundScript.h" />
     <ClInclude Include="HYMissileScript.h" />
+    <ClInclude Include="HYMonsterScript.h" />
     <ClInclude Include="HYPlayerScript.h" />
     <ClInclude Include="HYScriptMgr.h" />
     <ClInclude Include="HYSpotLightScript.h" />
@@ -175,6 +176,7 @@ call CodeGen.exe</Command>
   <ItemGroup>
     <ClCompile Include="HYBackgroundScript.cpp" />
     <ClCompile Include="HYMissileScript.cpp" />
+    <ClCompile Include="HYMonsterScript.cpp" />
     <ClCompile Include="HYPlayerScript.cpp" />
     <ClCompile Include="HYScriptMgr.cpp" />
     <ClCompile Include="HYSpotLightScript.cpp" />

@@ -132,6 +132,7 @@ void GamePlayStatic::Play2DBGM(const wstring& _SoundPath, float _Volume)
 			CurBGM->Stop();
 		}
 
+		// BGM은 중첩 불가능, 배경음악이니까 반복 재생
 		pSound->Play(0, _Volume);
 		CurBGM = pSound;
 	}

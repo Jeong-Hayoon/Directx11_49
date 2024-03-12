@@ -11,6 +11,7 @@
 
 #include <Scripts/HYPlayerScript.h>
 #include <Scripts/HYBackgroundScript.h>
+#include <Scripts/HYMonsterScript.h>
 
 #include <Engine/HYMesh.h>
 #include <Engine/HYGraphicsShader.h>
@@ -23,6 +24,10 @@
 
 #include <Engine/HYAssetMgr.h>
 #include <Engine/HYPrefab.h>
+#include <Engine/HYFSM.h>
+
+#include "HYIdleState.h"
+#include "HYTraceState.h"
 
 void HYCreateTempLevel::Init()
 {
@@ -46,21 +51,28 @@ void HYCreateTempLevel::Init()
 	//
 	//pMissilePrefab->Save(L"prefab\\missile.pref");
 	
+	// 임시 FSM 객체 에셋 하나 생성하기
+	Ptr<HYFSM>	pFSM = new HYFSM(true);
+
+	pFSM->AddState(L"IdleState", new HYIdleState);
+	pFSM->AddState(L"TraceState", new HYTraceState);
+
+	HYAssetMgr::GetInst()->AddAsset<HYFSM>(L"NormalMonsterFSM", pFSM.Get());
 }
 
 void HYCreateTempLevel::CreateTempLevel()
 {
 	// 재질의 파라미터 미리 세팅
-	Ptr<HYMaterial> pBackgroudMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl");
-	Ptr<HYMaterial> pStd2DMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl");
-
-	pBackgroudMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\Background.png", L"texture\\Background.png"));
-	pStd2DMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\player.bmp", L"texture\\player.bmp"));
+	//Ptr<HYMaterial> pBackgroudMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"BackgroundMtrl");
+	//Ptr<HYMaterial> pStd2DMtrl = HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl");
+	//
+	//pBackgroudMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\Background.png", L"texture\\Background.png"));
+	//pStd2DMtrl->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\player.bmp", L"texture\\player.bmp"));
 
 	// Save된 Level Load Test
-	HYLevel* pLevel = HYLevelSaveLoad::LoadLevel(L"level\\temp.lv");
-	HYLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
-	return;
+	//HYLevel* pLevel = HYLevelSaveLoad::LoadLevel(L"level\\temp.lv");
+	//HYLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+	//return;
 
 	HYLevel* pTempLevel = new HYLevel;
 
@@ -295,6 +307,31 @@ void HYCreateTempLevel::CreateTempLevel()
 	//pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.f);
 
 	//pTempLevel->AddObject(pObj, L"Monster", false);
+
+	// Monster Object 생성(Monster Script Test)
+	pObj = new HYGameObject;
+	pObj->SetName(L"Monster");
+
+	pObj->AddComponent(new HYTransform);
+	pObj->AddComponent(new HYMeshRender);
+	pObj->AddComponent(new HYCollider2D);
+	pObj->AddComponent(new HYStateMachine);
+	pObj->AddComponent(new HYMonsterScript);
+
+	pObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 500.f));
+	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+
+	pObj->Collider2D()->SetAbsolute(true);
+	pObj->Collider2D()->SetOffsetScale(Vec2(120.f, 120.f));
+	pObj->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
+
+	pObj->MeshRender()->SetMesh(HYAssetMgr::GetInst()->FindAsset<HYMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(HYAssetMgr::GetInst()->FindAsset<HYMaterial>(L"Std2DMtrl"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, HYAssetMgr::GetInst()->Load<HYTexture>(L"texture\\Character.png", L"texture\\Character.png"));
+
+	pObj->StateMachine()->SetFSM(HYAssetMgr::GetInst()->FindAsset<HYFSM>(L"NormalMonsterFSM"));
+
+	pTempLevel->AddObject(pObj, L"Monster", false);
 
 	//pObj = new HYGameObject;
 	//pObj->SetName(L"UI");

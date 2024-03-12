@@ -146,6 +146,18 @@
     <Filter Include="03. Device\StructuredBuffer">
       <UniqueIdentifier>{284b76de-36eb-4ba6-8ef9-f3037b42cf01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Asset\FSM">
+      <UniqueIdentifier>{72a7cb92-429b-4a65-a03b-2f51249c881f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\FSM\State">
+      <UniqueIdentifier>{7c33da01-c97b-4588-9b7a-7db3d8cd4c42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\09. StateMachine">
+      <UniqueIdentifier>{55ec8621-5800-41cb-ab35-5a9dec76efff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Blackboard">
+      <UniqueIdentifier>{3649d870-f463-4e2a-9dc4-32bc0b2ebf25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -298,6 +310,18 @@
     <ClInclude Include="HYSound.h">
       <Filter>06. Asset\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="HYFSM.h">
+      <Filter>06. Asset\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="HYState.h">
+      <Filter>06. Asset\FSM\State</Filter>
+    </ClInclude>
+    <ClInclude Include="HYStateMachine.h">
+      <Filter>08. Component\09. StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="HYBlackboard.h">
+      <Filter>Module\Blackboard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -437,6 +461,18 @@
     </ClCompile>
     <ClCompile Include="HYSound.cpp">
       <Filter>06. Asset\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="HYFSM.cpp">
+      <Filter>06. Asset\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="HYState.cpp">
+      <Filter>06. Asset\FSM\State</Filter>
+    </ClCompile>
+    <ClCompile Include="HYStateMachine.cpp">
+      <Filter>08. Component\09. StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="HYBlackboard.cpp">
+      <Filter>Module\Blackboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,6 @@
 #pragma comment(lib, "FMOD/fmod64_vc.lib")
 #endif
 
-
 class HYSound :
 	public HYAsset
 {
@@ -19,11 +18,10 @@ public:
 	static FMOD::System*		g_pFMOD;		// FMOD 관리자 클래스
 
 public:
-	FMOD::Sound*				m_pSound;       // 로딩된 사운드 객체
-	list<FMOD::Channel*>		m_listChannel;  // 사운드가 재생되고 있는 채널
+	FMOD::Sound*				m_pSound;       // 로딩된 사운드 객체(소리 하나를 저장)
+	list<FMOD::Channel*>		m_listChannel;  // 사운드가 재생되고 있는 채널(동시에 여러 개의 사운드가 송출될 때), 어느 채널에서 본인이 재생되고 있는지 기록
 
 public:
-	// _iRoopCount : 0 (무한반복),  _fVolume : 0 ~ 1(Volume), _bOverlap : 소리 중첩 가능여부
 	int Play(int _iRoopCount, float _fVolume = 1.f, bool _bOverlap = false);
 	void Stop();
 

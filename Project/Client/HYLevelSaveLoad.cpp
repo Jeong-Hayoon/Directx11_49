@@ -192,6 +192,9 @@ HYGameObject* HYLevelSaveLoad::LoadGameObject(FILE* _File)
 		case COMPONENT_TYPE::CAMERA:
 			pComponent = new HYCamera;
 			break;
+		case COMPONENT_TYPE::STATEMACHINE:
+			pComponent = new HYStateMachine;
+			break;
 		case COMPONENT_TYPE::MESHRENDER:
 			pComponent = new HYMeshRender;
 			break;

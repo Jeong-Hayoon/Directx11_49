@@ -3,6 +3,7 @@
 
 #include "HYBackgroundScript.h"
 #include "HYMissileScript.h"
+#include "HYMonsterScript.h"
 #include "HYPlayerScript.h"
 #include "HYSpotLightScript.h"
 
@@ -10,6 +11,7 @@ void HYScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"HYBackgroundScript");
 	_vec.push_back(L"HYMissileScript");
+	_vec.push_back(L"HYMonsterScript");
 	_vec.push_back(L"HYPlayerScript");
 	_vec.push_back(L"HYSpotLightScript");
 }
@@ -20,6 +22,8 @@ HYScript * HYScriptMgr::GetScript(const wstring& _strScriptName)
 		return new HYBackgroundScript;
 	if (L"HYMissileScript" == _strScriptName)
 		return new HYMissileScript;
+	if (L"HYMonsterScript" == _strScriptName)
+		return new HYMonsterScript;
 	if (L"HYPlayerScript" == _strScriptName)
 		return new HYPlayerScript;
 	if (L"HYSpotLightScript" == _strScriptName)
@@ -36,6 +40,9 @@ HYScript * HYScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::MISSILESCRIPT:
 		return new HYMissileScript;
+		break;
+	case (UINT)SCRIPT_TYPE::MONSTERSCRIPT:
+		return new HYMonsterScript;
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
 		return new HYPlayerScript;
@@ -57,6 +64,10 @@ const wchar_t * HYScriptMgr::GetScriptName(HYScript * _pScript)
 
 	case SCRIPT_TYPE::MISSILESCRIPT:
 		return L"HYMissileScript";
+		break;
+
+	case SCRIPT_TYPE::MONSTERSCRIPT:
+		return L"HYMonsterScript";
 		break;
 
 	case SCRIPT_TYPE::PLAYERSCRIPT:
