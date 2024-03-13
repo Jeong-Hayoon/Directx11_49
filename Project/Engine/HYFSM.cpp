@@ -72,6 +72,7 @@ HYFSM* HYFSM::GetFSMIstance()
 	return pFSMInst;
 }
 
+// 상태를 바꿔주는 함수
 void HYFSM::ChangeState(const wstring& _strStateName)
 {
 	if (nullptr != m_CurState)

@@ -20,6 +20,7 @@ void* HYState::GetBlackboardData(const wstring& _strKey)
 	return pSM->GetBlackboardData(_strKey);
 }
 
+// 상태를 변경해주는 함수
 void HYState::ChangeState(const wstring& _strStateName)
 {
 	assert(m_FSM);

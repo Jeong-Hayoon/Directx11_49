@@ -22,6 +22,7 @@ void HYTraceState::finaltick()
 	HYGameObject* pTarget = ((HYGameObject*)GetBlackboardData(L"TargetObject"));
 	HYGameObject* pSelf = GetFSM()->GetStateMachine()->GetOwner();
 
+	// 상대방을 향한 방향
 	Vec3 vDir = pTarget->Transform()->GetWorldPos() - pSelf->Transform()->GetWorldPos();
 	vDir.Normalize();
 
