@@ -50,6 +50,7 @@ private:
 public:
     // 상속받은 클래스들은 무조건 타입을 입력해줘야 함
     HYAsset(ASSET_TYPE _Type, bool _bEngineAsset);
+    HYAsset(const HYAsset& _Origin);
     ~HYAsset();
 
     // override는 받았으나 Asset은 애초에 공유 개념이라서 Clone의 개념이 X

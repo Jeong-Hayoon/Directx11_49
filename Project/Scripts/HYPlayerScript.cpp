@@ -37,7 +37,7 @@ void HYPlayerScript::begin()
 	// Prefab Test
 	//m_Missile = HYAssetMgr::GetInst()->FindAsset<HYPrefab>(L"MissilePrefab");
 	// Save한 Prefab 로딩해서 사용
-	m_Missile = HYAssetMgr::GetInst()->Load<HYPrefab>(L"prefab\\missile.pref", L"prefab\\missile.pref");
+	//m_Missile = HYAssetMgr::GetInst()->Load<HYPrefab>(L"prefab\\missile.pref", L"prefab\\missile.pref");
 }
 
 void HYPlayerScript::tick()

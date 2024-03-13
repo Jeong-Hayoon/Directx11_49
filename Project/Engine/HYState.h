@@ -2,6 +2,7 @@
 #include "HYEntity.h"
 
 class HYFSM;
+class HYStateMachine;
 
 class HYState :
     public HYEntity
@@ -15,6 +16,14 @@ public:
    
     virtual void Enter() = 0;           // 상태 진입 함수
     virtual void Exit() = 0;
+
+protected:
+    void* GetBlackboardData(const wstring& _strKey);
+
+    // 나를 소유하고 있는 FSM을 반환해주는 함수
+    HYFSM* GetFSM() { return m_FSM; }
+
+    void ChangeState(const wstring& _strStateName);
 
 public:
     CLONE_DISABLE(HYState);

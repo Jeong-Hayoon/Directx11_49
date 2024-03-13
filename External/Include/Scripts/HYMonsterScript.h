@@ -5,8 +5,8 @@ class HYMonsterScript :
     public HYScript
 {
 private:
-    float       m_DetectRange;
-    float       m_Speed;
+    float                m_DetectRange;         // 탐지 범위
+    float                m_Speed;               // 몬스터의 이동 속도
 
 public:
     virtual void begin() override;

@@ -262,30 +262,30 @@ void HYCreateTempLevel::CreateTempLevel()
 	pTempLevel->AddObject(pObj, L"Player", false);
 
 	// Player Clone
-	pObj = pObj->Clone();
-	pObj->Transform()->SetRelativePos(Vec3(-500.f, 0.f, 500.f));
+	//pObj = pObj->Clone();
+	//pObj->Transform()->SetRelativePos(Vec3(-500.f, 0.f, 500.f));
 	// m_CurLevel->AddObject(pObj, L"Player", false);
 
 	// Particle Object Clone
-	HYGameObject* pParticleObj = new HYGameObject;
-	pParticleObj->SetName(L"Particle");
-
-	pParticleObj->AddComponent(new HYTransform);
-	pParticleObj->AddComponent(new HYParticleSystem);
-
-	pParticleObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
-	pTempLevel->AddObject(pParticleObj, L"Default", false);
-
-	pParticleObj = pParticleObj->Clone();
-	pParticleObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 200.f));
+	//HYGameObject* pParticleObj = new HYGameObject;
+	//pParticleObj->SetName(L"Particle");
+	//
+	//pParticleObj->AddComponent(new HYTransform);
+	//pParticleObj->AddComponent(new HYParticleSystem);
+	//
+	//pParticleObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	//pTempLevel->AddObject(pParticleObj, L"Default", false);
+	//
+	//pParticleObj = pParticleObj->Clone();
+	//pParticleObj->Transform()->SetRelativePos(Vec3(500.f, 0.f, 200.f));
 	//pTempLevel->AddObject(pParticleObj, L"Default", false);
 
 	// 자식이 있는 오브젝트의 복제 Test
-	pObj->AddChild(pParticleObj);
-	pTempLevel->AddObject(pObj, L"Default", false);
-
-	HYGameObject* pCloneObj = pObj->Clone();
-	pTempLevel->AddObject(pCloneObj, L"Default", false);
+	//pObj->AddChild(pParticleObj);
+	//pTempLevel->AddObject(pObj, L"Default", false);
+	//
+	//HYGameObject* pCloneObj = pObj->Clone();
+	//pTempLevel->AddObject(pCloneObj, L"Default", false);
 
 	// Monster Object 생성
 	//pObj = new HYGameObject;
@@ -308,7 +308,7 @@ void HYCreateTempLevel::CreateTempLevel()
 
 	//pTempLevel->AddObject(pObj, L"Monster", false);
 
-	// Monster Object 생성(Monster Script Test)
+	// Monster Object 생성(MonsterScript Test)
 	pObj = new HYGameObject;
 	pObj->SetName(L"Monster");
 
@@ -435,7 +435,6 @@ void HYCreateTempLevel::CreateTempLevel()
 	//pObj->AddChild(pParticleObj);
 	//pTempLevel->AddObject(pObj, L"Default", false);
 
-
 	// Level Clone Test 
 	//HYLevel* pNewLevel = pTempLevel->Clone();
 	//delete pTempLevel;
@@ -452,7 +451,7 @@ void HYCreateTempLevel::CreateTempLevel()
 	HYCollisionMgr::GetInst()->LayerCheck(4, 4);
 
 	// 현재 레벨을 pTempLevel로 하고 레벨의 상태는 STOP으로 해달라고 Level Change 요청
-	HYLevelMgr::GetInst()->ChangeLevel(pTempLevel, LEVEL_STATE::STOP);
+	HYLevelMgr::GetInst()->ChangeLevel(pTempLevel, LEVEL_STATE::PLAY);
 
 	// Level Save Test
 	HYLevelSaveLoad::SaveLevel(pTempLevel, L"level\\temp.lv");
