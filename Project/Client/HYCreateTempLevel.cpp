@@ -451,7 +451,7 @@ void HYCreateTempLevel::CreateTempLevel()
 	HYCollisionMgr::GetInst()->LayerCheck(4, 4);
 
 	// 현재 레벨을 pTempLevel로 하고 레벨의 상태는 STOP으로 해달라고 Level Change 요청
-	HYLevelMgr::GetInst()->ChangeLevel(pTempLevel, LEVEL_STATE::PLAY);
+	HYLevelMgr::GetInst()->ChangeLevel(pTempLevel, LEVEL_STATE::STOP);
 
 	// Level Save Test
 	HYLevelSaveLoad::SaveLevel(pTempLevel, L"level\\temp.lv");

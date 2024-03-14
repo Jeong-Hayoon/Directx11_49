@@ -17,6 +17,9 @@ void HYLevelSaveLoad::SaveLevel(HYLevel* _Level, const wstring& _strLevelPath)
 {
 	assert(_Level);
 
+	// Stop or None 상태가 아닐 때 SaveLevel을 호출하는 경우 Assert
+	assert(LEVEL_STATE::STOP == _Level->GetState() || LEVEL_STATE::NONE == _Level->GetState());
+
 	// Level 을 저장할 경로
 	wstring strLevelPath = HYPathMgr::GetContentPath();
 	strLevelPath += _strLevelPath;

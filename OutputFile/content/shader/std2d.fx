@@ -161,6 +161,14 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     if (0.f == vColor.a)
         discard;
     
+    // Paper Burn 효과(조건을 바꾸면 반대도 가능)
+    float x = g_NoiseTex.Sample(g_sam_0, _in.vUV).x;
+
+    if (0 > x - g_float_1)
+    {
+        discard;
+    }
+    
     return vColor;
 }
 

@@ -30,7 +30,6 @@ private:
     // 광원 2D 정보를 모아놓는 벡터
     vector<HYLight2D*>          m_vecLight2D;
 
-
     // 유지 시간이 어떻게 될지 모르니까 list
     list<tDebugShapeInfo>       m_DbgShapeInfo;
 
@@ -51,6 +50,7 @@ private:
 public:
     // 카메라를 등록시키는 함수, 0번 Camera가 Main(Sub Camera도 사용은 함)
     void RegisterCamera(HYCamera* _Cam, int _Idx);
+
     void AddDebugShapeInfo(const tDebugShapeInfo& _info)
     {
         m_DbgShapeInfo.push_back(_info);
@@ -68,6 +68,8 @@ public:
 
     // 에디터 카메라 등록
     void RegisterEditorCamera(HYCamera* _Cam) { m_EditorCam = _Cam; }
+
+    void ClearCamera() { m_vecCam.clear(); }
 
     // 랜더링 모드 설정
     void ActiveEditorMode(bool _bActive)

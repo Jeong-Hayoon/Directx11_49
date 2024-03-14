@@ -8,8 +8,8 @@ class HYStateMachine :
     public HYComponent
 {
 private:
-    Ptr<HYFSM>                   m_FSM;
-    Ptr<HYFSM>                   m_FSM_Inst;
+    Ptr<HYFSM>                   m_FSM;             
+    Ptr<HYFSM>                   m_FSM_Inst;        // µ¿Àû FSM
 
     HYBlackboard                 m_Blackboard;
 

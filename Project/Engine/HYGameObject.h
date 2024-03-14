@@ -115,6 +115,4 @@ public:
 
     friend class HYLayer;
     friend class HYTaskMgr;
-
 };
-

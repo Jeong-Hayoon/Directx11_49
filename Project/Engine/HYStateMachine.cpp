@@ -46,11 +46,14 @@ void* HYStateMachine::GetBlackboardData(const wstring& _strKey)
 	return m_Blackboard.GetBlackboardData(_strKey);
 }
 
+// BlackBoard 관련 저장 내용은 어차피 Script 쪽에 구현을 해놓았기 때문에 저장할 필요 X
 void HYStateMachine::SaveToFile(FILE* _File)
 {
+	SaveAssetRef(m_FSM, _File);
 }
 
 void HYStateMachine::LoadFromFile(FILE* _File)
 {
+	LoadAssetRef(m_FSM, _File);
 }
 

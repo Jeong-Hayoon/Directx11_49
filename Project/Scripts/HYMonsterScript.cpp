@@ -31,8 +31,11 @@ void HYMonsterScript::begin()
 			StateMachine()->AddBlackboardData(L"TargetObject", BB_DATA::OBJECT, pPlayer);
 		}
 
-		// 현재 상태 설정
-		StateMachine()->GetFSM()->SetState(L"IdleState");
+		if (nullptr != StateMachine()->GetFSM())
+		{
+			// 현재 상태 설정
+			StateMachine()->GetFSM()->SetState(L"IdleState");
+		}
 	}
 }
 

@@ -7,6 +7,7 @@
 #include "HYComponent.h"
 
 #include "HYAssetMgr.h"
+#include "HYRenderMgr.h"
 
 HYTaskMgr::HYTaskMgr()
 	: m_bCreateObject(false)
@@ -104,6 +105,7 @@ void HYTaskMgr::tick()
 			HYLevel* pNextLevel = (HYLevel*)m_vecTask[i].Param_1;
 			LEVEL_STATE State = (LEVEL_STATE)m_vecTask[i].Param_2;
 			HYLevelMgr::GetInst()->ChangeLevel_Task(pNextLevel, State);
+			HYRenderMgr::GetInst()->ClearCamera();
 			m_bCreateObject = true;
 
 			break;

@@ -115,10 +115,13 @@ void HYPlayerScript::tick()
 		}
 	}
 
+	// Paper Burn ¼¼ÆÃ
+	//static float f = 0.f;
+	//f += DT * 0.3f;
+	//GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_1, f);
 
 	//GamePlayStatic::DrawDebugRect(Vec3(0.f, 0.f, 0.f), Vec3(200.f, 200.f, 1.f), Vec3(0.f, 0.f, 0.f), Vec3(1.f, 1.f, 1.f), true, 20);
 	//GamePlayStatic::DrawDebugCircle(Vec3(0.f, 0.f, 0.f), 200.f, Vec3(0.f, 1.f, 1.f), true);
-
 }
 
 void HYPlayerScript::BeginOverlap(HYCollider2D* _Collider

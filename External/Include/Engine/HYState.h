@@ -19,6 +19,8 @@ public:
 
 protected:
     void* GetBlackboardData(const wstring& _strKey);
+
+    // 나를 소유하고 있는 FSM을 반환해주는 함수
     HYFSM* GetFSM() { return m_FSM; }
 
     void ChangeState(const wstring& _strStateName);

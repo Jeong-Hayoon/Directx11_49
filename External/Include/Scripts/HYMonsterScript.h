@@ -5,7 +5,7 @@ class HYMonsterScript :
     public HYScript
 {
 private:
-    float                m_DetectRange;         // 탐지 범위
+    float                m_DetectRange;         // 플레이어 탐지 범위
     float                m_Speed;               // 몬스터의 이동 속도
 
 public:
