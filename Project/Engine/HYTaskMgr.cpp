@@ -143,3 +143,7 @@ void HYTaskMgr::Clear()
 
 	m_bAssetChange = false;
 }
+
+
+
+

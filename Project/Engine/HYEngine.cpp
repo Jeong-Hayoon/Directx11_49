@@ -12,6 +12,7 @@
 #include "HYGC.h"
 #include "HYRenderMgr.h"
 #include "HYCollisionMgr.h"
+#include "HYFontMgr.h"
 
 #include "HYSound.h"
 
@@ -56,6 +57,7 @@ int HYEngine::init(HWND _hWnd, Vec2 _vResolution)
 	HYAssetMgr::GetInst()->init();
 	HYRenderMgr::GetInst()->init();
 	HYLevelMgr::GetInst()->init();
+	HYFontMgr::GetInst()->init();
 
 	return S_OK;
 }
@@ -72,6 +74,7 @@ void HYEngine::progress()
 	
 	// Level Update
 	HYLevelMgr::GetInst()->tick();
+	HYTimeMgr::GetInst()->render();
 
 	// GC
 	HYGC::GetInst()->tick();

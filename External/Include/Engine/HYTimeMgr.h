@@ -8,18 +8,20 @@ class HYTimeMgr
 	SINGLE(HYTimeMgr);
 private:
 	// Larget Integer 는 그냥 8바이트 long long 타입 정수로 취급
-	LARGE_INTEGER	m_Frequency;
-	LARGE_INTEGER	m_PrevCount;
-	LARGE_INTEGER	m_CurCount;
+	LARGE_INTEGER			m_Frequency;
+	LARGE_INTEGER			m_PrevCount;
+	LARGE_INTEGER			m_CurCount;
 
-	double			m_DeltaTime;
-	double			m_EngineDeltaTime;
+	double					m_DeltaTime;
+	double					m_EngineDeltaTime;
 
-	UINT			m_iCall;
-	double			m_Time;
+	UINT					m_iCall;
+	double					m_Time;
 
 	// DT에 Lock 적용 여부
-	bool			m_bLock;
+	bool					m_bLock;
+
+	wchar_t					m_szText[256];
 
 public:
 	float GetDeltaTime() { return m_DeltaTime; }
@@ -33,5 +35,6 @@ public:
 public:
 	void init();
 	void tick();
+	void render();
 };
 

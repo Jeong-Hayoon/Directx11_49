@@ -185,6 +185,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="HYDevice.h" />
     <ClInclude Include="HYEngine.h" />
     <ClInclude Include="HYEntity.h" />
+    <ClInclude Include="HYFontMgr.h" />
     <ClInclude Include="HYFSM.h" />
     <ClInclude Include="HYGameObject.h" />
     <ClInclude Include="HYGC.h" />
@@ -243,6 +244,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="HYDevice.cpp" />
     <ClCompile Include="HYEngine.cpp" />
     <ClCompile Include="HYEntity.cpp" />
+    <ClCompile Include="HYFontMgr.cpp" />
     <ClCompile Include="HYFSM.cpp" />
     <ClCompile Include="HYGameObject.cpp" />
     <ClCompile Include="HYGC.cpp" />

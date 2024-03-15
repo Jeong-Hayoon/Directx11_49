@@ -80,15 +80,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
     }
 
-    // 임시 레벨 생성
     HYPrefab::GAMEOBJECT_SAVE = &HYLevelSaveLoad::SaveGameObject;
     HYPrefab::GAMEOBJECT_LOAD = &HYLevelSaveLoad::LoadGameObject;
 
+#ifndef _RELEASE_GAME
+    // 임시 레벨 생성
     HYCreateTempLevel::Init();
-
     HYCreateTempLevel::CreateTempLevel();
 
-#ifndef _RELEASE_GAME
     // EditorObjectManager 초기화
     HYEditorObjMgr::GetInst()->init();
 

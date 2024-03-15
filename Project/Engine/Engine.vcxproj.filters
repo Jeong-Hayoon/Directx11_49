@@ -158,6 +158,9 @@
     <Filter Include="Module\Blackboard">
       <UniqueIdentifier>{3649d870-f463-4e2a-9dc4-32bc0b2ebf25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\FontMgr">
+      <UniqueIdentifier>{15f96aa1-737a-4fec-ae92-a32c07101cb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -322,6 +325,9 @@
     <ClInclude Include="HYBlackboard.h">
       <Filter>Module\Blackboard</Filter>
     </ClInclude>
+    <ClInclude Include="HYFontMgr.h">
+      <Filter>04. Manager\FontMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -473,6 +479,9 @@
     </ClCompile>
     <ClCompile Include="HYBlackboard.cpp">
       <Filter>Module\Blackboard</Filter>
+    </ClCompile>
+    <ClCompile Include="HYFontMgr.cpp">
+      <Filter>04. Manager\FontMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
